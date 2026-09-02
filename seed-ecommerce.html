@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seeder E-commerce — PortalWarga</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
+  body { background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+  .card { background: #1e293b; border-radius: 16px; padding: 32px; max-width: 700px; width: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
+  h1 { color: #38bdf8; margin-bottom: 8px; }
+  .badge { background: #0369a1; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; display: inline-block; margin-bottom: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+  .stat-item { background: #0f172a; padding: 12px; border-radius: 8px; text-align: center; }
+  .stat-item b { color: #22c55e; font-size: 1.5rem; display: block; }
+  .stat-item span { font-size: 0.75rem; color: #94a3b8; }
+  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
+  button { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .btn-seed { background: #22c55e; color: white; }
+  .btn-clear { background: #ef4444; color: white; }
+  button:disabled { opacity: 0.5; }
+  #log { background: #090d16; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; max-height: 400px; overflow-y: auto; }
+  .log-ok { color: #4ade80; }
+  .log-err { color: #f87171; }
+  .log-info { color: #38bdf8; }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <span class="badge">🛒 E-COMMERCE MODE</span>
+  <h1>PortalWarga Seeder v2</h1>
+  <p style="color:#94a3b8;margin-bottom:20px">Setup: Sellers, Products, Reviews, Payment Methods</p>
+
+  <div class="stats">
+    <div class="stat-item"><b>6</b><span>Sellers</span></div>
+    <div class="stat-item"><b>18</b><span>Products</span></div>
+    <div class="stat-item"><b>25+</b><span>Reviews</span></div>
+    <div class="stat-item"><b>5</b><span>Payment</span></div>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn-seed" id="btnSeed" onclick="seedAll()">🚀 Seed E-commerce Data</button>
+    <button class="btn-clear" onclick="clearAll()">🗑️ Clear All</button>
+  </div>
+
+  <div id="log"><div class="log-info">Klik "Seed E-commerce Data" untuk memulai...</div></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function log(msg, type='info') {
+  const el = document.getElementById('log');
+  const t = new Date().toLocaleTimeString('id-ID');
+  el.innerHTML += `<div class="log-${type}">[${t}] ${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+// ==================== DATA ====================
+const SELLERS = [
+  { id: 'toko_bu_tini', nama: 'Toko Bu Tini', slug: 'toko-bu-tini', emoji: '👩‍🌾',
+    deskripsi: 'Sayuran segar pilihan setiap pagi, langsung dari kebun.',
+    alamat: 'Jl. Melati No. 12, Ds. Sukamaju', telepon: '081234567891',
+    jamBuka: '05:00', jamTutup: '17:00', kategori: 'pasar',
+    rating: 4.9, totalReview: 124, totalTerjual: 890, verified: true,
+    badges: ['⭐ Star Seller', '⚡ Fast Response'], jarak: '1.2 km' },
+  { id: 'kios_pak_amin', nama: 'Kios Pak Amin', slug: 'kios-pak-amin', emoji: '🧑‍🌾',
+    deskripsi: 'Bumbu dapur & rempah lengkap, harga grosir.',
+    alamat: 'Pasar Kec. Blok B12', telepon: '081234567892',
+    jamBuka: '06:00', jamTutup: '18:00', kategori: 'pasar',
+    rating: 4.7, totalReview: 89, totalTerjual: 543, verified: true,
+    badges: ['✅ Verified'], jarak: '2.0 km' },
+  { id: 'peternakan_barokah', nama: 'Peternakan Barokah', slug: 'peternakan-barokah', emoji: '🐔',
+    deskripsi: 'Telur ayam kampung & ayam potong segar setiap hari.',
+    alamat: 'Ds. Cinta Damai RT 03', telepon: '081234567893',
+    jamBuka: '06:00', jamTutup: '16:00', kategori: 'pasar',
+    rating: 4.8, totalReview: 156, totalTerjual: 1240, verified: true,
+    badges: ['⭐ Star Seller'], jarak: '3.5 km' },
+  { id: 'sembako_berkah', nama: 'Sembako Berkah', slug: 'sembako-berkah', emoji: '🏪',
+    deskripsi: 'Beras, minyak, gula, kebutuhan pokok lengkap.',
+    alamat: 'Jl. Raya Kec. No. 45', telepon: '081234567894',
+    jamBuka: '07:00', jamTutup: '20:00', kategori: 'pasar',
+    rating: 4.6, totalReview: 78, totalTerjual: 456, verified: true,
+    badges: ['✅ Verified'], jarak: '0.8 km' },
+  { id: 'ayam_bu_sri', nama: 'Ayam Segar Bu Sri', slug: 'ayam-bu-sri', emoji: '🍗',
+    deskripsi: 'Ayam potong hari ini, dipotong langsung di depan Anda.',
+    alamat: 'Pasar Kec. Blok C05', telepon: '081234567895',
+    jamBuka: '05:30', jamTutup: '14:00', kategori: 'pasar',
+    rating: 4.9, totalReview: 234, totalTerjual: 890, verified: true,
+    badges: ['⭐ Star Seller', '🔥 Best Seller'], jarak: '2.0 km' },
+  { id: 'pak_kadir_fresh', nama: 'Pak Kadir Fresh', slug: 'pak-kadir-fresh', emoji: '🐟',
+    deskripsi: 'Ikan segar tangkapan hari ini, harga nelayan.',
+    alamat: 'Ds. Muara Indah', telepon: '081234567896',
+    jamBuka: '05:00', jamTutup: '12:00', kategori: 'pasar',
+    rating: 4.7, totalReview: 92, totalTerjual: 345, verified: true,
+    badges: ['✅ Verified'], jarak: '4.2 km' }
+];
+
+const PRODUCTS = [
+  // Toko Bu Tini
+  { id: 1, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Sayur Bayam Segar', slug: 'bayam-segar',
+    emoji: '🥬', kategori: 'pasar', subKategori: 'sayur',
+    deskripsi: 'Bayam hijau segar dipetik pagi ini dari kebun lokal. Cocok untuk sayur bening, tumis, atau pecel.',
+    harga: 5000, hargaCoret: 7000, diskon: 28, satuan: 'ikat', stok: 25, berat: 250, minOrder: 1,
+    terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh', 'organik', 'lokal'], aktif: true },
+  { id: 8, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Cabai Rawit', slug: 'cabai-rawit',
+    emoji: '🌶️', kategori: 'pasar', subKategori: 'bumbu',
+    deskripsi: 'Cabai rawit pedas, cocok untuk sambal & masakan pedas.',
+    harga: 15000, hargaCoret: 18000, diskon: 17, satuan: '100gr', stok: 15, berat: 100, minOrder: 1,
+    terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas', 'segar'], aktif: true },
+  { id: 9, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Kangkung Segar', slug: 'kangkung',
+    emoji: '🥬', kategori: 'pasar', subKategori: 'sayur',
+    deskripsi: 'Kangkung darat segar, batang muda dan tidak liat.',
+    harga: 4000, satuan: 'ikat', stok: 30, berat: 300, minOrder: 1,
+    terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh', 'lokal'], aktif: true },
+  
+  // Kios Pak Amin
+  { id: 2, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Tomat Merah', slug: 'tomat-merah',
+    emoji: '🍅', kategori: 'pasar', subKategori: 'sayur',
+    deskripsi: 'Tomat merah matang pilihan, cocok untuk sayur atau jus.',
+    harga: 8000, satuan: '500gr', stok: 40, berat: 500, minOrder: 1,
+    terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
+  { id: 7, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Merah', slug: 'bawang-merah',
+    emoji: '🧅', kategori: 'pasar', subKategori: 'bumbu',
+    deskripsi: 'Bawang merah lokal, ukuran sedang, aroma tajam.',
+    harga: 12000, satuan: '250gr', stok: 50, berat: 250, minOrder: 1,
+    terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu', 'lokal'], aktif: true },
+  { id: 10, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Putih', slug: 'bawang-putih',
+    emoji: '🧄', kategori: 'pasar', subKategori: 'bumbu',
+    deskripsi: 'Bawang putih tunggal, harum & pedas alami.',
+    harga: 18000, satuan: '250gr', stok: 25, berat: 250, minOrder: 1,
+    terjual: 67, rating: 4.7, totalReview: 19, tags: ['bumbu'], aktif: true },
+
+  // Peternakan Barokah
+  { id: 3, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam 1 Kg', slug: 'telur-ayam',
+    emoji: '🥚', kategori: 'pasar', subKategori: 'protein',
+    deskripsi: 'Telur ayam negeri segar, dipilih dari ukuran L.',
+    harga: 28000, hargaCoret: 30000, diskon: 7, satuan: 'kg', stok: 100, berat: 1000, minOrder: 1,
+    terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh', 'protein'], aktif: true },
+  { id: 11, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam Kampung', slug: 'telur-kampung',
+    emoji: '🥚', kategori: 'pasar', subKategori: 'protein',
+    deskripsi: 'Telur ayam kampung asli, ukuran kecil-sedang.',
+    harga: 4500, satuan: 'butir', stok: 80, berat: 60, minOrder: 5,
+    terjual: 234, rating: 5.0, totalReview: 56, tags: ['organik', 'kampung'], aktif: true },
+
+  // Sembako Berkah
+  { id: 6, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Beras Premium 5 Kg', slug: 'beras-premium',
+    emoji: '🍚', kategori: 'pasar', subKategori: 'sembako',
+    deskripsi: 'Beras premium pulen, cocok untuk keluarga. Bebas kutu.',
+    harga: 65000, hargaCoret: 72000, diskon: 10, satuan: '5kg', stok: 30, berat: 5000, minOrder: 1,
+    terjual: 178, rating: 4.7, totalReview: 89, tags: ['sembako', 'premium'], aktif: true },
+  { id: 12, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Minyak Goreng 2L', slug: 'minyak-goreng',
+    emoji: '🫒', kategori: 'pasar', subKategori: 'sembako',
+    deskripsi: 'Minyak goreng kemasan pouch, jernih & hemat.',
+    harga: 32000, satuan: '2 liter', stok: 45, berat: 2000, minOrder: 1,
+    terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true },
+  { id: 13, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Gula Pasir 1Kg', slug: 'gula-pasir',
+    emoji: '🍬', kategori: 'pasar', subKategori: 'sembako',
+    deskripsi: 'Gula pasir putih bersih, butiran halus.',
+    harga: 15000, satuan: 'kg', stok: 60, berat: 1000, minOrder: 1,
+    terjual: 189, rating: 4.7, totalReview: 34, tags: ['sembako'], aktif: true },
+
+  // Ayam Bu Sri
+  { id: 4, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Potong 1 Ekor', slug: 'ayam-potong',
+    emoji: '🍗', kategori: 'pasar', subKategori: 'protein',
+    deskripsi: 'Ayam broiler segar, dipotong hari ini. Bisa request cara potong.',
+    harga: 45000, hargaCoret: 50000, diskon: 10, satuan: 'ekor (1kg)', stok: 15, berat: 1000, minOrder: 1,
+    terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh', 'protein'], aktif: true },
+  { id: 14, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Fillet', slug: 'ayam-fillet',
+    emoji: '🍖', kategori: 'pasar', subKategori: 'protein',
+    deskripsi: 'Dada ayam fillet tanpa tulang, siap masak.',
+    harga: 55000, satuan: '500gr', stok: 20, berat: 500, minOrder: 1,
+    terjual: 123, rating: 4.8, totalReview: 67, tags: ['fresh', 'praktis'], aktif: true },
+  { id: 15, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Sayap Ayam 500gr', slug: 'sayap-ayam',
+    emoji: '🍗', kategori: 'pasar', subKategori: 'protein',
+    deskripsi: 'Sayap ayam segar, cocok untuk goreng & bakar.',
+    harga: 28000, satuan: '500gr', stok: 25, berat: 500, minOrder: 1,
+    terjual: 89, rating: 4.9, totalReview: 34, tags: ['fresh'], aktif: true },
+
+  // Pak Kadir Fresh
+  { id: 5, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Lele Segar 1 Kg', slug: 'ikan-lele',
+    emoji: '🐟', kategori: 'pasar', subKategori: 'ikan',
+    deskripsi: 'Ikan lele hidup, dibersihkan langsung di tempat.',
+    harga: 22000, satuan: 'kg', stok: 20, berat: 1000, minOrder: 1,
+    terjual: 145, rating: 4.7, totalReview: 45, tags: ['fresh', 'ikan'], aktif: true },
+  { id: 16, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Nila 1 Kg', slug: 'ikan-nila',
+    emoji: '🐠', kategori: 'pasar', subKategori: 'ikan',
+    deskripsi: 'Ikan nila segar, ukuran sedang 3-4 ekor per kg.',
+    harga: 30000, satuan: 'kg', stok: 15, berat: 1000, minOrder: 1,
+    terjual: 67, rating: 4.8, totalReview: 23, tags: ['fresh', 'ikan'], aktif: true },
+  { id: 17, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Udang Segar 500gr', slug: 'udang-segar',
+    emoji: '🦐', kategori: 'pasar', subKategori: 'ikan',
+    deskripsi: 'Udang laut segar, ukuran sedang, sangat manis.',
+    harga: 45000, hargaCoret: 55000, diskon: 18, satuan: '500gr', stok: 10, berat: 500, minOrder: 1,
+    terjual: 56, rating: 5.0, totalReview: 28, tags: ['premium', 'laut'], aktif: true },
+  { id: 18, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Cumi Segar 500gr', slug: 'cumi-segar',
+    emoji: '🦑', kategori: 'pasar', subKategori: 'ikan',
+    deskripsi: 'Cumi-cumi segar tangkapan hari ini, kenyal & manis.',
+    harga: 40000, satuan: '500gr', stok: 12, berat: 500, minOrder: 1,
+    terjual: 34, rating: 4.9, totalReview: 15, tags: ['fresh', 'laut'], aktif: true }
+];
+
+const REVIEWS = [
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Budi S.', rating: 5, komentar: 'Bayamnya segar banget, daunnya lebar & bersih! Cepat sampai. Recommended!', helpful: 12, balasanSeller: 'Terima kasih kak Budi, senang bisa melayani 🙏' },
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Sari M.', rating: 5, komentar: 'Selalu langganan disini, sayurannya paling fresh se-kecamatan!', helpful: 8 },
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Andi P.', rating: 4, komentar: 'Bagus tapi bisa lebih murah kalau beli banyak dong 😅', helpful: 3 },
+  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Ibu Wati', rating: 5, komentar: 'Telurnya besar-besar, kualitas premium. Nggak ada yang pecah waktu diantar.', helpful: 15 },
+  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Pak Dedi', rating: 5, komentar: 'Sudah 3x pesan, selalu memuaskan. Kuning telurnya oren, kandungannya bagus.', helpful: 9 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Bu Yuli', rating: 5, komentar: 'Ayamnya seger, dipotong sesuai request. Mantap!', helpful: 20 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Rina K.', rating: 5, komentar: 'Selalu langganan Bu Sri, ayamnya empuk kalau dimasak.', helpful: 11 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Pak Bambang', rating: 4, komentar: 'Kualitas ok, cuma agak lama sampainya hari ini.', helpful: 5, balasanSeller: 'Mohon maaf pak, ada kendala di kurir. Terima kasih masukannya!' },
+  { productId: 6, sellerId: 'sembako_berkah', userName: 'Ibu Ratna', rating: 5, komentar: 'Berasnya pulen dan bersih, harga bersaing!', helpful: 14 },
+  { productId: 5, sellerId: 'pak_kadir_fresh', userName: 'Pak Joko', rating: 5, komentar: 'Lelenya segar, badannya masih licin. Anak-anak suka!', helpful: 7 }
+];
+
+const PAYMENT_METHODS = [
+  { id: 'qris', nama: 'QRIS', jenis: 'qris', icon: '📱', 
+    atasNama: 'PortalWarga', 
+    instruksi: 'Scan QR code menggunakan aplikasi mobile banking, e-wallet apapun yang mendukung QRIS.',
+    warna: '#DC2626', aktif: true, populer: true },
+  { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦',
+    nomor: '1234567890', atasNama: 'PortalWarga Indonesia',
+    instruksi: 'Transfer ke rekening BCA di atas, kemudian upload bukti transfer.',
+    warna: '#0F4C8F', aktif: true },
+  { id: 'transfer_bri', nama: 'Transfer BRI', jenis: 'bank', icon: '🏦',
+    nomor: '9876543210', atasNama: 'PortalWarga Indonesia',
+    instruksi: 'Transfer ke rekening BRI di atas, kemudian upload bukti transfer.',
+    warna: '#003D7A', aktif: true },
+  { id: 'dana', nama: 'DANA', jenis: 'ewallet', icon: '💙',
+    nomor: '081234567890', atasNama: 'PortalWarga',
+    instruksi: 'Transfer ke nomor DANA di atas.',
+    warna: '#118EEA', aktif: true, populer: true },
+  { id: 'ovo', nama: 'OVO', jenis: 'ewallet', icon: '💜',
+    nomor: '081234567890', atasNama: 'PortalWarga',
+    instruksi: 'Transfer ke nomor OVO di atas.',
+    warna: '#4C2A85', aktif: true },
+  { id: 'gopay', nama: 'GoPay', jenis: 'ewallet', icon: '💚',
+    nomor: '081234567890', atasNama: 'PortalWarga',
+    instruksi: 'Transfer ke nomor GoPay di atas.',
+    warna: '#00AA13', aktif: true, populer: true }
+];
+
+// ==================== SEED ====================
+async function seedAll() {
+  const btn = document.getElementById('btnSeed');
+  btn.disabled = true;
+  btn.textContent = '⏳ Seeding...';
+
+  try {
+    log('━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+    log('🚀 Mulai seed database e-commerce...', 'info');
+
+    // 1. Sellers
+    log('👥 Seeding SELLERS...', 'info');
+    for (const s of SELLERS) {
+      await db.collection('sellers').doc(s.id).set({
+        ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    log(`   ✅ ${SELLERS.length} sellers created`, 'ok');
+
+    // 2. Products (koleksi baru "produk" yang lebih lengkap)
+    log('📦 Seeding PRODUCTS...', 'info');
+    for (const p of PRODUCTS) {
+      await db.collection('produk').doc(String(p.id)).set({
+        ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    log(`   ✅ ${PRODUCTS.length} products created`, 'ok');
+
+    // Backward compat: tetap update koleksi 'pasar' lama
+    log('🔄 Sync ke koleksi "pasar" (backward compat)...', 'info');
+    for (const p of PRODUCTS) {
+      await db.collection('pasar').doc(String(p.id)).set({
+        id: p.id, emoji: p.emoji, name: p.nama, vendor: p.sellerName, price: p.harga
+      });
+    }
+    log(`   ✅ Synced`, 'ok');
+
+    // 3. Reviews
+    log('⭐ Seeding REVIEWS...', 'info');
+    for (const r of REVIEWS) {
+      await db.collection('reviews').add({
+        ...r, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+    }
+    log(`   ✅ ${REVIEWS.length} reviews created`, 'ok');
+
+    // 4. Payment Methods
+    log('💳 Seeding PAYMENT METHODS...', 'info');
+    for (const pm of PAYMENT_METHODS) {
+      await db.collection('payment_methods').doc(pm.id).set(pm);
+    }
+    log(`   ✅ ${PAYMENT_METHODS.length} payment methods created`, 'ok');
+
+    // 5. Empty collections
+    log('📝 Preparing empty collections...', 'info');
+    await db.collection('orders').doc('_init').set({ _note: 'ready' });
+    await db.collection('orders').doc('_init').delete();
+    log(`   ✅ "orders" ready`, 'ok');
+
+    log('━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+    log('🎉 ALL DONE! Database e-commerce siap!', 'ok');
+    log(`   📊 Total: ${SELLERS.length} sellers, ${PRODUCTS.length} products, ${REVIEWS.length} reviews`, 'ok');
+
+  } catch (e) {
+    log('❌ Error: ' + e.message, 'err');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '🚀 Seed E-commerce Data';
+  }
+}
+
+async function clearAll() {
+  if (!confirm('Yakin hapus SEMUA data e-commerce?')) return;
+  const cols = ['sellers', 'produk', 'reviews', 'payment_methods'];
+  for (const c of cols) {
+    const snap = await db.collection(c).get();
+    const batch = db.batch();
+    snap.docs.forEach(d => batch.delete(d.ref));
+    await batch.commit();
+    log(`🗑️ ${c} cleared (${snap.size} docs)`, 'ok');
+  }
+  log('✅ All cleared!', 'ok');
+}
+</script>
+</body>
+</html>
