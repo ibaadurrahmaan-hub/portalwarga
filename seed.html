@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Seeder — PortalWarga</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    h1 { color: #38bdf8; font-size: 1.5rem; margin-bottom: 8px; }
+    p.desc { color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+    .badge {
+      background: #0369a1;
+      color: #e0f2fe;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .btn-group { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+    button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+    button:hover { transform: translateY(-2px); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-seed { background: #22c55e; color: #ffffff; }
+    .btn-seed:hover { background: #16a34a; }
+    .btn-clear { background: #ef4444; color: #ffffff; }
+    .btn-clear:hover { background: #dc2626; }
+    #log {
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Consolas', monospace;
+      font-size: 0.85rem;
+      min-height: 180px;
+      max-height: 320px;
+      overflow-y: auto;
+      line-height: 1.7;
+    }
+    .log-ok { color: #4ade80; }
+    .log-err { color: #f87171; }
+    .log-info { color: #38bdf8; }
+    .log-warn { color: #facc15; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <span class="badge">Project: portalwarga-963e4</span>
+  <h1>🔥 Firebase Auto-Seed Database</h1>
+  <p class="desc">Klik tombol di bawah untuk membuat koleksi <code>pasar</code>, <code>property</code>, <code>pendidikan</code>, <code>wifi_paket</code>, <code>pendaftaran_wifi</code>, dan <code>pesanan</code> secara otomatis.</p>
+
+  <div class="btn-group">
+    <button class="btn-seed" onclick="seedDatabase()" id="btnSeed">🚀 Mulai Isi Database Otomatis</button>
+    <button class="btn-clear" onclick="clearDatabase()">🗑️ Kosongkan Database</button>
+  </div>
+
+  <div id="log"><div class="log-info">Siap. Klik "Mulai Isi Database Otomatis" untuk memasukkan data...</div></div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+// Konfigurasi Milik Anda
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d",
+  measurementId: "G-ZDV26D8SGM"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+function log(msg, type = 'info') {
+  const box = document.getElementById('log');
+  const time = new Date().toLocaleTimeString('id-ID');
+  box.innerHTML += `<div class="log-${type}">[${time}] ${msg}</div>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+const SEED_DATA = {
+  pasar: [
+    { id: 1, emoji: '🥬', name: 'Sayur Bayam 1 Ikat', vendor: 'Toko Bu Tini', price: 5000 },
+    { id: 2, emoji: '🍅', name: 'Tomat Merah 500gr', vendor: 'Kios Pak Amin', price: 8000 },
+    { id: 3, emoji: '🥚', name: 'Telur Ayam 1 Kg', vendor: 'Peternakan Barokah', price: 28000 },
+    { id: 4, emoji: '🍗', name: 'Ayam Potong 1 Ekor', vendor: 'Ayam Segar Bu Sri', price: 45000 },
+    { id: 5, emoji: '🐟', name: 'Ikan Lele Segar 1 Kg', vendor: 'Pak Kadir Fresh', price: 22000 },
+    { id: 6, emoji: '🍚', name: 'Beras Premium 5 Kg', vendor: 'Sembako Berkah', price: 65000 },
+    { id: 7, emoji: '🧅', name: 'Bawang Merah 250gr', vendor: 'Kios Pak Amin', price: 12000 },
+    { id: 8, emoji: '🌶️', name: 'Cabai Rawit 100gr', vendor: 'Toko Bu Tini', price: 15000 }
+  ],
+  property: [
+    { id: 1, emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'] },
+    { id: 2, emoji: '🏡', type: 'Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'] },
+    { id: 3, emoji: '🛏️', type: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'] },
+    { id: 4, emoji: '🌾', type: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'] }
+  ],
+  pendidikan: [
+    { id: 1, emoji: '📚', type: 'Bimbel', name: 'Bimbel Cerdas Bersama', desc: 'Bimbingan belajar SD-SMA. Metode privat & kelompok, tutor berpengalaman.' },
+    { id: 2, emoji: '🕌', type: 'TPQ / Madrasah', name: 'TPQ Al-Hidayah', desc: "Belajar mengaji, tahfidz Al-Qur'an, dan pendidikan akhlak untuk anak-anak." },
+    { id: 3, emoji: '💻', type: 'Kursus Skill', name: 'Kursus Komputer Cepat', desc: 'Kursus Office, desain grafis, dan digital marketing. Sertifikat resmi.' },
+    { id: 4, emoji: '🎨', type: 'Sanggar Seni', name: 'Sanggar Kreasi Anak', desc: 'Kelas melukis, menari, dan musik untuk anak usia dini hingga remaja.' }
+  ],
+  wifi_paket: [
+    { id: 1, name: 'Basic', speed: '10', price: '150.000', features: ['Unlimited Kuota', 'Sharing Stabil', 'Support Chat WA'], popular: false },
+    { id: 2, name: 'Standar', speed: '20', price: '200.000', features: ['Unlimited Kuota', 'Cocok 3-5 Device', 'Gratis Instalasi', 'Router Include'], popular: true },
+    { id: 3, name: 'Premium', speed: '50', price: '300.000', features: ['Unlimited Kuota', 'Dedicated Line', 'Gratis Instalasi', 'Support Prioritas'], popular: false }
+  ]
+};
+
+async function seedDatabase() {
+  const btn = document.getElementById('btnSeed');
+  btn.disabled = true;
+  log('Sedang menghubungkan ke Firestore...', 'info');
+
+  try {
+    // 1. Koleksi Pasar
+    log('🛒 Mengisi data Pasar...', 'info');
+    for (const item of SEED_DATA.pasar) {
+      await db.collection('pasar').doc(String(item.id)).set(item);
+    }
+    log(`✅ ${SEED_DATA.pasar.length} produk Pasar berhasil dimasukkan!`, 'ok');
+
+    // 2. Koleksi Property
+    log('🏠 Mengisi data Property...', 'info');
+    for (const item of SEED_DATA.property) {
+      await db.collection('property').doc(String(item.id)).set(item);
+    }
+    log(`✅ ${SEED_DATA.property.length} listing Property berhasil dimasukkan!`, 'ok');
+
+    // 3. Koleksi Pendidikan
+    log('🎓 Mengisi data Pendidikan...', 'info');
+    for (const item of SEED_DATA.pendidikan) {
+      await db.collection('pendidikan').doc(String(item.id)).set(item);
+    }
+    log(`✅ ${SEED_DATA.pendidikan.length} direktori Pendidikan berhasil dimasukkan!`, 'ok');
+
+    // 4. Koleksi WiFi
+    log('📡 Mengisi data Paket WiFi...', 'info');
+    for (const item of SEED_DATA.wifi_paket) {
+      await db.collection('wifi_paket').doc(String(item.id)).set(item);
+    }
+    log(`✅ ${SEED_DATA.wifi_paket.length} paket WiFi berhasil dimasukkan!`, 'ok');
+
+    log('🎉 SEMUA DATA DATABASE SUDAH LENGKAP & SIAP DIGUNAKAN!', 'ok');
+  } catch (err) {
+    log('❌ Terjadi kesalahan: ' + err.message, 'err');
+    log('Pastikan Firestore sudah di-aktifkan dan Rules dalam mode "test mode" atau allow read/write.', 'warn');
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function clearDatabase() {
+  if (!confirm('Yakin ingin menghapus semua data di Firestore?')) return;
+  log('Sedang membersihkan database...', 'warn');
+  const cols = ['pasar', 'property', 'pendidikan', 'wifi_paket'];
+  try {
+    for (const c of cols) {
+      const snap = await db.collection(c).get();
+      const batch = db.batch();
+      snap.docs.forEach(d => batch.delete(d.ref));
+      await batch.commit();
+      log(`🗑️ Koleksi "${c}" dikosongkan.`, 'ok');
+    }
+    log('Pembersihan selesai.', 'ok');
+  } catch (e) {
+    log('Gagal membersihkan: ' + e.message, 'err');
+  }
+}
+</script>
+</body>
+</html>
