@@ -143,27 +143,41 @@ body {
   }
 }
 
-/* BADGES */
+/* BADGES — equal width + full width */
 .pd-badges {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  margin-top: 12px;
+  box-sizing: border-box;
 }
 
+/* jumlah badge dinamis */
+.pd-badges[data-count="1"] { grid-template-columns: 1fr; }
+.pd-badges[data-count="2"] { grid-template-columns: 1fr 1fr; }
+.pd-badges[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
+.pd-badges[data-count="4"] { grid-template-columns: 1fr 1fr; }
+
 .pd-badge {
-  padding: 6px 14px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
   border-radius: 999px;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 800;
   background: linear-gradient(135deg, var(--pasar-light), #D1FAE5);
   color: var(--pasar);
   border: 1px solid rgba(5, 150, 105, 0.2);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  letter-spacing: 0.3px;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.2px;
   box-shadow: 0 2px 6px rgba(5, 150, 105, 0.1);
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
 }
 
 .pd-badge.hot {
@@ -183,6 +197,15 @@ body {
   background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
   color: #2563EB;
   border-color: rgba(37, 99, 235, 0.25);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+}
+
+@media (max-width: 768px) {
+  .pd-badges { gap: 8px; }
+  .pd-badge {
+    padding: 9px 10px;
+    font-size: 0.72rem;
+  }
 }
 
 /* ============ INFO SECTION ============ */
