@@ -3,48 +3,390 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0284C7">
 <title>Seeder E-commerce — PortalWarga</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-  body { background: #0f172a; color: #e2e8f0; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .card { background: #1e293b; border-radius: 16px; padding: 32px; max-width: 700px; width: 100%; box-shadow: 0 25px 50px rgba(0,0,0,0.5); }
-  h1 { color: #38bdf8; margin-bottom: 8px; }
-  .badge { background: #0369a1; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; display: inline-block; margin-bottom: 16px; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
-  .stat-item { background: #0f172a; padding: 12px; border-radius: 8px; text-align: center; }
-  .stat-item b { color: #22c55e; font-size: 1.5rem; display: block; }
-  .stat-item span { font-size: 0.75rem; color: #94a3b8; }
-  .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0; }
-  button { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
-  .btn-seed { background: #22c55e; color: white; }
-  .btn-clear { background: #ef4444; color: white; }
-  button:disabled { opacity: 0.5; }
-  #log { background: #090d16; border-radius: 8px; padding: 16px; font-family: monospace; font-size: 0.85rem; max-height: 400px; overflow-y: auto; }
-  .log-ok { color: #4ade80; }
-  .log-err { color: #f87171; }
-  .log-info { color: #38bdf8; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: 
+    radial-gradient(at 20% 20%, rgba(2, 132, 199, 0.15) 0px, transparent 50%),
+    radial-gradient(at 80% 80%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+    linear-gradient(135deg, #0A0E1A 0%, #0F172A 50%, #0C4A6E 100%);
+  color: #E2E8F0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 40px 32px;
+  max-width: 720px;
+  width: 100%;
+  border: 1px solid rgba(6, 182, 212, 0.2);
+  box-shadow: 
+    0 30px 60px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.05) inset,
+    0 0 100px rgba(6, 182, 212, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #06B6D4, #2563EB, #06B6D4, transparent);
+}
+
+.badge-mode {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(2, 132, 199, 0.2));
+  color: #67E8F9;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #67E8F9 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: #94A3B8;
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+/* STATS GRID */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 18px 12px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.stat-item:hover {
+  transform: translateY(-3px);
+  border-color: rgba(6, 182, 212, 0.3);
+}
+
+.stat-item:hover::before { opacity: 1; }
+
+.stat-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #2563EB, #06B6D4);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 10px;
+  color: white;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.stat-number {
+  color: #22C55E;
+  font-size: 1.7rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+  position: relative;
+  z-index: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  color: #94A3B8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  z-index: 1;
+}
+
+/* BUTTONS */
+.btn-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  flex: 1;
+  min-width: 200px;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 14px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn:hover::before { opacity: 1; }
+.btn:hover { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-seed {
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  color: white;
+  box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35);
+}
+.btn-seed:hover { box-shadow: 0 12px 32px rgba(34, 197, 94, 0.5); }
+
+.btn-clear {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  color: white;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+}
+.btn-clear:hover { box-shadow: 0 12px 32px rgba(239, 68, 68, 0.45); }
+
+/* LOG TERMINAL */
+.log-container {
+  background: linear-gradient(180deg, #030712 0%, #0A0E1A 100%);
+  border-radius: 16px;
+  border: 1px solid rgba(6, 182, 212, 0.15);
+  overflow: hidden;
+  box-shadow: 
+    0 20px 40px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.log-header {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.log-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.log-dot.red { background: #EF4444; }
+.log-dot.yellow { background: #FBBF24; }
+.log-dot.green { background: #22C55E; }
+
+.log-title {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: #64748B;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+}
+
+#log {
+  padding: 20px;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 0.82rem;
+  max-height: 400px;
+  overflow-y: auto;
+  line-height: 1.9;
+  color: #94A3B8;
+}
+
+#log::-webkit-scrollbar { width: 8px; }
+#log::-webkit-scrollbar-track { background: transparent; }
+#log::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+
+.log-ok { color: #4ADE80; }
+.log-err { color: #F87171; }
+.log-info { color: #67E8F9; }
+.log-warn { color: #FBBF24; }
+.log-divider {
+  border-top: 1px dashed rgba(103, 232, 249, 0.2);
+  margin: 8px 0;
+  padding: 0;
+  height: 1px;
+}
+
+/* Empty state */
+.log-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748B;
+}
+
+.log-empty i {
+  font-size: 2.5rem;
+  color: rgba(6, 182, 212, 0.3);
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Loading spinner */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Success animation */
+@keyframes pulse-success {
+  0%, 100% { box-shadow: 0 8px 24px rgba(34, 197, 94, 0.35); }
+  50% { box-shadow: 0 8px 40px rgba(34, 197, 94, 0.6); }
+}
+
+.btn-seed.success {
+  animation: pulse-success 1.5s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card { padding: 28px 20px; border-radius: 22px; }
+  h1 { font-size: 1.7rem; }
+  .subtitle { font-size: 0.85rem; margin-bottom: 24px; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-item { padding: 16px 10px; }
+  .stat-number { font-size: 1.4rem; }
+  .btn { min-width: 100%; padding: 14px 20px; font-size: 0.9rem; }
+  #log { font-size: 0.75rem; padding: 16px; max-height: 320px; }
+}
 </style>
 </head>
 <body>
 
 <div class="card">
-  <span class="badge">🛒 E-COMMERCE MODE</span>
-  <h1>PortalWarga Seeder v2</h1>
-  <p style="color:#94a3b8;margin-bottom:20px">Setup: Sellers, Products, Reviews, Payment Methods</p>
+  <span class="badge-mode">
+    <i class="fas fa-store"></i> E-Commerce Mode
+  </span>
+  
+  <h1>PortalWarga Seeder</h1>
+  <p class="subtitle">
+    <i class="fas fa-database" style="color:#67E8F9"></i>
+    Setup database: Sellers, Products, Reviews & Payment Methods
+  </p>
 
-  <div class="stats">
-    <div class="stat-item"><b>6</b><span>Sellers</span></div>
-    <div class="stat-item"><b>18</b><span>Products</span></div>
-    <div class="stat-item"><b>25+</b><span>Reviews</span></div>
-    <div class="stat-item"><b>5</b><span>Payment</span></div>
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-users"></i></div>
+      <span class="stat-number">6</span>
+      <span class="stat-label">Sellers</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-box"></i></div>
+      <span class="stat-number">18</span>
+      <span class="stat-label">Products</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-star"></i></div>
+      <span class="stat-number">25+</span>
+      <span class="stat-label">Reviews</span>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-credit-card"></i></div>
+      <span class="stat-number">6</span>
+      <span class="stat-label">Payment</span>
+    </div>
   </div>
 
   <div class="btn-group">
-    <button class="btn-seed" id="btnSeed" onclick="seedAll()">🚀 Seed E-commerce Data</button>
-    <button class="btn-clear" onclick="clearAll()">🗑️ Clear All</button>
+    <button class="btn btn-seed" id="btnSeed" onclick="seedAll()">
+      <i class="fas fa-rocket"></i>
+      <span>Seed E-commerce Data</span>
+    </button>
+    <button class="btn btn-clear" onclick="clearAll()">
+      <i class="fas fa-trash-alt"></i>
+      <span>Clear All Data</span>
+    </button>
   </div>
 
-  <div id="log"><div class="log-info">Klik "Seed E-commerce Data" untuk memulai...</div></div>
+  <div class="log-container">
+    <div class="log-header">
+      <span class="log-dot red"></span>
+      <span class="log-dot yellow"></span>
+      <span class="log-dot green"></span>
+      <span class="log-title">portalwarga@firebase:~$</span>
+    </div>
+    <div id="log">
+      <div class="log-empty">
+        <i class="fas fa-terminal"></i>
+        <p>Terminal siap. Klik <b>"Seed E-commerce Data"</b> untuk memulai.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -62,14 +404,25 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+let logInit = false;
+
 function log(msg, type='info') {
   const el = document.getElementById('log');
+  if (!logInit) {
+    el.innerHTML = '';
+    logInit = true;
+  }
   const t = new Date().toLocaleTimeString('id-ID');
   el.innerHTML += `<div class="log-${type}">[${t}] ${msg}</div>`;
   el.scrollTop = el.scrollHeight;
 }
 
-// ==================== DATA ====================
+function logDivider() {
+  const el = document.getElementById('log');
+  el.innerHTML += `<div class="log-divider"></div>`;
+}
+
+// DATA (sama seperti sebelumnya)
 const SELLERS = [
   { id: 'toko_bu_tini', nama: 'Toko Bu Tini', slug: 'toko-bu-tini', emoji: '👩‍🌾',
     deskripsi: 'Sayuran segar pilihan setiap pagi, langsung dari kebun.',
@@ -110,178 +463,71 @@ const SELLERS = [
 ];
 
 const PRODUCTS = [
-  // Toko Bu Tini
-  { id: 1, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Sayur Bayam Segar', slug: 'bayam-segar',
-    emoji: '🥬', kategori: 'pasar', subKategori: 'sayur',
-    deskripsi: 'Bayam hijau segar dipetik pagi ini dari kebun lokal. Cocok untuk sayur bening, tumis, atau pecel.',
-    harga: 5000, hargaCoret: 7000, diskon: 28, satuan: 'ikat', stok: 25, berat: 250, minOrder: 1,
-    terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh', 'organik', 'lokal'], aktif: true },
-  { id: 8, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Cabai Rawit', slug: 'cabai-rawit',
-    emoji: '🌶️', kategori: 'pasar', subKategori: 'bumbu',
-    deskripsi: 'Cabai rawit pedas, cocok untuk sambal & masakan pedas.',
-    harga: 15000, hargaCoret: 18000, diskon: 17, satuan: '100gr', stok: 15, berat: 100, minOrder: 1,
-    terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas', 'segar'], aktif: true },
-  { id: 9, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Kangkung Segar', slug: 'kangkung',
-    emoji: '🥬', kategori: 'pasar', subKategori: 'sayur',
-    deskripsi: 'Kangkung darat segar, batang muda dan tidak liat.',
-    harga: 4000, satuan: 'ikat', stok: 30, berat: 300, minOrder: 1,
-    terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh', 'lokal'], aktif: true },
-  
-  // Kios Pak Amin
-  { id: 2, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Tomat Merah', slug: 'tomat-merah',
-    emoji: '🍅', kategori: 'pasar', subKategori: 'sayur',
-    deskripsi: 'Tomat merah matang pilihan, cocok untuk sayur atau jus.',
-    harga: 8000, satuan: '500gr', stok: 40, berat: 500, minOrder: 1,
-    terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
-  { id: 7, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Merah', slug: 'bawang-merah',
-    emoji: '🧅', kategori: 'pasar', subKategori: 'bumbu',
-    deskripsi: 'Bawang merah lokal, ukuran sedang, aroma tajam.',
-    harga: 12000, satuan: '250gr', stok: 50, berat: 250, minOrder: 1,
-    terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu', 'lokal'], aktif: true },
-  { id: 10, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Putih', slug: 'bawang-putih',
-    emoji: '🧄', kategori: 'pasar', subKategori: 'bumbu',
-    deskripsi: 'Bawang putih tunggal, harum & pedas alami.',
-    harga: 18000, satuan: '250gr', stok: 25, berat: 250, minOrder: 1,
-    terjual: 67, rating: 4.7, totalReview: 19, tags: ['bumbu'], aktif: true },
-
-  // Peternakan Barokah
-  { id: 3, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam 1 Kg', slug: 'telur-ayam',
-    emoji: '🥚', kategori: 'pasar', subKategori: 'protein',
-    deskripsi: 'Telur ayam negeri segar, dipilih dari ukuran L.',
-    harga: 28000, hargaCoret: 30000, diskon: 7, satuan: 'kg', stok: 100, berat: 1000, minOrder: 1,
-    terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh', 'protein'], aktif: true },
-  { id: 11, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam Kampung', slug: 'telur-kampung',
-    emoji: '🥚', kategori: 'pasar', subKategori: 'protein',
-    deskripsi: 'Telur ayam kampung asli, ukuran kecil-sedang.',
-    harga: 4500, satuan: 'butir', stok: 80, berat: 60, minOrder: 5,
-    terjual: 234, rating: 5.0, totalReview: 56, tags: ['organik', 'kampung'], aktif: true },
-
-  // Sembako Berkah
-  { id: 6, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Beras Premium 5 Kg', slug: 'beras-premium',
-    emoji: '🍚', kategori: 'pasar', subKategori: 'sembako',
-    deskripsi: 'Beras premium pulen, cocok untuk keluarga. Bebas kutu.',
-    harga: 65000, hargaCoret: 72000, diskon: 10, satuan: '5kg', stok: 30, berat: 5000, minOrder: 1,
-    terjual: 178, rating: 4.7, totalReview: 89, tags: ['sembako', 'premium'], aktif: true },
-  { id: 12, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Minyak Goreng 2L', slug: 'minyak-goreng',
-    emoji: '🫒', kategori: 'pasar', subKategori: 'sembako',
-    deskripsi: 'Minyak goreng kemasan pouch, jernih & hemat.',
-    harga: 32000, satuan: '2 liter', stok: 45, berat: 2000, minOrder: 1,
-    terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true },
-  { id: 13, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Gula Pasir 1Kg', slug: 'gula-pasir',
-    emoji: '🍬', kategori: 'pasar', subKategori: 'sembako',
-    deskripsi: 'Gula pasir putih bersih, butiran halus.',
-    harga: 15000, satuan: 'kg', stok: 60, berat: 1000, minOrder: 1,
-    terjual: 189, rating: 4.7, totalReview: 34, tags: ['sembako'], aktif: true },
-
-  // Ayam Bu Sri
-  { id: 4, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Potong 1 Ekor', slug: 'ayam-potong',
-    emoji: '🍗', kategori: 'pasar', subKategori: 'protein',
-    deskripsi: 'Ayam broiler segar, dipotong hari ini. Bisa request cara potong.',
-    harga: 45000, hargaCoret: 50000, diskon: 10, satuan: 'ekor (1kg)', stok: 15, berat: 1000, minOrder: 1,
-    terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh', 'protein'], aktif: true },
-  { id: 14, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Fillet', slug: 'ayam-fillet',
-    emoji: '🍖', kategori: 'pasar', subKategori: 'protein',
-    deskripsi: 'Dada ayam fillet tanpa tulang, siap masak.',
-    harga: 55000, satuan: '500gr', stok: 20, berat: 500, minOrder: 1,
-    terjual: 123, rating: 4.8, totalReview: 67, tags: ['fresh', 'praktis'], aktif: true },
-  { id: 15, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Sayap Ayam 500gr', slug: 'sayap-ayam',
-    emoji: '🍗', kategori: 'pasar', subKategori: 'protein',
-    deskripsi: 'Sayap ayam segar, cocok untuk goreng & bakar.',
-    harga: 28000, satuan: '500gr', stok: 25, berat: 500, minOrder: 1,
-    terjual: 89, rating: 4.9, totalReview: 34, tags: ['fresh'], aktif: true },
-
-  // Pak Kadir Fresh
-  { id: 5, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Lele Segar 1 Kg', slug: 'ikan-lele',
-    emoji: '🐟', kategori: 'pasar', subKategori: 'ikan',
-    deskripsi: 'Ikan lele hidup, dibersihkan langsung di tempat.',
-    harga: 22000, satuan: 'kg', stok: 20, berat: 1000, minOrder: 1,
-    terjual: 145, rating: 4.7, totalReview: 45, tags: ['fresh', 'ikan'], aktif: true },
-  { id: 16, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Nila 1 Kg', slug: 'ikan-nila',
-    emoji: '🐠', kategori: 'pasar', subKategori: 'ikan',
-    deskripsi: 'Ikan nila segar, ukuran sedang 3-4 ekor per kg.',
-    harga: 30000, satuan: 'kg', stok: 15, berat: 1000, minOrder: 1,
-    terjual: 67, rating: 4.8, totalReview: 23, tags: ['fresh', 'ikan'], aktif: true },
-  { id: 17, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Udang Segar 500gr', slug: 'udang-segar',
-    emoji: '🦐', kategori: 'pasar', subKategori: 'ikan',
-    deskripsi: 'Udang laut segar, ukuran sedang, sangat manis.',
-    harga: 45000, hargaCoret: 55000, diskon: 18, satuan: '500gr', stok: 10, berat: 500, minOrder: 1,
-    terjual: 56, rating: 5.0, totalReview: 28, tags: ['premium', 'laut'], aktif: true },
-  { id: 18, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Cumi Segar 500gr', slug: 'cumi-segar',
-    emoji: '🦑', kategori: 'pasar', subKategori: 'ikan',
-    deskripsi: 'Cumi-cumi segar tangkapan hari ini, kenyal & manis.',
-    harga: 40000, satuan: '500gr', stok: 12, berat: 500, minOrder: 1,
-    terjual: 34, rating: 4.9, totalReview: 15, tags: ['fresh', 'laut'], aktif: true }
+  { id: 1, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Sayur Bayam Segar', slug: 'bayam-segar', emoji: '🥬', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Bayam hijau segar dipetik pagi ini dari kebun lokal.', harga: 5000, hargaCoret: 7000, diskon: 28, satuan: 'ikat', stok: 25, berat: 250, minOrder: 1, terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh','organik','lokal'], aktif: true },
+  { id: 8, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Cabai Rawit', slug: 'cabai-rawit', emoji: '🌶️', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Cabai rawit pedas, cocok untuk sambal.', harga: 15000, hargaCoret: 18000, diskon: 17, satuan: '100gr', stok: 15, berat: 100, minOrder: 1, terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas','segar'], aktif: true },
+  { id: 9, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Kangkung Segar', slug: 'kangkung', emoji: '🥬', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Kangkung darat segar.', harga: 4000, satuan: 'ikat', stok: 30, berat: 300, minOrder: 1, terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh','lokal'], aktif: true },
+  { id: 2, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Tomat Merah', slug: 'tomat-merah', emoji: '🍅', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Tomat merah matang pilihan.', harga: 8000, satuan: '500gr', stok: 40, berat: 500, minOrder: 1, terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
+  { id: 7, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Merah', slug: 'bawang-merah', emoji: '🧅', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Bawang merah lokal.', harga: 12000, satuan: '250gr', stok: 50, berat: 250, minOrder: 1, terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu','lokal'], aktif: true },
+  { id: 10, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Putih', slug: 'bawang-putih', emoji: '🧄', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Bawang putih tunggal.', harga: 18000, satuan: '250gr', stok: 25, berat: 250, minOrder: 1, terjual: 67, rating: 4.7, totalReview: 19, tags: ['bumbu'], aktif: true },
+  { id: 3, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam 1 Kg', slug: 'telur-ayam', emoji: '🥚', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Telur ayam negeri segar.', harga: 28000, hargaCoret: 30000, diskon: 7, satuan: 'kg', stok: 100, berat: 1000, minOrder: 1, terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh','protein'], aktif: true },
+  { id: 11, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam Kampung', slug: 'telur-kampung', emoji: '🥚', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Telur ayam kampung asli.', harga: 4500, satuan: 'butir', stok: 80, berat: 60, minOrder: 5, terjual: 234, rating: 5.0, totalReview: 56, tags: ['organik','kampung'], aktif: true },
+  { id: 6, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Beras Premium 5 Kg', slug: 'beras-premium', emoji: '🍚', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Beras premium pulen.', harga: 65000, hargaCoret: 72000, diskon: 10, satuan: '5kg', stok: 30, berat: 5000, minOrder: 1, terjual: 178, rating: 4.7, totalReview: 89, tags: ['sembako','premium'], aktif: true },
+  { id: 12, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Minyak Goreng 2L', slug: 'minyak-goreng', emoji: '🫒', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Minyak goreng kemasan pouch.', harga: 32000, satuan: '2 liter', stok: 45, berat: 2000, minOrder: 1, terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true },
+  { id: 13, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Gula Pasir 1Kg', slug: 'gula-pasir', emoji: '🍬', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Gula pasir putih bersih.', harga: 15000, satuan: 'kg', stok: 60, berat: 1000, minOrder: 1, terjual: 189, rating: 4.7, totalReview: 34, tags: ['sembako'], aktif: true },
+  { id: 4, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Potong 1 Ekor', slug: 'ayam-potong', emoji: '🍗', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Ayam broiler segar.', harga: 45000, hargaCoret: 50000, diskon: 10, satuan: 'ekor (1kg)', stok: 15, berat: 1000, minOrder: 1, terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh','protein'], aktif: true },
+  { id: 14, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Fillet', slug: 'ayam-fillet', emoji: '🍖', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Dada ayam fillet.', harga: 55000, satuan: '500gr', stok: 20, berat: 500, minOrder: 1, terjual: 123, rating: 4.8, totalReview: 67, tags: ['fresh','praktis'], aktif: true },
+  { id: 15, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Sayap Ayam 500gr', slug: 'sayap-ayam', emoji: '🍗', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Sayap ayam segar.', harga: 28000, satuan: '500gr', stok: 25, berat: 500, minOrder: 1, terjual: 89, rating: 4.9, totalReview: 34, tags: ['fresh'], aktif: true },
+  { id: 5, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Lele Segar 1 Kg', slug: 'ikan-lele', emoji: '🐟', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Ikan lele hidup.', harga: 22000, satuan: 'kg', stok: 20, berat: 1000, minOrder: 1, terjual: 145, rating: 4.7, totalReview: 45, tags: ['fresh','ikan'], aktif: true },
+  { id: 16, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Nila 1 Kg', slug: 'ikan-nila', emoji: '🐠', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Ikan nila segar.', harga: 30000, satuan: 'kg', stok: 15, berat: 1000, minOrder: 1, terjual: 67, rating: 4.8, totalReview: 23, tags: ['fresh','ikan'], aktif: true },
+  { id: 17, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Udang Segar 500gr', slug: 'udang-segar', emoji: '🦐', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Udang laut segar.', harga: 45000, hargaCoret: 55000, diskon: 18, satuan: '500gr', stok: 10, berat: 500, minOrder: 1, terjual: 56, rating: 5.0, totalReview: 28, tags: ['premium','laut'], aktif: true },
+  { id: 18, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Cumi Segar 500gr', slug: 'cumi-segar', emoji: '🦑', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Cumi-cumi segar.', harga: 40000, satuan: '500gr', stok: 12, berat: 500, minOrder: 1, terjual: 34, rating: 4.9, totalReview: 15, tags: ['fresh','laut'], aktif: true }
 ];
 
 const REVIEWS = [
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Budi S.', rating: 5, komentar: 'Bayamnya segar banget, daunnya lebar & bersih! Cepat sampai. Recommended!', helpful: 12, balasanSeller: 'Terima kasih kak Budi, senang bisa melayani 🙏' },
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Sari M.', rating: 5, komentar: 'Selalu langganan disini, sayurannya paling fresh se-kecamatan!', helpful: 8 },
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Andi P.', rating: 4, komentar: 'Bagus tapi bisa lebih murah kalau beli banyak dong 😅', helpful: 3 },
-  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Ibu Wati', rating: 5, komentar: 'Telurnya besar-besar, kualitas premium. Nggak ada yang pecah waktu diantar.', helpful: 15 },
-  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Pak Dedi', rating: 5, komentar: 'Sudah 3x pesan, selalu memuaskan. Kuning telurnya oren, kandungannya bagus.', helpful: 9 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Bu Yuli', rating: 5, komentar: 'Ayamnya seger, dipotong sesuai request. Mantap!', helpful: 20 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Rina K.', rating: 5, komentar: 'Selalu langganan Bu Sri, ayamnya empuk kalau dimasak.', helpful: 11 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Pak Bambang', rating: 4, komentar: 'Kualitas ok, cuma agak lama sampainya hari ini.', helpful: 5, balasanSeller: 'Mohon maaf pak, ada kendala di kurir. Terima kasih masukannya!' },
-  { productId: 6, sellerId: 'sembako_berkah', userName: 'Ibu Ratna', rating: 5, komentar: 'Berasnya pulen dan bersih, harga bersaing!', helpful: 14 },
-  { productId: 5, sellerId: 'pak_kadir_fresh', userName: 'Pak Joko', rating: 5, komentar: 'Lelenya segar, badannya masih licin. Anak-anak suka!', helpful: 7 }
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Budi S.', rating: 5, komentar: 'Bayamnya segar banget, daunnya lebar & bersih!', helpful: 12, balasanSeller: 'Terima kasih kak Budi 🙏' },
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Sari M.', rating: 5, komentar: 'Selalu langganan disini!', helpful: 8 },
+  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Andi P.', rating: 4, komentar: 'Bagus tapi bisa lebih murah kalau beli banyak dong.', helpful: 3 },
+  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Ibu Wati', rating: 5, komentar: 'Telurnya besar-besar, kualitas premium.', helpful: 15 },
+  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Pak Dedi', rating: 5, komentar: 'Sudah 3x pesan, selalu memuaskan.', helpful: 9 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Bu Yuli', rating: 5, komentar: 'Ayamnya seger, dipotong sesuai request.', helpful: 20 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Rina K.', rating: 5, komentar: 'Selalu langganan Bu Sri.', helpful: 11 },
+  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Pak Bambang', rating: 4, komentar: 'Kualitas ok, agak lama sampainya.', helpful: 5, balasanSeller: 'Mohon maaf pak, terima kasih masukannya!' },
+  { productId: 6, sellerId: 'sembako_berkah', userName: 'Ibu Ratna', rating: 5, komentar: 'Berasnya pulen dan bersih!', helpful: 14 },
+  { productId: 5, sellerId: 'pak_kadir_fresh', userName: 'Pak Joko', rating: 5, komentar: 'Lelenya segar, badannya masih licin.', helpful: 7 }
 ];
 
 const PAYMENT_METHODS = [
-  { id: 'qris', nama: 'QRIS', jenis: 'qris', icon: '📱', 
-    atasNama: 'PortalWarga', 
-    instruksi: 'Scan QR code menggunakan aplikasi mobile banking, e-wallet apapun yang mendukung QRIS.',
-    warna: '#DC2626', aktif: true, populer: true },
-  { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦',
-    nomor: '1234567890', atasNama: 'PortalWarga Indonesia',
-    instruksi: 'Transfer ke rekening BCA di atas, kemudian upload bukti transfer.',
-    warna: '#0F4C8F', aktif: true },
-  { id: 'transfer_bri', nama: 'Transfer BRI', jenis: 'bank', icon: '🏦',
-    nomor: '9876543210', atasNama: 'PortalWarga Indonesia',
-    instruksi: 'Transfer ke rekening BRI di atas, kemudian upload bukti transfer.',
-    warna: '#003D7A', aktif: true },
-  { id: 'dana', nama: 'DANA', jenis: 'ewallet', icon: '💙',
-    nomor: '081234567890', atasNama: 'PortalWarga',
-    instruksi: 'Transfer ke nomor DANA di atas.',
-    warna: '#118EEA', aktif: true, populer: true },
-  { id: 'ovo', nama: 'OVO', jenis: 'ewallet', icon: '💜',
-    nomor: '081234567890', atasNama: 'PortalWarga',
-    instruksi: 'Transfer ke nomor OVO di atas.',
-    warna: '#4C2A85', aktif: true },
-  { id: 'gopay', nama: 'GoPay', jenis: 'ewallet', icon: '💚',
-    nomor: '081234567890', atasNama: 'PortalWarga',
-    instruksi: 'Transfer ke nomor GoPay di atas.',
-    warna: '#00AA13', aktif: true, populer: true }
+  { id: 'qris', nama: 'QRIS', jenis: 'qris', icon: '📱', atasNama: 'PortalWarga', instruksi: 'Scan QR code.', warna: '#DC2626', aktif: true, populer: true },
+  { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦', nomor: '1234567890', atasNama: 'PortalWarga Indonesia', instruksi: 'Transfer ke rekening BCA.', warna: '#0F4C8F', aktif: true },
+  { id: 'transfer_bri', nama: 'Transfer BRI', jenis: 'bank', icon: '🏦', nomor: '9876543210', atasNama: 'PortalWarga Indonesia', instruksi: 'Transfer ke rekening BRI.', warna: '#003D7A', aktif: true },
+  { id: 'dana', nama: 'DANA', jenis: 'ewallet', icon: '💙', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Transfer ke DANA.', warna: '#118EEA', aktif: true, populer: true },
+  { id: 'ovo', nama: 'OVO', jenis: 'ewallet', icon: '💜', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Transfer ke OVO.', warna: '#4C2A85', aktif: true },
+  { id: 'gopay', nama: 'GoPay', jenis: 'ewallet', icon: '💚', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Transfer ke GoPay.', warna: '#00AA13', aktif: true, populer: true }
 ];
 
-// ==================== SEED ====================
 async function seedAll() {
   const btn = document.getElementById('btnSeed');
   btn.disabled = true;
-  btn.textContent = '⏳ Seeding...';
-
+  btn.innerHTML = '<span class="spinner"></span> <span>Seeding...</span>';
+  logInit = false;
+  
   try {
-    log('━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
+    logDivider();
     log('🚀 Mulai seed database e-commerce...', 'info');
+    logDivider();
 
-    // 1. Sellers
     log('👥 Seeding SELLERS...', 'info');
     for (const s of SELLERS) {
-      await db.collection('sellers').doc(s.id).set({
-        ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      await db.collection('sellers').doc(s.id).set({ ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp() });
     }
     log(`   ✅ ${SELLERS.length} sellers created`, 'ok');
 
-    // 2. Products (koleksi baru "produk" yang lebih lengkap)
     log('📦 Seeding PRODUCTS...', 'info');
     for (const p of PRODUCTS) {
-      await db.collection('produk').doc(String(p.id)).set({
-        ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      await db.collection('produk').doc(String(p.id)).set({ ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
     }
     log(`   ✅ ${PRODUCTS.length} products created`, 'ok');
 
-    // Backward compat: tetap update koleksi 'pasar' lama
     log('🔄 Sync ke koleksi "pasar" (backward compat)...', 'info');
     for (const p of PRODUCTS) {
       await db.collection('pasar').doc(String(p.id)).set({
@@ -290,51 +536,55 @@ async function seedAll() {
     }
     log(`   ✅ Synced`, 'ok');
 
-    // 3. Reviews
     log('⭐ Seeding REVIEWS...', 'info');
     for (const r of REVIEWS) {
-      await db.collection('reviews').add({
-        ...r, createdAt: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      await db.collection('reviews').add({ ...r, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
     }
     log(`   ✅ ${REVIEWS.length} reviews created`, 'ok');
 
-    // 4. Payment Methods
     log('💳 Seeding PAYMENT METHODS...', 'info');
     for (const pm of PAYMENT_METHODS) {
       await db.collection('payment_methods').doc(pm.id).set(pm);
     }
     log(`   ✅ ${PAYMENT_METHODS.length} payment methods created`, 'ok');
 
-    // 5. Empty collections
     log('📝 Preparing empty collections...', 'info');
     await db.collection('orders').doc('_init').set({ _note: 'ready' });
     await db.collection('orders').doc('_init').delete();
     log(`   ✅ "orders" ready`, 'ok');
 
-    log('━━━━━━━━━━━━━━━━━━━━━━━━━━', 'info');
-    log('🎉 ALL DONE! Database e-commerce siap!', 'ok');
+    logDivider();
+    log('🎉 ALL DONE! Database e-commerce siap digunakan!', 'ok');
     log(`   📊 Total: ${SELLERS.length} sellers, ${PRODUCTS.length} products, ${REVIEWS.length} reviews`, 'ok');
+    logDivider();
 
+    btn.classList.add('success');
+    btn.innerHTML = '<i class="fas fa-check-circle"></i> <span>Berhasil! Klik untuk seed ulang</span>';
+    setTimeout(() => btn.classList.remove('success'), 3000);
   } catch (e) {
     log('❌ Error: ' + e.message, 'err');
+    btn.innerHTML = '<i class="fas fa-rocket"></i> <span>Seed E-commerce Data</span>';
   } finally {
     btn.disabled = false;
-    btn.textContent = '🚀 Seed E-commerce Data';
   }
 }
 
 async function clearAll() {
   if (!confirm('Yakin hapus SEMUA data e-commerce?')) return;
+  logInit = false;
+  logDivider();
+  log('🗑️ Membersihkan database...', 'warn');
+  
   const cols = ['sellers', 'produk', 'reviews', 'payment_methods'];
   for (const c of cols) {
     const snap = await db.collection(c).get();
     const batch = db.batch();
     snap.docs.forEach(d => batch.delete(d.ref));
     await batch.commit();
-    log(`🗑️ ${c} cleared (${snap.size} docs)`, 'ok');
+    log(`   ✅ ${c} cleared (${snap.size} docs)`, 'ok');
   }
-  log('✅ All cleared!', 'ok');
+  logDivider();
+  log('✅ All data cleared successfully!', 'ok');
 }
 </script>
 </body>
