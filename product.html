@@ -640,27 +640,57 @@ body {
   font-size: 0.94rem;
 }
 
+/* TAGS DESKRIPSI PRODUK — equal width + full width */
 .pd-tags {
-  display: flex;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
   margin-top: 16px;
-  flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
+/* jumlah tag dinamis */
+.pd-tags[data-count="1"] { grid-template-columns: 1fr; }
+.pd-tags[data-count="2"] { grid-template-columns: 1fr 1fr; }
+.pd-tags[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
+.pd-tags[data-count="4"] { grid-template-columns: 1fr 1fr; }
+.pd-tags[data-count="5"],
+.pd-tags[data-count="6"] { grid-template-columns: 1fr 1fr 1fr; }
+
 .pd-tag {
-  padding: 6px 14px;
-  background: linear-gradient(135deg, var(--primary-light), #E0F2FE);
-  color: var(--primary);
-  border-radius: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: 999px;
   font-size: 0.78rem;
   font-weight: 700;
+  background: linear-gradient(135deg, var(--primary-light), #E0F2FE);
+  color: var(--primary);
   border: 1px solid rgba(2, 132, 199, 0.15);
-  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.08);
 }
 
 .pd-tag:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+  box-shadow: 0 6px 14px rgba(2, 132, 199, 0.15);
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+@media (max-width: 768px) {
+  .pd-tags { gap: 8px; }
+  .pd-tag {
+    padding: 9px 10px;
+    font-size: 0.72rem;
+  }
 }
 
 /* ============ REVIEWS (PREMIUM) ============ */
