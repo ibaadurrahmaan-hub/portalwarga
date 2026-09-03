@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v3.1 (FULL LIVE SYNC + VOUCHER + CART STORAGE)
+   PORTALWARGA - SCRIPT CORE v3.2 (ROBUST LIVE SYNC + FULL FALLBACK)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
@@ -21,23 +21,53 @@ let activeSubKategori = 'all';
 let searchQuery = '';
 
 // ============================================
-// DATA FALLBACKS UNTUK EMERGENCY OFFLINE MODE
+// DATA FALLBACKS (LENGKAP — JIKA FIREBASE OFFLINE)
 // ============================================
 let dataPasarFallback = [
-  { id: 1, emoji: '🥬', nama: 'Sayur Bayam', sellerName: 'Toko Bu Tini', harga: 5000, subKategori: 'sayur', deskripsi: 'Bayam segar.', stok: 10, berat: 200, satuan: 'ikat', terjual: 5, rating: 5, totalReview: 1, tags: ['fresh'] }
+  { id: 1, emoji: '🥬', nama: 'Sayur Bayam Segar', sellerName: 'Toko Bu Tini', harga: 5000, hargaCoret: 7000, diskon: 28, subKategori: 'sayur', deskripsi: 'Bayam segar dipetik pagi.', stok: 25, berat: 250, satuan: 'ikat', terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh', 'organik'], aktif: true },
+  { id: 2, emoji: '🍅', nama: 'Tomat Merah', sellerName: 'Kios Pak Amin', harga: 8000, subKategori: 'sayur', deskripsi: 'Tomat merah matang.', stok: 40, berat: 500, satuan: '500gr', terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
+  { id: 3, emoji: '🥚', nama: 'Telur Ayam 1 Kg', sellerName: 'Peternakan Barokah', harga: 28000, hargaCoret: 30000, diskon: 7, subKategori: 'protein', deskripsi: 'Telur ayam negeri grade A.', stok: 100, berat: 1000, satuan: 'kg', terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh', 'protein'], aktif: true },
+  { id: 4, emoji: '🍗', nama: 'Ayam Potong 1 Ekor', sellerName: 'Ayam Segar Bu Sri', harga: 45000, hargaCoret: 50000, diskon: 10, subKategori: 'protein', deskripsi: 'Ayam potong segar dadakan.', stok: 15, berat: 1000, satuan: 'ekor', terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh'], aktif: true },
+  { id: 5, emoji: '🐟', nama: 'Ikan Lele Segar 1 Kg', sellerName: 'Pak Kadir Fresh', harga: 22000, subKategori: 'ikan', deskripsi: 'Ikan lele segar tambak.', stok: 20, berat: 1000, satuan: 'kg', terjual: 145, rating: 4.7, totalReview: 45, tags: ['ikan'], aktif: true },
+  { id: 6, emoji: '🍚', nama: 'Beras Premium 5 Kg', sellerName: 'Sembako Berkah', harga: 65000, hargaCoret: 72000, diskon: 10, subKategori: 'sembako', deskripsi: 'Beras premium pulen.', stok: 30, berat: 5000, satuan: '5kg', terjual: 178, rating: 4.7, totalReview: 89, tags: ['premium'], aktif: true },
+  { id: 7, emoji: '🧅', nama: 'Bawang Merah', sellerName: 'Kios Pak Amin', harga: 12000, subKategori: 'bumbu', deskripsi: 'Bawang merah lokal.', stok: 50, berat: 250, satuan: '250gr', terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu'], aktif: true },
+  { id: 8, emoji: '🌶️', nama: 'Cabai Rawit', sellerName: 'Toko Bu Tini', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'bumbu', deskripsi: 'Cabai rawit pedas.', stok: 15, berat: 100, satuan: '100gr', terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas'], aktif: true },
+  { id: 9, emoji: '🥬', nama: 'Kangkung Segar', sellerName: 'Toko Bu Tini', harga: 4000, subKategori: 'sayur', deskripsi: 'Kangkung darat segar.', stok: 30, berat: 300, satuan: 'ikat', terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh'], aktif: true },
+  { id: 10, emoji: '🫒', nama: 'Minyak Goreng 2L', sellerName: 'Sembako Berkah', harga: 32000, subKategori: 'sembako', deskripsi: 'Minyak goreng kelapa.', stok: 45, berat: 2000, satuan: '2 liter', terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true }
 ];
+
 let dataPropertyFallback = [
-  { id: 'prop_fb', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah Contoh', loc: 'Ds. Sample', price: 'Rp 1 Jt/bulan', features: ['2 Kamar'], deskripsi: 'Rumah contoh fallback.', kontakPemilik: '' }
+  { id: 'prop_01', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', aktif: true },
+  { id: 'prop_02', emoji: '🏡', type: 'Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', aktif: true },
+  { id: 'prop_03', emoji: '🛏️', type: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', aktif: true },
+  { id: 'prop_04', emoji: '🌾', type: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', aktif: true },
+  { id: 'prop_05', emoji: '🏘️', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', aktif: true },
+  { id: 'prop_06', emoji: '🏬', type: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', aktif: true }
 ];
+
 let dataPendidikanFallback = [
-  { id: 'edu_fb', emoji: '📚', type: 'Bimbel', name: 'Bimbel Contoh', desc: 'Fallback bimbel data.', kontak: '' }
+  { id: 'edu_01', emoji: '📚', type: 'Bimbel', name: 'Bimbel Cerdas Bersama', desc: 'Bimbingan belajar SD-SMA. Tutor berpengalaman.', biaya: 'Mulai Rp 250 Rb/bulan', jadwal: 'Senin - Sabtu', kontak: '081234567810', aktif: true },
+  { id: 'edu_02', emoji: '🕌', type: 'TPQ / Madrasah', name: 'TPQ Al-Hidayah', desc: 'Belajar mengaji, tahfidz, dan akhlak untuk anak.', biaya: 'Rp 75 Rb/bulan', jadwal: 'Setiap hari ba\'da Ashar', kontak: '081234567811', aktif: true },
+  { id: 'edu_03', emoji: '💻', type: 'Kursus Skill', name: 'Kursus Komputer Cepat', desc: 'Office, desain grafis, digital marketing. Bersertifikat.', biaya: 'Rp 500 Rb - 1,5 Jt', jadwal: 'Flexible', kontak: '081234567812', aktif: true },
+  { id: 'edu_04', emoji: '🎨', type: 'Sanggar Seni', name: 'Sanggar Kreasi Anak', desc: 'Melukis, menari, musik untuk anak & remaja.', biaya: 'Rp 150 Rb/bulan', jadwal: 'Sabtu - Minggu', kontak: '081234567813', aktif: true },
+  { id: 'edu_05', emoji: '⚽', type: 'SSB', name: 'SSB Kec. Utama', desc: 'Sekolah sepak bola usia 6-15 tahun.', biaya: 'Rp 100 Rb/bulan', jadwal: 'Selasa, Kamis, Sabtu', kontak: '081234567814', aktif: true },
+  { id: 'edu_06', emoji: '🗣️', type: 'Kursus Bahasa', name: 'English Corner', desc: 'Bahasa Inggris kids, teens, professional.', biaya: 'Rp 350 Rb/bulan', jadwal: 'Senin - Jumat', kontak: '081234567815', aktif: true }
 ];
+
 let dataWifiFallback = [
-  { id: 1, name: 'Basic', speed: '15', price: '165.000', features: ['Unlimited'], popular: true }
+  { id: 1, name: 'Ekonomis', speed: '10', price: '130.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'CS 24 Jam'], popular: false, aktif: true },
+  { id: 2, name: 'Basic', speed: '15', price: '165.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'Gratis Kabel'], popular: true, aktif: true },
+  { id: 3, name: 'Advanced', speed: '30', price: '220.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Prioritas'], popular: false, aktif: true },
+  { id: 4, name: 'Extra', speed: '50', price: '330.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Stabil'], popular: false, aktif: true },
+  { id: 5, name: 'Premiere', speed: '100', price: '550.000', features: ['100 Mbps', 'Wifi 6', 'CS VIP'], popular: false, aktif: true },
+  { id: 6, name: 'Promo Cijeruk', speed: '100', price: '120.000', features: ['Khusus Cijeruk', '100 Mbps', 'Gratis Modem'], popular: true, aktif: true }
 ];
+
 let dataWifiCoverageFallback = [
-  { id: 'A', nama: 'Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }] }
+  { id: 'A', nama: 'Wilayah Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
+  { id: 'G', nama: 'Kec. Cijeruk, Bogor', lat: -6.715115, lng: 106.793385, radiusKm: 4, paket: [{ name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }] }
 ];
+
 let dataWifiVouchersFallback = [
   { id: 'v_1',  hari: 1,  hargaAgen: 2500,  hargaUser: 3000,  persen: 17, aktif: true },
   { id: 'v_4',  hari: 4,  hargaAgen: 8500,  hargaUser: 10000, persen: 15, aktif: true },
@@ -50,11 +80,10 @@ let dataWifiVouchersFallback = [
 // INITIALIZATION FIRESTORE LIVE SYNC ENGINE
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
-  loadCartFromStorage(); // Muat keranjang dari halaman detail (product.html)
+  loadCartFromStorage();
   initLiveDatabase();
   updateCartUI();
 
-  // Auto-buka keranjang jika kembali dari product.html
   const urlParams = new URLSearchParams(location.search);
   if (urlParams.get('openCart') === '1') {
     setTimeout(() => openCart(), 500);
@@ -74,87 +103,97 @@ function initLiveDatabase() {
     return;
   }
 
-  // 1. LIVE SYNC PRODUK PASAR
-  db.collection('produk').where('aktif', '==', true).onSnapshot(snapshot => {
-    liveProducts = [];
-    snapshot.forEach(doc => liveProducts.push({ firestoreId: doc.id, ...doc.data() }));
-    const statEl = document.getElementById('statProducts');
-    if (statEl) statEl.textContent = liveProducts.length;
+  console.log("🔥 Firebase terhubung. Mulai live sync...");
+
+  // Helper universal: coba filter aktif dulu, kalau kosong ambil semua
+  function liveCollection(name, onData, onEmptyFallback) {
+    db.collection(name).where('aktif', '==', true).onSnapshot(snapshot => {
+      if (!snapshot.empty) {
+        onData(snapshot);
+      } else {
+        // Kosong → coba tanpa filter
+        db.collection(name).onSnapshot(snap2 => {
+          if (!snap2.empty) onData(snap2);
+          else if (onEmptyFallback) onEmptyFallback();
+        }, () => { if (onEmptyFallback) onEmptyFallback(); });
+      }
+    }, err => {
+      console.warn(`⚠️ Sync ${name} gagal:`, err.message);
+      db.collection(name).onSnapshot(snap2 => {
+        if (!snap2.empty) onData(snap2);
+        else if (onEmptyFallback) onEmptyFallback();
+      }, () => { if (onEmptyFallback) onEmptyFallback(); });
+    });
+  }
+
+  // 1. PRODUK
+  liveCollection('produk', snapshot => {
+    liveProducts = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+    const el = document.getElementById('statProducts');
+    if (el) el.textContent = liveProducts.length;
     renderPasarStorefront();
   }, () => {
     liveProducts = [...dataPasarFallback];
     renderPasarStorefront();
   });
 
-  // 2. LIVE SYNC SELLERS
+  // 2. SELLERS (tanpa filter aktif)
   db.collection('sellers').onSnapshot(snapshot => {
-    liveSellers = [];
-    snapshot.forEach(doc => liveSellers.push(doc.data()));
-    const statEl = document.getElementById('statSellers');
-    if (statEl) statEl.textContent = liveSellers.length;
-  });
+    liveSellers = snapshot.docs.map(doc => doc.data());
+    const el = document.getElementById('statSellers');
+    if (el) el.textContent = liveSellers.length || 6;
+  }, () => {});
 
-  // 3. LIVE SYNC METODE PEMBAYARAN
-  db.collection('payment_methods').where('aktif', '==', true).onSnapshot(snapshot => {
-    livePayments = [];
-    snapshot.forEach(doc => livePayments.push(doc.data()));
+  // 3. PAYMENT METHODS
+  liveCollection('payment_methods', snapshot => {
+    livePayments = snapshot.docs.map(doc => doc.data());
     populatePaymentMethods();
-  });
+  }, () => populatePaymentMethods());
 
-  // 4. LIVE SYNC REVIEWS
+  // 4. REVIEWS (tanpa filter aktif)
   db.collection('reviews').onSnapshot(snapshot => {
-    liveReviews = [];
-    snapshot.forEach(doc => liveReviews.push(doc.data()));
-  });
+    liveReviews = snapshot.docs.map(doc => doc.data());
+  }, () => {});
 
-  // 5. LIVE SYNC PROPERTI
-  db.collection('properti').where('aktif', '==', true).onSnapshot(snapshot => {
-    liveProperties = [];
-    snapshot.forEach(doc => liveProperties.push({ firestoreId: doc.id, ...doc.data() }));
-    if (liveProperties.length === 0) liveProperties = [...dataPropertyFallback];
+  // 5. PROPERTI
+  liveCollection('properti', snapshot => {
+    liveProperties = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderProperty();
   }, () => {
     liveProperties = [...dataPropertyFallback];
     renderProperty();
   });
 
-  // 6. LIVE SYNC PENDIDIKAN
-  db.collection('pendidikan').where('aktif', '==', true).onSnapshot(snapshot => {
-    liveEducations = [];
-    snapshot.forEach(doc => liveEducations.push({ firestoreId: doc.id, ...doc.data() }));
-    if (liveEducations.length === 0) liveEducations = [...dataPendidikanFallback];
+  // 6. PENDIDIKAN
+  liveCollection('pendidikan', snapshot => {
+    liveEducations = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderEdu();
   }, () => {
     liveEducations = [...dataPendidikanFallback];
     renderEdu();
   });
 
-  // 7. LIVE SYNC WIFI PACKAGES
-  db.collection('wifi_packages').where('aktif', '==', true).onSnapshot(snapshot => {
-    liveWifiPackages = [];
-    snapshot.forEach(doc => liveWifiPackages.push(doc.data()));
-    if (liveWifiPackages.length === 0) liveWifiPackages = [...dataWifiFallback];
+  // 7. WIFI PACKAGES
+  liveCollection('wifi_packages', snapshot => {
+    liveWifiPackages = snapshot.docs.map(doc => doc.data());
     renderWifi();
   }, () => {
     liveWifiPackages = [...dataWifiFallback];
     renderWifi();
   });
 
-  // 8. LIVE SYNC WIFI COVERAGE ZONE
+  // 8. WIFI COVERAGE (tanpa filter aktif)
   db.collection('wifi_coverage').onSnapshot(snapshot => {
-    liveWifiCoverage = [];
-    snapshot.forEach(doc => liveWifiCoverage.push(doc.data()));
+    liveWifiCoverage = snapshot.docs.map(doc => doc.data());
     if (liveWifiCoverage.length === 0) liveWifiCoverage = [...dataWifiCoverageFallback];
   }, () => {
     liveWifiCoverage = [...dataWifiCoverageFallback];
   });
 
-  // 9. LIVE SYNC WIFI VOUCHERS (BARU)
-  db.collection('wifi_vouchers').where('aktif', '==', true).onSnapshot(snapshot => {
-    liveWifiVouchers = [];
-    snapshot.forEach(doc => liveWifiVouchers.push(doc.data()));
+  // 9. WIFI VOUCHERS
+  liveCollection('wifi_vouchers', snapshot => {
+    liveWifiVouchers = snapshot.docs.map(doc => doc.data());
     liveWifiVouchers.sort((a, b) => a.hari - b.hari);
-    if (liveWifiVouchers.length === 0) liveWifiVouchers = [...dataWifiVouchersFallback];
     renderWifiVouchers();
   }, () => {
     liveWifiVouchers = [...dataWifiVouchersFallback];
@@ -171,18 +210,11 @@ function renderAll() {
 }
 
 // ============================================
-// PRODUCT DETAIL ROUTER (REPLACES MODAL)
+// PRODUCT DETAIL ROUTER
 // ============================================
 function openProductDetails(id) {
   if (!id) return;
-  const targetCard = document.querySelector(`.product-card img, .product-card .product-img`);
-  if (targetCard) {
-    targetCard.style.transform = 'scale(0.95)';
-    targetCard.style.opacity = '0.7';
-  }
-  setTimeout(() => {
-    window.location.href = `product.html?id=${id}`;
-  }, 100);
+  window.location.href = `product.html?id=${id}`;
 }
 
 // ============================================
@@ -359,7 +391,7 @@ function switchWifiTab(type) {
 }
 
 // ============================================
-// WIFI FIBER RENDER & GPS ENGINE
+// WIFI FIBER RENDER
 // ============================================
 function renderWifi() {
   const grid = document.getElementById('wifiGrid');
@@ -377,6 +409,9 @@ function renderWifi() {
   `).join('');
 }
 
+// ============================================
+// WIFI GPS ENGINE
+// ============================================
 function distanceKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -546,7 +581,7 @@ function submitWifiCoverage(e) {
 }
 
 // ============================================
-// WIFI VOUCHER RENDER ENGINE (BARU)
+// WIFI VOUCHER RENDER
 // ============================================
 function renderWifiVouchers() {
   const grid = document.getElementById('voucherGrid');
@@ -703,7 +738,7 @@ function checkoutWA() {
 
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   cart = [];
-  saveCartToStorage(); // Clear localStorage after checkout
+  saveCartToStorage();
   updateCartUI();
   closeCart();
 }
