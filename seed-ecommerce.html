@@ -516,7 +516,7 @@ async function seedAll() {
 }
 
 async function clearAll() {
-  if (!confirm('Hapus SEMUA data 4 kategori PortalWarga (Pasar, Properti, Pendidikan, WiFi) dari Firestore?')) return;
+  if (!confirm('Hapus SEMUA data 4 kategori PortalWarga (termasuk WiFi Voucher) dari Firestore?')) return;
 
   const btnS = document.getElementById('btnSeed');
   const btnC = document.getElementById('btnClear');
@@ -524,7 +524,8 @@ async function clearAll() {
   btnC.disabled = true;
   btnC.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
 
-  const collections = ['sellers', 'produk', 'pasar', 'reviews', 'payment_methods', 'properti', 'pendidikan', 'wifi_packages', 'wifi_coverage'];
+  // DITAMBAHKAN: 'wifi_vouchers'
+  const collections = ['sellers', 'produk', 'pasar', 'reviews', 'payment_methods', 'properti', 'pendidikan', 'wifi_packages', 'wifi_coverage', 'wifi_vouchers'];
 
   try {
     log('════════════════════════════════════════', 'warning');
