@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0284C7">
+<title>Checkout — PortalWarga</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+:root {
+  --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+  --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  --text-secondary: #475569;
+  --border-light: #E2E8F0;
+  --bg-alt: #F8FAFC;
+}
+
+body { background: #FAFBFC; }
+
+.checkout-page { padding-bottom: 180px; animation: fade-in 0.6s ease; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* BACK BAR */
+.co-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin: 24px 0 20px;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  transition: all 0.3s ease;
+}
+.co-back:hover { transform: translateX(-4px); background: var(--primary-light); }
+
+/* STEPPER */
+.co-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  border: 1px solid var(--border-light);
+}
+.co-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  position: relative;
+}
+.co-step-dot {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: #F1F5F9;
+  color: var(--muted);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.95rem;
+  border: 3px solid transparent;
+  transition: all 0.4s ease;
+}
+.co-step.active .co-step-dot {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+  transform: scale(1.1);
+}
+.co-step.done .co-step-dot {
+  background: var(--gradient-success);
+  color: white;
+}
+.co-step-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  text-align: center;
+}
+.co-step.active .co-step-label { color: var(--primary); }
+.co-step.done .co-step-label { color: #059669; }
+
+.co-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: calc(50% + 25px);
+  right: calc(-50% + 25px);
+  height: 3px;
+  background: #F1F5F9;
+  z-index: -1;
+  border-radius: 99px;
+}
+.co-step.done:not(:last-child)::after { background: #10B981; }
+
+/* CARDS */
+.co-card {
+  background: white;
+  border-radius: 20px;
+  padding: 22px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  border: 1px solid var(--border-light);
+  animation: slide-up 0.5s ease;
+}
+@keyframes slide-up { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.co-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px dashed var(--border-light);
+}
+.co-card-title i {
+  width: 36px; height: 36px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
+
+/* FORM */
+.co-form-group { margin-bottom: 14px; }
+.co-form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.co-form-group label .req { color: #EF4444; }
+.co-input, .co-textarea, .co-select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--text);
+  background: #FAFBFC;
+  transition: all 0.25s;
+}
+.co-input:focus, .co-textarea:focus, .co-select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+}
+.co-textarea { min-height: 80px; resize: vertical; }
+.co-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* DELIVERY OPTIONS */
+.co-delivery-list { display: grid; gap: 12px; }
+.co-delivery-item {
+  border: 2px solid var(--border-light);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #FAFBFC;
+}
+.co-delivery-item:hover { border-color: var(--primary); }
+.co-delivery-item.active {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+}
+.co-delivery-icon {
+  width: 48px; height: 48px;
+  background: white;
+  color: var(--primary);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.co-delivery-item.active .co-delivery-icon {
+  background: var(--gradient-primary);
+  color: white;
+}
+.co-delivery-info { flex: 1; }
+.co-delivery-info b {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 800;
+  margin-bottom: 3px;
+}
+.co-delivery-info p {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.co-delivery-price {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--primary);
+}
+.co-delivery-price.free { color: #10B981; }
+.co-radio-dot {
+  width: 22px; height: 22px;
+  border: 3px solid #CBD5E1;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+  transition: all 0.3s;
+}
+.co-delivery-item.active .co-radio-dot {
+  border-color: var(--primary);
+}
+.co-delivery-item.active .co-radio-dot::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px; height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+}
+
+/* PAYMENT METHODS */
+.co-payment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+}
+.co-payment-item {
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  padding: 14px 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s;
+  background: #FAFBFC;
+  position: relative;
+}
+.co-payment-item:hover { border-color: var(--primary); }
+.co-payment-item.active {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.2);
+}
+.co-payment-item.active::after {
+  content: '✓';
+  position: absolute;
+  top: -8px; right: -8px;
+  width: 22px; height: 22px;
+  background: var(--gradient-success);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+.co-pay-icon {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+.co-pay-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ORDER SUMMARY */
+.co-summary-list {
+  max-height: 250px;
+  overflow-y: auto;
+  margin-bottom: 14px;
+  padding-right: 4px;
+}
+.co-summary-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border-light);
+}
+.co-summary-item:last-child { border-bottom: none; }
+.co-sum-emoji {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+.co-sum-info { flex: 1; min-width: 0; }
+.co-sum-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.co-sum-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.co-sum-price {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--pasar);
+}
+
+.co-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  font-size: 0.88rem;
+}
+.co-total-row.grand {
+  border-top: 2px dashed var(--border-light);
+  padding-top: 14px;
+  margin-top: 6px;
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+.co-total-row.grand .co-total-val {
+  color: var(--pasar);
+  font-size: 1.35rem;
+}
+.co-total-label { color: var(--text-secondary); font-weight: 600; }
+.co-total-val { font-weight: 700; color: var(--text); }
+.co-total-val.discount { color: #EF4444; }
+
+/* BOTTOM BAR */
+.co-bottom-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: white;
+  padding: 14px 20px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
+  z-index: 100;
+  border-top: 1px solid var(--border-light);
+}
+.co-bottom-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+.co-bottom-total {
+  flex: 1;
+}
+.co-bottom-total small {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.co-bottom-total b {
+  display: block;
+  font-size: 1.35rem;
+  color: var(--pasar);
+  font-weight: 800;
+}
+
+.btn-checkout-final {
+  background: var(--gradient-success);
+  color: white;
+  border: none;
+  padding: 15px 28px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: inherit;
+  transition: all 0.3s;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+  white-space: nowrap;
+}
+.btn-checkout-final:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.45);
+}
+.btn-checkout-final:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #94A3B8;
+  box-shadow: none;
+}
+
+/* EMPTY CART */
+.co-empty {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.co-empty i { font-size: 5rem; color: var(--muted); margin-bottom: 20px; opacity: 0.4; }
+.co-empty h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+.co-empty p { color: var(--muted); margin-bottom: 24px; }
+.co-empty a {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 12px 28px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+}
+
+/* SUCCESS MODAL */
+.co-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fade-in 0.3s ease;
+}
+.co-modal-overlay.show { display: flex; }
+.co-modal {
+  background: white;
+  border-radius: 28px;
+  max-width: 460px;
+  width: 100%;
+  padding: 40px 28px 28px;
+  text-align: center;
+  animation: modal-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.7) translateY(30px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.co-modal-icon {
+  width: 90px; height: 90px;
+  background: var(--gradient-success);
+  color: white;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
+  animation: bounce-in 0.7s ease;
+}
+@keyframes bounce-in {
+  0% { transform: scale(0) rotate(-180deg); }
+  60% { transform: scale(1.15) rotate(20deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+.co-modal h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+.co-modal > p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+.co-modal-invoice {
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 22px;
+}
+.co-modal-invoice small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.co-modal-invoice b {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.co-modal-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.co-modal-btn {
+  padding: 13px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+.co-btn-wa {
+  background: #25D366;
+  color: white;
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+}
+.co-btn-wa:hover { transform: translateY(-2px); }
+.co-btn-home {
+  background: #F1F5F9;
+  color: var(--text);
+}
+.co-btn-home:hover { background: #E2E8F0; }
+
+/* WA FIX */
+.fa-whatsapp, .fab.fa-whatsapp, i.fa-whatsapp {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+/* RESPONSIVE */
+@media (min-width: 900px) {
+  .checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 20px;
+    align-items: start;
+  }
+  .co-summary-sticky {
+    position: sticky;
+    top: 20px;
+  }
+  .co-bottom-bar { display: none; }
+  .checkout-page { padding-bottom: 40px; }
+  .co-summary-sticky .btn-checkout-final { width: 100%; justify-content: center; margin-top: 14px; }
+}
+
+@media (max-width: 768px) {
+  .co-form-row { grid-template-columns: 1fr; }
+  .co-stepper { padding: 16px 10px; }
+  .co-step-dot { width: 34px; height: 34px; font-size: 0.85rem; }
+  .co-step-label { font-size: 0.65rem; }
+  .co-step:not(:last-child)::after { top: 17px; left: calc(50% + 22px); right: calc(-50% + 22px); }
+  .co-card { padding: 18px; }
+  .co-modal { padding: 32px 20px 22px; }
+  .co-modal-icon { width: 76px; height: 76px; font-size: 2.5rem; }
+  .co-modal h2 { font-size: 1.3rem; }
+  .btn-checkout-final { padding: 13px 20px; font-size: 0.88rem; }
+  .co-bottom-total b { font-size: 1.15rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="app-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="portalwarga.png" alt="PortalWarga" style="height: 42px; border-radius: 8px;" onerror="this.src='https://placehold.co/80x80?text=PW'">
+        <div class="brand-text">
+          <strong>PortalWarga</strong>
+        </div>
+      </a>
+      <div class="header-actions">
+        <a href="https://wa.me/6285267891619" class="btn-cs" title="CS WhatsApp" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CONTENT ============ -->
+<div class="container checkout-page">
+  <a href="index.html" class="co-back"><i class="fas fa-arrow-left"></i> Kembali Belanja</a>
+  
+  <div id="checkoutContent">
+    <!-- STEPPER -->
+    <div class="co-stepper">
+      <div class="co-step active" id="step1">
+        <div class="co-step-dot">1</div>
+        <div class="co-step-label">Alamat</div>
+      </div>
+      <div class="co-step" id="step2">
+        <div class="co-step-dot">2</div>
+        <div class="co-step-label">Pengiriman</div>
+      </div>
+      <div class="co-step" id="step3">
+        <div class="co-step-dot">3</div>
+        <div class="co-step-label">Pembayaran</div>
+      </div>
+      <div class="co-step" id="step4">
+        <div class="co-step-dot">4</div>
+        <div class="co-step-label">Konfirmasi</div>
+      </div>
+    </div>
+    
+    <div class="checkout-grid">
+      <!-- LEFT COLUMN: FORMS -->
+      <div>
+        <!-- CARD 1: ALAMAT -->
+        <div class="co-card">
+          <div class="co-card-title">
+            <i class="fas fa-map-marker-alt"></i> Data Penerima
+          </div>
+          <div class="co-form-row">
+            <div class="co-form-group">
+              <label>Nama Lengkap <span class="req">*</span></label>
+              <input type="text" class="co-input" id="fNama" placeholder="Contoh: Budi Santoso" required>
+            </div>
+            <div class="co-form-group">
+              <label>No. WhatsApp <span class="req">*</span></label>
+              <input type="tel" class="co-input" id="fTelp" placeholder="081234567890" required>
+            </div>
+          </div>
+          <div class="co-form-group">
+            <label>Alamat Lengkap <span class="req">*</span></label>
+            <textarea class="co-textarea" id="fAlamat" placeholder="RT/RW, Jalan, Blok, Nomor Rumah, Patokan..." required></textarea>
+          </div>
+          <div class="co-form-row">
+            <div class="co-form-group">
+              <label>Kelurahan/Desa</label>
+              <input type="text" class="co-input" id="fKelurahan" placeholder="Contoh: Kembangan">
+            </div>
+            <div class="co-form-group">
+              <label>Kecamatan</label>
+              <input type="text" class="co-input" id="fKecamatan" placeholder="Contoh: Kembangan">
+            </div>
+          </div>
+          <div class="co-form-group">
+            <label>Catatan (opsional)</label>
+            <textarea class="co-textarea" id="fCatatan" placeholder="Contoh: Warna hijau kalau ada, taruh di security..."></textarea>
+          </div>
+        </div>
+
+        <!-- CARD 2: METODE PENGIRIMAN -->
+        <div class="co-card">
+          <div class="co-card-title">
+            <i class="fas fa-truck"></i> Metode Pengiriman
+          </div>
+          <div class="co-delivery-list" id="deliveryList">
+            <div class="co-delivery-item active" data-delivery="ambil" data-price="0">
+              <div class="co-delivery-icon"><i class="fas fa-store"></i></div>
+              <div class="co-delivery-info">
+                <b>Ambil Sendiri di Toko</b>
+                <p>Datang langsung ke toko penjual • Tanpa ongkir</p>
+              </div>
+              <div class="co-delivery-price free">GRATIS</div>
+              <div class="co-radio-dot"></div>
+            </div>
+            
+            <div class="co-delivery-item" data-delivery="antar_gerobak" data-price="3000">
+              <div class="co-delivery-icon"><i class="fas fa-motorcycle"></i></div>
+              <div class="co-delivery-info">
+                <b>Antar Sendiri oleh Penjual</b>
+                <p>Radius 2 KM • Estimasi 20-40 menit</p>
+              </div>
+              <div class="co-delivery-price">Rp 3.000</div>
+              <div class="co-radio-dot"></div>
+            </div>
+            
+            <div class="co-delivery-item" data-delivery="ojol" data-price="8000">
+              <div class="co-delivery-icon" style="color:#059669"><i class="fas fa-bicycle"></i></div>
+              <div class="co-delivery-info">
+                <b>Kurir OJOL (GoSend/GrabExpress)</b>
+                <p>Cepat • Bisa lacak realtime</p>
+              </div>
+              <div class="co-delivery-price">± Rp 8.000</div>
+              <div class="co-radio-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: METODE PEMBAYARAN -->
+        <div class="co-card">
+          <div class="co-card-title">
+            <i class="fas fa-wallet"></i> Metode Pembayaran
+          </div>
+          
+          <div style="margin-bottom:16px">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px">💳 E-Wallet & QRIS</div>
+            <div class="co-payment-grid" id="paymentGridEwallet">
+              <div class="co-payment-item active" data-payment="QRIS">
+                <div class="co-pay-icon">📱</div>
+                <div class="co-pay-name">QRIS</div>
+              </div>
+              <div class="co-payment-item" data-payment="DANA">
+                <div class="co-pay-icon">💙</div>
+                <div class="co-pay-name">DANA</div>
+              </div>
+              <div class="co-payment-item" data-payment="OVO">
+                <div class="co-pay-icon">💜</div>
+                <div class="co-pay-name">OVO</div>
+              </div>
+              <div class="co-payment-item" data-payment="GoPay">
+                <div class="co-pay-icon">💚</div>
+                <div class="co-pay-name">GoPay</div>
+              </div>
+              <div class="co-payment-item" data-payment="ShopeePay">
+                <div class="co-pay-icon">🧡</div>
+                <div class="co-pay-name">ShopeePay</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:16px">
+            <div style="font-size:0.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px">🏦 Transfer Bank</div>
+            <div class="co-payment-grid" id="paymentGridBank">
+              <div class="co-payment-item" data-payment="BCA">
+                <div class="co-pay-icon">🏦</div>
+                <div class="co-pay-name">BCA</div>
+              </div>
+              <div class="co-payment-item" data-payment="BRI">
+                <div class="co-pay-icon">🏦</div>
+                <div class="co-pay-name">BRI</div>
+              </div>
+              <div class="co-payment-item" data-payment="Mandiri">
+                <div class="co-pay-icon">🏦</div>
+                <div class="co-pay-name">Mandiri</div>
+              </div>
+              <div class="co-payment-item" data-payment="BNI">
+                <div class="co-pay-icon">🏦</div>
+                <div class="co-pay-name">BNI</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size:0.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px">💵 Cash</div>
+            <div class="co-payment-grid">
+              <div class="co-payment-item" data-payment="COD">
+                <div class="co-pay-icon">💵</div>
+                <div class="co-pay-name">Bayar di Tempat</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: SUMMARY -->
+      <div class="co-summary-sticky">
+        <div class="co-card">
+          <div class="co-card-title">
+            <i class="fas fa-receipt"></i> Ringkasan Pesanan
+          </div>
+          
+          <div class="co-summary-list" id="summaryList">
+            <!-- Items loaded here -->
+          </div>
+          
+          <div class="co-total-row">
+            <span class="co-total-label">Subtotal (<span id="totalItems">0</span> item)</span>
+            <span class="co-total-val" id="sumSubtotal">Rp 0</span>
+          </div>
+          <div class="co-total-row">
+            <span class="co-total-label">Ongkos Kirim</span>
+            <span class="co-total-val" id="sumOngkir">Rp 0</span>
+          </div>
+          <div class="co-total-row">
+            <span class="co-total-label">Biaya Admin</span>
+            <span class="co-total-val" id="sumAdmin">Rp 1.000</span>
+          </div>
+          <div class="co-total-row grand">
+            <span>Total Bayar</span>
+            <span class="co-total-val" id="sumGrand">Rp 0</span>
+          </div>
+          
+          <!-- Tombol Desktop -->
+          <button class="btn-checkout-final" id="btnCheckoutDesktop" onclick="submitOrder()" style="display:none">
+            <i class="fas fa-shield-check"></i> Buat Pesanan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOTTOM BAR (MOBILE) ============ -->
+<div class="co-bottom-bar" id="bottomBar">
+  <div class="co-bottom-inner">
+    <div class="co-bottom-total">
+      <small>Total Bayar</small>
+      <b id="bottomTotal">Rp 0</b>
+    </div>
+    <button class="btn-checkout-final" id="btnCheckoutMobile" onclick="submitOrder()">
+      <i class="fas fa-shield-check"></i> Buat Pesanan
+    </button>
+  </div>
+</div>
+
+<!-- ============ SUCCESS MODAL ============ -->
+<div class="co-modal-overlay" id="successModal">
+  <div class="co-modal">
+    <div class="co-modal-icon">
+      <i class="fas fa-check"></i>
+    </div>
+    <h2>Pesanan Berhasil Dibuat!</h2>
+    <p>Silakan konfirmasi & selesaikan pembayaran ke admin melalui WhatsApp untuk memproses pesanan Anda.</p>
+    
+    <div class="co-modal-invoice">
+      <small>Nomor Invoice Anda</small>
+      <b id="modalInvoice">-</b>
+    </div>
+    
+    <div class="co-modal-buttons">
+      <a href="#" id="modalWaBtn" target="_blank" class="co-modal-btn co-btn-wa">
+        <i class="fab fa-whatsapp"></i> Chat Admin
+      </a>
+      <a href="index.html" class="co-modal-btn co-btn-home">
+        <i class="fas fa-home"></i> Beranda
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const CS_WA = '6285267891619';
+const BIAYA_ADMIN = 1000;
+
+let cart = [];
+let selectedDelivery = { type: 'ambil', label: 'Ambil Sendiri', price: 0 };
+let selectedPayment = 'QRIS';
+let isSubmitting = false;
+
+// ==================== UTILS ====================
+function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+function toast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.className = 'toast show ' + type;
+  setTimeout(() => t.className = 'toast', 3000);
+}
+
+function generateInvoice() {
+  const d = new Date();
+  const y = d.getFullYear().toString().slice(-2);
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const rand = Math.floor(1000 + Math.random() * 9000);
+  return `INV${y}${m}${day}-${rand}`;
+}
+
+// ==================== LOAD CART ====================
+function loadCart() {
+  cart = JSON.parse(localStorage.getItem('pw_cart') || '[]');
+  
+  if (cart.length === 0) {
+    document.getElementById('checkoutContent').innerHTML = `
+      <div class="co-empty">
+        <i class="fas fa-shopping-cart"></i>
+        <h3>Keranjang Anda Kosong</h3>
+        <p>Yuk mulai belanja dulu dari toko UMKM sekitar Anda!</p>
+        <a href="index.html"><i class="fas fa-shopping-bag"></i> Mulai Belanja</a>
+      </div>
+    `;
+    document.getElementById('bottomBar').style.display = 'none';
+    return;
+  }
+  
+  renderSummary();
+  updateStepper();
+  // Show desktop button on large screens
+  if (window.innerWidth >= 900) {
+    document.getElementById('btnCheckoutDesktop').style.display = 'flex';
+  }
+}
+
+// ==================== RENDER SUMMARY ====================
+function renderSummary() {
+  const list = document.getElementById('summaryList');
+  list.innerHTML = cart.map(item => `
+    <div class="co-summary-item">
+      <div class="co-sum-emoji">${item.emoji || '🛒'}</div>
+      <div class="co-sum-info">
+        <div class="co-sum-name">${item.nama}</div>
+        <div class="co-sum-meta">${item.qty}x @ ${rupiah(item.harga)}</div>
+      </div>
+      <div class="co-sum-price">${rupiah(item.harga * item.qty)}</div>
+    </div>
+  `).join('');
+  
+  const subtotal = cart.reduce((s, i) => s + (i.harga * i.qty), 0);
+  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
+  const ongkir = selectedDelivery.price;
+  const grand = subtotal + ongkir + BIAYA_ADMIN;
+  
+  document.getElementById('totalItems').textContent = totalItems;
+  document.getElementById('sumSubtotal').textContent = rupiah(subtotal);
+  document.getElementById('sumOngkir').textContent = ongkir === 0 ? 'GRATIS' : rupiah(ongkir);
+  document.getElementById('sumAdmin').textContent = rupiah(BIAYA_ADMIN);
+  document.getElementById('sumGrand').textContent = rupiah(grand);
+  document.getElementById('bottomTotal').textContent = rupiah(grand);
+}
+
+// ==================== STEPPER ====================
+function updateStepper() {
+  const nama = document.getElementById('fNama')?.value.trim();
+  const telp = document.getElementById('fTelp')?.value.trim();
+  const alamat = document.getElementById('fAlamat')?.value.trim();
+  
+  const step1 = document.getElementById('step1');
+  const step2 = document.getElementById('step2');
+  const step3 = document.getElementById('step3');
+  const step4 = document.getElementById('step4');
+  
+  // Reset
+  [step1, step2, step3, step4].forEach(s => s.classList.remove('active', 'done'));
+  
+  const addressComplete = nama && telp && alamat;
+  const deliveryComplete = selectedDelivery !== null;
+  const paymentComplete = selectedPayment !== null;
+  
+  if (addressComplete) step1.classList.add('done'); else step1.classList.add('active');
+  if (deliveryComplete && addressComplete) step2.classList.add('done'); else if (addressComplete) step2.classList.add('active');
+  if (paymentComplete && addressComplete && deliveryComplete) step3.classList.add('done'); else if (addressComplete && deliveryComplete) step3.classList.add('active');
+  if (addressComplete && deliveryComplete && paymentComplete) step4.classList.add('active');
+}
+
+// ==================== DELIVERY SELECTION ====================
+document.getElementById('deliveryList').addEventListener('click', (e) => {
+  const item = e.target.closest('.co-delivery-item');
+  if (!item) return;
+  
+  document.querySelectorAll('.co-delivery-item').forEach(i => i.classList.remove('active'));
+  item.classList.add('active');
+  
+  selectedDelivery = {
+    type: item.dataset.delivery,
+    label: item.querySelector('b').textContent,
+    price: parseInt(item.dataset.price)
+  };
+  
+  renderSummary();
+  updateStepper();
+});
+
+// ==================== PAYMENT SELECTION ====================
+function bindPayment(gridId) {
+  document.getElementById(gridId).addEventListener('click', (e) => {
+    const item = e.target.closest('.co-payment-item');
+    if (!item) return;
+    
+    document.querySelectorAll('.co-payment-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    
+    selectedPayment = item.dataset.payment;
+    updateStepper();
+  });
+}
+bindPayment('paymentGridEwallet');
+bindPayment('paymentGridBank');
+document.querySelectorAll('.co-payment-item').forEach(item => {
+  if (item.dataset.payment === 'COD') {
+    item.parentElement.addEventListener('click', (e) => {
+      const it = e.target.closest('.co-payment-item');
+      if (!it) return;
+      document.querySelectorAll('.co-payment-item').forEach(i => i.classList.remove('active'));
+      it.classList.add('active');
+      selectedPayment = it.dataset.payment;
+      updateStepper();
+    });
+  }
+});
+
+// ==================== FORM CHANGE LISTENER ====================
+['fNama', 'fTelp', 'fAlamat'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', updateStepper);
+});
+
+// ==================== SUBMIT ORDER ====================
+async function submitOrder() {
+  if (isSubmitting) return;
+  
+  const nama = document.getElementById('fNama').value.trim();
+  const telp = document.getElementById('fTelp').value.trim();
+  const alamat = document.getElementById('fAlamat').value.trim();
+  const kelurahan = document.getElementById('fKelurahan').value.trim();
+  const kecamatan = document.getElementById('fKecamatan').value.trim();
+  const catatan = document.getElementById('fCatatan').value.trim();
+  
+  // Validasi
+  if (!nama) { toast('❌ Mohon isi Nama Lengkap', 'error'); document.getElementById('fNama').focus(); return; }
+  if (!telp) { toast('❌ Mohon isi No. WhatsApp', 'error'); document.getElementById('fTelp').focus(); return; }
+  if (!/^(08|628|\+628)\d{7,12}$/.test(telp.replace(/[\s-]/g, ''))) { 
+    toast('❌ No. WhatsApp tidak valid (contoh: 081234567890)', 'error'); 
+    document.getElementById('fTelp').focus(); 
+    return; 
+  }
+  if (!alamat) { toast('❌ Mohon isi Alamat Lengkap', 'error'); document.getElementById('fAlamat').focus(); return; }
+  if (cart.length === 0) { toast('❌ Keranjang kosong!', 'error'); return; }
+  
+  isSubmitting = true;
+  const btnDesktop = document.getElementById('btnCheckoutDesktop');
+  const btnMobile = document.getElementById('btnCheckoutMobile');
+  [btnDesktop, btnMobile].forEach(b => {
+    if (b) {
+      b.disabled = true;
+      b.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+    }
+  });
+  
+  try {
+    const invoiceId = generateInvoice();
+    const subtotal = cart.reduce((s, i) => s + (i.harga * i.qty), 0);
+    const grandTotal = subtotal + selectedDelivery.price + BIAYA_ADMIN;
+    
+    const orderData = {
+      invoice: invoiceId,
+      status: 'pending_payment', // pending_payment | paid | processing | shipped | completed | cancelled
+      customer: { nama, telp, alamat, kelurahan, kecamatan, catatan },
+      items: cart.map(i => ({
+        productId: i.id,
+        nama: i.nama,
+        harga: i.harga,
+        qty: i.qty,
+        emoji: i.emoji || '🛒',
+        sellerId: i.sellerId || null,
+        sellerNama: i.sellerNama || null
+      })),
+      delivery: selectedDelivery,
+      payment: { method: selectedPayment, status: 'pending' },
+      pricing: {
+        subtotal,
+        ongkir: selectedDelivery.price,
+        adminFee: BIAYA_ADMIN,
+        total: grandTotal
+      },
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+    
+    // Simpan ke Firestore
+    await db.collection('orders').doc(invoiceId).set(orderData);
+    
+    // Simpan ke localStorage untuk tracking user
+    const myOrders = JSON.parse(localStorage.getItem('pw_my_orders') || '[]');
+    myOrders.unshift({ invoice: invoiceId, total: grandTotal, status: 'pending_payment', createdAt: new Date().toISOString() });
+    localStorage.setItem('pw_my_orders', JSON.stringify(myOrders.slice(0, 50)));
+    
+    // Kosongkan keranjang
+    localStorage.removeItem('pw_cart');
+    
+    // Buat pesan WA untuk admin
+    const waMsg = buildWaMessage(invoiceId, orderData);
+    const waUrl = `https://wa.me/${CS_WA}?text=${encodeURIComponent(waMsg)}`;
+    
+    // Tampilkan modal sukses
+    document.getElementById('modalInvoice').textContent = invoiceId;
+    document.getElementById('modalWaBtn').href = waUrl;
+    document.getElementById('successModal').classList.add('show');
+    
+  } catch (e) {
+    console.error(e);
+    toast('❌ Gagal membuat pesanan: ' + e.message, 'error');
+    isSubmitting = false;
+    [btnDesktop, btnMobile].forEach(b => {
+      if (b) {
+        b.disabled = false;
+        b.innerHTML = '<i class="fas fa-shield-check"></i> Buat Pesanan';
+      }
+    });
+  }
+}
+
+function buildWaMessage(invoice, order) {
+  const items = order.items.map(i => `• ${i.nama} (${i.qty}x) = ${rupiah(i.harga * i.qty)}`).join('\n');
+  
+  return `*🧾 KONFIRMASI PESANAN BARU*\n` +
+         `━━━━━━━━━━━━━━━━━━━\n` +
+         `📋 *Invoice:* ${invoice}\n\n` +
+         `👤 *Data Penerima:*\n` +
+         `Nama: ${order.customer.nama}\n` +
+         `WA: ${order.customer.telp}\n` +
+         `Alamat: ${order.customer.alamat}\n` +
+         (order.customer.kelurahan ? `Kelurahan: ${order.customer.kelurahan}\n` : '') +
+         (order.customer.kecamatan ? `Kecamatan: ${order.customer.kecamatan}\n` : '') +
+         (order.customer.catatan ? `Catatan: ${order.customer.catatan}\n` : '') +
+         `\n📦 *Pesanan:*\n${items}\n\n` +
+         `🚚 *Pengiriman:* ${order.delivery.label}\n` +
+         `💳 *Metode Bayar:* ${order.payment.method}\n\n` +
+         `━━━━━━━━━━━━━━━━━━━\n` +
+         `💰 *RINCIAN BIAYA:*\n` +
+         `Subtotal: ${rupiah(order.pricing.subtotal)}\n` +
+         `Ongkir: ${order.pricing.ongkir === 0 ? 'GRATIS' : rupiah(order.pricing.ongkir)}\n` +
+         `Biaya Admin: ${rupiah(order.pricing.adminFee)}\n` +
+         `*TOTAL: ${rupiah(order.pricing.total)}*\n` +
+         `━━━━━━━━━━━━━━━━━━━\n\n` +
+         `Mohon konfirmasi ketersediaan & instruksi pembayarannya ya, kak 🙏\n\n` +
+         `_Dikirim otomatis dari PortalWarga_`;
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  loadCart();
+  updateStepper();
+});
+
+window.addEventListener('resize', () => {
+  const btnDesktop = document.getElementById('btnCheckoutDesktop');
+  if (btnDesktop) {
+    btnDesktop.style.display = window.innerWidth >= 900 ? 'flex' : 'none';
+  }
+});
+</script>
+</body>
+</html>
