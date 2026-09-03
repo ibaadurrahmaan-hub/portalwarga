@@ -105,13 +105,11 @@ function initLiveDatabase() {
 
   console.log("🔥 Firebase terhubung. Mulai live sync...");
 
-  // Helper universal: coba filter aktif dulu, kalau kosong ambil semua
   function liveCollection(name, onData, onEmptyFallback) {
     db.collection(name).where('aktif', '==', true).onSnapshot(snapshot => {
       if (!snapshot.empty) {
         onData(snapshot);
       } else {
-        // Kosong → coba tanpa filter
         db.collection(name).onSnapshot(snap2 => {
           if (!snap2.empty) onData(snap2);
           else if (onEmptyFallback) onEmptyFallback();
@@ -126,7 +124,6 @@ function initLiveDatabase() {
     });
   }
 
-  // 1. PRODUK
   liveCollection('produk', snapshot => {
     liveProducts = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     const el = document.getElementById('statProducts');
@@ -137,25 +134,21 @@ function initLiveDatabase() {
     renderPasarStorefront();
   });
 
-  // 2. SELLERS (tanpa filter aktif)
   db.collection('sellers').onSnapshot(snapshot => {
     liveSellers = snapshot.docs.map(doc => doc.data());
     const el = document.getElementById('statSellers');
     if (el) el.textContent = liveSellers.length || 6;
   }, () => {});
 
-  // 3. PAYMENT METHODS
   liveCollection('payment_methods', snapshot => {
     livePayments = snapshot.docs.map(doc => doc.data());
     populatePaymentMethods();
   }, () => populatePaymentMethods());
 
-  // 4. REVIEWS (tanpa filter aktif)
   db.collection('reviews').onSnapshot(snapshot => {
     liveReviews = snapshot.docs.map(doc => doc.data());
   }, () => {});
 
-  // 5. PROPERTI
   liveCollection('properti', snapshot => {
     liveProperties = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderProperty();
@@ -164,7 +157,6 @@ function initLiveDatabase() {
     renderProperty();
   });
 
-  // 6. PENDIDIKAN
   liveCollection('pendidikan', snapshot => {
     liveEducations = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderEdu();
@@ -173,7 +165,6 @@ function initLiveDatabase() {
     renderEdu();
   });
 
-  // 7. WIFI PACKAGES
   liveCollection('wifi_packages', snapshot => {
     liveWifiPackages = snapshot.docs.map(doc => doc.data());
     renderWifi();
@@ -182,7 +173,6 @@ function initLiveDatabase() {
     renderWifi();
   });
 
-  // 8. WIFI COVERAGE (tanpa filter aktif)
   db.collection('wifi_coverage').onSnapshot(snapshot => {
     liveWifiCoverage = snapshot.docs.map(doc => doc.data());
     if (liveWifiCoverage.length === 0) liveWifiCoverage = [...dataWifiCoverageFallback];
@@ -190,7 +180,6 @@ function initLiveDatabase() {
     liveWifiCoverage = [...dataWifiCoverageFallback];
   });
 
-  // 9. WIFI VOUCHERS
   liveCollection('wifi_vouchers', snapshot => {
     liveWifiVouchers = snapshot.docs.map(doc => doc.data());
     liveWifiVouchers.sort((a, b) => a.hari - b.hari);
@@ -209,9 +198,6 @@ function renderAll() {
   renderWifiVouchers();
 }
 
-// ============================================
-// PRODUCT DETAIL ROUTER
-// ============================================
 function openProductDetails(id) {
   if (!id) return;
   window.location.href = `product.html?id=${id}`;
@@ -373,7 +359,7 @@ function renderEdu() {
 }
 
 // ============================================
-// WIFI TAB SWITCHER
+// WIFI ENGINE
 // ============================================
 function switchWifiTab(type) {
   document.getElementById('btnTabFiber').classList.remove('active');
@@ -390,9 +376,6 @@ function switchWifiTab(type) {
   }
 }
 
-// ============================================
-// WIFI FIBER RENDER
-// ============================================
 function renderWifi() {
   const grid = document.getElementById('wifiGrid');
   if (!grid) return;
@@ -409,9 +392,6 @@ function renderWifi() {
   `).join('');
 }
 
-// ============================================
-// WIFI GPS ENGINE
-// ============================================
 function distanceKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -580,9 +560,6 @@ function submitWifiCoverage(e) {
   }, 4000);
 }
 
-// ============================================
-// WIFI VOUCHER RENDER
-// ============================================
 function renderWifiVouchers() {
   const grid = document.getElementById('voucherGrid');
   if (!grid) return;
@@ -636,17 +613,21 @@ function addToCart(id) {
   const product = liveProducts.find(p => p.id === id);
   if (!product) return;
   const existing = cart.find(c => c.id === id);
-  if (existing) existing.qty++;
-  else {
+  
+  if (existing) {
+    existing.qty++;
+  } else {
     cart.push({
       id: product.id,
       nama: product.nama,
       sellerName: product.sellerName,
+      sellerId: product.sellerId || product.sellerName, // Disimpan untuk halaman checkout/seller
       emoji: product.emoji,
       harga: product.harga,
       qty: 1
     });
   }
+  
   saveCartToStorage();
   updateCartUI();
   showToast(`✓ ${product.nama} ditambahkan!`);
@@ -672,13 +653,26 @@ function changeQty(id, delta) {
 function updateCartUI() {
   const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
   const totalPrice = cart.reduce((sum, c) => sum + (c.harga * c.qty), 0);
+  
+  // Update UI Header / Badge
   const badgeEl = document.getElementById('cartBadge');
-  const totalEl = document.getElementById('cartTotal');
   if (badgeEl) badgeEl.textContent = totalItems;
-  if (totalEl) totalEl.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
 
+  // Update UI Ringkasan Footer (HTML Baru)
+  const elCount = document.getElementById('cartItemCount');
+  const elSub = document.getElementById('cartSubtotal');
+  const elTotal = document.getElementById('cartTotal');
+  const btnGo = document.getElementById('btnGoCheckout');
+
+  if (elCount) elCount.textContent = totalItems;
+  if (elSub) elSub.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
+  if (elTotal) elTotal.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
+  if (btnGo) btnGo.disabled = (cart.length === 0);
+
+  // Render Isi Keranjang
   const cartBody = document.getElementById('cartBody');
   if (!cartBody) return;
+  
   if (cart.length === 0) {
     cartBody.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p>Keranjang kosong</p></div>`;
     return;
@@ -712,35 +706,20 @@ function closeCart() {
   document.getElementById('cartOverlay').classList.remove('show');
 }
 
-function checkoutWA() {
+// ============================================
+// CHECKOUT REDIRECT
+// ============================================
+function goToCheckout() {
   if (cart.length === 0) {
-    showToast('⚠️ Keranjang kosong!');
+    showToast('⚠️ Keranjang Anda masih kosong!');
     return;
   }
-
-  const selectedPaymentVal = document.getElementById('cartPayment').value;
-  let paymentLabel = 'COD (Bayar di Tempat)';
-  if (selectedPaymentVal !== 'cod') {
-    const paymentObj = livePayments.find(p => p.id === selectedPaymentVal);
-    if (paymentObj) {
-      paymentLabel = `${paymentObj.nama} (A/N ${paymentObj.atasNama} — ${paymentObj.nomor || ''})`;
-    }
-  }
-
-  const total = cart.reduce((sum, c) => sum + (c.harga * c.qty), 0);
-  if (typeof recordOrder === 'function') recordOrder(cart, total);
-
-  let msg = `*🛒 PESANAN BARU - PortalWarga*\n===========================\n\n`;
-  cart.forEach((c, i) => {
-    msg += `${i + 1}. *${c.nama}* (${c.qty}x)\n   Toko: ${c.sellerName}\n   Subtotal: *Rp ${(c.harga * c.qty).toLocaleString('id-ID')}*\n\n`;
-  });
-  msg += `------------------------------\n💰 *Total:* Rp ${total.toLocaleString('id-ID')}\n💳 *Bayar:* ${paymentLabel}\n_Belum termasuk ongkir._\n\n📍 Alamat: _(Mohon ketik alamat lengkap)_\n\nTerima kasih! 🙏`;
-
-  window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
-  cart = [];
+  
+  // Pastikan data tersimpan sebelum pindah halaman
   saveCartToStorage();
-  updateCartUI();
-  closeCart();
+  
+  // Redirect ke halaman checkout dedicated
+  window.location.href = 'checkout.html';
 }
 
 // ============================================
