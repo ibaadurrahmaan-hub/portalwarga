@@ -1789,6 +1789,39 @@ i.fa-whatsapp::before {
   .stat-icon { display: none; } /* hemat ruang di HP kecil */
 }
 
+.coverage-card {
+  background: linear-gradient(135deg, #ECFDF5, #F0F9FF);
+  border: 1.5px solid rgba(5, 150, 105, 0.25);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.coverage-card h4 {
+  font-size: 1rem; font-weight: 800; margin-bottom: 6px;
+  color: #0F172A; display: flex; align-items: center; gap: 8px;
+}
+.coverage-meta {
+  font-size: 0.8rem; color: var(--muted); margin-bottom: 10px;
+}
+.coverage-paket {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.coverage-paket span {
+  background: white;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  color: var(--primary);
+  padding: 6px 12px; border-radius: 999px;
+  font-size: 0.75rem; font-weight: 700;
+}
+.coverage-empty {
+  background: #FEF2F2; border: 1.5px solid #FECACA;
+  color: #B91C1C; border-radius: 16px; padding: 16px;
+  font-weight: 600; font-size: 0.9rem; line-height: 1.6;
+}
+#locStatus.ok  { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+#locStatus.err { background: #FEF2F2; color: #B91C1C; border: 1px solid #FECACA; }
+#locStatus.load{ background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+
 /* ============================================
    RESPONSIVE — DESKTOP FIRST FOR NAV
    ============================================ */
