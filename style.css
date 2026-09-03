@@ -1834,6 +1834,134 @@ i.fa-whatsapp::before {
   font-weight: 400 !important;
 }
 
+/* ==========================================================
+   🛠️ PERBAIKAN TATA LETAK MOBILE (WIFI, VOUCHER, & SPACING)
+   Tambahkan kode ini di bagian PALING BAWAH style.css
+   ========================================================== */
+
+/* 1. PERBAIKAN TAB WIFI AGAR LEBIH RAPI DI HP */
+.wifi-tabs {
+  padding: 4px;
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+.wifi-tab-btn {
+  padding: 10px 4px;
+  font-size: 0.8rem;
+  letter-spacing: -0.2px;
+}
+@media (max-width: 768px) {
+  .wifi-tab-btn {
+    flex-direction: column; /* Ikon dan teks ditumpuk atas-bawah di HP */
+    gap: 6px;
+    line-height: 1.2;
+    padding: 12px 4px;
+  }
+  .wifi-tab-btn i {
+    font-size: 1.2rem;
+  }
+}
+
+/* 2. PERBAIKAN KARTU WIFI FIBER (Margin untuk Badge Paling Laris) */
+.wifi-card.popular {
+  margin-top: 24px; /* Memberi ruang agar badge 'Paling Laris' tidak terpotong */
+}
+.wifi-card.popular::after {
+  top: -16px;
+  padding: 6px 16px;
+  font-size: 0.75rem;
+}
+.wifi-price {
+  font-size: 2rem; /* Ukuran harga disesuaikan agar tidak terlalu raksasa di HP */
+}
+
+/* 3. PERBAIKAN TIKET VOUCHER (Mencegah terpotong di pinggir layar) */
+.voucher-grid {
+  padding: 0 8px; /* Memberi jarak aman kiri-kanan */
+}
+.voucher-card {
+  margin: 0;
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25);
+  border: none;
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+}
+/* Memperbaiki bulatan potongan tiket */
+.voucher-card::before, .voucher-card::after {
+  width: 28px;
+  height: 28px;
+  background: var(--bg); /* Warna mengikuti background body */
+  border: none;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.1);
+}
+.voucher-card::before { left: -14px; }
+.voucher-card::after { right: -14px; }
+
+.voucher-head {
+  padding: 20px 24px 16px;
+}
+.voucher-head h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.05rem;
+}
+.v-price {
+  font-size: 2.2rem; /* Memperbesar harga voucher agar menonjol */
+  margin-top: 4px;
+}
+.v-agen-price {
+  font-size: 0.8rem;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 6px 14px;
+}
+.voucher-info-banner {
+  align-items: flex-start; /* Ikon sejajar dengan teks atas jika 2 baris */
+}
+.voucher-info-banner i {
+  margin-top: 2px;
+  font-size: 1.3rem;
+}
+
+/* 4. PERBAIKAN IKON FORM "CEK JARINGAN" */
+.wifi-form-card h3 {
+  align-items: flex-start;
+  line-height: 1.3;
+}
+.wifi-form-card h3 i {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  margin-top: 2px;
+}
+
+/* 5. PERBAIKAN SCROLLING & TOMBOL WHATSAPP MENGAMBANG (FAB) */
+/* Memberikan ruang kosong ekstra di paling bawah halaman agar konten tidak tertutup navigasi hitam */
+.content-area {
+  padding-bottom: 120px; 
+}
+body {
+  padding-bottom: 100px;
+}
+
+@media (max-width: 768px) {
+  /* Mengatur ulang posisi tombol WhatsApp di atas navigasi bawah */
+  .fab-wa {
+    bottom: 95px !important; 
+    right: 16px !important;
+  }
+  .fab-wa i {
+    font-size: 52px !important; /* Sedikit dikecilkan agar tidak menutupi konten */
+  }
+  
+  /* Pastikan form di HP paddingnya pas */
+  .wifi-form-card {
+    padding: 24px 16px;
+  }
+}
+
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
