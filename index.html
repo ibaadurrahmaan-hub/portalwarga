@@ -435,11 +435,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- FIREBASE SDK (Load sebelum script.js) -->
+<!-- FIREBASE SDK COMPAT -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="js/firebase-config.js"></script>
-<script src="script.js"></script>
 
+<!-- 1. KONFIGURASI FIREBASE (Wajib Pertama) -->
+<script src="js/firebase-config.js"></script>
+
+<!-- 2. SCRIPT UTAMA RENDER (Kedua) -->
+<script src="script.js"></script>
 </body>
 </html>
