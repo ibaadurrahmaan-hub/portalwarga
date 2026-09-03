@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Master Seeder PortalWarga v3 — Full 4 Kategori</title>
+<title>Master Seeder PortalWarga v3.1 — Full 4 Kategori</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root {
@@ -64,14 +64,14 @@
 <div class="card">
   <div class="header">
     <div>
-      <span class="badge"><i class="fas fa-database"></i> UNIFIED FIRESTORE v3.0</span>
+      <span class="badge"><i class="fas fa-database"></i> UNIFIED FIRESTORE v3.1</span>
       <h1 style="margin-top: 8px;"><i class="fas fa-rocket"></i> PortalWarga Master Seeder</h1>
     </div>
     <i class="fab fa-firebase" style="font-size: 3rem; color: #f5820d;"></i>
   </div>
   
   <p style="color:var(--text-muted); line-height: 1.6; font-size:0.95rem;">
-    Pusat kendali migrasi data untuk 4 modul utama PortalWarga: <b>Pasar UMKM, Properti Rakyat, Lembaga Pendidikan, & Jaringan Youfiber Regynet.</b>
+    Pusat kendali migrasi data untuk 4 modul utama PortalWarga: <b>Pasar UMKM, Properti Rakyat, Lembaga Pendidikan, & Jaringan WiFi (+ 5 Voucher).</b>
   </p>
 
   <div class="stats-grid">
@@ -92,8 +92,8 @@
     </div>
     <div class="stat-cat wifi">
       <b>📡 WIFI</b>
-      <span>6 Paket + 7 Zona GPS</span>
-      <small>Youfiber Regynet</small>
+      <span>6 Paket + 5 Voucher</span>
+      <small>7 Zona GPS Coverage</small>
     </div>
   </div>
 
@@ -196,106 +196,22 @@ const PAYMENT_METHODS = [
 // ==========================================================================
 const PROPERTIES = [
   { 
-    id: 'prop_01', 
-    emoji: '🏠',
-    type: 'Kontrakan',
-    status: 'Tersedia',
-    title: 'Rumah 2 Kamar Dekat Pasar',
-    loc: 'Ds. Sukamaju, Kec. Utama',
-    price: 'Rp 1,2 Jt/bulan',
-    hargaAsli: 1200000,
-    priceUnit: 'bulan',
-    features: ['2 Kamar Tidur', '1 Kamar Mandi', 'Carport 1 Motor', 'Air Sumur Bor', 'Listrik 900 Watt'],
-    deskripsi: 'Rumah kontrakan bersih & terawat, dekat pusat perbelanjaan pasar warga. Akses jalan lebar, cocok untuk pasangan muda atau keluarga kecil.',
-    pemilik: 'Bu Aminah',
-    kontakPemilik: '081234567801',
-    aktif: true,
-    verified: true
+    id: 'prop_01', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju, Kec. Utama', price: 'Rp 1,2 Jt/bulan', hargaAsli: 1200000, priceUnit: 'bulan', features: ['2 Kamar Tidur', '1 Kamar Mandi', 'Carport 1 Motor', 'Air Sumur Bor', 'Listrik 900 Watt'], deskripsi: 'Rumah kontrakan bersih & terawat, dekat pusat perbelanjaan pasar warga.', pemilik: 'Bu Aminah', kontakPemilik: '081234567801', aktif: true, verified: true
   },
   { 
-    id: 'prop_02', 
-    emoji: '🏡',
-    type: 'Dijual',
-    status: 'Nego',
-    title: 'Rumah Minimalis SHM Baru',
-    loc: 'Ds. Cinta Damai, Kec. Utama',
-    price: 'Rp 350 Jt',
-    hargaAsli: 350000000,
-    priceUnit: 'total',
-    features: ['3 Kamar Tidur', '2 Kamar Mandi', 'LT 90m² LB 60m²', 'SHM Sertifikat', 'Dapur & Ruang Tamu'],
-    deskripsi: 'Rumah baru gress 2024 dengan sertifikat hak milik (SHM). Lokasi strategis, dekat jalan raya, sekolah, dan puskesmas.',
-    pemilik: 'Pak Hendra',
-    kontakPemilik: '081234567802',
-    aktif: true,
-    verified: true
+    id: 'prop_02', emoji: '🏡', type: 'Dijual', status: 'Nego', title: 'Rumah Minimalis SHM Baru', loc: 'Ds. Cinta Damai, Kec. Utama', price: 'Rp 350 Jt', hargaAsli: 350000000, priceUnit: 'total', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'LT 90m² LB 60m²', 'SHM Sertifikat'], deskripsi: 'Rumah baru gress 2024 dengan sertifikat hak milik (SHM).', pemilik: 'Pak Hendra', kontakPemilik: '081234567802', aktif: true, verified: true
   },
   { 
-    id: 'prop_03', 
-    emoji: '🛏️',
-    type: 'Kos Putri',
-    status: 'Sisa 2 Kamar',
-    title: 'Kos Nyaman Dekat Kampus',
-    loc: 'Ds. Mulyasari, Kec. Utama',
-    price: 'Rp 600 Rb/bulan',
-    hargaAsli: 600000,
-    priceUnit: 'bulan',
-    features: ['AC Split', 'WiFi Youfiber', 'K.Mandi Dalam', 'Lemari & Kasur', 'Include Laundry 5kg'],
-    deskripsi: 'Kos eksklusif khusus putri, aman & nyaman. Dekat dengan area kampus dan pusat kuliner. Bebas biaya listrik & air.',
-    pemilik: 'Bu Yanti (Ibu Kos)',
-    kontakPemilik: '081234567803',
-    aktif: true,
-    verified: true
+    id: 'prop_03', emoji: '🛏️', type: 'Kos Putri', status: 'Sisa 2 Kamar', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari, Kec. Utama', price: 'Rp 600 Rb/bulan', hargaAsli: 600000, priceUnit: 'bulan', features: ['AC Split', 'WiFi Youfiber', 'K.Mandi Dalam', 'Lemari & Kasur'], deskripsi: 'Kos eksklusif khusus putri, aman & nyaman. Bebas biaya listrik & air.', pemilik: 'Bu Yanti', kontakPemilik: '081234567803', aktif: true, verified: true
   },
   { 
-    id: 'prop_04', 
-    emoji: '🌾',
-    type: 'Tanah Dijual',
-    status: 'Cash Keras',
-    title: 'Tanah Datar Cocok Usaha',
-    loc: 'Jl. Raya Kec. Utama KM 5',
-    price: 'Rp 500 Jt',
-    hargaAsli: 500000000,
-    priceUnit: 'total',
-    features: ['Luas 200 m²', 'SHM Sertifikat', 'Pinggir Jalan Raya', 'Sudah Bebas Banjir', 'Cocok Ruko/Toko'],
-    deskripsi: 'Tanah strategis pinggir jalan raya utama kecamatan. Sangat cocok untuk gudang, ruko, atau tempat usaha. Bebas sengketa.',
-    pemilik: 'Pak Rudi',
-    kontakPemilik: '081234567804',
-    aktif: true,
-    verified: true
+    id: 'prop_04', emoji: '🌾', type: 'Tanah Dijual', status: 'Cash Keras', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec. Utama KM 5', price: 'Rp 500 Jt', hargaAsli: 500000000, priceUnit: 'total', features: ['Luas 200 m²', 'SHM Sertifikat', 'Pinggir Jalan Raya', 'Cocok Ruko/Toko'], deskripsi: 'Tanah strategis pinggir jalan raya utama kecamatan.', pemilik: 'Pak Rudi', kontakPemilik: '081234567804', aktif: true, verified: true
   },
   { 
-    id: 'prop_05', 
-    emoji: '🏘️',
-    type: 'Kontrakan',
-    status: 'Tersedia',
-    title: 'Rumah 3 Kamar + Halaman Luas',
-    loc: 'Ds. Sejahtera, Kec. Utama',
-    price: 'Rp 1,8 Jt/bulan',
-    hargaAsli: 1800000,
-    priceUnit: 'bulan',
-    features: ['3 Kamar Tidur', '2 Kamar Mandi', 'Halaman 40m²', 'Carport 2 Mobil', 'Listrik 1300 Watt'],
-    deskripsi: 'Kontrakan untuk keluarga besar, halaman luas cocok untuk anak bermain atau kebun sayur mini. Lingkungan tenang & aman.',
-    pemilik: 'Pak Yusuf',
-    kontakPemilik: '081234567805',
-    aktif: true,
-    verified: true
+    id: 'prop_05', emoji: '🏘️', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar + Halaman Luas', loc: 'Ds. Sejahtera, Kec. Utama', price: 'Rp 1,8 Jt/bulan', hargaAsli: 1800000, priceUnit: 'bulan', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'Halaman 40m²', 'Carport 2 Mobil'], deskripsi: 'Kontrakan untuk keluarga besar, halaman luas cocok untuk kebun mini.', pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', aktif: true, verified: true
   },
   { 
-    id: 'prop_06', 
-    emoji: '🏬',
-    type: 'Kos Putra',
-    status: 'Sisa 3 Kamar',
-    title: 'Kos Pria Ekonomis Kec. Utama',
-    loc: 'Ds. Mulyasari, Kec. Utama',
-    price: 'Rp 450 Rb/bulan',
-    hargaAsli: 450000,
-    priceUnit: 'bulan',
-    features: ['Kasur & Lemari', 'K.Mandi Luar', 'WiFi Bersama', 'Free Parkir Motor', 'Dapur Umum'],
-    deskripsi: 'Kos putra ekonomis harga terjangkau, dekat dengan pabrik & area industri. Cocok untuk karyawan atau mahasiswa.',
-    pemilik: 'Pak Danu (Bapak Kos)',
-    kontakPemilik: '081234567806',
-    aktif: true,
-    verified: true
+    id: 'prop_06', emoji: '🏬', type: 'Kos Putra', status: 'Sisa 3 Kamar', title: 'Kos Pria Ekonomis Kec. Utama', loc: 'Ds. Mulyasari, Kec. Utama', price: 'Rp 450 Rb/bulan', hargaAsli: 450000, priceUnit: 'bulan', features: ['Kasur & Lemari', 'K.Mandi Luar', 'WiFi Bersama', 'Dapur Umum'], deskripsi: 'Kos putra ekonomis harga terjangkau, cocok untuk karyawan.', pemilik: 'Pak Danu', kontakPemilik: '081234567806', aktif: true, verified: true
   }
 ];
 
@@ -304,93 +220,27 @@ const PROPERTIES = [
 // ==========================================================================
 const EDUCATIONS = [
   { 
-    id: 'edu_01', 
-    emoji: '📚',
-    type: 'Bimbel Akademik',
-    name: 'Bimbel Cerdas Bersama',
-    desc: 'Bimbingan belajar khusus SD, SMP, hingga persiapan UTBK SMA. Metode private (1-on-1) atau kelas kecil maksimal 5 anak. Tutor lulusan universitas ternama.',
-    alamat: 'Jl. Pendidikan No. 20, Kec. Utama',
-    kontak: '081234567810',
-    biaya: 'Mulai Rp 250 Rb/bulan',
-    jadwal: 'Senin - Sabtu, 15:00 - 20:00',
-    fasilitas: ['AC', 'Modul Gratis', 'Try Out Bulanan'],
-    aktif: true,
-    verified: true
+    id: 'edu_01', emoji: '📚', type: 'Bimbel Akademik', name: 'Bimbel Cerdas Bersama', desc: 'Bimbingan belajar khusus SD, SMP, hingga persiapan UTBK SMA.', alamat: 'Jl. Pendidikan No. 20, Kec. Utama', kontak: '081234567810', biaya: 'Mulai Rp 250 Rb/bulan', jadwal: 'Senin - Sabtu, 15:00 - 20:00', fasilitas: ['AC', 'Modul Gratis', 'Try Out Bulanan'], aktif: true, verified: true
   },
   { 
-    id: 'edu_02', 
-    emoji: '🕌',
-    type: 'TPQ / Madrasah',
-    name: 'TPQ Al-Hidayah',
-    desc: 'Pendidikan agama Islam terpadu: membaca Al-Qur\'an (metode Iqra/Tilawati), tahfidz juz 30, praktek ibadah, dan pembinaan akhlak mulia untuk anak usia 4-12 tahun.',
-    alamat: 'Masjid Al-Hidayah, Ds. Sukamaju',
-    kontak: '081234567811',
-    biaya: 'Rp 75 Rb/bulan (infaq)',
-    jadwal: 'Setiap hari ba\'da Ashar',
-    fasilitas: ['Ustadz/Ustadzah Berpengalaman', 'Buku Iqra Gratis'],
-    aktif: true,
-    verified: true
+    id: 'edu_02', emoji: '🕌', type: 'TPQ / Madrasah', name: 'TPQ Al-Hidayah', desc: 'Pendidikan agama Islam terpadu: tahfidz & pembinaan akhlak mulia.', alamat: 'Masjid Al-Hidayah, Ds. Sukamaju', kontak: '081234567811', biaya: 'Rp 75 Rb/bulan (infaq)', jadwal: 'Setiap hari ba\'da Ashar', fasilitas: ['Ustadz Berpengalaman', 'Buku Iqra Gratis'], aktif: true, verified: true
   },
   { 
-    id: 'edu_03', 
-    emoji: '💻',
-    type: 'Kursus Skill',
-    name: 'Kursus Komputer Cepat',
-    desc: 'Program keahlian digital: Microsoft Office (Word, Excel, PowerPoint), desain grafis (Canva, Photoshop), dan digital marketing (Meta Ads, SEO). Bersertifikat.',
-    alamat: 'Ruko Cendana No. 5, Jl. Raya Kec.',
-    kontak: '081234567812',
-    biaya: 'Rp 500 Rb - 1,5 Jt/paket',
-    jadwal: 'Flexible sesuai jadwal Anda',
-    fasilitas: ['Sertifikat Resmi', 'Praktek Langsung', '10 PC Modern'],
-    aktif: true,
-    verified: true
+    id: 'edu_03', emoji: '💻', type: 'Kursus Skill', name: 'Kursus Komputer Cepat', desc: 'Program keahlian digital: Microsoft Office, desain grafis & digital marketing.', alamat: 'Ruko Cendana No. 5, Jl. Raya Kec.', kontak: '081234567812', biaya: 'Rp 500 Rb - 1,5 Jt/paket', jadwal: 'Flexible sesuai jadwal Anda', fasilitas: ['Sertifikat Resmi', '10 PC Modern'], aktif: true, verified: true
   },
   { 
-    id: 'edu_04', 
-    emoji: '🎨',
-    type: 'Sanggar Seni',
-    name: 'Sanggar Kreasi Anak',
-    desc: 'Kelas kesenian anak: melukis, menari tradisional (jaipong, saman), musik (gitar, piano), dan drama. Membantu pengembangan bakat & kreativitas anak sejak dini.',
-    alamat: 'Balai Desa Cinta Damai',
-    kontak: '081234567813',
-    biaya: 'Rp 150 Rb/bulan/kelas',
-    jadwal: 'Sabtu - Minggu, 09:00 - 15:00',
-    fasilitas: ['Ruang Latihan Luas', 'Instrumen Lengkap'],
-    aktif: true,
-    verified: true
+    id: 'edu_04', emoji: '🎨', type: 'Sanggar Seni', name: 'Sanggar Kreasi Anak', desc: 'Kelas kesenian anak: melukis, menari tradisional, musik, dan drama.', alamat: 'Balai Desa Cinta Damai', kontak: '081234567813', biaya: 'Rp 150 Rb/bulan/kelas', jadwal: 'Sabtu - Minggu, 09:00 - 15:00', fasilitas: ['Ruang Latihan Luas', 'Instrumen Lengkap'], aktif: true, verified: true
   },
   { 
-    id: 'edu_05', 
-    emoji: '⚽',
-    type: 'Sekolah Sepak Bola',
-    name: 'SSB Kec. Utama',
-    desc: 'Sekolah sepak bola untuk anak usia 6-15 tahun. Dilatih oleh mantan pemain Liga 2. Melatih teknik dasar, fisik, dan sportivitas.',
-    alamat: 'Lapangan Utama Kec., Ds. Sejahtera',
-    kontak: '081234567814',
-    biaya: 'Rp 100 Rb/bulan',
-    jadwal: 'Selasa, Kamis, Sabtu (16:00)',
-    fasilitas: ['Jersey Latihan Gratis', 'Ikut Turnamen Antar-Kec.'],
-    aktif: true,
-    verified: true
+    id: 'edu_05', emoji: '⚽', type: 'Sekolah Sepak Bola', name: 'SSB Kec. Utama', desc: 'Sekolah sepak bola untuk anak usia 6-15 tahun.', alamat: 'Lapangan Utama Kec., Ds. Sejahtera', kontak: '081234567814', biaya: 'Rp 100 Rb/bulan', jadwal: 'Selasa, Kamis, Sabtu (16:00)', fasilitas: ['Jersey Latihan Gratis', 'Ikut Turnamen'], aktif: true, verified: true
   },
   { 
-    id: 'edu_06', 
-    emoji: '🗣️',
-    type: 'Kursus Bahasa',
-    name: 'English Corner Kec. Utama',
-    desc: 'Kursus Bahasa Inggris untuk semua level: kids, teens, professionals. Metode conversation-based, native teacher available. Persiapan TOEFL & IELTS.',
-    alamat: 'Ruko Bougenvile, Jl. Raya Kec.',
-    kontak: '081234567815',
-    biaya: 'Rp 350 Rb/bulan',
-    jadwal: 'Senin - Jumat, 16:00 - 20:00',
-    fasilitas: ['Native Speaker', 'Kelas Interaktif', 'Modul Cambridge'],
-    aktif: true,
-    verified: true
+    id: 'edu_06', emoji: '🗣️', type: 'Kursus Bahasa', name: 'English Corner Kec. Utama', desc: 'Kursus Bahasa Inggris untuk semua level: kids, teens, professionals.', alamat: 'Ruko Bougenvile, Jl. Raya Kec.', kontak: '081234567815', biaya: 'Rp 350 Rb/bulan', jadwal: 'Senin - Jumat, 16:00 - 20:00', fasilitas: ['Native Speaker', 'Modul Cambridge'], aktif: true, verified: true
   }
 ];
 
 // ==========================================================================
-// ============ DATA SET 4: WIFI (PACKAGES & GPS COVERAGE) ==================
+// ============ DATA SET 4: WIFI (PACKAGES, VOUCHERS & GPS COVERAGE) ========
 // ==========================================================================
 const WIFI_PACKAGES = [
   { id: 1, name: 'Ekonomis', speed: '10', price: '130.000', features: ['Batas Kecepatan 10 Mbps', 'Unlimited Tanpa FUP', 'Gratis Sewa Modem', 'CS 24 Jam'], popular: false, aktif: true },
@@ -411,6 +261,14 @@ const WIFI_COVERAGE = [
   { id: 'G', nama: 'Kec. Cijeruk, Bogor', lat: -6.715115, lng: 106.793385, radiusKm: 4, paket: [{ name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }] }
 ];
 
+const WIFI_VOUCHERS = [
+  { id: 'v_1', hari: 1, hargaAgen: 2500, hargaUser: 3000, persen: 17, aktif: true },
+  { id: 'v_4', hari: 4, hargaAgen: 8500, hargaUser: 10000, persen: 15, aktif: true },
+  { id: 'v_7', hari: 7, hargaAgen: 17000, hargaUser: 20000, persen: 15, aktif: true },
+  { id: 'v_15', hari: 15, hargaAgen: 31000, hargaUser: 35000, persen: 11, aktif: true },
+  { id: 'v_30', hari: 30, hargaAgen: 45000, hargaUser: 50000, persen: 10, aktif: true }
+];
+
 // ==========================================================================
 // ============ INJECTION ENGINE - BATCH FIRESTORE ==========================
 // ==========================================================================
@@ -423,42 +281,37 @@ async function seedAll() {
 
   try {
     log('════════════════════════════════════════', 'info');
-    log('🚀 MULAI MIGRASI DATA UNIFIED PORTALWARGA v3.0', 'info');
+    log('🚀 MULAI MIGRASI DATA UNIFIED PORTALWARGA v3.1', 'info');
     log('════════════════════════════════════════', 'info');
 
     // ================ KATEGORI 1: PASAR ================
     log('', 'info');
     log('╔════ 🛒 KATEGORI 1: PASAR (E-COMMERCE) ════╗', 'cat');
     
-    // Sellers
     log('👥 Uploading Merchant Sellers...', 'info');
     const sellerBatch = db.batch();
     SELLERS.forEach(s => sellerBatch.set(db.collection('sellers').doc(s.id), { ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp() }));
     await sellerBatch.commit();
     log(`   ✅ ${SELLERS.length} merchant terdaftar.`, 'ok');
 
-    // Products
     log('📦 Uploading Katalog Produk...', 'info');
     const prodBatch = db.batch();
     PRODUCTS.forEach(p => prodBatch.set(db.collection('produk').doc(String(p.id)), { ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
     await prodBatch.commit();
     log(`   ✅ ${PRODUCTS.length} katalog produk online.`, 'ok');
 
-    // Legacy compatibility
     log('🔄 Syncing legacy "pasar" collection...', 'info');
     const legacyBatch = db.batch();
     PRODUCTS.forEach(p => legacyBatch.set(db.collection('pasar').doc(String(p.id)), { id: p.id, emoji: p.emoji, name: p.nama, vendor: p.sellerName, price: p.harga }));
     await legacyBatch.commit();
     log('   ✅ Kompatibilitas legacy aman.', 'ok');
 
-    // Reviews
     log('⭐ Uploading Ulasan & Rating...', 'info');
     const reviewBatch = db.batch();
     REVIEWS.forEach(r => reviewBatch.set(db.collection('reviews').doc(), { ...r, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
     await reviewBatch.commit();
     log(`   ✅ ${REVIEWS.length} ulasan terintegrasi.`, 'ok');
 
-    // Payments
     log('💳 Uploading Metode Pembayaran...', 'info');
     const payBatch = db.batch();
     PAYMENT_METHODS.forEach(pm => payBatch.set(db.collection('payment_methods').doc(pm.id), pm));
@@ -498,11 +351,17 @@ async function seedAll() {
     await wifiCovBatch.commit();
     log(`   ✅ ${WIFI_COVERAGE.length} zona coverage GPS terkunci.`, 'ok');
 
+    log('🎟️ Uploading Paket Voucher Hotspot...', 'info');
+    const wifiVoucherBatch = db.batch();
+    WIFI_VOUCHERS.forEach(v => wifiVoucherBatch.set(db.collection('wifi_vouchers').doc(v.id), v));
+    await wifiVoucherBatch.commit();
+    log(`   ✅ ${WIFI_VOUCHERS.length} paket voucher online.`, 'ok');
+
     // ================ FINALIZE ================
     log('', 'info');
     log('════════════════════════════════════════', 'info');
     log('🎉 SEEDING SEMUA MODUL BERHASIL!', 'ok');
-    log('   📊 4 Kategori · 8 Koleksi · Total ' + (SELLERS.length + PRODUCTS.length + REVIEWS.length + PAYMENT_METHODS.length + PROPERTIES.length + EDUCATIONS.length + WIFI_PACKAGES.length + WIFI_COVERAGE.length) + ' dokumen', 'ok');
+    log('   📊 Data lengkap & tersinkronisasi 100%', 'ok');
     log('════════════════════════════════════════', 'info');
 
   } catch (error) {
@@ -524,7 +383,6 @@ async function clearAll() {
   btnC.disabled = true;
   btnC.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
 
-  // DITAMBAHKAN: 'wifi_vouchers'
   const collections = ['sellers', 'produk', 'pasar', 'reviews', 'payment_methods', 'properti', 'pendidikan', 'wifi_packages', 'wifi_coverage', 'wifi_vouchers'];
 
   try {
