@@ -232,76 +232,35 @@ function populatePaymentMethods() {
   }).join('') + '<option value="cod">💵 COD (Bayar di Tempat)</option>';
 }
 
-// ============================================
-// PRODUCT DETAIL MODAL
-// ============================================
+// ==========================================================================
+// PRODUCT DETAIL ROUTER (REPLACES LEGACY POPUP MODAL)
+// ==========================================================================
+
+/**
+ * Mengarahkan pengguna secara mulus ke halaman detail produk premium
+ * @param {String|Number} id - ID unik produk dari Firestore
+ */
 function openProductDetails(id) {
-  const prod = liveProducts.find(x => x.id === id);
-  if (!prod) return;
-
-  document.getElementById('modalEmoji').textContent = prod.emoji;
-  document.getElementById('modalSellerName').innerHTML = `<i class="fas fa-store"></i> ${prod.sellerName}`;
-  document.getElementById('modalProductName').textContent = prod.nama;
-  document.getElementById('modalPrice').textContent = `Rp ${prod.harga.toLocaleString('id-ID')}`;
+  if (!id) return;
   
-  const strikePriceEl = document.getElementById('modalStrikePrice');
-  if (prod.hargaCoret) {
-    strikePriceEl.style.display = 'inline';
-    strikePriceEl.textContent = `Rp ${prod.hargaCoret.toLocaleString('id-ID')}`;
-  } else {
-    strikePriceEl.style.display = 'none';
+  // Berikan efek transisi visual tipis sebelum berpindah halaman
+  const targetCard = document.querySelector(`.product-card img, .product-card .product-img`);
+  if (targetCard) {
+    targetCard.style.transform = 'scale(0.95)';
+    targetCard.style.opacity = '0.7';
   }
-
-  const discEl = document.getElementById('modalDiscount');
-  if (prod.diskon) {
-    discEl.style.display = 'inline-block';
-    discEl.textContent = `Diskon ${prod.diskon}%`;
-  } else {
-    discEl.style.display = 'none';
-  }
-
-  document.getElementById('modalUnit').textContent = prod.satuan || 'Pcs';
-  document.getElementById('modalStock').textContent = `${prod.stok || 'Tersedia'} unit`;
-  document.getElementById('modalWeight').textContent = prod.berat ? `${prod.berat} gr` : '-';
-  document.getElementById('modalDesc').textContent = prod.deskripsi || 'Tidak ada deskripsi.';
   
-  const tagBox = document.getElementById('modalTags');
-  if (prod.tags && prod.tags.length > 0) {
-    tagBox.style.display = 'flex';
-    tagBox.innerHTML = prod.tags.map(t => `<span>#${t}</span>`).join('');
-  } else {
-    tagBox.style.display = 'none';
-  }
-
-  const reviewCount = document.getElementById('modalReviewCount');
-  const reviewList = document.getElementById('reviewsContainer');
-  const matchingReviews = liveReviews.filter(r => r.productId === id);
-
-  reviewCount.textContent = matchingReviews.length;
-  if (matchingReviews.length > 0) {
-    reviewList.innerHTML = matchingReviews.map(r => `
-      <div class="review-item">
-        <div class="review-meta"><strong>${r.userName}</strong> · <span style="color:#eab308">${'★'.repeat(r.rating)}</span></div>
-        <p class="review-comment">"${r.komentar}"</p>
-        ${r.balasanSeller ? `<div class="review-reply"><strong>Balasan Mitra:</strong> ${r.balasanSeller}</div>` : ''}
-      </div>
-    `).join('');
-  } else {
-    reviewList.innerHTML = `<p style="color:var(--muted); font-size:0.8rem">Belum ada ulasan.</p>`;
-  }
-
-  document.getElementById('modalAddBtn').onclick = () => {
-    addToCart(prod.id);
-    closeProductModal(null);
-  };
-
-  document.getElementById('productModal').classList.add('open');
+  // Arahkan langsung ke halaman detail khusus
+  setTimeout(() => {
+    window.location.href = `product.html?id=${id}`;
+  }, 100);
 }
 
+/**
+ * @deprecated Dipertahankan hanya untuk mencegah error fungsi legacy
+ */
 function closeProductModal(e) {
-  if (e === null || e.target === document.getElementById('productModal') || e.target.classList.contains('modal-close-btn')) {
-    document.getElementById('productModal').classList.remove('open');
-  }
+  console.log("ℹ️ Modal pop-up telah dinonaktifkan. Sistem sekarang menggunakan product.html.");
 }
 
 // ============================================
