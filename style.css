@@ -546,6 +546,71 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   z-index: 20 !important;
 }
 
+/* ==========================================================
+   🎯 FIX HARGA PRODUK PASAR (1 BARIS, TIDAK TURUN)
+   ========================================================== */
+
+/* 1. Baris Harga - Pastikan Anak Elemen Tidak Turun */
+.price-row {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 6px !important;
+  flex-wrap: nowrap !important;      /* WAJIB: Jangan wrap ke bawah */
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  width: 100% !important;
+}
+
+/* 2. Harga Utama (Aktif) - Paksa Tetap Sejajar Rapi */
+.price-row > span:first-child {
+  white-space: nowrap !important;    /* Rp dan angka wajib nyambung */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex-shrink: 0 !important;         /* Jangan boleh menyusut */
+}
+
+/* 3. Harga Coret - Kalau kesempitan, dia yg mengalah (bukan harga utama) */
+.strike-price {
+  white-space: nowrap !important;
+  flex-shrink: 1 !important;         /* Boleh menyusut jika sempit */
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  opacity: 0.8;
+}
+
+/* ==========================================================
+   📱 KHUSUS MOBILE (Perkecil Font Harga Agar Muat Semua)
+   ========================================================== */
+@media (max-width: 768px) {
+  .price-row > span:first-child {
+    font-size: 0.9rem !important;    /* Diperkecil supaya "Rp XX.XXX" muat */
+    letter-spacing: -0.3px !important;
+  }
+  .strike-price {
+    font-size: 0.7rem !important;
+  }
+  .product-info {
+    padding: 12px 10px !important;   /* Padding samping dikurangi */
+  }
+  .product-vendor {
+    font-size: 0.62rem !important;
+  }
+  .product-name {
+    font-size: 0.88rem !important;
+  }
+}
+
+/* Layar sangat kecil (Iphone SE, dll) - font lebih kecil lagi */
+@media (max-width: 380px) {
+  .price-row > span:first-child {
+    font-size: 0.82rem !important;
+  }
+  .strike-price {
+    display: none !important;         /* Sembunyikan harga coret jika layar terlalu sempit */
+  }
+}
+
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
