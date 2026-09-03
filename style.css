@@ -611,6 +611,121 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   }
 }
 
+/* ============ CART FOOTER REFACTOR ============ */
+.cart-summary-box {
+  background: #fff;
+  border: 1.5px solid var(--border, #E2E8F0);
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+}
+
+.cart-sum-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 0.88rem;
+  color: #475569;
+}
+
+.cart-sum-row b {
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.cart-sum-row.muted {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  font-style: italic;
+  padding: 6px 0;
+  margin: 2px 0;
+  border-top: 1px dashed var(--border, #E2E8F0);
+  border-bottom: 1px dashed var(--border, #E2E8F0);
+  gap: 6px;
+}
+
+.cart-sum-row.muted i {
+  color: #0284C7;
+  margin-right: 4px;
+}
+
+.cart-sum-row.grand {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0F172A;
+  padding-top: 8px;
+}
+
+.cart-sum-row.grand b {
+  color: #059669;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.cart-actions {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+}
+
+.btn-cart-continue {
+  background: #F1F5F9;
+  color: #475569;
+  border: none;
+  padding: 13px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.25s ease;
+}
+
+.btn-cart-continue:hover {
+  background: #E2E8F0;
+}
+
+.btn-cart-checkout {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #fff;
+  border: none;
+  padding: 13px 10px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+}
+
+.btn-cart-checkout:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(16, 185, 129, 0.45);
+}
+
+.btn-cart-checkout:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #94A3B8;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Sembunyikan sisa elemen lama (jika masih ke-render dari cache) */
+.checkout-form-block,
+#cartPayment,
+.btn-checkout { /* tombol WA lama — biarkan tersembunyi jika masih ada di DOM */ }
+
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
