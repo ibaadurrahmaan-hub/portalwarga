@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0284C7">
+<title>Etalase Toko — PortalWarga</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+:root {
+  --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+  --text-secondary: #475569;
+  --border-light: #E2E8F0;
+  --bg-alt: #F8FAFC;
+  --text: #0F172A;
+}
+
+body {
+  background: #FAFBFC;
+}
+
+.seller-page {
+  padding-bottom: 100px;
+  animation: fade-in 0.6s ease;
+}
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* BACK BUTTON */
+.pd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin: 24px 0;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+  transition: all 0.3s ease;
+}
+.pd-back:hover { transform: translateX(-4px); background: var(--primary-light); }
+
+/* SELLER BANNER / HERO */
+.seller-hero {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 50%, #0C4A6E 100%);
+  border-radius: 28px;
+  padding: 30px 28px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(2, 132, 199, 0.2);
+  margin-bottom: 24px;
+}
+
+.seller-hero::before {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.seller-info-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.seller-avatar-big {
+  width: 90px;
+  height: 90px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  flex-shrink: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.seller-info-main h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.seller-verify {
+  color: #7DD3FC;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+.seller-info-main p {
+  font-size: 0.88rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.seller-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+.seller-badges span {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* SELLER STATS */
+.seller-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.seller-stat-box {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 14px 8px;
+  border-radius: 16px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.seller-stat-box b {
+  display: block;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.2;
+}
+.seller-stat-box span {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* CONTACT & JAM BUKA CARD */
+.seller-meta-card {
+  background: white;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  border: 1px solid var(--border-light);
+  display: grid;
+  gap: 14px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.9rem;
+}
+
+.meta-row i {
+  width: 40px;
+  height: 40px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.meta-row .meta-label {
+  color: var(--muted);
+  font-weight: 500;
+  font-size: 0.78rem;
+  display: block;
+}
+.meta-row .meta-value {
+  color: var(--text);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.btn-chat-seller {
+  width: 100%;
+  background: #25D366;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: inherit;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+}
+.btn-chat-seller:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(37, 211, 102, 0.45);
+}
+
+/* ETALASE PRODUCT SECTION */
+.seller-etalase-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+.seller-etalase-title i {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3);
+}
+.seller-etalase-title small {
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-left: auto;
+}
+
+/* GRID PRODUK Toko */
+.seller-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.sp-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: var(--text);
+  display: block;
+}
+.sp-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+  border-color: var(--pasar);
+}
+
+.sp-img {
+  height: 130px;
+  background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
+  position: relative;
+}
+
+.sp-disc {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: linear-gradient(135deg, #DC2626, #EF4444);
+  color: white;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.sp-info { padding: 12px 14px; }
+.sp-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.4em;
+}
+.sp-price {
+  color: var(--pasar);
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 2px;
+}
+.sp-meta {
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* NOT FOUND */
+.pd-not-found {
+  text-align: center;
+  padding: 100px 20px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+.pd-not-found i { font-size: 5rem; color: var(--muted); margin-bottom: 20px; opacity: 0.4; }
+.pd-not-found h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 8px; }
+.pd-not-found p { color: var(--muted); margin-bottom: 24px; }
+
+/* LOADING */
+.pd-loading { text-align: center; padding: 120px 20px; color: var(--muted); }
+.pd-loading i { font-size: 3.5rem; margin-bottom: 20px; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: spin 1s linear infinite; display: inline-block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* WA FIX */
+.fa-whatsapp, .fab.fa-whatsapp, i.fa-whatsapp {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+@media (max-width: 768px) {
+  .seller-hero { padding: 24px 20px; border-radius: 24px; }
+  .seller-info-row { flex-direction: column; text-align: center; gap: 14px; }
+  .seller-badges { justify-content: center; }
+  .seller-avatar-big { width: 80px; height: 80px; font-size: 2.5rem; }
+  .seller-info-main h1 { justify-content: center; font-size: 1.3rem; }
+  .seller-stats-row { gap: 8px; }
+  .seller-stat-box { padding: 12px 4px; }
+  .seller-stat-box b { font-size: 1rem; }
+  .seller-stat-box span { font-size: 0.62rem; }
+  .fab-wa { display: none !important; }
+  .seller-products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sp-img { height: 100px; font-size: 2.8rem; }
+  .sp-name { font-size: 0.8rem; }
+  .sp-price { font-size: 0.9rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="app-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="portalwarga.png" alt="PortalWarga" style="height: 42px; border-radius: 8px;" onerror="this.src='https://placehold.co/80x80?text=PW'">
+        <div class="brand-text">
+          <strong>PortalWarga</strong>
+        </div>
+      </a>
+      <div class="header-actions">
+        <button class="btn-cart" onclick="location.href='index.html?openCart=1'" aria-label="Keranjang">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="https://wa.me/6285267891619" class="btn-cs" title="CS WhatsApp" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ CONTENT ============ -->
+<div class="container seller-page">
+  <a href="index.html" class="pd-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+  
+  <div id="sellerContent">
+    <div class="pd-loading">
+      <i class="fas fa-spinner"></i>
+      <p>Memuat data toko...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const CS_WA = '6285267891619';
+
+let currentSeller = null;
+let sellerProducts = [];
+
+function getParam(name) { return new URLSearchParams(location.search).get(name); }
+function rupiah(n) { return 'Rp ' + Number(n).toLocaleString('id-ID'); }
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('pw_cart') || '[]');
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = cart.reduce((s, c) => s + c.qty, 0);
+}
+
+// ==================== LOAD DATA ====================
+async function loadSeller() {
+  const sellerId = getParam('id');
+  if (!sellerId) return renderNotFound();
+
+  try {
+    // 1. Load Seller
+    const sDoc = await db.collection('sellers').doc(sellerId).get();
+    if (!sDoc.exists) return renderNotFound();
+    currentSeller = { id: sDoc.id, ...sDoc.data() };
+
+    // 2. Load Semua Produk milik seller ini
+    const pSnap = await db.collection('produk').where('sellerId', '==', sellerId).get();
+    sellerProducts = pSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+
+    render(currentSeller, sellerProducts);
+  } catch (e) {
+    console.error(e);
+    document.getElementById('sellerContent').innerHTML = `
+      <div class="pd-not-found">
+        <i class="fas fa-exclamation-triangle" style="color:#EF4444"></i>
+        <h3>Gagal Memuat Toko</h3>
+        <p>${e.message}</p>
+        <a href="index.html" class="pd-back"><i class="fas fa-arrow-left"></i> Kembali</a>
+      </div>`;
+  }
+}
+
+function renderNotFound() {
+  document.getElementById('sellerContent').innerHTML = `
+    <div class="pd-not-found">
+      <i class="fas fa-store-slash"></i>
+      <h3>Toko Tidak Ditemukan</h3>
+      <p>Maaf, toko yang Anda cari sudah tidak tersedia atau ID toko tidak valid.</p>
+      <a href="index.html" class="pd-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+    </div>`;
+}
+
+// ==================== RENDER ====================
+function render(s, products) {
+  const badgesHtml = (s.badges && s.badges.length > 0) 
+    ? `<div class="seller-badges">${s.badges.map(b => `<span>${b}</span>`).join('')}</div>` 
+    : '';
+  
+  const totalProduk = products.length;
+  const teksChat = encodeURIComponent(`Halo ${s.nama}, saya melihat toko Anda di PortalWarga dan tertarik dengan produk Anda. Bisa dibantu?`);
+  const noTelp = s.telepon || CS_WA;
+
+  const productsHtml = products.length > 0 ? `
+    <div class="seller-products-grid">
+      ${products.map(p => `
+        <a href="product.html?id=${p.id}" class="sp-card">
+          <div class="sp-img">
+            ${p.emoji}
+            ${p.diskon ? `<span class="sp-disc">-${p.diskon}%</span>` : ''}
+          </div>
+          <div class="sp-info">
+            <div class="sp-name">${p.nama}</div>
+            <div class="sp-price">${rupiah(p.harga)}</div>
+            <div class="sp-meta">⭐ ${p.rating || 5} · ${p.terjual || 0} terjual</div>
+          </div>
+        </a>
+      `).join('')}
+    </div>
+  ` : `
+    <div style="text-align:center; padding:40px 20px; background:#f8fafc; border-radius:16px; color:var(--muted)">
+      <i class="fas fa-box-open" style="font-size:3rem; opacity:0.3; margin-bottom:12px; display:block"></i>
+      <p>Toko ini belum menambahkan produk apapun.</p>
+    </div>
+  `;
+
+  document.getElementById('sellerContent').innerHTML = `
+    <!-- BANNER SELLER -->
+    <div class="seller-hero">
+      <div class="seller-info-row">
+        <div class="seller-avatar-big">${s.emoji || '🏪'}</div>
+        <div class="seller-info-main">
+          <h1>${s.nama} ${s.verified ? '<i class="fas fa-check-circle seller-verify"></i>' : ''}</h1>
+          <p>${s.deskripsi || 'UMKM Terpercaya di PortalWarga'}</p>
+          ${badgesHtml}
+        </div>
+      </div>
+
+      <div class="seller-stats-row">
+        <div class="seller-stat-box">
+          <b>⭐ ${s.rating || '5.0'}</b>
+          <span>${s.totalReview || 0} Ulasan</span>
+        </div>
+        <div class="seller-stat-box">
+          <b>${totalProduk}</b>
+          <span>Produk</span>
+        </div>
+        <div class="seller-stat-box">
+          <b>${s.totalTerjual || 0}+</b>
+          <span>Terjual</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- META CARD (ADDRESS & CONTACT) -->
+    <div class="seller-meta-card">
+      ${s.alamat ? `
+      <div class="meta-row">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <div class="meta-label">Alamat Lapak</div>
+          <div class="meta-value">${s.alamat}</div>
+        </div>
+      </div>` : ''}
+      
+      ${s.jamBuka ? `
+      <div class="meta-row">
+        <i class="fas fa-clock"></i>
+        <div>
+          <div class="meta-label">Jam Operasional</div>
+          <div class="meta-value">${s.jamBuka} - ${s.jamTutup} WIB</div>
+        </div>
+      </div>` : ''}
+
+      ${s.jarak ? `
+      <div class="meta-row">
+        <i class="fas fa-route" style="color:#059669; background:#DCFCE7"></i>
+        <div>
+          <div class="meta-label">Estimasi Jarak</div>
+          <div class="meta-value">${s.jarak} dari Anda</div>
+        </div>
+      </div>` : ''}
+      
+      <a href="https://wa.me/${noTelp}?text=${teksChat}" target="_blank" class="btn-chat-seller">
+        <i class="fab fa-whatsapp" style="font-size:1.3rem"></i> Chat Penjual Sekarang
+      </a>
+    </div>
+
+    <!-- ETALASE PRODUK -->
+    <h3 class="seller-etalase-title">
+      <i class="fas fa-store"></i> 
+      Etalase Toko
+      <small>${totalProduk} Produk</small>
+    </h3>
+    ${productsHtml}
+  `;
+  
+  updateCartBadge();
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+  loadSeller();
+  updateCartBadge();
+});
+</script>
+</body>
+</html>
