@@ -403,13 +403,13 @@ function render(p, s, reviews, recommends) {
         </div>
 
         ${s ? `
-        <a href="https://wa.me/${s.telepon || CS_WA}?text=${encodeURIComponent('Halo ' + s.nama + ', saya tertarik dengan produk ' + p.nama + '.')}" class="pd-seller" target="_blank">
+        <a href="seller.html?id=${p.sellerId || s.id}" class="pd-seller">
           <div class="pd-seller-avatar">${s.emoji || '🏪'}</div>
           <div class="pd-seller-info">
             <div class="pd-seller-name">${s.nama} ${s.verified ? '<i class="fas fa-check-circle pd-verify"></i>' : ''}</div>
-            <div class="pd-seller-meta"><span><i class="fas fa-star"></i>${s.rating}</span><span>${s.totalTerjual || 0}+ terjual</span></div>
+            <div class="pd-seller-meta"><span><i class="fas fa-star"></i> ${s.rating || '5.0'}</span><span>${s.totalTerjual || 0}+ terjual</span></div>
           </div>
-          <span class="pd-visit-btn"><i class="fab fa-whatsapp"></i> Chat</span>
+          <span class="pd-visit-btn"><i class="fas fa-store"></i> Kunjungi Toko</span>
         </a>` : ''}
 
         <div class="pd-qty-section">
