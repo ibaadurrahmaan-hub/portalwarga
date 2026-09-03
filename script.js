@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v3.0 (FULL LIVE SYNC ALL 4 CATEGORIES)
+   PORTALWARGA - SCRIPT CORE v3.1 (FULL LIVE SYNC + VOUCHER + CART STORAGE)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
@@ -15,6 +15,7 @@ let liveProperties = [];
 let liveEducations = [];
 let liveWifiPackages = [];
 let liveWifiCoverage = [];
+let liveWifiVouchers = [];
 
 let activeSubKategori = 'all';
 let searchQuery = '';
@@ -25,29 +26,37 @@ let searchQuery = '';
 let dataPasarFallback = [
   { id: 1, emoji: '🥬', nama: 'Sayur Bayam', sellerName: 'Toko Bu Tini', harga: 5000, subKategori: 'sayur', deskripsi: 'Bayam segar.', stok: 10, berat: 200, satuan: 'ikat', terjual: 5, rating: 5, totalReview: 1, tags: ['fresh'] }
 ];
-
 let dataPropertyFallback = [
   { id: 'prop_fb', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah Contoh', loc: 'Ds. Sample', price: 'Rp 1 Jt/bulan', features: ['2 Kamar'], deskripsi: 'Rumah contoh fallback.', kontakPemilik: '' }
 ];
-
 let dataPendidikanFallback = [
   { id: 'edu_fb', emoji: '📚', type: 'Bimbel', name: 'Bimbel Contoh', desc: 'Fallback bimbel data.', kontak: '' }
 ];
-
 let dataWifiFallback = [
   { id: 1, name: 'Basic', speed: '15', price: '165.000', features: ['Unlimited'], popular: true }
 ];
-
 let dataWifiCoverageFallback = [
   { id: 'A', nama: 'Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }] }
+];
+let dataWifiVouchersFallback = [
+  { id: 'v_1', hari: 1, hargaAgen: 2500, hargaUser: 3000, persen: 17 },
+  { id: 'v_7', hari: 7, hargaAgen: 17000, hargaUser: 20000, persen: 15 },
+  { id: 'v_30', hari: 30, hargaAgen: 45000, hargaUser: 50000, persen: 10 }
 ];
 
 // ============================================
 // INITIALIZATION FIRESTORE LIVE SYNC ENGINE
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
+  loadCartFromStorage(); // Muat keranjang dari halaman detail (product.html)
   initLiveDatabase();
   updateCartUI();
+
+  // Auto-buka keranjang jika kembali dari product.html
+  const urlParams = new URLSearchParams(location.search);
+  if (urlParams.get('openCart') === '1') {
+    setTimeout(() => openCart(), 500);
+  }
 });
 
 function initLiveDatabase() {
@@ -58,6 +67,7 @@ function initLiveDatabase() {
     liveEducations = [...dataPendidikanFallback];
     liveWifiPackages = [...dataWifiFallback];
     liveWifiCoverage = [...dataWifiCoverageFallback];
+    liveWifiVouchers = [...dataWifiVouchersFallback];
     renderAll();
     return;
   }
@@ -95,7 +105,7 @@ function initLiveDatabase() {
     snapshot.forEach(doc => liveReviews.push(doc.data()));
   });
 
-  // 5. LIVE SYNC PROPERTI (BARU)
+  // 5. LIVE SYNC PROPERTI
   db.collection('properti').where('aktif', '==', true).onSnapshot(snapshot => {
     liveProperties = [];
     snapshot.forEach(doc => liveProperties.push({ firestoreId: doc.id, ...doc.data() }));
@@ -106,7 +116,7 @@ function initLiveDatabase() {
     renderProperty();
   });
 
-  // 6. LIVE SYNC PENDIDIKAN (BARU)
+  // 6. LIVE SYNC PENDIDIKAN
   db.collection('pendidikan').where('aktif', '==', true).onSnapshot(snapshot => {
     liveEducations = [];
     snapshot.forEach(doc => liveEducations.push({ firestoreId: doc.id, ...doc.data() }));
@@ -136,6 +146,18 @@ function initLiveDatabase() {
   }, () => {
     liveWifiCoverage = [...dataWifiCoverageFallback];
   });
+
+  // 9. LIVE SYNC WIFI VOUCHERS (BARU)
+  db.collection('wifi_vouchers').where('aktif', '==', true).onSnapshot(snapshot => {
+    liveWifiVouchers = [];
+    snapshot.forEach(doc => liveWifiVouchers.push(doc.data()));
+    liveWifiVouchers.sort((a, b) => a.hari - b.hari);
+    if (liveWifiVouchers.length === 0) liveWifiVouchers = [...dataWifiVouchersFallback];
+    renderWifiVouchers();
+  }, () => {
+    liveWifiVouchers = [...dataWifiVouchersFallback];
+    renderWifiVouchers();
+  });
 }
 
 function renderAll() {
@@ -143,6 +165,22 @@ function renderAll() {
   renderProperty();
   renderEdu();
   renderWifi();
+  renderWifiVouchers();
+}
+
+// ============================================
+// PRODUCT DETAIL ROUTER (REPLACES MODAL)
+// ============================================
+function openProductDetails(id) {
+  if (!id) return;
+  const targetCard = document.querySelector(`.product-card img, .product-card .product-img`);
+  if (targetCard) {
+    targetCard.style.transform = 'scale(0.95)';
+    targetCard.style.opacity = '0.7';
+  }
+  setTimeout(() => {
+    window.location.href = `product.html?id=${id}`;
+  }, 100);
 }
 
 // ============================================
@@ -214,9 +252,6 @@ function filterBySubKategori(sub) {
   renderPasarStorefront();
 }
 
-// ============================================
-// PAYMENT METHODS DYNAMIC POPULATOR
-// ============================================
 function populatePaymentMethods() {
   const select = document.getElementById('cartPayment');
   if (!select) return;
@@ -232,39 +267,8 @@ function populatePaymentMethods() {
   }).join('') + '<option value="cod">💵 COD (Bayar di Tempat)</option>';
 }
 
-// ==========================================================================
-// PRODUCT DETAIL ROUTER (REPLACES LEGACY POPUP MODAL)
-// ==========================================================================
-
-/**
- * Mengarahkan pengguna secara mulus ke halaman detail produk premium
- * @param {String|Number} id - ID unik produk dari Firestore
- */
-function openProductDetails(id) {
-  if (!id) return;
-  
-  // Berikan efek transisi visual tipis sebelum berpindah halaman
-  const targetCard = document.querySelector(`.product-card img, .product-card .product-img`);
-  if (targetCard) {
-    targetCard.style.transform = 'scale(0.95)';
-    targetCard.style.opacity = '0.7';
-  }
-  
-  // Arahkan langsung ke halaman detail khusus
-  setTimeout(() => {
-    window.location.href = `product.html?id=${id}`;
-  }, 100);
-}
-
-/**
- * @deprecated Dipertahankan hanya untuk mencegah error fungsi legacy
- */
-function closeProductModal(e) {
-  console.log("ℹ️ Modal pop-up telah dinonaktifkan. Sistem sekarang menggunakan product.html.");
-}
-
 // ============================================
-// PROPERTY RENDER ENGINE (DYNAMIC LIVE)
+// PROPERTY RENDER ENGINE
 // ============================================
 function renderProperty() {
   const grid = document.getElementById('propertyGrid');
@@ -302,7 +306,7 @@ function renderProperty() {
 }
 
 // ============================================
-// EDUCATION RENDER ENGINE (DYNAMIC LIVE)
+// EDUCATION RENDER ENGINE
 // ============================================
 function renderEdu() {
   const grid = document.getElementById('eduGrid');
@@ -335,12 +339,29 @@ function renderEdu() {
 }
 
 // ============================================
-// WIFI RENDER ENGINE (LIVE)
+// WIFI TAB SWITCHER
+// ============================================
+function switchWifiTab(type) {
+  document.getElementById('btnTabFiber').classList.remove('active');
+  document.getElementById('btnTabVoucher').classList.remove('active');
+  document.getElementById('contentWifiFiber').style.display = 'none';
+  document.getElementById('contentWifiVoucher').style.display = 'none';
+  
+  if (type === 'fiber') {
+    document.getElementById('btnTabFiber').classList.add('active');
+    document.getElementById('contentWifiFiber').style.display = 'block';
+  } else {
+    document.getElementById('btnTabVoucher').classList.add('active');
+    document.getElementById('contentWifiVoucher').style.display = 'block';
+  }
+}
+
+// ============================================
+// WIFI FIBER RENDER & GPS ENGINE
 // ============================================
 function renderWifi() {
   const grid = document.getElementById('wifiGrid');
   if (!grid) return;
-  
   grid.innerHTML = liveWifiPackages.map(w => `
     <div class="wifi-card ${w.popular ? 'popular' : ''}">
       <div class="wifi-name">Paket ${w.name}</div>
@@ -354,9 +375,6 @@ function renderWifi() {
   `).join('');
 }
 
-// ============================================
-// WIFI GPS RADAR ENGINE
-// ============================================
 function distanceKm(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -375,8 +393,7 @@ function findCoverage(userLat, userLng) {
   return hits;
 }
 
-let lastUserLat = null;
-let lastUserLng = null;
+let lastUserLat = null; let lastUserLng = null;
 
 function setLocStatus(msg, type) {
   const el = document.getElementById('locStatus');
@@ -393,7 +410,6 @@ function shareLocationWifi() {
     showManualWifiForm();
     return;
   }
-
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghubungi Satelit...';
   setLocStatus('📍 Menunggu izin GPS...', 'load');
@@ -406,11 +422,7 @@ function shareLocationWifi() {
 
       document.getElementById('wifiLat').value = lastUserLat;
       document.getElementById('wifiLng').value = lastUserLng;
-
-      setLocStatus(
-        `✅ Lokasi teridentifikasi (Akurasi: ±${acc}m)<br>
-         <small>GPS: ${lastUserLat.toFixed(6)}, ${lastUserLng.toFixed(6)}</small>`, 'ok'
-      );
+      setLocStatus(`✅ Lokasi teridentifikasi (Akurasi: ±${acc}m)<br><small>GPS: ${lastUserLat.toFixed(6)}, ${lastUserLng.toFixed(6)}</small>`, 'ok');
 
       const hits = findCoverage(lastUserLat, lastUserLng);
       renderCoverageResult(hits);
@@ -424,7 +436,6 @@ function shareLocationWifi() {
         document.getElementById('wifiWilayahDetected').value = 'Di Luar Coverage';
         document.getElementById('wifiJarak').value = '-';
       }
-
       reverseGeocode(lastUserLat, lastUserLng);
       btn.disabled = false;
       btn.innerHTML = '<i class="fas fa-sync-alt"></i> Kalibrasi Ulang GPS';
@@ -455,16 +466,8 @@ function renderCoverageResult(hits) {
     </div>
     ${hits.map(h => `
       <div class="coverage-card">
-        <h4>
-          <i class="fas fa-broadcast-tower" style="color:var(--primary)"></i>
-          ${h.nama}
-          <span style="font-size:0.72rem;font-weight:600;color:var(--muted);margin-left:auto">
-            ±${h.jarak.toFixed(2)} km
-          </span>
-        </h4>
-        <div class="coverage-meta">
-          Radius: <b>${h.radiusKm} km</b> · ISP: <b>Youfiber (Regynet)</b>
-        </div>
+        <h4><i class="fas fa-broadcast-tower" style="color:var(--primary)"></i>${h.nama}<span style="font-size:0.72rem;font-weight:600;color:var(--muted);margin-left:auto">±${h.jarak.toFixed(2)} km</span></h4>
+        <div class="coverage-meta">Radius: <b>${h.radiusKm} km</b> · ISP: <b>Youfiber (Regynet)</b></div>
       </div>
     `).join('')}
   `;
@@ -473,7 +476,6 @@ function renderCoverageResult(hits) {
 function fillPaketOptions(hits) {
   const sel = document.getElementById('wifiPaket');
   if (!sel) return;
-
   const map = new Map();
   if (hits.length) {
     hits.forEach(h => {
@@ -487,13 +489,8 @@ function fillPaketOptions(hits) {
       map.set(p.name, { name: p.name + ' ' + p.speed + ' Mbps', price: Number(p.price.replace(/\./g, '')) });
     });
   }
-
   sel.innerHTML = '<option value="">-- Pilih Paket Internet --</option>' +
-    [...map.values()].map(p =>
-      `<option value="${p.name} - Rp ${p.price.toLocaleString('id-ID')}">
-        ${p.name} — Rp ${p.price.toLocaleString('id-ID')}/bulan
-      </option>`
-    ).join('');
+    [...map.values()].map(p => `<option value="${p.name} - Rp ${p.price.toLocaleString('id-ID')}">${p.name} — Rp ${p.price.toLocaleString('id-ID')}/bulan</option>`).join('');
 }
 
 function showManualWifiForm() {
@@ -513,9 +510,7 @@ async function reverseGeocode(lat, lng) {
       const el = document.getElementById('wifiAlamat');
       if (el && !el.value) el.value = data.display_name;
     }
-  } catch (e) {
-    console.warn('Reverse geocode gagal:', e);
-  }
+  } catch (e) { console.warn('Reverse geocode gagal:', e); }
 }
 
 function submitWifiCoverage(e) {
@@ -529,22 +524,13 @@ function submitWifiCoverage(e) {
   const lat = document.getElementById('wifiLat').value || '-';
   const lng = document.getElementById('wifiLng').value || '-';
 
-  if (!nama || !wa || !alamat || !paket) {
-    showToast('⚠️ Mohon lengkapi seluruh isian!');
-    return;
-  }
-
+  if (!nama || !wa || !alamat || !paket) { showToast('⚠️ Mohon lengkapi seluruh isian!'); return; }
   if (typeof recordWifiRegistration === 'function') {
     recordWifiRegistration(nama, wa, `[${wilayah} | ${jarak}] ${alamat} | GPS: ${lat},${lng}`, paket);
   }
 
   const mapsLink = (lat !== '-' && lng !== '-') ? `https://www.google.com/maps?q=${lat},${lng}` : '-';
-
-  let msg = `*📡 REGISTRASI YOUFIBER REGYNET*\n===========================\n\n`;
-  msg += `👤 *Pendaftar:* ${nama}\n📱 *WhatsApp:* ${wa}\n\n`;
-  msg += `📦 *Paket:* ${paket}\n🗺️ *Wilayah:* ${wilayah} (${jarak})\n`;
-  msg += `📍 *Alamat:* ${alamat}\n\n📌 *Pin Maps:* ${mapsLink}\n`;
-  msg += `_Koordinat: ${lat}, ${lng}_\n\nMohon dijadwalkan survei. 🙏`;
+  let msg = `*📡 REGISTRASI YOUFIBER REGYNET*\n===========================\n\n👤 *Pendaftar:* ${nama}\n📱 *WhatsApp:* ${wa}\n\n📦 *Paket:* ${paket}\n🗺️ *Wilayah:* ${wilayah} (${jarak})\n📍 *Alamat:* ${alamat}\n\n📌 *Pin Maps:* ${mapsLink}\n_Koordinat: ${lat}, ${lng}_\n\nMohon dijadwalkan survei. 🙏`;
 
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   showToast('✓ Pendaftaran terkirim!');
@@ -558,22 +544,80 @@ function submitWifiCoverage(e) {
 }
 
 // ============================================
-// CART SYSTEM
+// WIFI VOUCHER RENDER ENGINE (BARU)
+// ============================================
+function renderWifiVouchers() {
+  const grid = document.getElementById('voucherGrid');
+  if (!grid) return;
+
+  if (liveWifiVouchers.length === 0) {
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 20px 0; color:var(--muted)">Belum ada voucher yang tersedia saat ini.</div>`;
+    return;
+  }
+
+  grid.innerHTML = liveWifiVouchers.map(v => `
+    <div class="voucher-card">
+      <div class="voucher-head">
+        <h4>🎫 Masa Aktif ${v.hari} Hari</h4>
+        <p>Akses Unlimited FUP</p>
+      </div>
+      <div class="voucher-body">
+        <div class="v-price">Rp ${v.hargaUser.toLocaleString('id-ID')}</div>
+        <div class="v-agen-price">
+          Harga Khusus Agen: <b>Rp ${v.hargaAgen.toLocaleString('id-ID')}</b>
+        </div>
+        <button class="btn-buy-voucher" onclick="beliVoucherWA(${v.hari}, ${v.hargaUser})">
+          <i class="fab fa-whatsapp" style="color:#25D366; font-size:1.1rem"></i> Beli via WhatsApp
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function beliVoucherWA(hari, harga) {
+  let msg = `*🎫 PEMBELIAN VOUCHER WIFI (HOTSPOT)*\n===========================\n\nHalo CS, saya berminat membeli Voucher WiFi dengan detail:\n\nMasa Aktif : *${hari} Hari*\nHarga User : *Rp ${harga.toLocaleString('id-ID')}*\n\nMohon kirimkan instruksi QRIS/Transfer untuk pembayarannya. Setelah transfer, tolong kirimkan kode vouchernya ke nomor WA ini ya. Terima kasih! 🙏`;
+  window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ============================================
+// CART STORAGE SYSTEM
 // ============================================
 let cart = [];
+
+function loadCartFromStorage() {
+  const saved = localStorage.getItem('pw_cart');
+  if (saved) {
+    try { cart = JSON.parse(saved); } catch (e) { cart = []; }
+  }
+}
+
+function saveCartToStorage() {
+  localStorage.setItem('pw_cart', JSON.stringify(cart));
+}
 
 function addToCart(id) {
   const product = liveProducts.find(p => p.id === id);
   if (!product) return;
   const existing = cart.find(c => c.id === id);
   if (existing) existing.qty++;
-  else cart.push({ ...product, qty: 1 });
+  else {
+    cart.push({
+      id: product.id,
+      nama: product.nama,
+      sellerName: product.sellerName,
+      emoji: product.emoji,
+      harga: product.harga,
+      qty: 1
+    });
+  }
+  saveCartToStorage();
   updateCartUI();
   showToast(`✓ ${product.nama} ditambahkan!`);
 }
 
 function removeFromCart(id) {
   cart = cart.filter(c => c.id !== id);
+  saveCartToStorage();
   updateCartUI();
 }
 
@@ -582,7 +626,10 @@ function changeQty(id, delta) {
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) removeFromCart(id);
-  else updateCartUI();
+  else {
+    saveCartToStorage();
+    updateCartUI();
+  }
 }
 
 function updateCartUI() {
@@ -654,6 +701,7 @@ function checkoutWA() {
 
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   cart = [];
+  saveCartToStorage(); // Clear localStorage after checkout
   updateCartUI();
   closeCart();
 }
