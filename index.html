@@ -374,37 +374,32 @@
   </div>
 </footer>
 
-
-<!-- ============ CART DRAWER ============ -->
-<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
-<aside class="cart-drawer" id="cartDrawer" aria-label="Keranjang belanja">
-  <div class="cart-head">
-    <h3><i class="fas fa-shopping-basket"></i> Keranjang Belanja</h3>
-    <button onclick="closeCart()" class="cart-close"><i class="fas fa-times"></i></button>
-  </div>
-  
-  <div class="cart-body" id="cartBody"></div>
-  
   <div class="cart-foot">
-    <!-- Pilihan Pembayaran Dinamis -->
-    <div class="checkout-form-block" style="border-top:1px solid var(--border); padding-top:14px; margin-bottom:14px">
-      <label for="cartPayment" style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:6px">Pilih Metode Pembayaran:</label>
-      <select id="cartPayment" class="payment-select" style="width:100%; padding:10px; border-radius:8px; border:1.5px solid var(--border); outline:none; background:var(--light);">
-        <!-- Opsi dimuat dinamis dari Firebase -->
-        <option value="cod">COD (Bayar di Tempat)</option>
-      </select>
+    <!-- Ringkasan -->
+    <div class="cart-summary-box">
+      <div class="cart-sum-row">
+        <span>Subtotal (<span id="cartItemCount">0</span> item)</span>
+        <b id="cartSubtotal">Rp 0</b>
+      </div>
+      <div class="cart-sum-row muted">
+        <span><i class="fas fa-info-circle"></i> Ongkir & metode bayar dipilih di langkah berikutnya</span>
+      </div>
+      <div class="cart-sum-row grand">
+        <span>Total Belanja</span>
+        <b id="cartTotal">Rp 0</b>
+      </div>
     </div>
 
-    <div class="cart-total">
-      <span>Total Belanja:</span>
-      <b id="cartTotal">Rp 0</b>
+    <!-- Tombol Aksi -->
+    <div class="cart-actions">
+      <button type="button" class="btn-cart-continue" onclick="closeCart()">
+        <i class="fas fa-arrow-left"></i> Lanjut Belanja
+      </button>
+      <button type="button" class="btn-cart-checkout" id="btnGoCheckout" onclick="goToCheckout()">
+        <i class="fas fa-shield-check"></i> Checkout Sekarang
+      </button>
     </div>
-    
-    <button class="btn-checkout" onclick="checkoutWA()">
-      <i class="fab fa-whatsapp"></i> Checkout via WhatsApp CS
-    </button>
   </div>
-</aside>
 
 
 <!-- ============ FLOATING WA & MOBILE NAV ============ -->
