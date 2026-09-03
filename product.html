@@ -11,8 +11,16 @@
 
 <style>
 /* ============================================
-   PRODUCT DETAIL — ULTRA PREMIUM
+   PRODUCT DETAIL — ULTRA PREMIUM (SYNCED v3)
+   Variabel Lokal untuk Kompatibilitas Style
    ============================================ */
+:root {
+  --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+  --text-secondary: #475569;
+  --border-light: #E2E8F0;
+  --bg-alt: #F8FAFC;
+  --text: #0F172A;
+}
 
 body {
   background: 
@@ -45,9 +53,7 @@ body {
   padding: 10px 18px;
   background: white;
   border-radius: 999px;
-  box-shadow: 
-    0 4px 12px rgba(2, 132, 199, 0.08),
-    0 1px 3px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08), 0 1px 3px rgba(0,0,0,0.05);
   border: 1px solid rgba(2, 132, 199, 0.15);
   transition: all 0.3s ease;
 }
@@ -58,13 +64,8 @@ body {
   box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
 }
 
-.pd-back i {
-  transition: transform 0.3s;
-}
-
-.pd-back:hover i {
-  transform: translateX(-3px);
-}
+.pd-back i { transition: transform 0.3s; }
+.pd-back:hover i { transform: translateX(-3px); }
 
 /* GRID LAYOUT */
 .pd-grid {
@@ -78,14 +79,12 @@ body {
   .pd-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
-/* ============ GALLERY (PREMIUM) ============ */
+/* GALLERY PREMIUM */
 .pd-gallery {
   background: white;
   border-radius: 28px;
   padding: 32px;
-  box-shadow: 
-    0 20px 40px rgba(2, 132, 199, 0.08),
-    0 4px 12px rgba(0,0,0,0.04);
+  box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08), 0 4px 12px rgba(0,0,0,0.04);
   position: sticky;
   top: 100px;
   border: 1px solid rgba(2, 132, 199, 0.08);
@@ -94,8 +93,7 @@ body {
 .pd-main-img {
   width: 100%;
   height: 420px;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 50%),
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 50%),
     linear-gradient(135deg, #DCFCE7 0%, #A7F3D0 50%, #6EE7B7 100%);
   border-radius: 22px;
   display: flex;
@@ -126,24 +124,14 @@ body {
   50% { transform: translate(20%, 20%); }
 }
 
-.pd-main-img:hover {
-  transform: scale(1.02);
-}
+.pd-main-img:hover { transform: scale(1.02); }
 
 @media (max-width: 768px) {
-  .pd-gallery { 
-    position: static; 
-    padding: 20px; 
-    border-radius: 24px;
-  }
-  .pd-main-img { 
-    height: 300px; 
-    font-size: 9rem; 
-    border-radius: 20px;
-  }
+  .pd-gallery { position: static; padding: 20px; border-radius: 24px; }
+  .pd-main-img { height: 300px; font-size: 9rem; border-radius: 20px; }
 }
 
-/* BADGES — equal width + full width */
+/* BADGES */
 .pd-badges {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -153,7 +141,6 @@ body {
   box-sizing: border-box;
 }
 
-/* jumlah badge dinamis */
 .pd-badges[data-count="1"] { grid-template-columns: 1fr; }
 .pd-badges[data-count="2"] { grid-template-columns: 1fr 1fr; }
 .pd-badges[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
@@ -202,13 +189,10 @@ body {
 
 @media (max-width: 768px) {
   .pd-badges { gap: 8px; }
-  .pd-badge {
-    padding: 9px 10px;
-    font-size: 0.72rem;
-  }
+  .pd-badge { padding: 9px 10px; font-size: 0.72rem; }
 }
 
-/* ============ INFO SECTION ============ */
+/* INFO SECTION */
 .pd-info h1 {
   font-size: 1.85rem;
   font-weight: 800;
@@ -248,18 +232,10 @@ body {
   font-size: 0.85rem;
 }
 
-.pd-stat:nth-child(2) i {
-  background: #DCFCE7;
-  color: #059669;
-}
+.pd-stat:nth-child(2) i { background: #DCFCE7; color: #059669; }
+.pd-stat b { color: var(--text); font-weight: 800; font-size: 1rem; }
 
-.pd-stat b {
-  color: var(--text);
-  font-weight: 800;
-  font-size: 1rem;
-}
-
-/* ============ PRICE BOX (PREMIUM) ============ */
+/* PRICE BOX */
 .pd-price-box {
   background: linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 50%, #FEFCE8 100%);
   border: 2px solid transparent;
@@ -268,9 +244,7 @@ body {
   margin-bottom: 22px;
   position: relative;
   overflow: hidden;
-  box-shadow: 
-    0 8px 20px rgba(5, 150, 105, 0.1),
-    inset 0 1px 0 rgba(255,255,255,0.8);
+  box-shadow: 0 8px 20px rgba(5, 150, 105, 0.1), inset 0 1px 0 rgba(255,255,255,0.8);
   background-clip: padding-box;
 }
 
@@ -342,7 +316,7 @@ body {
   border-radius: 50%;
 }
 
-/* ============ SELLER CARD (PREMIUM) ============ */
+/* SELLER CARD */
 .pd-seller {
   background: white;
   border: 1.5px solid var(--border-light);
@@ -391,12 +365,7 @@ body {
   z-index: 1;
 }
 
-.pd-seller-info { 
-  flex: 1; 
-  min-width: 0; 
-  position: relative; 
-  z-index: 1;
-}
+.pd-seller-info { flex: 1; min-width: 0; position: relative; z-index: 1; }
 
 .pd-seller-name {
   font-weight: 800;
@@ -423,15 +392,8 @@ body {
   font-weight: 500;
 }
 
-.pd-seller-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.pd-seller-meta i {
-  color: #F59E0B;
-}
+.pd-seller-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.pd-seller-meta i { color: #F59E0B; }
 
 .pd-visit-btn {
   padding: 10px 18px;
@@ -457,7 +419,7 @@ body {
   box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
 }
 
-/* ============ QTY SECTION ============ */
+/* QTY SECTION */
 .pd-qty-section {
   display: flex;
   align-items: center;
@@ -469,11 +431,7 @@ body {
   flex-wrap: wrap;
 }
 
-.pd-qty-label {
-  font-weight: 700;
-  font-size: 0.92rem;
-  color: var(--text);
-}
+.pd-qty-label { font-weight: 700; font-size: 0.92rem; color: var(--text); }
 
 .pd-qty-control {
   display: flex;
@@ -524,12 +482,9 @@ body {
   border: 1px solid rgba(5, 150, 105, 0.15);
 }
 
-.pd-stok b {
-  color: var(--pasar);
-  font-weight: 800;
-}
+.pd-stok b { color: var(--pasar); font-weight: 800; }
 
-/* ============ ACTION BUTTONS ============ */
+/* ACTION BUTTONS */
 .pd-actions {
   display: grid;
   grid-template-columns: 1fr 1.3fr;
@@ -592,23 +547,19 @@ body {
 
 .pd-btn-buy:active { transform: translateY(0); }
 
-/* ============ SECTIONS (PREMIUM) ============ */
+/* SECTIONS */
 .pd-section {
   background: white;
   border-radius: 22px;
   padding: 28px;
   margin-bottom: 20px;
-  box-shadow: 
-    0 4px 12px rgba(0,0,0,0.04),
-    0 1px 3px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
   border: 1px solid rgba(226, 232, 240, 0.6);
   transition: box-shadow 0.3s;
 }
 
 .pd-section:hover {
-  box-shadow: 
-    0 12px 30px rgba(0,0,0,0.06),
-    0 2px 6px rgba(0,0,0,0.03);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.03);
 }
 
 .pd-section h3 {
@@ -640,7 +591,7 @@ body {
   font-size: 0.94rem;
 }
 
-/* TAGS DESKRIPSI PRODUK — equal width + full width */
+/* TAGS */
 .pd-tags {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -650,7 +601,6 @@ body {
   box-sizing: border-box;
 }
 
-/* jumlah tag dinamis */
 .pd-tags[data-count="1"] { grid-template-columns: 1fr; }
 .pd-tags[data-count="2"] { grid-template-columns: 1fr 1fr; }
 .pd-tags[data-count="3"] { grid-template-columns: 1fr 1fr 1fr; }
@@ -687,13 +637,10 @@ body {
 
 @media (max-width: 768px) {
   .pd-tags { gap: 8px; }
-  .pd-tag {
-    padding: 9px 10px;
-    font-size: 0.72rem;
-  }
+  .pd-tag { padding: 9px 10px; font-size: 0.72rem; }
 }
 
-/* ============ REVIEWS (PREMIUM) ============ */
+/* REVIEWS */
 .pd-rating-summary {
   display: flex;
   gap: 24px;
@@ -703,9 +650,7 @@ body {
   margin-bottom: 24px;
   align-items: center;
   border: 1px solid rgba(217, 119, 6, 0.2);
-  box-shadow: 
-    0 8px 20px rgba(251, 191, 36, 0.15),
-    inset 0 1px 0 rgba(255,255,255,0.5);
+  box-shadow: 0 8px 20px rgba(251, 191, 36, 0.15), inset 0 1px 0 rgba(255,255,255,0.5);
   position: relative;
   overflow: hidden;
 }
@@ -736,11 +681,7 @@ body {
   filter: drop-shadow(0 2px 4px rgba(245, 158, 11, 0.3));
 }
 
-.pd-rating-count {
-  font-size: 0.82rem;
-  color: #92400E;
-  font-weight: 600;
-}
+.pd-rating-count { font-size: 0.82rem; color: #92400E; font-weight: 600; }
 
 .pd-review-item {
   padding: 18px 0;
@@ -776,17 +717,8 @@ body {
   box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
-.pd-review-name {
-  font-weight: 700;
-  font-size: 0.92rem;
-  color: var(--text);
-}
-
-.pd-review-rating {
-  color: #F59E0B;
-  font-size: 0.78rem;
-  margin-top: 3px;
-}
+.pd-review-name { font-weight: 700; font-size: 0.92rem; color: var(--text); }
+.pd-review-rating { color: #F59E0B; font-size: 0.78rem; margin-top: 3px; }
 
 .pd-review-text {
   color: var(--text-secondary);
@@ -838,7 +770,7 @@ body {
   margin-bottom: 4px;
 }
 
-/* ============ REKOMENDASI (PREMIUM) ============ */
+/* REKOMENDASI */
 .pd-recommend-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -860,16 +792,13 @@ body {
 
 .pd-recommend-card:hover {
   transform: translateY(-6px);
-  box-shadow: 
-    0 20px 35px rgba(2, 132, 199, 0.12),
-    0 4px 10px rgba(0,0,0,0.04);
+  box-shadow: 0 20px 35px rgba(2, 132, 199, 0.12), 0 4px 10px rgba(0,0,0,0.04);
   border-color: var(--pasar);
 }
 
 .pd-rec-img {
   height: 130px;
-  background: 
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 60%),
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), transparent 60%),
     linear-gradient(135deg, #ECFDF5, #D1FAE5);
   display: flex;
   align-items: center;
@@ -878,13 +807,9 @@ body {
   transition: transform 0.4s;
 }
 
-.pd-recommend-card:hover .pd-rec-img {
-  transform: scale(1.08);
-}
+.pd-recommend-card:hover .pd-rec-img { transform: scale(1.08); }
 
-.pd-rec-info {
-  padding: 12px 14px;
-}
+.pd-rec-info { padding: 12px 14px; }
 
 .pd-rec-name {
   font-size: 0.85rem;
@@ -916,7 +841,7 @@ body {
   font-weight: 500;
 }
 
-/* ============ LOADING ============ */
+/* LOADING */
 .pd-loading {
   text-align: center;
   padding: 120px 20px;
@@ -934,38 +859,53 @@ body {
   display: inline-block;
 }
 
-.pd-loading p {
-  font-size: 1rem;
-  font-weight: 600;
-}
+.pd-loading p { font-size: 1rem; font-weight: 600; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ============ MOBILE STICKY BAR ============ */
+/* NOT FOUND MESSAGE */
+.pd-not-found {
+  text-align: center;
+  padding: 100px 20px;
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+}
+
+.pd-not-found i {
+  font-size: 5rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  opacity: 0.4;
+}
+
+.pd-not-found h3 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.pd-not-found p { color: var(--muted); margin-bottom: 24px; }
+
+/* MOBILE STICKY BAR */
 @media (max-width: 768px) {
   .pd-actions {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background: white;
+    background: rgba(255,255,255,0.95);
     padding: 14px 16px calc(14px + env(safe-area-inset-bottom));
-    box-shadow: 
-      0 -8px 30px rgba(0,0,0,0.08),
-      0 -1px 3px rgba(0,0,0,0.03);
+    box-shadow: 0 -8px 30px rgba(0,0,0,0.08), 0 -1px 3px rgba(0,0,0,0.03);
     z-index: 900;
     grid-template-columns: 1fr 1.3fr;
     margin: 0;
     border-top: 1px solid var(--border-light);
     backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.95);
   }
   
-  .pd-btn {
-    padding: 14px 16px;
-    font-size: 0.9rem;
-  }
-  
+  .pd-btn { padding: 14px 16px; font-size: 0.9rem; }
   .product-detail-page { padding-bottom: 100px; }
   .fab-wa { display: none !important; }
   
@@ -985,27 +925,24 @@ body {
 
 <body>
 
-<!-- ============ HEADER (reuse dari index) ============ -->
+<!-- ============ HEADER ============ -->
 <header class="app-header">
   <div class="container">
     <div class="header-inner">
       <a href="index.html" class="brand">
-        <img src="portalwarga.png" alt="PortalWarga" style="height: 42px; border-radius: 8px;">
+        <img src="portalwarga.png" alt="PortalWarga" style="height: 42px; border-radius: 8px;" onerror="this.src='https://placehold.co/80x80?text=PW'">
         <div class="brand-text">
           <strong>PortalWarga</strong>
-          <small>Kec. Contoh Sejahtera</small>
         </div>
       </a>
 
       <div class="header-actions">
-        <button class="btn-cart" onclick="location.href='index.html'" aria-label="Keranjang">
+        <button class="btn-cart" onclick="location.href='index.html?openCart=1'" aria-label="Keranjang">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-badge" id="cartBadge">0</span>
         </button>
         <a href="https://wa.me/6285267891619" class="btn-cs" title="CS WhatsApp" target="_blank">
-          <svg viewBox="0 0 448 512" width="28" height="28" fill="#25D366">
-            <path d="M380.9 97.1C339 16.6 261.1 0 181.8 0 81.4 0 0 81.5 0 181.8c0 32 8.3 63.2 24.2 90.7L0 448l180.2-23.7c26.6 14.5 56.6 22.2 87.2 22.2 100.4 0 181.8-81.5 181.8-181.8 0-48.6-19-94.3-58.3-167.6zM267.4 412.3c-26.6 0-52.7-7.2-75.3-20.8l-5.4-3.2-106.7 14 14.3-104-3.5-5.6C77 269.8 69.4 241 69.4 211.2c0-82.6 67.2-149.8 149.8-149.8 40 0 77.6 15.6 105.9 43.8 28.3 28.3 43.8 65.9 43.8 105.9 0 82.6-67.2 149.8-149.8 149.8zm82.2-112.2c-4.5-2.2-26.6-13.1-30.7-14.6-4.1-1.5-7.1-2.2-10.1 2.2-3 4.5-11.6 14.6-14.2 17.6-2.6 3-5.2 3.4-9.7 1.1-4.5-2.2-19.1-7-36.4-22.4-13.5-12-22.6-26.8-25.2-31.3-2.6-4.5-.3-6.9 1.9-9.1 2-2 4.5-5.2 6.7-7.8 2.2-2.6 3-4.5 4.5-7.5 1.5-3 .8-5.6-.4-7.8-1.1-2.2-10.1-24.3-13.9-33.3-3.7-8.8-7.5-7.6-10.1-7.7-2.6-.1-5.6-.1-8.6-.1-3 0-7.8 1.1-11.9 5.6-4.1 4.5-15.7 15.3-15.7 37.3 0 22 16 43.2 18.2 46.2 2.2 3 31.5 48.1 76.3 67.4 10.7 4.6 19 7.4 25.5 9.5 10.7 3.4 20.5 2.9 28.2 1.8 8.6-1.2 26.6-10.9 30.3-21.4 3.7-10.5 3.7-19.5 2.6-21.4-1.1-1.8-4.1-3-8.6-5.2z"/>
-          </svg>
+          <i class="fab fa-whatsapp"></i>
         </a>
       </div>
     </div>
@@ -1046,6 +983,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+const CS_WA = '6285267891619';
 let currentProduct = null;
 let currentSeller = null;
 let qty = 1;
@@ -1060,8 +998,9 @@ function rupiah(n) {
 }
 
 function stars(rating) {
-  const full = Math.floor(rating);
-  const half = rating % 1 >= 0.5;
+  const r = Number(rating) || 0;
+  const full = Math.floor(r);
+  const half = r % 1 >= 0.5;
   let html = '';
   for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
   if (half) html += '<i class="fas fa-star-half-alt"></i>';
@@ -1070,6 +1009,7 @@ function stars(rating) {
 }
 
 function initials(name) {
+  if (!name) return '?';
   return name.split(' ').map(w => w[0]).slice(0, 2).join('').toUpperCase();
 }
 
@@ -1084,59 +1024,119 @@ function showToast(msg) {
 async function loadProduct() {
   const id = getParam('id');
   if (!id) {
-    document.getElementById('pdContent').innerHTML = '<p style="text-align:center;padding:60px">Produk tidak ditemukan.</p>';
+    renderNotFound();
     return;
   }
 
   try {
-    // 1. Load product
+    // 1. Load product utama
     const pDoc = await db.collection('produk').doc(id).get();
     if (!pDoc.exists) {
-      document.getElementById('pdContent').innerHTML = '<p style="text-align:center;padding:60px">Produk tidak ditemukan.</p>';
+      renderNotFound();
       return;
     }
-    currentProduct = { id: pDoc.id, ...pDoc.data() };
+    currentProduct = { firestoreId: pDoc.id, ...pDoc.data() };
 
     // 2. Load seller
-    const sDoc = await db.collection('sellers').doc(currentProduct.sellerId).get();
-    if (sDoc.exists) currentSeller = { id: sDoc.id, ...sDoc.data() };
+    if (currentProduct.sellerId) {
+      const sDoc = await db.collection('sellers').doc(currentProduct.sellerId).get();
+      if (sDoc.exists) currentSeller = { id: sDoc.id, ...sDoc.data() };
+    }
 
-    // 3. Load reviews
-    const rSnap = await db.collection('reviews')
-      .where('productId', '==', Number(id))
+    // 3. Load reviews (dengan support number & string productId)
+    const productIdNum = Number(id);
+    let reviews = [];
+    
+    // Try Number first
+    const rSnapNum = await db.collection('reviews')
+      .where('productId', '==', productIdNum)
       .limit(10).get();
-    const reviews = rSnap.docs.map(d => d.data());
+    reviews = rSnapNum.docs.map(d => d.data());
+    
+    // Fallback ke String
+    if (reviews.length === 0) {
+      const rSnapStr = await db.collection('reviews')
+        .where('productId', '==', id)
+        .limit(10).get();
+      reviews = rSnapStr.docs.map(d => d.data());
+    }
 
-    // 4. Load rekomendasi (produk lain dari kategori sama)
-    const recSnap = await db.collection('produk')
-      .where('kategori', '==', currentProduct.kategori)
-      .limit(8).get();
-    const recommends = recSnap.docs
-      .map(d => ({ id: d.id, ...d.data() }))
-      .filter(p => p.id !== currentProduct.id)
-      .slice(0, 6);
+    // 4. Load rekomendasi
+    let recommends = [];
+    if (currentProduct.subKategori) {
+      const recSnap = await db.collection('produk')
+        .where('subKategori', '==', currentProduct.subKategori)
+        .where('aktif', '==', true)
+        .limit(8).get();
+      recommends = recSnap.docs
+        .map(d => ({ firestoreId: d.id, ...d.data() }))
+        .filter(p => String(p.id) !== String(currentProduct.id))
+        .slice(0, 6);
+    }
+
+    // Fallback jika sub-kategori kosong
+    if (recommends.length === 0 && currentProduct.kategori) {
+      const recSnap2 = await db.collection('produk')
+        .where('kategori', '==', currentProduct.kategori)
+        .where('aktif', '==', true)
+        .limit(8).get();
+      recommends = recSnap2.docs
+        .map(d => ({ firestoreId: d.id, ...d.data() }))
+        .filter(p => String(p.id) !== String(currentProduct.id))
+        .slice(0, 6);
+    }
 
     render(currentProduct, currentSeller, reviews, recommends);
   } catch (e) {
     console.error(e);
-    document.getElementById('pdContent').innerHTML = '<p style="text-align:center;padding:60px;color:red">Error: ' + e.message + '</p>';
+    document.getElementById('pdContent').innerHTML = `
+      <div class="pd-not-found">
+        <i class="fas fa-exclamation-triangle" style="color:#EF4444"></i>
+        <h3>Gagal Memuat Data</h3>
+        <p>Terjadi masalah koneksi: ${e.message}</p>
+        <a href="index.html" class="pd-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+      </div>
+    `;
   }
+}
+
+function renderNotFound() {
+  document.getElementById('pdContent').innerHTML = `
+    <div class="pd-not-found">
+      <i class="fas fa-box-open"></i>
+      <h3>Produk Tidak Ditemukan</h3>
+      <p>Maaf, produk yang Anda cari mungkin sudah tidak tersedia atau ID tidak valid.</p>
+      <a href="index.html" class="pd-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+    </div>
+  `;
 }
 
 // ==================== RENDER ====================
 function render(p, s, reviews, recommends) {
-  const badgesHtml = [];
-  if (p.diskon) badgesHtml.push(`<span class="pd-badge hot">🔥 -${p.diskon}%</span>`);
-  if (p.terjual > 200) badgesHtml.push(`<span class="pd-badge hot">Terlaris</span>`);
-  if (p.tags?.includes('fresh')) badgesHtml.push(`<span class="pd-badge">🌿 Fresh</span>`);
-  if (p.tags?.includes('organik')) badgesHtml.push(`<span class="pd-badge new">🌱 Organik</span>`);
+  // BADGES DINAMIS
+  const badgesArr = [];
+  if (p.diskon) badgesArr.push(`<span class="pd-badge hot">🔥 -${p.diskon}%</span>`);
+  if (p.terjual > 200) badgesArr.push(`<span class="pd-badge hot">Terlaris</span>`);
+  if (p.tags?.includes('fresh')) badgesArr.push(`<span class="pd-badge">🌿 Fresh</span>`);
+  if (p.tags?.includes('organik')) badgesArr.push(`<span class="pd-badge new">🌱 Organik</span>`);
+  if (p.tags?.includes('premium')) badgesArr.push(`<span class="pd-badge new">💎 Premium</span>`);
+  const badgesHtml = badgesArr.join('');
+  const badgesCount = badgesArr.length;
+
+  // TAGS DINAMIS  
+  const tagsCount = p.tags?.length || 0;
+  const tagsHtml = p.tags?.length ? `
+    <div class="pd-tags" data-count="${tagsCount}">
+      ${p.tags.map(t => `<span class="pd-tag">#${t}</span>`).join('')}
+    </div>
+  ` : '';
 
   document.getElementById('pdContent').innerHTML = `
     <div class="pd-grid">
       <!-- LEFT: Gallery -->
       <div class="pd-gallery">
-        <div class="pd-main-img">${p.emoji}</div>
-        <div class="pd-badges">${badgesHtml.join('')}</div>
+        <div class="pd-main-img">${p.emoji || '🛒'}</div>
+        ${badgesCount > 0 ? `<div class="pd-badges" data-count="${badgesCount}">${badgesHtml}</div>` : ''}
       </div>
 
       <!-- RIGHT: Info -->
@@ -1145,7 +1145,7 @@ function render(p, s, reviews, recommends) {
 
         <div class="pd-stats">
           <div class="pd-stat"><i class="fas fa-star"></i> <b>${p.rating || 0}</b> (${p.totalReview || 0} ulasan)</div>
-          <div class="pd-stat"><i class="fas fa-shopping-bag" style="color:#22c55e"></i> ${p.terjual || 0} terjual</div>
+          <div class="pd-stat"><i class="fas fa-shopping-bag"></i> ${p.terjual || 0} terjual</div>
         </div>
 
         <div class="pd-price-box">
@@ -1153,11 +1153,12 @@ function render(p, s, reviews, recommends) {
             <span class="price">${rupiah(p.harga)}</span>
             ${p.hargaCoret ? `<span class="coret">${rupiah(p.hargaCoret)}</span><span class="diskon">-${p.diskon}%</span>` : ''}
           </div>
-          <div class="pd-satuan">per ${p.satuan}${p.berat ? ` • ${p.berat}g` : ''}</div>
+          <div class="pd-satuan">per ${p.satuan || 'pcs'}${p.berat ? ` • ${p.berat}g` : ''}</div>
         </div>
 
         ${s ? `
-        <a href="seller.html?id=${s.id}" class="pd-seller">
+        <a href="https://wa.me/${s.telepon || CS_WA}?text=${encodeURIComponent('Halo ' + s.nama + ', saya tertarik dengan produk ' + p.nama + '. Bisa info lebih lanjut?')}" 
+           class="pd-seller" target="_blank">
           <div class="pd-seller-avatar">${s.emoji || '🏪'}</div>
           <div class="pd-seller-info">
             <div class="pd-seller-name">
@@ -1166,11 +1167,11 @@ function render(p, s, reviews, recommends) {
             </div>
             <div class="pd-seller-meta">
               <span><i class="fas fa-star"></i>${s.rating}</span>
-              <span><i class="fas fa-map-marker-alt"></i>${s.jarak}</span>
-              <span>${s.totalTerjual}+ terjual</span>
+              ${s.jarak ? `<span><i class="fas fa-map-marker-alt" style="color:#EF4444"></i>${s.jarak}</span>` : ''}
+              <span>${s.totalTerjual || 0}+ terjual</span>
             </div>
           </div>
-          <span class="pd-visit-btn">Kunjungi</span>
+          <span class="pd-visit-btn"><i class="fab fa-whatsapp"></i> Chat</span>
         </a>
         ` : ''}
 
@@ -1181,7 +1182,7 @@ function render(p, s, reviews, recommends) {
             <span class="pd-qty-value" id="qtyValue">1</span>
             <button onclick="changeQty(1)">+</button>
           </div>
-          <span class="pd-stok">Stok: <b>${p.stok}</b> ${p.satuan}</span>
+          <span class="pd-stok">Stok: <b>${p.stok || 0}</b> ${p.satuan || ''}</span>
         </div>
 
         <div class="pd-actions">
@@ -1198,12 +1199,8 @@ function render(p, s, reviews, recommends) {
     <!-- ============ DESKRIPSI ============ -->
     <div class="pd-section" style="margin-top:30px">
       <h3><i class="fas fa-info-circle"></i> Deskripsi Produk</h3>
-      <p class="pd-desc-text">${p.deskripsi}</p>
-      ${p.tags?.length ? `
-        <div class="pd-tags">
-          ${p.tags.map(t => `<span class="pd-tag">#${t}</span>`).join('')}
-        </div>
-      ` : ''}
+      <p class="pd-desc-text">${p.deskripsi || 'Tidak ada deskripsi tersedia.'}</p>
+      ${tagsHtml}
     </div>
 
     <!-- ============ ULASAN ============ -->
@@ -1218,8 +1215,8 @@ function render(p, s, reviews, recommends) {
             <div class="pd-rating-count">${p.totalReview || 0} ulasan</div>
           </div>
           <div style="flex:1">
-            <p style="font-size:0.9rem;color:var(--muted);line-height:1.6">
-              ${reviews.filter(r => r.rating === 5).length} pembeli memberikan rating <b>bintang 5</b> untuk produk ini.
+            <p style="font-size:0.9rem;color:#92400E;line-height:1.6;font-weight:500">
+              ${reviews.filter(r => r.rating === 5).length} pembeli memberikan rating <b>bintang 5</b> untuk produk ini. Anda dapat menaruh kepercayaan pada kualitas produk!
             </p>
           </div>
         </div>
@@ -1244,7 +1241,7 @@ function render(p, s, reviews, recommends) {
             ` : ''}
           </div>
         `).join('')}
-      ` : '<p style="color:var(--muted);text-align:center;padding:20px">Belum ada ulasan. Jadilah yang pertama!</p>'}
+      ` : '<p style="color:var(--muted);text-align:center;padding:40px 20px;font-size:0.9rem"><i class="far fa-comment-dots" style="font-size:2rem;display:block;margin-bottom:10px;opacity:0.4"></i>Belum ada ulasan. Jadilah pembeli pertama yang memberikan review!</p>'}
     </div>
 
     <!-- ============ REKOMENDASI ============ -->
@@ -1272,23 +1269,25 @@ function render(p, s, reviews, recommends) {
 
 // ==================== ACTIONS ====================
 function changeQty(delta) {
-  qty = Math.max(1, Math.min(currentProduct.stok, qty + delta));
+  const maxStok = currentProduct.stok || 999;
+  qty = Math.max(1, Math.min(maxStok, qty + delta));
   document.getElementById('qtyValue').textContent = qty;
 }
 
 function addToCartAction() {
   const cart = JSON.parse(localStorage.getItem('pw_cart') || '[]');
-  const existing = cart.find(c => c.id === currentProduct.id);
+  const existing = cart.find(c => String(c.id) === String(currentProduct.id));
   
   if (existing) {
     existing.qty += qty;
   } else {
+    // FORMAT DATA SESUAI SCRIPT.JS UTAMA (bukan {name,vendor,price} tapi {nama,sellerName,harga})
     cart.push({
       id: currentProduct.id,
-      name: currentProduct.nama,
-      vendor: currentProduct.sellerName,
+      nama: currentProduct.nama,
+      sellerName: currentProduct.sellerName,
       emoji: currentProduct.emoji,
-      price: currentProduct.harga,
+      harga: currentProduct.harga,
       qty: qty
     });
   }
@@ -1300,17 +1299,18 @@ function addToCartAction() {
 
 function buyNow() {
   addToCartAction();
-  setTimeout(() => location.href = 'index.html', 800);
+  setTimeout(() => location.href = 'index.html?openCart=1', 800);
 }
 
 function updateCartBadge() {
   const cart = JSON.parse(localStorage.getItem('pw_cart') || '[]');
   const total = cart.reduce((s, c) => s + c.qty, 0);
-  document.getElementById('cartBadge').textContent = total;
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = total;
 }
 
 // ==================== INIT ====================
-loadProduct();
+document.addEventListener('DOMContentLoaded', loadProduct);
 </script>
 </body>
-</html>
+</html> 
