@@ -39,9 +39,11 @@ let dataWifiCoverageFallback = [
   { id: 'A', nama: 'Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }] }
 ];
 let dataWifiVouchersFallback = [
-  { id: 'v_1', hari: 1, hargaAgen: 2500, hargaUser: 3000, persen: 17 },
-  { id: 'v_7', hari: 7, hargaAgen: 17000, hargaUser: 20000, persen: 15 },
-  { id: 'v_30', hari: 30, hargaAgen: 45000, hargaUser: 50000, persen: 10 }
+  { id: 'v_1',  hari: 1,  hargaAgen: 2500,  hargaUser: 3000,  persen: 17, aktif: true },
+  { id: 'v_4',  hari: 4,  hargaAgen: 8500,  hargaUser: 10000, persen: 15, aktif: true },
+  { id: 'v_7',  hari: 7,  hargaAgen: 17000, hargaUser: 20000, persen: 15, aktif: true },
+  { id: 'v_15', hari: 15, hargaAgen: 31000, hargaUser: 35000, persen: 11, aktif: true },
+  { id: 'v_30', hari: 30, hargaAgen: 45000, hargaUser: 50000, persen: 10, aktif: true }
 ];
 
 // ============================================
