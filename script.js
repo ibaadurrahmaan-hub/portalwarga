@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v3.2 (ROBUST LIVE SYNC + FULL FALLBACK)
+   PORTALWARGA - SCRIPT CORE v3.3 (SAFE DOM + CHECKOUT REDIRECT READY)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
@@ -359,20 +359,25 @@ function renderEdu() {
 }
 
 // ============================================
-// WIFI ENGINE
+// WIFI ENGINE (SAFE MODE)
 // ============================================
 function switchWifiTab(type) {
-  document.getElementById('btnTabFiber').classList.remove('active');
-  document.getElementById('btnTabVoucher').classList.remove('active');
-  document.getElementById('contentWifiFiber').style.display = 'none';
-  document.getElementById('contentWifiVoucher').style.display = 'none';
+  const tabFiber = document.getElementById('btnTabFiber');
+  const tabVoucher = document.getElementById('btnTabVoucher');
+  const contentFiber = document.getElementById('contentWifiFiber');
+  const contentVoucher = document.getElementById('contentWifiVoucher');
+  
+  if (tabFiber) tabFiber.classList.remove('active');
+  if (tabVoucher) tabVoucher.classList.remove('active');
+  if (contentFiber) contentFiber.style.display = 'none';
+  if (contentVoucher) contentVoucher.style.display = 'none';
   
   if (type === 'fiber') {
-    document.getElementById('btnTabFiber').classList.add('active');
-    document.getElementById('contentWifiFiber').style.display = 'block';
+    if (tabFiber) tabFiber.classList.add('active');
+    if (contentFiber) contentFiber.style.display = 'block';
   } else {
-    document.getElementById('btnTabVoucher').classList.add('active');
-    document.getElementById('contentWifiVoucher').style.display = 'block';
+    if (tabVoucher) tabVoucher.classList.add('active');
+    if (contentVoucher) contentVoucher.style.display = 'block';
   }
 }
 
@@ -422,6 +427,7 @@ function setLocStatus(msg, type) {
 
 function shareLocationWifi() {
   const btn = document.getElementById('btnShareLoc');
+  if (!btn) return;
   if (!navigator.geolocation) {
     setLocStatus('❌ Sensor GPS tidak disokong browser Anda.', 'err');
     showManualWifiForm();
@@ -437,21 +443,26 @@ function shareLocationWifi() {
       lastUserLng = pos.coords.longitude;
       const acc = Math.round(pos.coords.accuracy);
 
-      document.getElementById('wifiLat').value = lastUserLat;
-      document.getElementById('wifiLng').value = lastUserLng;
+      const latEl = document.getElementById('wifiLat');
+      const lngEl = document.getElementById('wifiLng');
+      if (latEl) latEl.value = lastUserLat;
+      if (lngEl) lngEl.value = lastUserLng;
       setLocStatus(`✅ Lokasi teridentifikasi (Akurasi: ±${acc}m)<br><small>GPS: ${lastUserLat.toFixed(6)}, ${lastUserLng.toFixed(6)}</small>`, 'ok');
 
       const hits = findCoverage(lastUserLat, lastUserLng);
       renderCoverageResult(hits);
-      document.getElementById('wifiForm').style.display = 'block';
+      const form = document.getElementById('wifiForm');
+      if (form) form.style.display = 'block';
       fillPaketOptions(hits);
 
+      const wDetected = document.getElementById('wifiWilayahDetected');
+      const wJarak = document.getElementById('wifiJarak');
       if (hits.length > 0) {
-        document.getElementById('wifiWilayahDetected').value = hits[0].nama;
-        document.getElementById('wifiJarak').value = hits[0].jarak.toFixed(2) + ' km';
+        if (wDetected) wDetected.value = hits[0].nama;
+        if (wJarak) wJarak.value = hits[0].jarak.toFixed(2) + ' km';
       } else {
-        document.getElementById('wifiWilayahDetected').value = 'Di Luar Coverage';
-        document.getElementById('wifiJarak').value = '-';
+        if (wDetected) wDetected.value = 'Di Luar Coverage';
+        if (wJarak) wJarak.value = '-';
       }
       reverseGeocode(lastUserLat, lastUserLng);
       btn.disabled = false;
@@ -532,14 +543,14 @@ async function reverseGeocode(lat, lng) {
 
 function submitWifiCoverage(e) {
   e.preventDefault();
-  const nama = document.getElementById('wifiNama').value.trim();
-  const wa = document.getElementById('wifiWa').value.trim();
-  const alamat = document.getElementById('wifiAlamat').value.trim();
-  const paket = document.getElementById('wifiPaket').value;
-  const wilayah = document.getElementById('wifiWilayahDetected').value || '-';
-  const jarak = document.getElementById('wifiJarak').value || '-';
-  const lat = document.getElementById('wifiLat').value || '-';
-  const lng = document.getElementById('wifiLng').value || '-';
+  const nama = document.getElementById('wifiNama')?.value.trim();
+  const wa = document.getElementById('wifiWa')?.value.trim();
+  const alamat = document.getElementById('wifiAlamat')?.value.trim();
+  const paket = document.getElementById('wifiPaket')?.value;
+  const wilayah = document.getElementById('wifiWilayahDetected')?.value || '-';
+  const jarak = document.getElementById('wifiJarak')?.value || '-';
+  const lat = document.getElementById('wifiLat')?.value || '-';
+  const lng = document.getElementById('wifiLng')?.value || '-';
 
   if (!nama || !wa || !alamat || !paket) { showToast('⚠️ Mohon lengkapi seluruh isian!'); return; }
   if (typeof recordWifiRegistration === 'function') {
@@ -554,9 +565,12 @@ function submitWifiCoverage(e) {
   e.target.reset();
 
   setTimeout(() => {
-    document.getElementById('wifiForm').style.display = 'none';
-    document.getElementById('coverageResult').style.display = 'none';
-    document.getElementById('locStatus').style.display = 'none';
+    const f1 = document.getElementById('wifiForm');
+    const f2 = document.getElementById('coverageResult');
+    const f3 = document.getElementById('locStatus');
+    if (f1) f1.style.display = 'none';
+    if (f2) f2.style.display = 'none';
+    if (f3) f3.style.display = 'none';
   }, 4000);
 }
 
@@ -621,7 +635,7 @@ function addToCart(id) {
       id: product.id,
       nama: product.nama,
       sellerName: product.sellerName,
-      sellerId: product.sellerId || product.sellerName, // Disimpan untuk halaman checkout/seller
+      sellerId: product.sellerId || product.sellerName,
       emoji: product.emoji,
       harga: product.harga,
       qty: 1
@@ -654,11 +668,11 @@ function updateCartUI() {
   const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
   const totalPrice = cart.reduce((sum, c) => sum + (c.harga * c.qty), 0);
   
-  // Update UI Header / Badge
+  // Header Badge
   const badgeEl = document.getElementById('cartBadge');
   if (badgeEl) badgeEl.textContent = totalItems;
 
-  // Update UI Ringkasan Footer (HTML Baru)
+  // Ringkasan Footer
   const elCount = document.getElementById('cartItemCount');
   const elSub = document.getElementById('cartSubtotal');
   const elTotal = document.getElementById('cartTotal');
@@ -669,7 +683,7 @@ function updateCartUI() {
   if (elTotal) elTotal.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
   if (btnGo) btnGo.disabled = (cart.length === 0);
 
-  // Render Isi Keranjang
+  // Isi Keranjang
   const cartBody = document.getElementById('cartBody');
   if (!cartBody) return;
   
@@ -697,13 +711,17 @@ function updateCartUI() {
 }
 
 function openCart() {
-  document.getElementById('cartDrawer').classList.add('open');
-  document.getElementById('cartOverlay').classList.add('show');
+  const drawer = document.getElementById('cartDrawer');
+  const overlay = document.getElementById('cartOverlay');
+  if (drawer) drawer.classList.add('open');
+  if (overlay) overlay.classList.add('show');
 }
 
 function closeCart() {
-  document.getElementById('cartDrawer').classList.remove('open');
-  document.getElementById('cartOverlay').classList.remove('show');
+  const drawer = document.getElementById('cartDrawer');
+  const overlay = document.getElementById('cartOverlay');
+  if (drawer) drawer.classList.remove('open');
+  if (overlay) overlay.classList.remove('show');
 }
 
 // ============================================
@@ -714,16 +732,12 @@ function goToCheckout() {
     showToast('⚠️ Keranjang Anda masih kosong!');
     return;
   }
-  
-  // Pastikan data tersimpan sebelum pindah halaman
   saveCartToStorage();
-  
-  // Redirect ke halaman checkout dedicated
   window.location.href = 'checkout.html';
 }
 
 // ============================================
-// NAVIGATION SYSTEM
+// NAVIGATION SYSTEM (SAFE MODE)
 // ============================================
 function showCategory(cat) {
   document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
