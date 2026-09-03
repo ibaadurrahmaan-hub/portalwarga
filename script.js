@@ -1,14 +1,15 @@
 /* ==============================================
-   PORTAL WARGA - SCRIPT (FIREBASE READY)
+   PORTAL WARGA - SCRIPT (FIREBASE + GPS COVERAGE)
    Project: portalwarga-963e4
    ============================================== */
 
-// ⭐ Ganti nomor WA CS di sini
+// ⭐ Nomor WA CS
 const CS_WA = '6285267891619';
 
 
-// ============ DATA (Fallback jika Firebase belum tersambung) ============
-// Diubah dari 'const' menjadi 'let' agar bisa di-override oleh Firebase real-time
+// ============================================
+// DATA (Fallback jika Firebase belum tersambung)
+// ============================================
 let dataPasar = [
   { id: 1, emoji: '🥬', name: 'Sayur Bayam 1 Ikat', vendor: 'Toko Bu Tini', price: 5000 },
   { id: 2, emoji: '🍅', name: 'Tomat Merah 500gr', vendor: 'Kios Pak Amin', price: 8000 },
@@ -66,26 +67,144 @@ let dataPendidikan = [
   },
 ];
 
+
+// ============================================
+// WIFI: DATA PAKET YOUFIBER REGYNET
+// ============================================
 let dataWifi = [
   { 
-    name: 'Basic', speed: '10', price: '150.000',
-    features: ['Unlimited Kuota', 'Sharing Stabil', 'Support Chat WA'],
+    id: 1, name: 'Ekonomis', speed: '10', price: '130.000',
+    features: ['Unlimited Tanpa FUP', 'Bayar Bulanan Flat', 'Gratis Sewa Modem', 'CS 24 Jam'],
     popular: false
   },
   { 
-    name: 'Standar', speed: '20', price: '200.000',
-    features: ['Unlimited Kuota', 'Cocok 3-5 Device', 'Gratis Instalasi', 'Router Include'],
+    id: 2, name: 'Basic', speed: '15', price: '165.000',
+    features: ['Unlimited Tanpa FUP', 'Gratis Biaya Perbaikan', 'Gratis Sewa Modem', 'CS 24 Jam'],
     popular: true
   },
   { 
-    name: 'Premium', speed: '50', price: '300.000',
-    features: ['Unlimited Kuota', 'Dedicated Line', 'Gratis Instalasi', 'Support Prioritas'],
+    id: 3, name: 'Advanced', speed: '30', price: '220.000',
+    features: ['Unlimited Tanpa FUP', 'Gratis Biaya Perbaikan', 'Gratis Sewa Modem', 'CS 24 Jam'],
     popular: false
   },
+  { 
+    id: 4, name: 'Extra', speed: '50', price: '330.000',
+    features: ['Unlimited Tanpa FUP', 'Gratis Biaya Perbaikan', 'Gratis Sewa Modem', 'CS 24 Jam'],
+    popular: false
+  },
+  { 
+    id: 5, name: 'Premiere', speed: '100', price: '550.000',
+    features: ['Unlimited Tanpa FUP', 'Gratis Biaya Perbaikan', 'Gratis Sewa Modem', 'CS Prioritas'],
+    popular: false
+  },
+  { 
+    id: 6, name: 'Promo Cijeruk', speed: '100', price: '120.000',
+    features: ['Khusus Kec. Cijeruk', 'Unlimited Tanpa FUP', 'Gratis Sewa Modem', 'Harga Super Hemat'],
+    popular: true
+  }
 ];
 
 
-// ============ RENDER GRID ============
+// ============================================
+// WIFI: DATA WILAYAH COVERAGE + KOORDINAT
+// ============================================
+const WIFI_WILAYAH = [
+  {
+    id: 'A',
+    nama: 'Wilayah A',
+    lat: -6.07185544,
+    lng: 107.02091269,
+    radiusKm: 1,
+    paket: [
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'B',
+    nama: 'Wilayah B',
+    lat: -6.0941028,
+    lng: 107.0514062,
+    radiusKm: 2,
+    paket: [
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'C',
+    nama: 'Wilayah C',
+    lat: -6.0929032,
+    lng: 107.18109175,
+    radiusKm: 2,
+    paket: [
+      { name: 'Ekonomis 10 Mbps', speed: 10, price: 130000 },
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'D',
+    nama: 'Wilayah D',
+    lat: -6.24266427,
+    lng: 107.09106332,
+    radiusKm: 2,
+    paket: [
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'E',
+    nama: 'Wilayah E',
+    lat: -6.090539,
+    lng: 107.209343,
+    radiusKm: 3,
+    paket: [
+      { name: 'Ekonomis 10 Mbps', speed: 10, price: 120000 },
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'F',
+    nama: 'Wilayah F',
+    lat: -6.230931,
+    lng: 107.089664,
+    radiusKm: 3,
+    paket: [
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }
+    ]
+  },
+  {
+    id: 'G',
+    nama: 'Kec. Cijeruk, Bogor',
+    lat: -6.715114999,
+    lng: 106.793385,
+    radiusKm: 4,
+    paket: [
+      { name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }
+    ]
+  }
+];
+
+
+// ============================================
+// RENDER GRID PASAR
+// ============================================
 function renderPasar() {
   const grid = document.getElementById('pasarGrid');
   if (!grid) return;
@@ -104,6 +223,10 @@ function renderPasar() {
   `).join('');
 }
 
+
+// ============================================
+// RENDER GRID PROPERTY
+// ============================================
 function renderProperty() {
   const grid = document.getElementById('propertyGrid');
   if (!grid) return;
@@ -130,6 +253,10 @@ function renderProperty() {
   `).join('');
 }
 
+
+// ============================================
+// RENDER GRID PENDIDIKAN
+// ============================================
 function renderEdu() {
   const grid = document.getElementById('eduGrid');
   if (!grid) return;
@@ -149,6 +276,10 @@ function renderEdu() {
   `).join('');
 }
 
+
+// ============================================
+// RENDER GRID WIFI
+// ============================================
 function renderWifi() {
   const grid = document.getElementById('wifiGrid');
   if (!grid) return;
@@ -165,44 +296,50 @@ function renderWifi() {
   `).join('');
 }
 
-// ============ NAVIGASI KATEGORI ============
+
+// ============================================
+// NAVIGASI KATEGORI
+// ============================================
 function showCategory(cat) {
-  // Sembunyikan semua section
   document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
-  document.getElementById(`cat-${cat}`).classList.add('active');
-  
-  // Update state Desktop Nav
+  const target = document.getElementById(`cat-${cat}`);
+  if (target) target.classList.add('active');
+
   document.querySelectorAll('.desktop-nav .d-nav-item').forEach(m => m.classList.remove('active'));
-  const dTarget = document.querySelector(`.desktop-nav .d-nav-item[onclick*="${cat}"]`);
+  const dTarget = document.querySelector(`.desktop-nav .d-nav-item[onclick*="'${cat}'"]`);
   if (dTarget) dTarget.classList.add('active');
 
-  // Update state Mobile Bottom Nav
   document.querySelectorAll('.mobile-bottom-nav .m-nav-item').forEach(m => m.classList.remove('active'));
   const mTarget = document.querySelector(`.mobile-bottom-nav .m-nav-item[data-target="${cat}"]`);
   if (mTarget) mTarget.classList.add('active');
 
-  // Scroll ke area konten (opsional, jika dirasa perlu)
+  document.querySelectorAll('.menu-card').forEach(m => m.classList.remove('active'));
+  const menuCard = document.querySelector('.menu-' + cat);
+  if (menuCard) menuCard.classList.add('active');
+
   const offset = window.innerWidth > 768 ? 100 : 120;
   const targetEl = document.getElementById('contentArea');
-  if(targetEl) {
-     const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
-     window.scrollTo({ top: topPos, behavior: 'smooth' });
+  if (targetEl) {
+    const topPos = targetEl.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: topPos, behavior: 'smooth' });
   }
 }
 
-// ============ CART SYSTEM ============
+
+// ============================================
+// CART SYSTEM
+// ============================================
 let cart = [];
 
 function addToCart(id) {
   const product = dataPasar.find(p => p.id === id);
+  if (!product) return;
   const existing = cart.find(c => c.id === id);
-  
   if (existing) {
     existing.qty++;
   } else {
     cart.push({ ...product, qty: 1 });
   }
-  
   updateCartUI();
   showToast(`✓ ${product.name} ditambahkan!`);
 }
@@ -226,11 +363,15 @@ function changeQty(id, delta) {
 function updateCartUI() {
   const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
   const totalPrice = cart.reduce((sum, c) => sum + (c.price * c.qty), 0);
-  
-  document.getElementById('cartBadge').textContent = totalItems;
-  document.getElementById('cartTotal').textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
-  
+
+  const badgeEl = document.getElementById('cartBadge');
+  const totalEl = document.getElementById('cartTotal');
+  if (badgeEl) badgeEl.textContent = totalItems;
+  if (totalEl) totalEl.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
+
   const cartBody = document.getElementById('cartBody');
+  if (!cartBody) return;
+
   if (cart.length === 0) {
     cartBody.innerHTML = `
       <div class="cart-empty">
@@ -240,7 +381,7 @@ function updateCartUI() {
     `;
     return;
   }
-  
+
   cartBody.innerHTML = cart.map(c => `
     <div class="cart-item">
       <div class="cart-item-img">${c.emoji}</div>
@@ -262,92 +403,378 @@ function updateCartUI() {
 }
 
 
-// ============ CART DRAWER (dgn Auto-Hide FAB WA) ============
+// ============================================
+// CART DRAWER
+// ============================================
 function openCart() {
   document.getElementById('cartDrawer').classList.add('open');
   document.getElementById('cartOverlay').classList.add('show');
-  document.body.classList.add('cart-open'); // Menyembunyikan WA
+  document.body.classList.add('cart-open');
   document.body.style.overflow = 'hidden';
 }
 
 function closeCart() {
   document.getElementById('cartDrawer').classList.remove('open');
   document.getElementById('cartOverlay').classList.remove('show');
-  document.body.classList.remove('cart-open'); // Menampilkan WA kembali
+  document.body.classList.remove('cart-open');
   document.body.style.overflow = 'auto';
 }
 
 
-// ============ CHECKOUT VIA WA ============
+// ============================================
+// CHECKOUT VIA WA
+// ============================================
 function checkoutWA() {
   if (cart.length === 0) {
     showToast('⚠️ Keranjang masih kosong!');
     return;
   }
-  
+
   const total = cart.reduce((sum, c) => sum + (c.price * c.qty), 0);
 
-  // ✅ FIREBASE: Simpan pesanan ke Firestore (jika Firebase tersedia)
   if (typeof recordOrder === 'function') {
     recordOrder(cart, total);
   }
-  
+
   let msg = `*🛒 PESANAN BARU - PortalWarga*\n\n`;
   msg += `Halo CS, saya ingin memesan:\n\n`;
-  
+
   cart.forEach((c, i) => {
     msg += `${i + 1}. ${c.name}\n`;
     msg += `   Toko: ${c.vendor}\n`;
     msg += `   ${c.qty} x Rp ${c.price.toLocaleString('id-ID')} = *Rp ${(c.price * c.qty).toLocaleString('id-ID')}*\n\n`;
   });
-  
+
   msg += `━━━━━━━━━━━━━\n`;
   msg += `*TOTAL: Rp ${total.toLocaleString('id-ID')}*\n`;
   msg += `_(Belum termasuk ongkir)_\n\n`;
   msg += `📍 Alamat: _(mohon dikirim setelah ini)_\n`;
   msg += `Terima kasih! 🙏`;
-  
+
   const url = `https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
 }
 
 
-// ============ SUBMIT WIFI FORM ============
-function submitWifi(e) {
-  e.preventDefault();
-  
-  const nama = document.getElementById('wifiNama').value;
-  const wa = document.getElementById('wifiWa').value;
-  const alamat = document.getElementById('wifiAlamat').value;
-  const paket = document.getElementById('wifiPaket').value;
-  
-  // ✅ FIREBASE: Simpan pendaftaran ke Firestore (jika Firebase tersedia)
-  if (typeof recordWifiRegistration === 'function') {
-    recordWifiRegistration(nama, wa, alamat, paket);
+// ============================================
+// WIFI: FUNGSI HAVERSINE (Jarak km)
+// ============================================
+function distanceKm(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) *
+    Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+
+// ============================================
+// WIFI: CARI COVERAGE
+// ============================================
+function findCoverage(userLat, userLng) {
+  const hits = [];
+  WIFI_WILAYAH.forEach(w => {
+    const d = distanceKm(userLat, userLng, w.lat, w.lng);
+    if (d <= w.radiusKm) {
+      hits.push({ ...w, jarak: d });
+    }
+  });
+  hits.sort((a, b) => a.jarak - b.jarak);
+  return hits;
+}
+
+
+// ============================================
+// WIFI: STATE + STATUS
+// ============================================
+let lastUserLat = null;
+let lastUserLng = null;
+let lastCoverageHits = [];
+
+function setLocStatus(msg, type) {
+  const el = document.getElementById('locStatus');
+  if (!el) return;
+  el.style.display = 'block';
+  el.className = type;
+  el.innerHTML = msg;
+}
+
+
+// ============================================
+// WIFI: SHARE LOCATION
+// ============================================
+function shareLocationWifi() {
+  const btn = document.getElementById('btnShareLoc');
+  if (!navigator.geolocation) {
+    setLocStatus('❌ Browser tidak mendukung GPS. Silakan isi form manual di bawah.', 'err');
+    showManualWifiForm();
+    return;
   }
-  
-  let msg = `*📡 PENDAFTARAN WIFI - PortalWarga*\n\n`;
-  msg += `👤 Nama: ${nama}\n`;
-  msg += `📱 WhatsApp: ${wa}\n`;
-  msg += `📍 Alamat: ${alamat}\n`;
-  msg += `📦 Paket: ${paket}\n\n`;
-  msg += `Mohon segera dijadwalkan survei lokasi. Terima kasih! 🙏`;
-  
-  const url = `https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
-  
-  showToast('✓ Formulir dikirim ke CS!');
-  document.getElementById('wifiForm').reset();
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengambil lokasi...';
+  setLocStatus('📍 Meminta izin lokasi... Mohon <b>izinkan akses GPS</b> di browser Anda.', 'load');
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      lastUserLat = pos.coords.latitude;
+      lastUserLng = pos.coords.longitude;
+      const acc = Math.round(pos.coords.accuracy);
+
+      document.getElementById('wifiLat').value = lastUserLat;
+      document.getElementById('wifiLng').value = lastUserLng;
+
+      setLocStatus(
+        `✅ Lokasi berhasil didapat (akurasi ±${acc}m)<br>
+         <small style="font-weight:500;opacity:0.85">Lat: ${lastUserLat.toFixed(6)}, Lng: ${lastUserLng.toFixed(6)}</small>`,
+        'ok'
+      );
+
+      lastCoverageHits = findCoverage(lastUserLat, lastUserLng);
+      renderCoverageResult(lastCoverageHits);
+
+      document.getElementById('wifiForm').style.display = 'block';
+      fillPaketOptions(lastCoverageHits);
+
+      if (lastCoverageHits.length > 0) {
+        const best = lastCoverageHits[0];
+        document.getElementById('wifiWilayahDetected').value = best.nama;
+        document.getElementById('wifiJarak').value = best.jarak.toFixed(2) + ' km';
+      } else {
+        document.getElementById('wifiWilayahDetected').value = 'Di luar coverage terdaftar';
+        document.getElementById('wifiJarak').value = '-';
+      }
+
+      reverseGeocode(lastUserLat, lastUserLng);
+
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-sync-alt"></i> Perbarui Lokasi';
+    },
+    (err) => {
+      let msg = '❌ Gagal ambil lokasi. ';
+      if (err.code === 1) msg += 'Izin ditolak. Aktifkan GPS / izinkan lokasi di browser & coba lagi.';
+      else if (err.code === 2) msg += 'Lokasi tidak tersedia. Coba di area terbuka.';
+      else if (err.code === 3) msg += 'Timeout. Silakan coba lagi.';
+      else msg += err.message;
+
+      setLocStatus(msg, 'err');
+      showManualWifiForm();
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-location-arrow"></i> Coba Bagikan Lokasi Lagi';
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 0
+    }
+  );
 }
 
 
-// ============ TOAST ============
+// ============================================
+// WIFI: RENDER HASIL COVERAGE
+// ============================================
+function renderCoverageResult(hits) {
+  const box = document.getElementById('coverageResult');
+  if (!box) return;
+  box.style.display = 'block';
+
+  if (!hits.length) {
+    box.innerHTML = `
+      <div class="coverage-empty">
+        <i class="fas fa-exclamation-triangle"></i>
+        <b>Lokasi Anda di luar radius coverage terdaftar.</b><br>
+        Tetap isi form di bawah — CS akan cek manual ketersediaan jaringan di area Anda.
+      </div>`;
+    return;
+  }
+
+  box.innerHTML = `
+    <div style="font-size:0.88rem;color:var(--muted);margin-bottom:10px;font-weight:600">
+      <i class="fas fa-check-circle" style="color:#059669"></i> 
+      Ditemukan <b style="color:var(--pasar)">${hits.length}</b> wilayah coverage:
+    </div>
+    ${hits.map(h => `
+      <div class="coverage-card">
+        <h4>
+          <i class="fas fa-broadcast-tower" style="color:var(--primary)"></i>
+          ${h.nama}
+          <span style="font-size:0.72rem;font-weight:600;color:var(--muted);margin-left:auto">
+            ±${h.jarak.toFixed(2)} km
+          </span>
+        </h4>
+        <div class="coverage-meta">
+          <i class="fas fa-circle-notch"></i> Coverage radius: <b>${h.radiusKm} km</b> · 
+          ISP: <b>Youfiber by REGYNET</b>
+        </div>
+        <div class="coverage-paket">
+          ${h.paket.map(p => `
+            <span>${p.speed} Mbps — Rp ${p.price.toLocaleString('id-ID')}/bln</span>
+          `).join('')}
+        </div>
+      </div>
+    `).join('')}
+  `;
+}
+
+
+// ============================================
+// WIFI: ISI DROPDOWN PAKET
+// ============================================
+function fillPaketOptions(hits) {
+  const sel = document.getElementById('wifiPaket');
+  if (!sel) return;
+
+  const map = new Map();
+  if (hits.length) {
+    hits.forEach(h => {
+      h.paket.forEach(p => {
+        const key = p.name + '|' + p.price;
+        if (!map.has(key)) map.set(key, p);
+      });
+    });
+  } else {
+    [
+      { name: 'Ekonomis 10 Mbps', speed: 10, price: 130000 },
+      { name: 'Basic 15 Mbps', speed: 15, price: 165000 },
+      { name: 'Advanced 30 Mbps', speed: 30, price: 220000 },
+      { name: 'Extra 50 Mbps', speed: 50, price: 330000 },
+      { name: 'Premiere 100 Mbps', speed: 100, price: 550000 },
+      { name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }
+    ].forEach(p => map.set(p.name, p));
+  }
+
+  sel.innerHTML = '<option value="">-- Pilih Paket --</option>' +
+    [...map.values()].map(p =>
+      `<option value="${p.name} - Rp ${p.price.toLocaleString('id-ID')}">
+        ${p.name} — Rp ${p.price.toLocaleString('id-ID')}/bulan
+      </option>`
+    ).join('');
+}
+
+
+// ============================================
+// WIFI: MANUAL FORM
+// ============================================
+function showManualWifiForm() {
+  const form = document.getElementById('wifiForm');
+  if (form) form.style.display = 'block';
+  fillPaketOptions([]);
+  const wilayahEl = document.getElementById('wifiWilayahDetected');
+  if (wilayahEl) wilayahEl.value = 'Manual (tanpa GPS)';
+}
+
+
+// ============================================
+// WIFI: REVERSE GEOCODE (OpenStreetMap)
+// ============================================
+async function reverseGeocode(lat, lng) {
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`;
+    const res = await fetch(url, {
+      headers: { 'Accept-Language': 'id' }
+    });
+    const data = await res.json();
+    if (data && data.display_name) {
+      const alamatEl = document.getElementById('wifiAlamat');
+      if (alamatEl && !alamatEl.value) {
+        alamatEl.value = data.display_name;
+      }
+    }
+  } catch (e) {
+    console.warn('Reverse geocode gagal:', e);
+  }
+}
+
+
+// ============================================
+// WIFI: SUBMIT FORM COVERAGE
+// ============================================
+function submitWifiCoverage(e) {
+  e.preventDefault();
+
+  const nama = document.getElementById('wifiNama').value.trim();
+  const wa = document.getElementById('wifiWa').value.trim();
+  const alamat = document.getElementById('wifiAlamat').value.trim();
+  const paket = document.getElementById('wifiPaket').value;
+  const wilayah = document.getElementById('wifiWilayahDetected').value || '-';
+  const jarak = document.getElementById('wifiJarak').value || '-';
+  const lat = document.getElementById('wifiLat').value || '-';
+  const lng = document.getElementById('wifiLng').value || '-';
+
+  if (!nama || !wa || !alamat || !paket) {
+    showToast('⚠️ Lengkapi semua data terlebih dahulu!');
+    return;
+  }
+
+  if (typeof recordWifiRegistration === 'function') {
+    recordWifiRegistration(
+      nama,
+      wa,
+      `[${wilayah} | ${jarak}] ${alamat} | GPS: ${lat},${lng}`,
+      paket
+    );
+  } else if (typeof db !== 'undefined') {
+    db.collection('pendaftaran_wifi').add({
+      nama, whatsapp: wa, alamat, paket, wilayah, jarak,
+      lat: lat !== '-' ? Number(lat) : null,
+      lng: lng !== '-' ? Number(lng) : null,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    }).catch(console.warn);
+  }
+
+  const mapsLink = (lat !== '-' && lng !== '-')
+    ? `https://www.google.com/maps?q=${lat},${lng}`
+    : '-';
+
+  let msg = `*📡 CEK LOKASI + DAFTAR YOUFIBER REGYNET*\n\n`;
+  msg += `👤 *Nama:* ${nama}\n`;
+  msg += `📱 *WhatsApp:* ${wa}\n\n`;
+  msg += `🗺️ *Wilayah terdeteksi:* ${wilayah}\n`;
+  msg += `📏 *Jarak ke titik pusat:* ${jarak}\n`;
+  msg += `📦 *Paket dipilih:* ${paket}\n\n`;
+  msg += `📍 *Alamat:*\n${alamat}\n\n`;
+  msg += `📌 *Pin GPS:*\n${mapsLink}\n`;
+  msg += `_Koordinat: ${lat}, ${lng}_\n\n`;
+  msg += `Mohon dicek coverage & dijadwalkan survei. Terima kasih! 🙏`;
+
+  const url = `https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+
+  showToast('✓ Data + pin lokasi dikirim ke CS!');
+  e.target.reset();
+
+  setTimeout(() => {
+    document.getElementById('wifiForm').style.display = 'none';
+    document.getElementById('coverageResult').style.display = 'none';
+    document.getElementById('locStatus').style.display = 'none';
+    const btn = document.getElementById('btnShareLoc');
+    if (btn) btn.innerHTML = '<i class="fas fa-location-arrow"></i> Bagikan Lokasi Saya';
+  }, 3000);
+}
+
+
+// ============================================
+// LEGACY submitWifi (backward compat)
+// ============================================
+function submitWifi(e) {
+  return submitWifiCoverage(e);
+}
+
+
+// ============================================
+// TOAST NOTIF
+// ============================================
 let toastTimeout;
 function showToast(msg) {
   const toast = document.getElementById('toast');
+  if (!toast) return;
   toast.innerHTML = `<i class="fas fa-check-circle"></i> ${msg}`;
   toast.classList.add('show');
-  
   clearTimeout(toastTimeout);
   toastTimeout = setTimeout(() => {
     toast.classList.remove('show');
@@ -355,14 +782,16 @@ function showToast(msg) {
 }
 
 
-// ============ INIT ============
+// ============================================
+// INIT
+// ============================================
 document.addEventListener('DOMContentLoaded', () => {
   renderPasar();
   renderProperty();
   renderEdu();
   renderWifi();
   updateCartUI();
-  
-  // Set default active menu
-  document.querySelector('.menu-pasar').classList.add('active');
+
+  const defaultMenu = document.querySelector('.menu-pasar');
+  if (defaultMenu) defaultMenu.classList.add('active');
 });
