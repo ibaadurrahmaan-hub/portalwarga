@@ -1,5 +1,5 @@
 /* ========================================================
-   PORTALWARGA — FIREBASE LIVE SYNC ENGINE
+   PORTALWARGA — FIREBASE CONFIG & HELPER ENGINE v3.1
    Project: portalwarga-963e4
    ======================================================== */
 
@@ -13,52 +13,21 @@ const firebaseConfig = {
   measurementId: "G-ZDV26D8SGM"
 };
 
-// Inisialisasi Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// 1. Sinkronisasi Real-time Pasar
-function syncPasar() {
-  db.collection('pasar').onSnapshot(snapshot => {
-    if (!snapshot.empty) {
-      dataPasar = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.id - b.id);
-      renderPasar();
-    }
-  }, err => console.warn('Sync Pasar fallback to local data:', err));
+// Inisialisasi Firebase secara aman tanpa membuat Crash App
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
 
-// 2. Sinkronisasi Real-time Property
-function syncProperty() {
-  db.collection('property').onSnapshot(snapshot => {
-    if (!snapshot.empty) {
-      dataProperty = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.id - b.id);
-      renderProperty();
-    }
-  }, err => console.warn('Sync Property fallback to local data:', err));
-}
+// Gunakan var/global db agar tidak terjadi "SyntaxError: db already declared"
+var db = firebase.firestore();
 
-// 3. Sinkronisasi Real-time Pendidikan
-function syncPendidikan() {
-  db.collection('pendidikan').onSnapshot(snapshot => {
-    if (!snapshot.empty) {
-      dataPendidikan = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.id - b.id);
-      renderEdu();
-    }
-  }, err => console.warn('Sync Edu fallback to local data:', err));
-}
+// ============================================
+// HELPER FUNCTIONS (TRANSAKSI FIRESTORE)
+// ============================================
 
-// 4. Sinkronisasi Real-time WiFi
-function syncWifi() {
-  db.collection('wifi_paket').onSnapshot(snapshot => {
-    if (!snapshot.empty) {
-      dataWifi = snapshot.docs.map(doc => doc.data()).sort((a, b) => a.id - b.id);
-      renderWifi();
-    }
-  }, err => console.warn('Sync WiFi fallback to local data:', err));
-}
-
-// 5. Simpan Data Pendaftaran WiFi Masuk
+// 1. Simpan Data Pendaftaran WiFi Masuk
 async function recordWifiRegistration(nama, wa, alamat, paket) {
+  if (!db) return;
   try {
     await db.collection('pendaftaran_wifi').add({
       nama,
@@ -69,22 +38,25 @@ async function recordWifiRegistration(nama, wa, alamat, paket) {
     });
     console.log('✅ Data pendaftaran WiFi tersimpan ke Firestore');
   } catch (e) {
-    console.warn('Gagal menyimpan pendaftaran:', e);
+    console.warn('Gagal menyimpan pendaftaran WiFi:', e);
   }
 }
 
-// 6. Simpan Data Order Belanja Masuk
+// 2. Simpan Data Order Belanja Masuk
 async function recordOrder(items, total) {
+  if (!db) return;
   try {
     await db.collection('pesanan').add({
       items: items.map(c => ({
-        nama: c.name,
-        vendor: c.vendor,
+        id: c.id,
+        nama: c.nama || c.name,
+        vendor: c.sellerName || c.vendor,
         qty: c.qty,
-        harga: c.price,
-        subtotal: c.price * c.qty
+        harga: c.harga || c.price,
+        subtotal: (c.harga || c.price) * c.qty
       })),
-      total,
+      total: total,
+      status: "Pending",
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
     console.log('✅ Pesanan tersimpan ke Firestore');
@@ -92,11 +64,3 @@ async function recordOrder(items, total) {
     console.warn('Gagal menyimpan pesanan:', e);
   }
 }
-
-// Jalankan sinkronisasi saat web dimuat
-document.addEventListener('DOMContentLoaded', () => {
-  syncPasar();
-  syncProperty();
-  syncPendidikan();
-  syncWifi();
-});
