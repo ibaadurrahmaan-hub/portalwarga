@@ -546,6 +546,55 @@ body { background: #FAFBFC; }
   line-height: 1.2;
 }
 
+/* ============ FULL-WIDTH DESKTOP OPTIMIZATION ============ */
+.container {
+  max-width: 1280px !important;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* 2-KOLOM RESPONSIVE (AKTIF MULAI 768PX) */
+@media (min-width: 768px) {
+  .checkout-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 380px !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+  
+  .co-summary-sticky {
+    position: sticky;
+    top: 24px;
+  }
+
+  /* Sembunyikan bottom bar mobile di desktop */
+  .co-bottom-bar {
+    display: none !important;
+  }
+
+  /* Tampilkan tombol checkout di dalam ringkasan desktop */
+  #btnCheckoutDesktop {
+    display: flex !important;
+    width: 100%;
+    justify-content: center;
+    margin-top: 18px;
+  }
+
+  .checkout-page {
+    padding-bottom: 60px;
+  }
+}
+
+/* LAYAR MONITORS / PC BESAR (1100PX+) */
+@media (min-width: 1100px) {
+  .checkout-grid {
+    grid-template-columns: 1fr 420px !important;
+    gap: 32px !important;
+  }
+}
+
 @media (min-width: 900px) {
   .checkout-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
   .co-summary-sticky { position: sticky; top: 20px; }
