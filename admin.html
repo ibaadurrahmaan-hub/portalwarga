@@ -912,6 +912,43 @@ body {
   }
   .admin-footer-meta { max-width: 640px; }
 }
+
+/* ========== FORCE OVERRIDE style.css ========== */
+body {
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  background: #0B1220 !important;
+}
+
+#adminApp {
+  flex: 1 0 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #F1F5F9 !important;
+  width: 100% !important;
+  min-height: 100dvh !important;
+}
+
+.admin-page {
+  flex: 1 0 auto !important;
+  padding: 16px 16px 20px !important;
+  background: #F1F5F9 !important;
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+.admin-footer {
+  flex-shrink: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 22px 0 calc(14px + env(safe-area-inset-bottom, 0px)) !important;
+}
 </style>
 </head>
 
