@@ -470,31 +470,114 @@ html, body {
 
 .adm-card-body { padding: 14px; }
 
-.adm-customer-box {
-  background: #F8FAFC;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 12px;
+
+/* ========== NEW HYBRID 3-CARDS CUSTOMER INFO GRID ========== */
+.adm-customer-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
-  font-size: 0.82rem;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-.adm-customer-box small {
-  display: block;
-  color: #94A3B8;
+
+.adm-info-box {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.adm-info-box:hover {
+  border-color: #CBD5E1;
+  background: #F1F5F9;
+}
+
+.adm-info-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 0.65rem;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
-  margin-bottom: 2px;
-  letter-spacing: 0.3px;
+  color: #94A3B8;
+  margin-bottom: 4px;
 }
-.adm-customer-box b {
-  color: #0F172A;
-  font-size: 0.84rem;
+
+.adm-info-header i {
+  font-size: 0.72rem;
+  color: #64748B;
+}
+
+.adm-info-main {
+  font-size: 0.88rem;
   font-weight: 700;
+  color: #0F172A;
   line-height: 1.35;
+  word-break: break-word;
 }
+
+.adm-info-sub {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748B;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.adm-info-note {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed #CBD5E1;
+  font-size: 0.78rem;
+  color: #B45309;
+  font-weight: 600;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+/* Mini Action Buttons (Salin & WA) */
+.adm-action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 6px;
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  line-height: 1.2;
+}
+
+.adm-action-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+.adm-action-btn.wa-btn {
+  color: #15803d;
+  border-color: #BBF7D0;
+  background: #F0FDF4;
+}
+
+.adm-action-btn.wa-btn:hover {
+  background: #DCFCE7;
+  border-color: #86EFAC;
+}
+
 
 .adm-items-title {
   font-size: 0.7rem;
@@ -887,7 +970,16 @@ body {
     gap: 14px;
   }
   .adm-stat-info b { font-size: 1.25rem; }
-  .adm-customer-box { grid-template-columns: 1fr 1fr; }
+  
+  /* Desktop Layout: 2 kolom setara untuk kartu atas, alamat memanjang di bawahnya */
+  .adm-customer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .adm-info-box.full {
+    grid-column: 1 / -1;
+  }
+
   .adm-card-foot {
     grid-template-columns: 1.4fr auto;
     align-items: center;
@@ -1164,6 +1256,30 @@ function getEmojiStatus(status) {
   return STATUS_EMOJIS[status] || '⏳';
 }
 
+// Global Copy Clipboard Helper with Visual Feedback
+function copyTextToClipboard(text, btnElement) {
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    if (btnElement) {
+      const originalHTML = btnElement.innerHTML;
+      btnElement.innerHTML = '<i class="fas fa-check"></i> Tersalin';
+      btnElement.style.borderColor = '#22c55e';
+      btnElement.style.color = '#15803d';
+      btnElement.style.background = '#f0fdf4';
+
+      setTimeout(() => {
+        btnElement.innerHTML = originalHTML;
+        btnElement.style.borderColor = '';
+        btnElement.style.color = '';
+        btnElement.style.background = '';
+      }, 1500);
+    }
+  }).catch(err => {
+    console.error('Gagal menyalin:', err);
+    toast('Gagal menyalin ke clipboard');
+  });
+}
+
 // ================= AUTH OBSERVER =================
 auth.onAuthStateChanged(user => {
   const overlay = document.getElementById('authOverlay');
@@ -1365,7 +1481,19 @@ function renderOrders(orders) {
       </div>
     `).join('');
 
+    // Gabungkan detail alamat secara dinamis & rapi
+    const addressParts = [
+      cust.alamat,
+      cust.kelurahan ? `Kel. ${cust.kelurahan}` : '',
+      cust.kecamatan ? `Kec. ${cust.kecamatan}` : '',
+      cust.kota ? cust.kota : '',
+      cust.kodepos ? cust.kodepos : ''
+    ].filter(Boolean).join(', ');
+
+    // Setup format nomor telepon WhatsApp
     const telpClean = (cust.telp || '').replace(/[^0-9]/g, '');
+    const waPhone = cust.telp ? cust.telp.replace(/\D/g, '').replace(/^0/, '62') : '';
+
     const waText = encodeURIComponent(
       `Halo Kak *${cust.nama}*,\n\n` +
       `Update untuk pesanan Anda di *PortalWarga*:\n` +
@@ -1386,20 +1514,61 @@ function renderOrders(orders) {
         </div>
 
         <div class="adm-card-body">
-          <div class="adm-customer-box">
-            <div>
-              <small>Pemesan / Penerima</small>
-              <b>${cust.nama || '-'}</b> (${cust.telp || '-'})
+          
+          <!-- 3 MINI CARDS GRID SYSTEM (PREMIUM DESIGN) -->
+          <div class="adm-customer-grid">
+            
+            <!-- Card 1: Penerima -->
+            <div class="adm-info-box">
+              <div class="adm-info-header">
+                <i class="fas fa-user"></i>
+                <span>Pemesan / Penerima</span>
+              </div>
+              <div class="adm-info-main">${cust.nama || '-'}</div>
+              <div class="adm-info-sub">
+                <span>${cust.telp || '-'}</span>
+                ${cust.telp ? `
+                  <button type="button" class="adm-action-btn" onclick="copyTextToClipboard('${cust.telp}', this)" title="Salin Nomor HP">
+                    <i class="far fa-copy"></i> Salin
+                  </button>
+                  <a href="https://wa.me/${waPhone}" target="_blank" rel="noopener" class="adm-action-btn wa-btn" title="Chat WhatsApp">
+                    <i class="fab fa-whatsapp"></i> WA
+                  </a>
+                ` : ''}
+              </div>
             </div>
-            <div>
-              <small>Bayar / Kurir</small>
-              <b>${o.payment?.method || '-'}</b> · ${o.delivery?.label || '-'}
+
+            <!-- Card 2: Bayar / Kurir -->
+            <div class="adm-info-box">
+              <div class="adm-info-header">
+                <i class="fas fa-wallet"></i>
+                <span>Bayar / Kurir</span>
+              </div>
+              <div class="adm-info-main">
+                <span>${o.payment?.method || o.paymentMethod || 'Manual'}</span>
+              </div>
+              <div class="adm-info-sub">
+                <i class="fas fa-truck"></i> <span>${o.delivery?.label || o.shippingMethod || 'Reguler'}</span>
+              </div>
             </div>
-            <div style="grid-column: 1 / -1;">
-              <small>Alamat Lengkap</small>
-              <b>${cust.alamat || '-'}</b>${cust.kelurahan ? ', Kel. ' + cust.kelurahan : ''}${cust.kecamatan ? ', Kec. ' + cust.kecamatan : ''}
-              ${cust.catatan ? `<div style="color:#64748B; font-style:italic; margin-top:4px; font-weight:600;">📝 ${cust.catatan}</div>` : ''}
+
+            <!-- Card 3: Alamat Lengkap -->
+            <div class="adm-info-box full">
+              <div class="adm-info-header">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Alamat Lengkap</span>
+              </div>
+              <div class="adm-info-main">
+                ${addressParts || '-'}
+              </div>
+              ${cust.catatan ? `
+                <div class="adm-info-note">
+                  <i class="fas fa-comment-alt" style="margin-top:2px;"></i>
+                  <span><b>Catatan:</b> ${cust.catatan}</span>
+                </div>
+              ` : ''}
             </div>
+
           </div>
 
           <div class="adm-items-title">Daftar Barang (${items.length} Item)</div>
