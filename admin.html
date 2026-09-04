@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<!-- ============================================
+     SECURITY & META TAGS
+     ============================================ -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#0284C7">
+<title>Admin Operations — PortalWarga</title>
+<link rel="icon" href="portalwarga.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+:root {
+  --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+  --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  --border-light: #E2E8F0;
+}
+
+body { background: #F1F5F9; }
+
+/* LOGIN OVERLAY */
+.auth-overlay {
+  position: fixed; inset: 0;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+}
+.auth-card {
+  background: white;
+  border-radius: 24px;
+  padding: 36px 28px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);
+  animation: modal-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.auth-icon {
+  width: 68px; height: 68px;
+  background: var(--gradient-primary);
+  color: white;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.35);
+}
+.auth-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; color: #0F172A; }
+.auth-card p { font-size: 0.82rem; color: #64748B; margin-bottom: 22px; line-height: 1.5; }
+
+.auth-field { margin-bottom: 14px; text-align: left; }
+.auth-field label { display: block; font-size: 0.78rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
+.auth-input {
+  width: 100%;
+  padding: 13px 14px;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #0F172A;
+  background: #FAFBFC;
+  transition: all 0.25s;
+}
+.auth-input:focus {
+  outline: none;
+  border-color: #0284C7;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+}
+
+.btn-auth-submit {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.92rem;
+  cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 8px 20px rgba(2, 132, 199, 0.3);
+  transition: all 0.25s;
+}
+.btn-auth-submit:hover { transform: translateY(-2px); }
+.btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* HEADER ADMIN */
+.admin-header {
+  background: white;
+  border-bottom: 1px solid var(--border-light);
+  padding: 14px 0;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+}
+.admin-header-inner { display: flex; align-items: center; justify-content: space-between; }
+.admin-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0F172A; }
+.admin-brand img { height: 38px; border-radius: 8px; }
+.admin-badge {
+  background: #0284C7; color: white;
+  font-size: 0.68rem; font-weight: 800;
+  padding: 3px 8px; border-radius: 6px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* STATS GRID */
+.adm-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 24px 0 20px;
+}
+.adm-stat-card {
+  background: white; border-radius: 18px; padding: 18px 20px;
+  border: 1px solid var(--border-light); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  display: flex; align-items: center; gap: 16px;
+}
+.adm-stat-icon {
+  width: 52px; height: 52px; border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.35rem; color: white; flex-shrink: 0;
+}
+.adm-stat-icon.total { background: var(--gradient-primary); }
+.adm-stat-icon.pending { background: var(--gradient-warning); }
+.adm-stat-icon.processing { background: linear-gradient(135deg, #6366F1, #4F46E5); }
+.adm-stat-icon.revenue { background: var(--gradient-success); }
+
+.adm-stat-info small { display: block; font-size: 0.75rem; color: #64748B; font-weight: 600; margin-bottom: 2px; }
+.adm-stat-info b { font-size: 1.35rem; font-weight: 800; color: #0F172A; line-height: 1.2; display: block; }
+
+/* SEARCH & FILTERS */
+.adm-controls {
+  background: white; border-radius: 18px; padding: 16px;
+  border: 1px solid var(--border-light); margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.adm-search-box { position: relative; margin-bottom: 14px; }
+.adm-search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+.adm-search-box input {
+  width: 100%; padding: 12px 14px 12px 42px;
+  border: 2px solid var(--border-light); border-radius: 12px;
+  font-size: 0.9rem; font-family: inherit; background: #FAFBFC;
+}
+.adm-search-box input:focus { outline: none; border-color: #0284C7; background: white; }
+
+.adm-filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.adm-filters::-webkit-scrollbar { display: none; }
+.adm-pill {
+  border: 1.5px solid var(--border-light); background: #FAFBFC;
+  color: #64748B; border-radius: 999px; padding: 7px 14px;
+  font-size: 0.78rem; font-weight: 700; font-family: inherit; cursor: pointer; white-space: nowrap;
+}
+.adm-pill.active { background: #0284C7; border-color: #0284C7; color: white; }
+
+/* ORDERS LIST */
+.adm-orders-list { display: grid; gap: 14px; }
+.adm-card {
+  background: white; border-radius: 18px;
+  border: 1px solid var(--border-light); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  overflow: hidden;
+}
+.adm-card-head {
+  padding: 16px 18px 12px; border-bottom: 1px dashed var(--border-light);
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+}
+.adm-card-inv { font-size: 0.95rem; font-weight: 800; color: #0F172A; }
+.adm-card-date { font-size: 0.75rem; color: #94A3B8; margin-top: 2px; }
+
+.st-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.72rem; font-weight: 800; padding: 5px 12px; border-radius: 999px;
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.st-pending_payment { background: #FEF3C7; color: #B45309; }
+.st-paid            { background: #DBEAFE; color: #1D4ED8; }
+.st-processing      { background: #E0E7FF; color: #4338CA; }
+.st-shipped         { background: #CFFAFE; color: #0E7490; }
+.st-completed       { background: #D1FAE5; color: #047857; }
+.st-cancelled       { background: #FEE2E2; color: #B91C1C; }
+
+.adm-card-body { padding: 16px 18px; }
+.adm-customer-box {
+  background: #F8FAFC; border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem;
+}
+.adm-customer-box small { display: block; color: #94A3B8; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+.adm-customer-box b { color: #0F172A; font-weight: 700; }
+
+.adm-items-title { font-size: 0.75rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 8px; }
+.adm-item-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 0.85rem; }
+.adm-item-emoji {
+  width: 36px; height: 36px; background: #F1F5F9; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+}
+.adm-item-name { flex: 1; font-weight: 700; color: #0F172A; }
+.adm-item-price { font-weight: 800; color: #059669; }
+
+.adm-card-foot {
+  padding: 12px 18px 16px; background: #FAFBFC;
+  border-top: 1px solid var(--border-light);
+  display: flex; gap: 10px; align-items: center; justify-content: space-between;
+}
+.adm-select-status {
+  padding: 10px 12px; border: 2px solid var(--border-light); border-radius: 10px;
+  font-size: 0.82rem; font-weight: 700; font-family: inherit; background: white; flex: 1;
+}
+.btn-adm-act {
+  padding: 10px 16px; border-radius: 10px; font-weight: 800; font-size: 0.82rem;
+  border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
+  text-decoration: none; white-space: nowrap;
+}
+.btn-adm-wa { background: #25D366; color: white; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); }
+
+.toast {
+  position: fixed; bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #0F172A; color: white; padding: 12px 20px; border-radius: 12px;
+  font-size: 0.85rem; font-weight: 700; z-index: 10000; opacity: 0; transition: all 0.3s ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 640px) {
+  .adm-customer-box { grid-template-columns: 1fr; }
+  .adm-card-foot { flex-direction: column; align-items: stretch; }
+  .btn-adm-act { justify-content: center; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ============ LOGIN AUTH OVERLAY ============ -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card">
+    <div class="auth-icon"><i class="fas fa-user-shield"></i></div>
+    <h2>Admin PortalWarga</h2>
+    <p>Silakan masuk menggunakan akun resmi pengelola untuk mengelola pesanan warga.</p>
+    
+    <form onsubmit="handleAdminLogin(event)">
+      <div class="auth-field">
+        <label>Email Admin</label>
+        <input type="email" id="admEmail" class="auth-input" placeholder="admin@portalwarga.id" required autofocus>
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <input type="password" id="admPassword" class="auth-input" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
+        <i class="fas fa-sign-in-alt"></i> Masuk Ke Server
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP MAIN CONTENT (PROTECTED) ============ -->
+<div id="adminApp" style="display:none">
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="container">
+      <div class="admin-header-inner">
+        <a href="index.html" class="admin-brand">
+          <img src="portalwarga.png" alt="PortalWarga" onerror="this.src='https://placehold.co/80x80?text=PW'">
+          <div>
+            <strong style="display:block; font-size:1.05rem; line-height:1.2;">PortalWarga</strong>
+            <span class="admin-badge">Secure Admin</span>
+          </div>
+        </a>
+        <div>
+          <button type="button" class="btn-adm-act" onclick="handleAdminLogout()" style="background:#F1F5F9; color:#475569;">
+            <i class="fas fa-sign-out-alt"></i> Keluar (<span id="userEmailTag">Admin</span>)
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="container admin-page">
+    <!-- STATS -->
+    <div class="adm-stats-grid">
+      <div class="adm-stat-card">
+        <div class="adm-stat-icon total"><i class="fas fa-shopping-bag"></i></div>
+        <div class="adm-stat-info"><small>Total Order</small><b id="statTotalOrders">0</b></div>
+      </div>
+      <div class="adm-stat-card">
+        <div class="adm-stat-icon pending"><i class="fas fa-clock"></i></div>
+        <div class="adm-stat-info"><small>Menunggu Bayar</small><b id="statPendingOrders">0</b></div>
+      </div>
+      <div class="adm-stat-card">
+        <div class="adm-stat-icon processing"><i class="fas fa-box-open"></i></div>
+        <div class="adm-stat-info"><small>Perlu Diproses</small><b id="statProcessingOrders">0</b></div>
+      </div>
+      <div class="adm-stat-card">
+        <div class="adm-stat-icon revenue"><i class="fas fa-wallet"></i></div>
+        <div class="adm-stat-info"><small>Omset Lunas</small><b id="statRevenue">Rp 0</b></div>
+      </div>
+    </div>
+
+    <!-- SEARCH & FILTERS -->
+    <div class="adm-controls">
+      <div class="adm-search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="admSearch" placeholder="Cari invoice, nama pembeli, atau no. WA..." oninput="filterOrders()">
+      </div>
+      <div class="adm-filters" id="statusFilters">
+        <button class="adm-pill active" data-filter="all" onclick="setFilter('all', this)">Semua (<span id="cnt-all">0</span>)</button>
+        <button class="adm-pill" data-filter="pending_payment" onclick="setFilter('pending_payment', this)">Menunggu (<span id="cnt-pending_payment">0</span>)</button>
+        <button class="adm-pill" data-filter="paid" onclick="setFilter('paid', this)">Dibayar (<span id="cnt-paid">0</span>)</button>
+        <button class="adm-pill" data-filter="processing" onclick="setFilter('processing', this)">Diproses (<span id="cnt-processing">0</span>)</button>
+        <button class="adm-pill" data-filter="shipped" onclick="setFilter('shipped', this)">Dikirim (<span id="cnt-shipped">0</span>)</button>
+        <button class="adm-pill" data-filter="completed" onclick="setFilter('completed', this)">Selesai (<span id="cnt-completed">0</span>)</button>
+        <button class="adm-pill" data-filter="cancelled" onclick="setFilter('cancelled', this)">Batal (<span id="cnt-cancelled">0</span>)</button>
+      </div>
+    </div>
+
+    <!-- ORDERS LIST CONTAINER -->
+    <div id="admOrdersList" class="adm-orders-list">
+      <div style="text-align:center; padding:60px 20px; color:#94A3B8;">
+        <i class="fas fa-spinner fa-spin" style="font-size:2.5rem; color:#0284C7; margin-bottom:12px;"></i>
+        <p style="font-weight:700; margin:0;">Mengambil data pesanan dari server...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<!-- Firebase SDK (Compat Version) -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+let rawOrders = [];
+let currentFilter = 'all';
+
+function rupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ================= AUTH OBSERVER (REALTIME SECURITY) =================
+auth.onAuthStateChanged(user => {
+  const overlay = document.getElementById('authOverlay');
+  const app = document.getElementById('adminApp');
+  
+  if (user) {
+    // ADMIN LOGGED IN
+    if (overlay) overlay.style.display = 'none';
+    if (app) app.style.display = 'block';
+    
+    const tag = document.getElementById('userEmailTag');
+    if (tag) tag.textContent = user.email.split('@')[0];
+    
+    initRealtimeOrders();
+  } else {
+    // UNUATHENTICATED
+    if (overlay) overlay.style.display = 'flex';
+    if (app) app.style.display = 'none';
+  }
+});
+
+async function handleAdminLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('admEmail').value.trim();
+  const pass = document.getElementById('admPassword').value;
+  const btn = document.getElementById('btnAuthSubmit');
+
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifikasi...';
+
+  try {
+    await auth.signInWithEmailAndPassword(email, pass);
+    toast('✓ Berhasil masuk sebagai Admin');
+  } catch (err) {
+    console.error(err);
+    let msg = 'Gagal login';
+    if (err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found' || err.code === 'auth/invalid-credential') {
+      msg = 'Email atau Password Admin salah!';
+    } else {
+      msg = err.message;
+    }
+    toast('❌ ' + msg);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk Ke Server';
+  }
+}
+
+async function handleAdminLogout() {
+  try {
+    await auth.signOut();
+    toast('Anda telah keluar');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// ================= REALTIME FIRESTORE LISTENER =================
+function initRealtimeOrders() {
+  db.collection('orders').onSnapshot(snapshot => {
+    rawOrders = snapshot.docs.map(doc => ({
+      id: doc.id,
+      invoice: doc.id,
+      ...doc.data()
+    }));
+
+    rawOrders.sort((a, b) => {
+      const ta = a.createdAt?.toMillis?.() || new Date(a.createdAt || 0).getTime() || 0;
+      const tb = b.createdAt?.toMillis?.() || new Date(b.createdAt || 0).getTime() || 0;
+      return tb - ta;
+    });
+
+    updateStats();
+    filterOrders();
+  }, err => {
+    console.error(err);
+    toast('⚠️ Perhatian: ' + err.message);
+  });
+}
+
+function updateStats() {
+  const total = rawOrders.length;
+  const pending = rawOrders.filter(o => o.status === 'pending_payment').length;
+  const processing = rawOrders.filter(o => ['paid', 'processing'].includes(o.status)).length;
+  
+  const revenue = rawOrders
+    .filter(o => ['paid', 'processing', 'shipped', 'completed'].includes(o.status))
+    .reduce((sum, o) => sum + (o.pricing?.total || o.total || 0), 0);
+
+  document.getElementById('statTotalOrders').textContent = total;
+  document.getElementById('statPendingOrders').textContent = pending;
+  document.getElementById('statProcessingOrders').textContent = processing;
+  document.getElementById('statRevenue').textContent = rupiah(revenue);
+
+  const counts = {
+    all: total,
+    pending_payment: pending,
+    paid: rawOrders.filter(o => o.status === 'paid').length,
+    processing: rawOrders.filter(o => o.status === 'processing').length,
+    shipped: rawOrders.filter(o => o.status === 'shipped').length,
+    completed: rawOrders.filter(o => o.status === 'completed').length,
+    cancelled: rawOrders.filter(o => o.status === 'cancelled').length
+  };
+
+  Object.keys(counts).forEach(k => {
+    const el = document.getElementById(`cnt-${k}`);
+    if (el) el.textContent = counts[k];
+  });
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.adm-pill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  filterOrders();
+}
+
+function filterOrders() {
+  const query = (document.getElementById('admSearch')?.value || '').toLowerCase().trim();
+  
+  let filtered = rawOrders.filter(o => {
+    const matchStatus = (currentFilter === 'all') || (o.status || 'pending_payment') === currentFilter;
+    const inv = (o.invoice || '').toLowerCase();
+    const custNama = (o.customer?.nama || '').toLowerCase();
+    const custTelp = (o.customer?.telp || '').toLowerCase();
+    
+    const matchSearch = !query || inv.includes(query) || custNama.includes(query) || custTelp.includes(query);
+    return matchStatus && matchSearch;
+  });
+
+  renderOrders(filtered);
+}
+
+function renderOrders(orders) {
+  const container = document.getElementById('admOrdersList');
+  if (!container) return;
+
+  if (orders.length === 0) {
+    container.innerHTML = `
+      <div style="text-align:center; padding:60px 20px; background:white; border-radius:20px; border:1px solid var(--border-light)">
+        <i class="fas fa-inbox" style="font-size:3rem; color:#CBD5E1; margin-bottom:12px; display:block"></i>
+        <h4 style="margin:0 0 4px; font-weight:800; color:#0F172A">Tidak Ada Pesanan</h4>
+        <p style="margin:0; font-size:0.85rem; color:#94A3B8">Tidak ada pesanan yang sesuai dengan filter/pencarian.</p>
+      </div>`;
+    return;
+  }
+
+  const STATUS_LABELS = {
+    pending_payment: 'Menunggu Pembayaran',
+    paid: 'Pembayaran Dikonfirmasi (Lunas)',
+    processing: 'Sedang Diproses Penjual',
+    shipped: 'Sedang Dalam Pengiriman',
+    completed: 'Pesanan Selesai',
+    cancelled: 'Dibatalkan'
+  };
+
+  container.innerHTML = orders.map(o => {
+    const inv = o.invoice || o.id;
+    const cust = o.customer || {};
+    const items = o.items || [];
+    const status = o.status || 'pending_payment';
+    const total = o.pricing?.total || o.total || 0;
+    
+    let dateStr = '-';
+    if (o.createdAt?.toDate) dateStr = o.createdAt.toDate().toLocaleString('id-ID');
+    else if (o.createdAt) dateStr = new Date(o.createdAt).toLocaleString('id-ID');
+
+    const itemsHtml = items.map(i => `
+      <div class="adm-item-row">
+        <div class="adm-item-emoji">${i.emoji || '🛒'}</div>
+        <div class="adm-item-name">${i.nama} (${i.qty}x)</div>
+        <div class="adm-item-price">${rupiah(i.harga * i.qty)}</div>
+      </div>
+    `).join('');
+
+    const telpClean = (cust.telp || '').replace(/[^0-9]/g, '');
+    const waText = encodeURIComponent(
+      `Halo Kak *${cust.nama}*,\n\n` +
+      `Update untuk pesanan Anda di *PortalWarga*:\n` +
+      `📋 Invoice: *${inv}*\n` +
+      `📊 Status Terbaru: *${STATUS_LABELS[status] || status}*\n` +
+      `💰 Total: *${rupiah(total)}*\n\n` +
+      `Terima kasih telah berbelanja di UMKM lokal! 🙏`
+    );
+
+    return `
+      <div class="adm-card">
+        <div class="adm-card-head">
+          <div>
+            <div class="adm-card-inv"><i class="fas fa-receipt" style="color:#0284C7"></i> ${inv}</div>
+            <div class="adm-card-date"><i class="far fa-clock"></i> ${dateStr}</div>
+          </div>
+          <span class="st-badge st-${status}">
+            ${STATUS_LABELS[status] || status}
+          </span>
+        </div>
+
+        <div class="adm-card-body">
+          <div class="adm-customer-box">
+            <div>
+              <small>Pemesan / Penerima</small>
+              <b>${cust.nama || '-'}</b> (${cust.telp || '-'})
+            </div>
+            <div>
+              <small>Metode Pembayaran / Kurir</small>
+              <b>${o.payment?.method || '-'}</b> · ${o.delivery?.label || '-'}
+            </div>
+            <div style="grid-column: 1 / -1;">
+              <small>Alamat Lengkap</small>
+              <b>${cust.alamat || '-'}</b> ${cust.kelurahan ? ', Kel. ' + cust.kelurahan : ''} ${cust.kecamatan ? ', Kec. ' + cust.kecamatan : ''}
+              ${cust.catatan ? `<div style="color:#64748B; font-style:italic; margin-top:2px;">Catatan: ${cust.catatan}</div>` : ''}
+            </div>
+          </div>
+
+          <div class="adm-items-title">Daftar Barang (${items.length} Item)</div>
+          ${itemsHtml}
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding-top:10px; border-top:1px dashed #E2E8F0;">
+            <span style="font-weight:700; font-size:0.9rem; color:#475569">Total Bayar:</span>
+            <b style="font-size:1.2rem; color:#059669; font-weight:800">${rupiah(total)}</b>
+          </div>
+        </div>
+
+        <div class="adm-card-foot">
+          <select class="adm-select-status" onchange="updateStatus('${inv}', this.value)">
+            <option value="pending_payment" ${status === 'pending_payment' ? 'selected' : ''}>⏳ Menunggu Pembayaran</option>
+            <option value="paid" ${status === 'paid' ? 'selected' : ''}>✅ Pembayaran Lunas (Dikonfirmasi)</option>
+            <option value="processing" ${status === 'processing' ? 'selected' : ''}>📦 Diproses Penjual</option>
+            <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>🚚 Sedang Dikirim / Diantar</option>
+            <option value="completed" ${status === 'completed' ? 'selected' : ''}>🎉 Pesanan Selesai</option>
+            <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>❌ Batal / Reject</option>
+          </select>
+          
+          <a href="https://wa.me/${telpClean}?text=${waText}" target="_blank" class="btn-adm-act btn-adm-wa">
+            <i class="fab fa-whatsapp"></i> Chat Pembeli
+          </a>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function updateStatus(invoiceId, newStatus) {
+  try {
+    await db.collection('orders').doc(invoiceId).update({
+      status: newStatus,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+    toast(`✓ Status Invoice ${invoiceId} diperbarui!`);
+  } catch (e) {
+    console.error(e);
+    toast('❌ Gagal mengubah status: ' + e.message);
+  }
+}
+</script>
+</body>
+</html>
