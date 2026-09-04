@@ -164,30 +164,39 @@ html, body {
 .btn-auth-submit:hover { transform: translateY(-2px); }
 .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-/* ========== ADMIN APP LAYOUT ========== */
-#adminApp {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #F1F5F9;
-}
 
-/* ========== ADMIN HEADER (DARK) ========== */
+/* ========== ADMIN HEADER (DARK - FULL WIDTH) ========== */
 .admin-header {
   background: linear-gradient(135deg, #0B1220 0%, #0C4A6E 48%, #0369A1 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 12px 0;
+  padding: 14px 0;
   position: sticky;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 100;
   box-shadow: 0 8px 24px rgba(2, 72, 120, 0.28);
+  box-sizing: border-box;
 }
+
+.admin-header .container {
+  padding-left: 16px;
+  padding-right: 16px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .admin-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
+  width: 100%;
 }
+
 .admin-brand {
   display: flex;
   align-items: center;
@@ -196,7 +205,9 @@ html, body {
   color: #fff;
   min-width: 0;
   flex: 1;
+  overflow: hidden;
 }
+
 .admin-brand img {
   height: 40px;
   width: 40px;
@@ -208,19 +219,26 @@ html, body {
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-sizing: border-box;
 }
+
 .admin-brand-text {
   min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  overflow: hidden;
 }
+
 .admin-brand-text strong {
   display: block;
   font-size: 1rem;
   line-height: 1.15;
   font-weight: 800;
   color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 .admin-badge {
   display: inline-flex;
   align-items: center;
@@ -237,7 +255,11 @@ html, body {
   white-space: nowrap;
   backdrop-filter: blur(6px);
 }
-.admin-header-actions { flex-shrink: 0; }
+
+.admin-header-actions {
+  flex-shrink: 0;
+}
+
 .btn-logout {
   background: rgba(255, 255, 255, 0.12);
   color: #F8FAFC;
@@ -246,7 +268,7 @@ html, body {
   padding: 8px 12px;
   font-size: 0.75rem;
   font-weight: 700;
-  max-width: 46vw;
+  max-width: 40vw;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -257,9 +279,29 @@ html, body {
   gap: 6px;
   transition: all 0.2s;
 }
+
 .btn-logout:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
+}
+
+/* ========== FIX APP LAYOUT ========== */
+#adminApp {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F1F5F9;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #0B1220;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  overflow-x: hidden;
 }
 
 /* ========== ADMIN PAGE ========== */
