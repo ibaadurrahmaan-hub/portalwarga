@@ -546,6 +546,29 @@ body { background: #FAFBFC; }
   line-height: 1.2;
 }
 
+/* ============ STYLING LOGO LOKAL ============ */
+.co-pay-logo {
+  width: 100%;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 6px;
+}
+
+.co-pay-logo img {
+  max-width: 85%;
+  max-height: 32px;
+  object-fit: contain; /* Memastikan rasio logo tidak gepeng */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
+  transition: transform 0.25s ease;
+}
+
+.co-payment-item:hover .co-pay-logo img,
+.co-payment-item.active .co-pay-logo img {
+  transform: scale(1.08);
+}
+
 /* ============ FULL-WIDTH DESKTOP OPTIMIZATION ============ */
 .container {
   max-width: 1280px !important;
