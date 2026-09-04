@@ -48,21 +48,40 @@ body { background: #F1F5F9; }
   to { opacity: 1; transform: scale(1); }
 }
 
-.auth-icon {
-  width: 68px; height: 68px;
-  background: var(--gradient-primary);
-  color: white;
-  border-radius: 50%;
+/* LOGO LOGIN ADMIN */
+.auth-logo-brand {
+  width: 80px;
+  height: 80px;
   margin: 0 auto 18px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.8rem;
-  box-shadow: 0 10px 24px rgba(2, 132, 199, 0.35);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.25);
+  background: white;
+  padding: 8px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+.auth-logo-brand img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
 .auth-card h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 6px; color: #0F172A; }
 .auth-card p { font-size: 0.82rem; color: #64748B; margin-bottom: 22px; line-height: 1.5; }
 
-.auth-field { margin-bottom: 14px; text-align: left; }
+.auth-field { margin-bottom: 16px; text-align: left; }
 .auth-field label { display: block; font-size: 0.78rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
+
+/* PASSWORD WRAPPER WITH EYE TOGGLE */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 .auth-input {
   width: 100%;
   padding: 13px 14px;
@@ -74,12 +93,32 @@ body { background: #F1F5F9; }
   background: #FAFBFC;
   transition: all 0.25s;
 }
+.password-wrapper .auth-input {
+  padding-right: 44px;
+}
 .auth-input:focus {
   outline: none;
   border-color: #0284C7;
   background: white;
   box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
 }
+
+.btn-toggle-eye {
+  position: absolute;
+  right: 12px;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  cursor: pointer;
+  font-size: 1.05rem;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+  border-radius: 6px;
+}
+.btn-toggle-eye:hover { color: #0284C7; }
 
 .btn-auth-submit {
   width: 100%;
@@ -246,19 +285,30 @@ body { background: #F1F5F9; }
 <!-- ============ LOGIN AUTH OVERLAY ============ -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-card">
-    <div class="auth-icon"><i class="fas fa-user-shield"></i></div>
+    <!-- LOGO PORTALWARGA -->
+    <div class="auth-logo-brand">
+      <img src="portalwarga.png" alt="PortalWarga" onerror="this.src='https://placehold.co/100x100?text=PW'">
+    </div>
+    
     <h2>Admin PortalWarga</h2>
     <p>Silakan masuk menggunakan akun resmi pengelola untuk mengelola pesanan warga.</p>
     
     <form onsubmit="handleAdminLogin(event)">
       <div class="auth-field">
-        <label>Email Admin</label>
+        <label for="admEmail">Email Admin</label>
         <input type="email" id="admEmail" class="auth-input" placeholder="admin@portalwarga.id" required autofocus>
       </div>
+      
       <div class="auth-field">
-        <label>Password</label>
-        <input type="password" id="admPassword" class="auth-input" placeholder="••••••••" required>
+        <label for="admPassword">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="admPassword" class="auth-input" placeholder="••••••••" required>
+          <button type="button" class="btn-toggle-eye" onclick="togglePassword('admPassword', 'eyeIcon')" title="Tampilkan Password" aria-label="Tampilkan Password">
+            <i class="fas fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
       </div>
+
       <button type="submit" class="btn-auth-submit" id="btnAuthSubmit">
         <i class="fas fa-sign-in-alt"></i> Masuk Ke Server
       </button>
@@ -369,6 +419,21 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ================= TOGGLE PASSWORD EYE FUNCTION =================
+function togglePassword(inputId, iconId) {
+  const input = document.getElementById(inputId);
+  const icon = document.getElementById(iconId);
+  if (!input || !icon) return;
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    icon.className = 'fas fa-eye-slash';
+  } else {
+    input.type = 'password';
+    icon.className = 'fas fa-eye';
+  }
 }
 
 // ================= AUTH OBSERVER (REALTIME SECURITY) =================
