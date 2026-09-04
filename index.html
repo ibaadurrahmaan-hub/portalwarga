@@ -11,7 +11,7 @@
 <meta name="msapplication-TileColor" content="#0284C7">
 <meta name="msapplication-navbutton-color" content="#0284C7">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 
 <!-- ============================================
      PRIMARY SEO META TAGS
@@ -468,27 +468,6 @@
 </nav>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<!-- FIREBASE SDK COMPAT -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-
-<!-- 1. KONFIGURASI FIREBASE (Wajib Pertama) -->
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
-    authDomain: "portalwarga-963e4.firebaseapp.com",
-    projectId: "portalwarga-963e4",
-    storageBucket: "portalwarga-963e4.firebasestorage.app",
-    messagingSenderId: "655923017032",
-    appId: "1:655923017032:web:4484b33b72829460192f7d"
-  };
-  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
-</script> 
 
 <!-- 2. SCRIPT UTAMA RENDER (Kedua) -->
 <script src="script.js"></script>
