@@ -726,6 +726,17 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 #cartPayment,
 .btn-checkout { /* tombol WA lama — biarkan tersembunyi jika masih ada di DOM */ }
 
+/* ========== FORCE OVERRIDE style.css ========== */
+body {
+  padding-bottom: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  background: #0B1220 !important;
+}
+
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
