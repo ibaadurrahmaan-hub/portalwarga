@@ -7,6 +7,7 @@
 <title>Checkout — PortalWarga</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" href="portalwarga.png" type="image/png">
 <link rel="stylesheet" href="style.css">
 
 <style>
@@ -551,8 +552,8 @@ body { background: #FAFBFC; }
   font-family: "Font Awesome 6 Brands" !important;
   font-weight: 400 !important;
 }
-
-  /* ============ PAYMENT LOGO STYLING ============ */
+  
+/* ============ PAYMENT LOGO STYLING ============ */
 .co-pay-group-label {
   font-size: 0.78rem;
   font-weight: 700;
@@ -659,7 +660,6 @@ body { background: #FAFBFC; }
   color: var(--text);
   line-height: 1.2;
 }
-
 /* RESPONSIVE */
 @media (min-width: 900px) {
   .checkout-grid {
@@ -777,45 +777,7 @@ body { background: #FAFBFC; }
           </div>
         </div>
 
-        <!-- CARD 2: METODE PENGIRIMAN -->
-        <div class="co-card">
-          <div class="co-card-title">
-            <i class="fas fa-truck"></i> Metode Pengiriman
-          </div>
-          <div class="co-delivery-list" id="deliveryList">
-            <div class="co-delivery-item active" data-delivery="ambil" data-price="0">
-              <div class="co-delivery-icon"><i class="fas fa-store"></i></div>
-              <div class="co-delivery-info">
-                <b>Ambil Sendiri di Toko</b>
-                <p>Datang langsung ke toko penjual • Tanpa ongkir</p>
-              </div>
-              <div class="co-delivery-price free">GRATIS</div>
-              <div class="co-radio-dot"></div>
-            </div>
-            
-            <div class="co-delivery-item" data-delivery="antar_gerobak" data-price="3000">
-              <div class="co-delivery-icon"><i class="fas fa-motorcycle"></i></div>
-              <div class="co-delivery-info">
-                <b>Antar Sendiri oleh Penjual</b>
-                <p>Radius 2 KM • Estimasi 20-40 menit</p>
-              </div>
-              <div class="co-delivery-price">Rp 3.000</div>
-              <div class="co-radio-dot"></div>
-            </div>
-            
-            <div class="co-delivery-item" data-delivery="ojol" data-price="8000">
-              <div class="co-delivery-icon" style="color:#059669"><i class="fas fa-bicycle"></i></div>
-              <div class="co-delivery-info">
-                <b>Kurir OJOL (GoSend/GrabExpress)</b>
-                <p>Cepat • Bisa lacak realtime</p>
-              </div>
-              <div class="co-delivery-price">± Rp 8.000</div>
-              <div class="co-radio-dot"></div>
-            </div>
-          </div>
-        </div>
-
-             <!-- CARD 3: METODE PEMBAYARAN -->
+           <!-- CARD 3: METODE PEMBAYARAN -->
         <div class="co-card">
           <div class="co-card-title">
             <i class="fas fa-wallet"></i> Metode Pembayaran
@@ -830,35 +792,35 @@ body { background: #FAFBFC; }
               
               <div class="co-payment-item active" data-payment="QRIS">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/QRIS_logo.svg" alt="QRIS" onerror="this.src='https://placehold.co/100x40?text=QRIS'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/QRIS_logo.svg/320px-QRIS_logo.svg.png" alt="QRIS">
                 </div>
                 <div class="co-pay-name">QRIS Semua Pembayaran</div>
               </div>
 
               <div class="co-payment-item" data-payment="DANA">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" onerror="this.src='https://placehold.co/100x40?text=DANA'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/320px-Logo_dana_blue.svg.png" alt="DANA">
                 </div>
                 <div class="co-pay-name">DANA</div>
               </div>
 
               <div class="co-payment-item" data-payment="OVO">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO" onerror="this.src='https://placehold.co/100x40?text=OVO'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/320px-Logo_ovo_purple.svg.png" alt="OVO">
                 </div>
                 <div class="co-pay-name">OVO</div>
               </div>
 
               <div class="co-payment-item" data-payment="GoPay">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Gopay_logo.svg" alt="GoPay" onerror="this.src='https://placehold.co/100x40?text=GoPay'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/320px-Gopay_logo.svg.png" alt="GoPay">
                 </div>
                 <div class="co-pay-name">GoPay</div>
               </div>
 
               <div class="co-payment-item" data-payment="ShopeePay">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/ShopeePay_logo.svg" alt="ShopeePay" onerror="this.src='https://placehold.co/100x40?text=ShopeePay'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/ShopeePay_logo.svg/320px-ShopeePay_logo.svg.png" alt="ShopeePay">
                 </div>
                 <div class="co-pay-name">ShopeePay</div>
               </div>
@@ -875,28 +837,28 @@ body { background: #FAFBFC; }
               
               <div class="co-payment-item" data-payment="BCA">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia_logo.svg" alt="BCA" onerror="this.src='https://placehold.co/100x40?text=BCA'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia_logo.svg/320px-Bank_Central_Asia_logo.svg.png" alt="BCA">
                 </div>
                 <div class="co-pay-name">Bank BCA</div>
               </div>
 
               <div class="co-payment-item" data-payment="BRI">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/BRI_2020.svg" alt="BRI" onerror="this.src='https://placehold.co/100x40?text=BRI'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/BRI_2020.svg/320px-BRI_2020.svg.png" alt="BRI">
                 </div>
                 <div class="co-pay-name">Bank BRI</div>
               </div>
 
               <div class="co-payment-item" data-payment="Mandiri">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Bank_Mandiri_logo_2016.svg" alt="Mandiri" onerror="this.src='https://placehold.co/100x40?text=Mandiri'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/320px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri">
                 </div>
                 <div class="co-pay-name">Bank Mandiri</div>
               </div>
 
               <div class="co-payment-item" data-payment="BNI">
                 <div class="co-pay-logo">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/BNI_logo.svg" alt="BNI" onerror="this.src='https://placehold.co/100x40?text=BNI'">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/BNI_logo.svg/320px-BNI_logo.svg.png" alt="BNI">
                 </div>
                 <div class="co-pay-name">Bank BNI</div>
               </div>
@@ -904,7 +866,7 @@ body { background: #FAFBFC; }
             </div>
           </div>
 
-          <!-- CASH -->
+          <!-- TUNAI -->
           <div>
             <div class="co-pay-group-label">
               <i class="fas fa-money-bill-wave"></i> Tunai
@@ -923,43 +885,6 @@ body { background: #FAFBFC; }
           </div>
 
         </div>
-      <!-- RIGHT COLUMN: SUMMARY -->
-      <div class="co-summary-sticky">
-        <div class="co-card">
-          <div class="co-card-title">
-            <i class="fas fa-receipt"></i> Ringkasan Pesanan
-          </div>
-          
-          <div class="co-summary-list" id="summaryList">
-            <!-- Items loaded here -->
-          </div>
-          
-          <div class="co-total-row">
-            <span class="co-total-label">Subtotal (<span id="totalItems">0</span> item)</span>
-            <span class="co-total-val" id="sumSubtotal">Rp 0</span>
-          </div>
-          <div class="co-total-row">
-            <span class="co-total-label">Ongkos Kirim</span>
-            <span class="co-total-val" id="sumOngkir">Rp 0</span>
-          </div>
-          <div class="co-total-row">
-            <span class="co-total-label">Biaya Admin</span>
-            <span class="co-total-val" id="sumAdmin">Rp 1.000</span>
-          </div>
-          <div class="co-total-row grand">
-            <span>Total Bayar</span>
-            <span class="co-total-val" id="sumGrand">Rp 0</span>
-          </div>
-          
-          <!-- Tombol Desktop -->
-          <button class="btn-checkout-final" id="btnCheckoutDesktop" onclick="submitOrder()" style="display:none">
-            <i class="fas fa-shield-check"></i> Buat Pesanan
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- ============ BOTTOM BAR (MOBILE) ============ -->
 <div class="co-bottom-bar" id="bottomBar">
