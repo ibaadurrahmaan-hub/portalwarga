@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#0284C7">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Riwayat Pesanan — PortalWarga</title>
+<link rel="icon" href="portalwarga.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<style>
+:root {
+  --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
+  --border-light: #E2E8F0;
+}
+
+body { background: #FAFBFC; }
+
+.orders-page {
+  padding-bottom: 100px;
+  animation: fade-in 0.5s ease;
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.od-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin: 24px 0 18px;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.15);
+}
+.od-back:hover { transform: translateX(-3px); }
+
+.od-hero {
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 55%, #0C4A6E 100%);
+  border-radius: 24px;
+  padding: 28px 24px;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 16px 36px rgba(2, 132, 199, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+.od-hero::before {
+  content: '';
+  position: absolute;
+  right: -40px; top: -40px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(255,255,255,0.18), transparent 70%);
+  border-radius: 50%;
+}
+.od-hero h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  position: relative;
+}
+.od-hero p {
+  margin: 0;
+  opacity: 0.92;
+  font-size: 0.9rem;
+  position: relative;
+}
+
+/* SEARCH */
+.od-search-card {
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  margin-bottom: 18px;
+}
+.od-search-card label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #334155;
+}
+.od-search-row {
+  display: flex;
+  gap: 10px;
+}
+.od-search-row input {
+  flex: 1;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 0.92rem;
+  background: #FAFBFC;
+}
+.od-search-row input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.1);
+}
+.od-search-row button {
+  border: none;
+  border-radius: 12px;
+  padding: 0 18px;
+  background: var(--gradient-primary);
+  color: white;
+  font-weight: 800;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);
+}
+.od-search-row button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* FILTER PILLS */
+.od-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.od-filters::-webkit-scrollbar { display: none; }
+.od-pill {
+  border: 1.5px solid var(--border-light);
+  background: white;
+  color: #64748B;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.od-pill.active {
+  background: #E0F2FE;
+  border-color: #7DD3FC;
+  color: #0369A1;
+}
+
+/* ORDER CARD */
+.od-list { display: grid; gap: 14px; }
+
+.od-card {
+  background: white;
+  border: 1px solid var(--border-light);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.od-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+}
+
+.od-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 16px 12px;
+  border-bottom: 1px dashed var(--border-light);
+}
+.od-inv {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0F172A;
+}
+.od-date {
+  font-size: 0.75rem;
+  color: #94A3B8;
+  margin-top: 3px;
+}
+
+.od-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.st-pending_payment { background: #FEF3C7; color: #B45309; }
+.st-paid { background: #DBEAFE; color: #1D4ED8; }
+.st-processing { background: #E0E7FF; color: #4338CA; }
+.st-shipped { background: #CFFAFE; color: #0E7490; }
+.st-completed { background: #D1FAE5; color: #047857; }
+.st-cancelled { background: #FEE2E2; color: #B91C1C; }
+
+.od-card-body { padding: 14px 16px; }
+
+.od-items {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.od-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.od-item-emoji {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; flex-shrink: 0;
+}
+.od-item-info { flex: 1; min-width: 0; }
+.od-item-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #0F172A;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.od-item-meta { font-size: 0.72rem; color: #94A3B8; }
+.od-item-price { font-size: 0.82rem; font-weight: 700; color: var(--pasar, #059669); }
+
+.od-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: #F8FAFC;
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+.od-meta-grid div small {
+  display: block;
+  font-size: 0.68rem;
+  color: #94A3B8;
+  font-weight: 600;
+}
+.od-meta-grid div b {
+  font-size: 0.82rem;
+  color: #334155;
+  font-weight: 700;
+}
+
+.od-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 4px;
+}
+.od-total-row span { font-size: 0.85rem; color: #64748B; font-weight: 600; }
+.od-total-row b { font-size: 1.15rem; color: #059669; font-weight: 800; }
+
+.od-card-foot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 0 16px 16px;
+}
+.od-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  font-family: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-decoration: none;
+}
+.od-btn-wa {
+  background: #25D366;
+  color: white;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.28);
+}
+.od-btn-detail {
+  background: #F1F5F9;
+  color: #334155;
+}
+.od-btn-detail.open {
+  background: #E0F2FE;
+  color: #0369A1;
+}
+
+/* DETAIL EXPAND */
+.od-detail {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px dashed var(--border-light);
+  margin-top: -4px;
+}
+.od-detail.show { display: block; padding-top: 14px; }
+.od-detail-block {
+  background: #F8FAFC;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 10px;
+  font-size: 0.82rem;
+  color: #334155;
+  line-height: 1.55;
+}
+.od-detail-block b { color: #0F172A; }
+.od-detail-block small {
+  display: block;
+  font-size: 0.7rem;
+  color: #94A3B8;
+  font-weight: 700;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+/* EMPTY / LOADING */
+.od-empty, .od-loading {
+  text-align: center;
+  padding: 60px 20px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid var(--border-light);
+}
+.od-empty i, .od-loading i {
+  font-size: 3.5rem;
+  color: #94A3B8;
+  opacity: 0.45;
+  margin-bottom: 14px;
+}
+.od-loading i {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.od-empty h3, .od-loading h3 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+.od-empty p, .od-loading p {
+  margin: 0 0 18px;
+  color: #94A3B8;
+  font-size: 0.9rem;
+}
+.od-empty a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gradient-primary);
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.28);
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #0F172A;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 2000;
+  opacity: 0;
+  transition: all 0.3s ease;
+  max-width: 90%;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.fa-whatsapp, .fab.fa-whatsapp {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+@media (min-width: 900px) {
+  .container { max-width: 900px; }
+  .od-meta-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 768px) {
+  .od-search-row { flex-direction: column; }
+  .od-search-row button { padding: 12px; }
+  .od-card-foot { grid-template-columns: 1fr; }
+  .od-meta-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="container">
+    <div class="header-inner">
+      <a href="index.html" class="brand">
+        <img src="portalwarga.png" alt="PortalWarga" style="height:42px;border-radius:8px"
+             onerror="this.src='https://placehold.co/80x80?text=PW'">
+        <div class="brand-text"><strong>PortalWarga</strong></div>
+      </a>
+      <div class="header-actions">
+        <button class="btn-cart" onclick="location.href='index.html?openCart=1'" aria-label="Keranjang">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+        <a href="https://wa.me/6285267891619" class="btn-cs" target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container orders-page">
+  <a href="index.html" class="od-back"><i class="fas fa-arrow-left"></i> Kembali ke Beranda</a>
+
+  <div class="od-hero">
+    <h1><i class="fas fa-receipt"></i> Riwayat Pesanan</h1>
+    <p>Lacak status belanjaan Anda. Cari dengan nomor invoice atau lihat daftar di perangkat ini.</p>
+  </div>
+
+  <div class="od-search-card">
+    <label for="invoiceInput"><i class="fas fa-search"></i> Cari Nomor Invoice</label>
+    <div class="od-search-row">
+      <input type="text" id="invoiceInput" placeholder="Contoh: INV250904-1234" autocomplete="off">
+      <button type="button" id="btnSearchInvoice" onclick="searchInvoice()">
+        <i class="fas fa-search"></i> Cari
+      </button>
+    </div>
+  </div>
+
+  <div class="od-filters" id="statusFilters">
+    <button class="od-pill active" data-filter="all" onclick="setFilter('all', this)">Semua</button>
+    <button class="od-pill" data-filter="pending_payment" onclick="setFilter('pending_payment', this)">Menunggu Bayar</button>
+    <button class="od-pill" data-filter="paid" onclick="setFilter('paid', this)">Dibayar</button>
+    <button class="od-pill" data-filter="processing" onclick="setFilter('processing', this)">Diproses</button>
+    <button class="od-pill" data-filter="shipped" onclick="setFilter('shipped', this)">Dikirim</button>
+    <button class="od-pill" data-filter="completed" onclick="setFilter('completed', this)">Selesai</button>
+  </div>
+
+  <div id="ordersContent">
+    <div class="od-loading">
+      <i class="fas fa-spinner"></i>
+      <h3>Memuat pesanan...</h3>
+      <p>Mohon tunggu sebentar</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+  authDomain: "portalwarga-963e4.firebaseapp.com",
+  projectId: "portalwarga-963e4",
+  storageBucket: "portalwarga-963e4.firebasestorage.app",
+  messagingSenderId: "655923017032",
+  appId: "1:655923017032:web:4484b33b72829460192f7d"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const CS_WA = '6285267891619';
+
+let allOrders = [];
+let currentFilter = 'all';
+
+const STATUS_MAP = {
+  pending_payment: { label: 'Menunggu Bayar', icon: 'fa-clock' },
+  paid:            { label: 'Sudah Dibayar', icon: 'fa-check-circle' },
+  processing:      { label: 'Diproses', icon: 'fa-box-open' },
+  shipped:         { label: 'Dikirim', icon: 'fa-truck' },
+  completed:       { label: 'Selesai', icon: 'fa-check-double' },
+  cancelled:       { label: 'Dibatalkan', icon: 'fa-times-circle' }
+};
+
+function rupiah(n) {
+  return 'Rp ' + Number(n || 0).toLocaleString('id-ID');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('pw_cart') || '[]');
+  const badge = document.getElementById('cartBadge');
+  if (badge) badge.textContent = cart.reduce((s, c) => s + (c.qty || 0), 0);
+}
+
+function formatDate(val) {
+  try {
+    let d;
+    if (!val) d = new Date();
+    else if (val.toDate) d = val.toDate();
+    else d = new Date(val);
+    return d.toLocaleString('id-ID', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+  } catch (e) {
+    return '-';
+  }
+}
+
+function statusBadge(status) {
+  const s = STATUS_MAP[status] || { label: status || 'Unknown', icon: 'fa-info-circle' };
+  const cls = STATUS_MAP[status] ? status : 'pending_payment';
+  return `<span class="od-status st-${cls}"><i class="fas ${s.icon}"></i> ${s.label}</span>`;
+}
+
+function getLocalInvoiceIds() {
+  const local = JSON.parse(localStorage.getItem('pw_my_orders') || '[]');
+  return local.map(o => o.invoice).filter(Boolean);
+}
+
+async function loadOrders() {
+  const content = document.getElementById('ordersContent');
+  const ids = getLocalInvoiceIds();
+
+  if (!ids.length) {
+    // Cek query ?invoice=
+    const q = new URLSearchParams(location.search).get('invoice');
+    if (q) {
+      await fetchAndShowInvoice(q);
+      return;
+    }
+    content.innerHTML = emptyState();
+    return;
+  }
+
+  try {
+    // Firestore 'in' max 10 — batch jika perlu
+    const chunks = [];
+    for (let i = 0; i < ids.length; i += 10) chunks.push(ids.slice(i, i + 10));
+
+    const docs = [];
+    for (const chunk of chunks) {
+      const snap = await db.collection('orders')
+        .where(firebase.firestore.FieldPath.documentId(), 'in', chunk)
+        .get();
+      snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+    }
+
+    // Urutkan terbaru
+    docs.sort((a, b) => {
+      const ta = a.createdAt?.toMillis?.() || new Date(a.createdAt || 0).getTime() || 0;
+      const tb = b.createdAt?.toMillis?.() || new Date(b.createdAt || 0).getTime() || 0;
+      return tb - ta;
+    });
+
+    // Fallback: local only jika firestore kosong
+    if (!docs.length) {
+      const local = JSON.parse(localStorage.getItem('pw_my_orders') || '[]');
+      allOrders = local.map(o => ({
+        invoice: o.invoice,
+        status: o.status || 'pending_payment',
+        pricing: { total: o.total || 0 },
+        items: [],
+        createdAt: o.createdAt,
+        _localOnly: true
+      }));
+    } else {
+      allOrders = docs;
+    }
+
+    renderList();
+  } catch (e) {
+    console.error(e);
+    // Fallback local
+    const local = JSON.parse(localStorage.getItem('pw_my_orders') || '[]');
+    if (local.length) {
+      allOrders = local.map(o => ({
+        invoice: o.invoice,
+        status: o.status || 'pending_payment',
+        pricing: { total: o.total || 0 },
+        items: [],
+        createdAt: o.createdAt,
+        _localOnly: true
+      }));
+      renderList();
+      toast('Mode offline: menampilkan cache lokal');
+    } else {
+      content.innerHTML = `
+        <div class="od-empty">
+          <i class="fas fa-exclamation-triangle" style="color:#EF4444;opacity:0.7"></i>
+          <h3>Gagal Memuat Pesanan</h3>
+          <p>${e.message}</p>
+          <a href="index.html"><i class="fas fa-home"></i> Beranda</a>
+        </div>`;
+    }
+  }
+}
+
+function emptyState() {
+  return `
+    <div class="od-empty">
+      <i class="fas fa-shopping-bag"></i>
+      <h3>Belum Ada Pesanan</h3>
+      <p>Pesanan yang dibuat di perangkat ini akan muncul di sini. Anda juga bisa cari via nomor invoice.</p>
+      <a href="index.html"><i class="fas fa-shopping-cart"></i> Mulai Belanja</a>
+    </div>`;
+}
+
+function setFilter(filter, btn) {
+  currentFilter = filter;
+  document.querySelectorAll('.od-pill').forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderList();
+}
+
+function renderList() {
+  const content = document.getElementById('ordersContent');
+  let list = allOrders;
+  if (currentFilter !== 'all') {
+    list = allOrders.filter(o => (o.status || 'pending_payment') === currentFilter);
+  }
+
+  if (!list.length) {
+    content.innerHTML = `
+      <div class="od-empty">
+        <i class="fas fa-filter"></i>
+        <h3>Tidak Ada Pesanan</h3>
+        <p>${currentFilter === 'all' ? 'Belum ada riwayat pesanan.' : 'Tidak ada pesanan dengan status ini.'}</p>
+        <a href="index.html"><i class="fas fa-shopping-cart"></i> Belanja Dulu</a>
+      </div>`;
+    return;
+  }
+
+  content.innerHTML = `<div class="od-list">${list.map(o => renderCard(o)).join('')}</div>`;
+}
+
+function renderCard(o) {
+  const inv = o.invoice || o.id || '-';
+  const status = o.status || 'pending_payment';
+  const items = Array.isArray(o.items) ? o.items : [];
+  const total = o.pricing?.total ?? o.total ?? 0;
+  const pay = o.payment?.method || '-';
+  const delivery = o.delivery?.label || o.delivery?.type || '-';
+  const customer = o.customer || {};
+  const safeId = String(inv).replace(/[^a-zA-Z0-9-_]/g, '_');
+
+  const itemsHtml = items.length ? items.slice(0, 4).map(it => `
+    <div class="od-item">
+      <div class="od-item-emoji">${it.emoji || '🛒'}</div>
+      <div class="od-item-info">
+        <div class="od-item-name">${it.nama || 'Produk'}</div>
+        <div class="od-item-meta">${it.qty || 1}x · ${it.sellerName || it.sellerNama || 'UMKM'}</div>
+      </div>
+      <div class="od-item-price">${rupiah((it.harga || 0) * (it.qty || 1))}</div>
+    </div>
+  `).join('') + (items.length > 4 ? `<div style="font-size:0.75rem;color:#94A3B8">+${items.length - 4} item lainnya</div>` : '')
+  : `<div style="font-size:0.85rem;color:#94A3B8;padding:6px 0">${o._localOnly ? 'Detail lengkap belum tersinkron. Cari invoice untuk memuat dari server.' : 'Tidak ada item.'}</div>`;
+
+  const waText = encodeURIComponent(
+    `Halo Admin PortalWarga, saya ingin menanyakan pesanan:\n\n` +
+    `📋 Invoice: ${inv}\n` +
+    `📊 Status: ${STATUS_MAP[status]?.label || status}\n` +
+    `💰 Total: ${rupiah(total)}\n\n` +
+    `Mohon bantuannya 🙏`
+  );
+
+  return `
+    <div class="od-card" id="card-${safeId}">
+      <div class="od-card-head">
+        <div>
+          <div class="od-inv"><i class="fas fa-file-invoice" style="color:var(--primary)"></i> ${inv}</div>
+          <div class="od-date"><i class="far fa-clock"></i> ${formatDate(o.createdAt)}</div>
+        </div>
+        ${statusBadge(status)}
+      </div>
+
+      <div class="od-card-body">
+        <div class="od-items">${itemsHtml}</div>
+
+        <div class="od-meta-grid">
+          <div><small>Pembayaran</small><b>${pay}</b></div>
+          <div><small>Pengiriman</small><b>${delivery}</b></div>
+          <div><small>Penerima</small><b>${customer.nama || '-'}</b></div>
+          <div><small>WA</small><b>${customer.telp || '-'}</b></div>
+        </div>
+
+        <div class="od-total-row">
+          <span>Total Belanja</span>
+          <b>${rupiah(total)}</b>
+        </div>
+      </div>
+
+      <div class="od-card-foot">
+        <a class="od-btn od-btn-wa" target="_blank" rel="noopener"
+           href="https://wa.me/${CS_WA}?text=${waText}">
+          <i class="fab fa-whatsapp"></i> Chat CS
+        </a>
+        <button type="button" class="od-btn od-btn-detail" id="btn-det-${safeId}"
+                onclick="toggleDetail('${safeId}')">
+          <i class="fas fa-chevron-down"></i> Detail
+        </button>
+      </div>
+
+      <div class="od-detail" id="det-${safeId}">
+        <div class="od-detail-block">
+          <small>Alamat Pengiriman</small>
+          <b>${customer.nama || '-'}</b><br>
+          ${customer.telp || ''}<br>
+          ${customer.alamat || '-'}
+          ${customer.kelurahan ? '<br>' + customer.kelurahan : ''}
+          ${customer.kecamatan ? ', ' + customer.kecamatan : ''}
+          ${customer.catatan ? '<br><i>Catatan: ' + customer.catatan + '</i>' : ''}
+        </div>
+        <div class="od-detail-block">
+          <small>Rincian Biaya</small>
+          Subtotal: <b>${rupiah(o.pricing?.subtotal)}</b><br>
+          Ongkir: <b>${rupiah(o.pricing?.ongkir)}</b><br>
+          Admin: <b>${rupiah(o.pricing?.adminFee)}</b><br>
+          <span style="color:#059669">Total: <b>${rupiah(total)}</b></span>
+        </div>
+        ${items.length ? `
+        <div class="od-detail-block">
+          <small>Semua Item (${items.length})</small>
+          ${items.map(it => `• ${it.nama} (${it.qty}x) — ${rupiah((it.harga||0)*(it.qty||1))}`).join('<br>')}
+        </div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function toggleDetail(safeId) {
+  const det = document.getElementById('det-' + safeId);
+  const btn = document.getElementById('btn-det-' + safeId);
+  if (!det) return;
+  const open = det.classList.toggle('show');
+  if (btn) {
+    btn.classList.toggle('open', open);
+    btn.innerHTML = open
+      ? '<i class="fas fa-chevron-up"></i> Tutup'
+      : '<i class="fas fa-chevron-down"></i> Detail';
+  }
+}
+
+async function searchInvoice() {
+  const input = document.getElementById('invoiceInput');
+  const btn = document.getElementById('btnSearchInvoice');
+  const raw = (input?.value || '').trim().toUpperCase();
+  if (!raw) {
+    toast('Masukkan nomor invoice');
+    input?.focus();
+    return;
+  }
+  await fetchAndShowInvoice(raw, btn);
+}
+
+async function fetchAndShowInvoice(invoiceId, btn) {
+  const content = document.getElementById('ordersContent');
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Cari...';
+  }
+  content.innerHTML = `
+    <div class="od-loading">
+      <i class="fas fa-spinner"></i>
+      <h3>Mencari ${invoiceId}...</h3>
+      <p>Menghubungi database</p>
+    </div>`;
+
+  try {
+    const doc = await db.collection('orders').doc(invoiceId).get();
+    if (!doc.exists) {
+      content.innerHTML = `
+        <div class="od-empty">
+          <i class="fas fa-search"></i>
+          <h3>Invoice Tidak Ditemukan</h3>
+          <p>Nomor <b>${invoiceId}</b> tidak ada di sistem. Cek kembali penulisannya.</p>
+          <a href="javascript:loadOrders()"><i class="fas fa-list"></i> Lihat Riwayat Lokal</a>
+        </div>`;
+      toast('Invoice tidak ditemukan');
+      return;
+    }
+
+    const order = { id: doc.id, invoice: doc.id, ...doc.data() };
+    allOrders = [order];
+    currentFilter = 'all';
+    document.querySelectorAll('.od-pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.filter === 'all');
+    });
+    renderList();
+
+    // Simpan ke local agar muncul lagi nanti
+    const local = JSON.parse(localStorage.getItem('pw_my_orders') || '[]');
+    if (!local.find(x => x.invoice === order.invoice)) {
+      local.unshift({
+        invoice: order.invoice,
+        total: order.pricing?.total || 0,
+        status: order.status || 'pending_payment',
+        createdAt: new Date().toISOString()
+      });
+      localStorage.setItem('pw_my_orders', JSON.stringify(local.slice(0, 50)));
+    }
+    toast('✓ Pesanan ditemukan');
+  } catch (e) {
+    console.error(e);
+    content.innerHTML = `
+      <div class="od-empty">
+        <i class="fas fa-exclamation-triangle" style="color:#EF4444;opacity:.7"></i>
+        <h3>Gagal Mencari</h3>
+        <p>${e.message}</p>
+        <a href="javascript:loadOrders()"><i class="fas fa-redo"></i> Coba Lagi</a>
+      </div>`;
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fas fa-search"></i> Cari';
+    }
+  }
+}
+
+document.getElementById('invoiceInput')?.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') searchInvoice();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  updateCartBadge();
+  const q = new URLSearchParams(location.search).get('invoice');
+  if (q) {
+    document.getElementById('invoiceInput').value = q;
+    fetchAndShowInvoice(q.trim().toUpperCase());
+  } else {
+    loadOrders();
+  }
+});
+</script>
+</body>
+</html>
