@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <!-- ============================================
-     BASIC META TAGS
+     BASIC META TAGS & PWA SUPPORT
      ============================================ -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,30 +11,51 @@
 <meta name="msapplication-TileColor" content="#0284C7">
 <meta name="msapplication-navbutton-color" content="#0284C7">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <!-- ============================================
      PRIMARY SEO META TAGS
      ============================================ -->
 <title>PortalWarga — Pusat Layanan Terpadu Kecamatan | Pasar, Property, Pendidikan & WiFi</title>
-<meta name="title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan | Pasar, Property, Pendidikan & WiFi">
-<meta name="description" content="Portal layanan terpadu tingkat kecamatan. Belanja pasar segar dari UMKM lokal, cari kontrakan & property, info pendidikan/bimbel, hingga pasang WiFi Youfiber Regynet. Cek coverage otomatis via GPS.">
-<meta name="keywords" content="portal warga, layanan kecamatan, pasar online lokal, belanja UMKM, property kontrakan kos, info pendidikan bimbel, pasang wifi rumah, voucher wifi, youfiber, regynet, kurir lokal, super app kecamatan, marketplace hyperlocal, portal layanan terpadu, pesan antar pasar, daftar wifi, CS whatsapp">
+<meta name="title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta name="description" content="Portal layanan terpadu tingkat kecamatan. Belanja pasar segar dari UMKM lokal, cari kontrakan & property, info pendidikan/bimbel, hingga pasang WiFi Youfiber Regynet.">
+<meta name="keywords" content="portal warga, layanan kecamatan, pasar online lokal, belanja UMKM, property kontrakan kos, info pendidikan bimbel, pasang wifi rumah, voucher wifi, youfiber, regynet, kurir lokal, super app kecamatan">
 <meta name="author" content="PortalWarga">
 <meta name="creator" content="Ibaadurrahmaan Web Designer">
-<meta name="publisher" content="PortalWarga">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="googlebot" content="index, follow">
-<meta name="bingbot" content="index, follow">
-<meta name="language" content="Indonesian">
-<meta name="revisit-after" content="3 days">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="language" content="id-ID">
 <meta name="rating" content="general">
-<meta name="distribution" content="global">
-<meta name="coverage" content="Worldwide">
-
-<link rel="icon" href="portalwarga.png" type="image/png">
+<link rel="canonical" href="https://ibaadurrahmaan-hub.github.io/portalwarga/">
 
 <!-- ============================================
-     PRECONNECT & FONTS
+     OPEN GRAPH (WHATSAPP, FACEBOOK, TELEGRAM)
+     ============================================ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ibaadurrahmaan-hub.github.io/portalwarga/">
+<meta property="og:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta property="og:description" content="Belanja sayur segar UMKM, cari properti, info pendidikan, hingga pasang WiFi fiber optik. Semua dalam satu genggaman warga.">
+<meta property="og:image" content="https://ibaadurrahmaan-hub.github.io/portalwarga/portalwarga.png">
+<meta property="og:image:alt" content="Logo PortalWarga">
+<meta property="og:site_name" content="PortalWarga">
+<meta property="og:locale" content="id_ID">
+
+<!-- ============================================
+     TWITTER CARDS
+     ============================================ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://ibaadurrahmaan-hub.github.io/portalwarga/">
+<meta name="twitter:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta name="twitter:description" content="Belanja sayur segar UMKM, cari properti, info pendidikan, hingga pasang WiFi fiber optik.">
+<meta name="twitter:image" content="https://ibaadurrahmaan-hub.github.io/portalwarga/portalwarga.png">
+
+<!-- ============================================
+     ICONS & FAVICON
+     ============================================ -->
+<link rel="icon" href="portalwarga.png" type="image/png">
+<link rel="apple-touch-icon" href="portalwarga.png">
+
+<!-- ============================================
+     PRECONNECT & STYLES
      ============================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +63,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-</head>
+<!-- ============================================
+     FIREBASE DATABASE
+     ============================================ -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB7scF94Mi9VChS1q81L_0qlM9j8qNecgI",
+    authDomain: "portalwarga-963e4.firebaseapp.com",
+    projectId: "portalwarga-963e4",
+    storageBucket: "portalwarga-963e4.firebasestorage.app",
+    messagingSenderId: "655923017032",
+    appId: "1:655923017032:web:4484b33b72829460192f7d"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+</script>
+</head> 
 
 <body>
 
