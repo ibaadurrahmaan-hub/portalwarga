@@ -26,16 +26,12 @@
 
 html, body {
   min-height: 100%;
-  height: 100%;
   margin: 0;
+  padding: 0;
   background: #0B1220;
   font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 16px;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* ========== LOGIN OVERLAY ========== */
@@ -75,6 +71,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 .auth-logo-brand img {
   width: 100%;
@@ -164,8 +161,17 @@ html, body {
 .btn-auth-submit:hover { transform: translateY(-2px); }
 .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+/* ========== ADMIN APP LAYOUT ========== */
+#adminApp {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F1F5F9;
+  width: 100%;
+  overflow-x: hidden;
+}
 
-/* ========== ADMIN HEADER (DARK - FULL WIDTH) ========== */
+/* ========== ADMIN HEADER (DARK - FULL WIDTH FIX) ========== */
 .admin-header {
   background: linear-gradient(135deg, #0B1220 0%, #0C4A6E 48%, #0369A1 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -180,12 +186,11 @@ html, body {
   box-sizing: border-box;
 }
 
-.admin-header .container {
-  padding-left: 16px;
-  padding-right: 16px;
+.admin-header-wrap {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
+  padding: 0 16px;
   box-sizing: border-box;
 }
 
@@ -279,36 +284,20 @@ html, body {
   gap: 6px;
   transition: all 0.2s;
 }
-
 .btn-logout:hover {
   background: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
 
-/* ========== FIX APP LAYOUT ========== */
-#adminApp {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #F1F5F9;
-  width: 100%;
-  overflow-x: hidden;
-}
-
-html, body {
-  min-height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #0B1220;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  overflow-x: hidden;
-}
-
-/* ========== ADMIN PAGE ========== */
+/* ========== ADMIN PAGE (KONTEN CENTER) ========== */
 .admin-page {
   flex: 1 0 auto;
-  padding: 16px 0 24px;
+  padding: 16px 16px 24px;
   background: #F1F5F9;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .adm-stats-grid {
@@ -685,7 +674,7 @@ html, body {
 }
 .btn-adm-wa:hover { transform: translateY(-2px); }
 
-/* ========== ADMIN FOOTER ========== */
+/* ========== ADMIN FOOTER (FULL WIDTH FIX) ========== */
 .admin-footer {
   flex-shrink: 0;
   margin-top: auto;
@@ -695,6 +684,15 @@ html, body {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 28px 0 32px;
   text-align: center;
+  box-sizing: border-box;
+}
+
+.admin-footer-wrap {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .admin-footer-inner {
@@ -703,6 +701,7 @@ html, body {
   align-items: center;
   gap: 18px;
   text-align: center;
+  width: 100%;
 }
 
 .admin-footer-brand {
@@ -821,7 +820,7 @@ html, body {
   color: #475569 !important;
 }
 
-/* TOAST (fallback) */
+/* TOAST */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -919,9 +918,9 @@ html, body {
 
 <!-- ============ APP MAIN CONTENT (PROTECTED) ============ -->
 <div id="adminApp" style="display:none">
-  <!-- HEADER DARK -->
+  <!-- HEADER DARK FULL WIDTH -->
   <header class="admin-header">
-    <div class="container">
+    <div class="admin-header-wrap">
       <div class="admin-header-inner">
         <a href="index.html" class="admin-brand">
           <img src="portalwarga.png" alt="PortalWarga" onerror="this.src='https://placehold.co/80x80?text=PW'">
@@ -940,8 +939,8 @@ html, body {
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <div class="container admin-page">
+  <!-- CONTENT CENTER (max 1100px) -->
+  <div class="admin-page">
     <div class="adm-stats-grid">
       <div class="adm-stat-card">
         <div class="adm-stat-icon total"><i class="fas fa-shopping-bag"></i></div>
@@ -985,9 +984,9 @@ html, body {
     </div>
   </div>
 
-  <!-- FOOTER DARK -->
+  <!-- FOOTER DARK FULL WIDTH -->
   <footer class="admin-footer">
-    <div class="container">
+    <div class="admin-footer-wrap">
       <div class="admin-footer-inner">
         <div class="admin-footer-brand">
           <img src="portalwarga.png" alt="PortalWarga" onerror="this.src='https://placehold.co/40x40?text=PW'">
@@ -1401,7 +1400,6 @@ function closeStatusSheet() {
 function confirmStatusChange(newStatusId, newStatusText) {
   closeStatusSheet();
 
-  // Cari status lama untuk perbandingan
   const orderData = rawOrders.find(o => o.invoice === activeInvoiceForStatus);
   const currentStatus = orderData?.status || 'pending_payment';
 
