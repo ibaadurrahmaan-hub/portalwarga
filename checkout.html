@@ -466,6 +466,38 @@ body { background: #FAFBFC; }
 .co-btn-wa { background: #25D366; color: white; box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3); }
 .co-btn-home { background: #F1F5F9; color: var(--text); }
 
+/* ============ LOGO LOKAL PEMBAYARAN ============ */
+.co-pay-logo {
+  width: 100%;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.co-pay-logo img {
+  max-width: 90%;
+  max-height: 36px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+  transition: transform 0.25s ease;
+}
+
+.co-payment-item:hover .co-pay-logo img,
+.co-payment-item.active .co-pay-logo img {
+  transform: scale(1.08);
+}
+
+.co-pay-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
 /* RESPONSIVE LAYOUT */
 .container { max-width: 1280px !important; width: 100%; margin: 0 auto; padding: 0 20px; }
 
@@ -624,35 +656,35 @@ body { background: #FAFBFC; }
               
               <div class="co-payment-item active" data-payment="QRIS">
                 <div class="co-pay-logo">
-                  <img src="img/qris.png" alt="QRIS" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-qris\'><i class=\'fas fa-qrcode\'></i> QRIS</div>';">
+                  <img src="qris.png" alt="QRIS" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-qris\'><i class=\'fas fa-qrcode\'></i> QRIS</div>';">
                 </div>
                 <div class="co-pay-name">QRIS Semua Bayar</div>
               </div>
 
               <div class="co-payment-item" data-payment="DANA">
                 <div class="co-pay-logo">
-                  <img src="img/dana.png" alt="DANA" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-dana\'>DANA</div>';">
+                  <img src="dana.png" alt="DANA" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-dana\'>DANA</div>';">
                 </div>
                 <div class="co-pay-name">Dompet DANA</div>
               </div>
 
               <div class="co-payment-item" data-payment="OVO">
                 <div class="co-pay-logo">
-                  <img src="img/ovo.png" alt="OVO" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-ovo\'>ovo</div>';">
+                  <img src="ovo.png" alt="OVO" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-ovo\'>ovo</div>';">
                 </div>
                 <div class="co-pay-name">OVO Cash</div>
               </div>
 
               <div class="co-payment-item" data-payment="GoPay">
                 <div class="co-pay-logo">
-                  <img src="img/gopay.png" alt="GoPay" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-gopay\'>gopay</div>';">
+                  <img src="gopay.png" alt="GoPay" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-gopay\'>gopay</div>';">
                 </div>
                 <div class="co-pay-name">GoPay</div>
               </div>
 
               <div class="co-payment-item" data-payment="ShopeePay">
                 <div class="co-pay-logo">
-                  <img src="img/shopeepay.png" alt="ShopeePay" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-shopee\'>ShopeePay</div>';">
+                  <img src="shopeepay.png" alt="ShopeePay" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-shopee\'>ShopeePay</div>';">
                 </div>
                 <div class="co-pay-name">ShopeePay</div>
               </div>
@@ -667,28 +699,28 @@ body { background: #FAFBFC; }
               
               <div class="co-payment-item" data-payment="BCA">
                 <div class="co-pay-logo">
-                  <img src="img/bca.png" alt="BCA" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-bca\'>BCA</div>';">
+                  <img src="bca.png" alt="BCA" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-bca\'>BCA</div>';">
                 </div>
                 <div class="co-pay-name">Bank BCA</div>
               </div>
 
               <div class="co-payment-item" data-payment="BRI">
                 <div class="co-pay-logo">
-                  <img src="img/bri.png" alt="BRI" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'co-pay-logo-text text-bri\'><b>BANK BRI</b></div>';">
+                  <img src="bri.png" alt="BRI" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'co-pay-logo-text text-bri\'><b>BANK BRI</b></div>';">
                 </div>
                 <div class="co-pay-name">Bank BRI</div>
               </div>
 
               <div class="co-payment-item" data-payment="Mandiri">
                 <div class="co-pay-logo">
-                  <img src="img/mandiri.png" alt="Mandiri" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-mandiri\'>mandırı</div>';">
+                  <img src="mandiri.png" alt="Mandiri" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-mandiri\'>mandırı</div>';">
                 </div>
                 <div class="co-pay-name">Bank Mandiri</div>
               </div>
 
               <div class="co-payment-item" data-payment="BNI">
                 <div class="co-pay-logo">
-                  <img src="img/bni.png" alt="BNI" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-bni\'>BNI</div>';">
+                  <img src="bni.png" alt="BNI" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-bni\'>BNI</div>';">
                 </div>
                 <div class="co-pay-name">Bank BNI</div>
               </div>
@@ -703,7 +735,7 @@ body { background: #FAFBFC; }
               
               <div class="co-payment-item" data-payment="COD">
                 <div class="co-pay-logo">
-                  <img src="img/cod.png" alt="COD" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-cod\'><i class=\'fas fa-hand-holding-usd\'></i> COD</div>';">
+                  <img src="cod.png" alt="COD" onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'brand-badge badge-cod\'><i class=\'fas fa-hand-holding-usd\'></i> COD</div>';">
                 </div>
                 <div class="co-pay-name">Bayar di Tempat</div>
               </div>
