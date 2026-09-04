@@ -603,13 +603,77 @@ body { background: #FAFBFC; }
   .co-summary-sticky .btn-checkout-final { width: 100%; justify-content: center; margin-top: 14px; }
 }
 
+/* ============ MOBILE OPTIMIZATION (MAX 768PX) ============ */
 @media (max-width: 768px) {
-  .co-form-row { grid-template-columns: 1fr; }
-  .co-stepper { padding: 16px 10px; }
-  .co-step-dot { width: 34px; height: 34px; font-size: 0.85rem; }
-  .co-step-label { font-size: 0.65rem; }
-  .co-step:not(:last-child)::after { top: 17px; left: calc(50% + 22px); right: calc(-50% + 22px); }
-  .co-card { padding: 18px; }
+  /* 1. Jarak scroll bawah agar tidak tertutup bottom bar */
+  .checkout-page {
+    padding-bottom: 130px !important;
+  }
+
+  /* 2. Ukuran Card lebih compact */
+  .co-card {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  /* 3. Paksa Metode Pembayaran jadi persis 2 Kolom rata */
+  .co-payment-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .co-payment-item {
+    padding: 12px 8px 10px !important;
+  }
+  .brand-badge {
+    font-size: 0.8rem !important;
+    padding: 0 8px !important;
+    height: 32px !important;
+  }
+  .co-pay-logo-text.text-bri {
+    font-size: 0.9rem !important;
+    height: 32px !important;
+  }
+  .co-pay-name {
+    font-size: 0.7rem !important;
+  }
+
+  /* 4. Rapikan Card Pengiriman (Kecilkan Ikon & Teks) */
+  .co-delivery-item {
+    padding: 12px !important;
+    gap: 10px !important;
+  }
+  .co-delivery-icon {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 1.1rem !important;
+  }
+  .co-delivery-info b {
+    font-size: 0.85rem !important;
+    line-height: 1.2 !important;
+  }
+  .co-delivery-info p {
+    font-size: 0.7rem !important;
+    margin-top: 2px !important;
+  }
+  .co-delivery-price {
+    font-size: 0.85rem !important;
+  }
+  .co-radio-dot {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  /* 5. Rapikan Bottom Bar */
+  .co-bottom-bar {
+    padding: 12px 16px !important;
+  }
+  .btn-checkout-final {
+    padding: 12px 18px !important;
+    font-size: 0.9rem !important;
+  }
+  .co-bottom-total b {
+    font-size: 1.25rem !important;
+  }
 }
 </style>
 </head>
