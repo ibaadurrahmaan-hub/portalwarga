@@ -22,9 +22,15 @@
   --border-light: #E2E8F0;
 }
 
-body { background: #F1F5F9; }
+body { background: #F1F5F9; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-/* LOGIN OVERLAY */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* ========== LOGIN OVERLAY ========== */
 .auth-overlay {
   position: fixed; inset: 0;
   background: rgba(15, 23, 42, 0.88);
@@ -48,14 +54,14 @@ body { background: #F1F5F9; }
   to { opacity: 1; transform: scale(1); }
 }
 
-/* LOGO LOGIN ADMIN */
+/* LOGO LOGIN BOX BIRU GELAP */
 .auth-logo-brand {
   width: 80px;
   height: 80px;
   margin: 0 auto 18px;
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(2, 132, 199, 0.35);
+  box-shadow: 0 12px 28px rgba(12, 74, 110, 0.45);
   background: linear-gradient(145deg, #0C4A6E 0%, #0369A1 45%, #0284C7 100%);
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -76,7 +82,6 @@ body { background: #F1F5F9; }
 .auth-field { margin-bottom: 16px; text-align: left; }
 .auth-field label { display: block; font-size: 0.78rem; font-weight: 700; color: #334155; margin-bottom: 6px; }
 
-/* PASSWORD WRAPPER WITH EYE TOGGLE */
 .password-wrapper {
   position: relative;
   display: flex;
@@ -93,9 +98,7 @@ body { background: #F1F5F9; }
   background: #FAFBFC;
   transition: all 0.25s;
 }
-.password-wrapper .auth-input {
-  padding-right: 44px;
-}
+.password-wrapper .auth-input { padding-right: 44px; }
 .auth-input:focus {
   outline: none;
   border-color: #0284C7;
@@ -138,91 +141,254 @@ body { background: #F1F5F9; }
 .btn-auth-submit:hover { transform: translateY(-2px); }
 .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-/* HEADER ADMIN */
+/* ========== ADMIN HEADER ========== */
 .admin-header {
-  background: white;
-  border-bottom: 1px solid var(--border-light);
-  padding: 14px 0;
-  position: sticky; top: 0; z-index: 100;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.03);
+  background: #fff;
+  border-bottom: 1px solid #E2E8F0;
+  padding: 12px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
 }
-.admin-header-inner { display: flex; align-items: center; justify-content: space-between; }
-.admin-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0F172A; }
-.admin-brand img { height: 38px; border-radius: 8px; }
+.admin-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #0F172A;
+  min-width: 0;
+  flex: 1;
+}
+.admin-brand img {
+  height: 40px;
+  width: 40px;
+  border-radius: 10px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.admin-brand-text {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.admin-brand-text strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.15;
+  font-weight: 800;
+}
 .admin-badge {
-  background: #0284C7; color: white;
-  font-size: 0.68rem; font-weight: 800;
-  padding: 3px 8px; border-radius: 6px;
-  text-transform: uppercase; letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  background: linear-gradient(135deg, #0284C7, #0369A1);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.admin-header-actions { flex-shrink: 0; }
+.btn-logout {
+  background: #F1F5F9;
+  color: #334155;
+  border: 1px solid #E2E8F0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  max-width: 46vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-logout:hover { background: #E2E8F0; }
+
+/* ========== ADMIN PAGE ========== */
+.admin-page {
+  padding: 16px 0 40px;
 }
 
-/* STATS GRID */
+/* STATS GRID: 2x2 mobile, 4 kolom desktop */
 .adm-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 14px;
-  margin: 24px 0 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 16px 0 14px;
 }
 .adm-stat-card {
-  background: white; border-radius: 18px; padding: 18px 20px;
-  border: 1px solid var(--border-light); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-  display: flex; align-items: center; gap: 16px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
 }
 .adm-stat-icon {
-  width: 52px; height: 52px; border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.35rem; color: white; flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  color: #fff;
+  flex-shrink: 0;
 }
 .adm-stat-icon.total { background: var(--gradient-primary); }
 .adm-stat-icon.pending { background: var(--gradient-warning); }
 .adm-stat-icon.processing { background: linear-gradient(135deg, #6366F1, #4F46E5); }
 .adm-stat-icon.revenue { background: var(--gradient-success); }
 
-.adm-stat-info small { display: block; font-size: 0.75rem; color: #64748B; font-weight: 600; margin-bottom: 2px; }
-.adm-stat-info b { font-size: 1.35rem; font-weight: 800; color: #0F172A; line-height: 1.2; display: block; }
+.adm-stat-info { min-width: 0; }
+.adm-stat-info small {
+  display: block;
+  font-size: 0.68rem;
+  color: #64748B;
+  font-weight: 600;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.adm-stat-info b {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0F172A;
+  line-height: 1.15;
+  display: block;
+  word-break: break-word;
+}
 
-/* SEARCH & FILTERS */
+/* CONTROLS */
 .adm-controls {
-  background: white; border-radius: 18px; padding: 16px;
-  border: 1px solid var(--border-light); margin-bottom: 20px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px;
+  border: 1px solid #E2E8F0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  margin-bottom: 14px;
 }
-.adm-search-box { position: relative; margin-bottom: 14px; }
-.adm-search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94A3B8; }
+.adm-search-box {
+  position: relative;
+  margin-bottom: 12px;
+}
+.adm-search-box i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+}
 .adm-search-box input {
-  width: 100%; padding: 12px 14px 12px 42px;
-  border: 2px solid var(--border-light); border-radius: 12px;
-  font-size: 0.9rem; font-family: inherit; background: #FAFBFC;
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: #FAFBFC;
 }
-.adm-search-box input:focus { outline: none; border-color: #0284C7; background: white; }
+.adm-search-box input:focus {
+  outline: none;
+  border-color: #0284C7;
+  background: white;
+}
 
-.adm-filters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.adm-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+}
 .adm-filters::-webkit-scrollbar { display: none; }
 .adm-pill {
-  border: 1.5px solid var(--border-light); background: #FAFBFC;
-  color: #64748B; border-radius: 999px; padding: 7px 14px;
-  font-size: 0.78rem; font-weight: 700; font-family: inherit; cursor: pointer; white-space: nowrap;
+  border: 1.5px solid var(--border-light);
+  background: #FAFBFC;
+  color: #64748B;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
 }
-.adm-pill.active { background: #0284C7; border-color: #0284C7; color: white; }
+.adm-pill.active {
+  background: #0284C7;
+  border-color: #0284C7;
+  color: white;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+}
 
 /* ORDERS LIST */
-.adm-orders-list { display: grid; gap: 14px; }
+.adm-orders-list { display: grid; gap: 12px; }
+
 .adm-card {
-  background: white; border-radius: 18px;
-  border: 1px solid var(--border-light); box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   overflow: hidden;
 }
+
 .adm-card-head {
-  padding: 16px 18px 12px; border-bottom: 1px dashed var(--border-light);
-  display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: 14px;
+  gap: 10px;
+  align-items: flex-start;
+  border-bottom: 1px dashed var(--border-light);
+  display: flex;
+  justify-content: space-between;
 }
-.adm-card-inv { font-size: 0.95rem; font-weight: 800; color: #0F172A; }
-.adm-card-date { font-size: 0.75rem; color: #94A3B8; margin-top: 2px; }
+.adm-card-inv {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #0F172A;
+  word-break: break-all;
+  line-height: 1.25;
+}
+.adm-card-date {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  margin-top: 4px;
+}
 
 .st-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 0.72rem; font-weight: 800; padding: 5px 12px; border-radius: 999px;
-  text-transform: uppercase; letter-spacing: 0.3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 6px 10px;
+  border-radius: 999px;
+  line-height: 1.15;
+  max-width: 42%;
+  white-space: normal;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
 }
 .st-pending_payment { background: #FEF3C7; color: #B45309; }
 .st-paid            { background: #DBEAFE; color: #1D4ED8; }
@@ -231,51 +397,166 @@ body { background: #F1F5F9; }
 .st-completed       { background: #D1FAE5; color: #047857; }
 .st-cancelled       { background: #FEE2E2; color: #B91C1C; }
 
-.adm-card-body { padding: 16px 18px; }
+.adm-card-body { padding: 14px; }
+
 .adm-customer-box {
-  background: #F8FAFC; border-radius: 12px; padding: 12px 14px;
-  margin-bottom: 14px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 0.82rem;
+  background: #F8FAFC;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  font-size: 0.82rem;
 }
-.adm-customer-box small { display: block; color: #94A3B8; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
-.adm-customer-box b { color: #0F172A; font-weight: 700; }
+.adm-customer-box small {
+  display: block;
+  color: #94A3B8;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+  letter-spacing: 0.3px;
+}
+.adm-customer-box b {
+  color: #0F172A;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
 
-.adm-items-title { font-size: 0.75rem; font-weight: 800; color: #64748B; text-transform: uppercase; margin-bottom: 8px; }
-.adm-item-row { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 0.85rem; }
+.adm-items-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+.adm-item-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 0.85rem;
+}
 .adm-item-emoji {
-  width: 36px; height: 36px; background: #F1F5F9; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  background: #F1F5F9;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
 }
-.adm-item-name { flex: 1; font-weight: 700; color: #0F172A; }
-.adm-item-price { font-weight: 800; color: #059669; }
+.adm-item-name {
+  flex: 1;
+  font-weight: 700;
+  color: #0F172A;
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+.adm-item-price {
+  font-weight: 800;
+  color: #059669;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
 
+/* FOOTER CARD ACTION */
 .adm-card-foot {
-  padding: 12px 18px 16px; background: #FAFBFC;
+  padding: 12px 14px 14px;
+  background: #FAFBFC;
   border-top: 1px solid var(--border-light);
-  display: flex; gap: 10px; align-items: center; justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
 }
 .adm-select-status {
-  padding: 10px 12px; border: 2px solid var(--border-light); border-radius: 10px;
-  font-size: 0.82rem; font-weight: 700; font-family: inherit; background: white; flex: 1;
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--border-light);
+  border-radius: 12px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  font-family: inherit;
+  background: white;
+  color: #0F172A;
+  cursor: pointer;
 }
+.adm-select-status:focus { outline: none; border-color: #0284C7; }
+
 .btn-adm-act {
-  padding: 10px 16px; border-radius: 10px; font-weight: 800; font-size: 0.82rem;
-  border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 6px;
-  text-decoration: none; white-space: nowrap;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
 }
-.btn-adm-wa { background: #25D366; color: white; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25); }
+.btn-adm-wa {
+  background: #25D366;
+  color: white;
+  width: 100%;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
+.btn-adm-wa:hover { transform: translateY(-2px); }
 
+/* TOAST */
 .toast {
-  position: fixed; bottom: 24px; left: 50%;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
   transform: translateX(-50%) translateY(100px);
-  background: #0F172A; color: white; padding: 12px 20px; border-radius: 12px;
-  font-size: 0.85rem; font-weight: 700; z-index: 10000; opacity: 0; transition: all 0.3s ease;
+  background: #0F172A;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
-@media (max-width: 640px) {
-  .adm-customer-box { grid-template-columns: 1fr; }
-  .adm-card-foot { flex-direction: column; align-items: stretch; }
-  .btn-adm-act { justify-content: center; }
+.fa-whatsapp, .fab.fa-whatsapp {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+}
+
+/* ========== DESKTOP ========== */
+@media (min-width: 768px) {
+  .adm-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .adm-stat-info b { font-size: 1.25rem; }
+  .adm-customer-box { grid-template-columns: 1fr 1fr; }
+  .adm-card-foot {
+    grid-template-columns: 1.4fr auto;
+    align-items: center;
+  }
+  .btn-adm-wa { width: auto; }
+  .st-badge {
+    max-width: none;
+    white-space: nowrap;
+  }
+  .btn-logout { max-width: none; }
 }
 </style>
 </head>
@@ -324,14 +605,16 @@ body { background: #F1F5F9; }
       <div class="admin-header-inner">
         <a href="index.html" class="admin-brand">
           <img src="portalwarga.png" alt="PortalWarga" onerror="this.src='https://placehold.co/80x80?text=PW'">
-          <div>
-            <strong style="display:block; font-size:1.05rem; line-height:1.2;">PortalWarga</strong>
+          <div class="admin-brand-text">
+            <strong>PortalWarga</strong>
             <span class="admin-badge">Secure Admin</span>
           </div>
         </a>
-        <div>
-          <button type="button" class="btn-adm-act" onclick="handleAdminLogout()" style="background:#F1F5F9; color:#475569;">
-            <i class="fas fa-sign-out-alt"></i> Keluar (<span id="userEmailTag">Admin</span>)
+
+        <div class="admin-header-actions">
+          <button type="button" class="btn-logout" onclick="handleAdminLogout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span id="userEmailTag">Admin</span>
           </button>
         </div>
       </div>
@@ -369,7 +652,7 @@ body { background: #F1F5F9; }
       <div class="adm-filters" id="statusFilters">
         <button class="adm-pill active" data-filter="all" onclick="setFilter('all', this)">Semua (<span id="cnt-all">0</span>)</button>
         <button class="adm-pill" data-filter="pending_payment" onclick="setFilter('pending_payment', this)">Menunggu (<span id="cnt-pending_payment">0</span>)</button>
-        <button class="adm-pill" data-filter="paid" onclick="setFilter('paid', this)">Dibayar (<span id="cnt-paid">0</span>)</button>
+        <button class="adm-pill" data-filter="paid" onclick="setFilter('paid', this)">Lunas (<span id="cnt-paid">0</span>)</button>
         <button class="adm-pill" data-filter="processing" onclick="setFilter('processing', this)">Diproses (<span id="cnt-processing">0</span>)</button>
         <button class="adm-pill" data-filter="shipped" onclick="setFilter('shipped', this)">Dikirim (<span id="cnt-shipped">0</span>)</button>
         <button class="adm-pill" data-filter="completed" onclick="setFilter('completed', this)">Selesai (<span id="cnt-completed">0</span>)</button>
@@ -389,7 +672,7 @@ body { background: #F1F5F9; }
 
 <div class="toast" id="toast" role="status"></div>
 
-<!-- Firebase SDK (Compat Version) -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -410,6 +693,15 @@ const db = firebase.firestore();
 
 let rawOrders = [];
 let currentFilter = 'all';
+
+const STATUS_LABELS = {
+  pending_payment: 'Menunggu Bayar',
+  paid: 'Lunas',
+  processing: 'Diproses',
+  shipped: 'Dikirim',
+  completed: 'Selesai',
+  cancelled: 'Dibatalkan'
+};
 
 function rupiah(n) { return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); }
 
@@ -442,16 +734,17 @@ auth.onAuthStateChanged(user => {
   const app = document.getElementById('adminApp');
   
   if (user) {
-    // ADMIN LOGGED IN
     if (overlay) overlay.style.display = 'none';
     if (app) app.style.display = 'block';
     
     const tag = document.getElementById('userEmailTag');
-    if (tag) tag.textContent = user.email.split('@')[0];
+    if (tag) {
+      const name = (user.email || 'Admin').split('@')[0];
+      tag.textContent = name.length > 12 ? name.slice(0, 12) + '…' : name;
+    }
     
     initRealtimeOrders();
   } else {
-    // UNUATHENTICATED
     if (overlay) overlay.style.display = 'flex';
     if (app) app.style.display = 'none';
   }
@@ -583,15 +876,6 @@ function renderOrders(orders) {
     return;
   }
 
-  const STATUS_LABELS = {
-    pending_payment: 'Menunggu Pembayaran',
-    paid: 'Pembayaran Dikonfirmasi (Lunas)',
-    processing: 'Sedang Diproses Penjual',
-    shipped: 'Sedang Dalam Pengiriman',
-    completed: 'Pesanan Selesai',
-    cancelled: 'Dibatalkan'
-  };
-
   container.innerHTML = orders.map(o => {
     const inv = o.invoice || o.id;
     const cust = o.customer || {};
@@ -616,7 +900,7 @@ function renderOrders(orders) {
       `Halo Kak *${cust.nama}*,\n\n` +
       `Update untuk pesanan Anda di *PortalWarga*:\n` +
       `📋 Invoice: *${inv}*\n` +
-      `📊 Status Terbaru: *${STATUS_LABELS[status] || status}*\n` +
+      `📊 Status: *${STATUS_LABELS[status] || status}*\n` +
       `💰 Total: *${rupiah(total)}*\n\n` +
       `Terima kasih telah berbelanja di UMKM lokal! 🙏`
     );
@@ -640,13 +924,13 @@ function renderOrders(orders) {
               <b>${cust.nama || '-'}</b> (${cust.telp || '-'})
             </div>
             <div>
-              <small>Metode Pembayaran / Kurir</small>
+              <small>Bayar / Kurir</small>
               <b>${o.payment?.method || '-'}</b> · ${o.delivery?.label || '-'}
             </div>
             <div style="grid-column: 1 / -1;">
               <small>Alamat Lengkap</small>
-              <b>${cust.alamat || '-'}</b> ${cust.kelurahan ? ', Kel. ' + cust.kelurahan : ''} ${cust.kecamatan ? ', Kec. ' + cust.kecamatan : ''}
-              ${cust.catatan ? `<div style="color:#64748B; font-style:italic; margin-top:2px;">Catatan: ${cust.catatan}</div>` : ''}
+              <b>${cust.alamat || '-'}</b>${cust.kelurahan ? ', Kel. ' + cust.kelurahan : ''}${cust.kecamatan ? ', Kec. ' + cust.kecamatan : ''}
+              ${cust.catatan ? `<div style="color:#64748B; font-style:italic; margin-top:4px; font-weight:600;">📝 ${cust.catatan}</div>` : ''}
             </div>
           </div>
 
@@ -661,12 +945,12 @@ function renderOrders(orders) {
 
         <div class="adm-card-foot">
           <select class="adm-select-status" onchange="updateStatus('${inv}', this.value)">
-            <option value="pending_payment" ${status === 'pending_payment' ? 'selected' : ''}>⏳ Menunggu Pembayaran</option>
-            <option value="paid" ${status === 'paid' ? 'selected' : ''}>✅ Pembayaran Lunas (Dikonfirmasi)</option>
-            <option value="processing" ${status === 'processing' ? 'selected' : ''}>📦 Diproses Penjual</option>
-            <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>🚚 Sedang Dikirim / Diantar</option>
-            <option value="completed" ${status === 'completed' ? 'selected' : ''}>🎉 Pesanan Selesai</option>
-            <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>❌ Batal / Reject</option>
+            <option value="pending_payment" ${status === 'pending_payment' ? 'selected' : ''}>⏳ Menunggu Bayar</option>
+            <option value="paid" ${status === 'paid' ? 'selected' : ''}>✅ Lunas</option>
+            <option value="processing" ${status === 'processing' ? 'selected' : ''}>📦 Diproses</option>
+            <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>🚚 Dikirim</option>
+            <option value="completed" ${status === 'completed' ? 'selected' : ''}>🎉 Selesai</option>
+            <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>❌ Batal</option>
           </select>
           
           <a href="https://wa.me/${telpClean}?text=${waText}" target="_blank" class="btn-adm-act btn-adm-wa">
