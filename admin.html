@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <style>
 :root {
   --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
@@ -21,10 +24,12 @@
   --blue-dark: #0C4A6E;
 }
 
-body {
-  background: #F1F5F9;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+html, body {
+  min-height: 100%;
+  height: 100%;
   margin: 0;
+  background: #0B1220;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .container {
@@ -159,6 +164,14 @@ body {
 .btn-auth-submit:hover { transform: translateY(-2px); }
 .btn-auth-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+/* ========== ADMIN APP LAYOUT ========== */
+#adminApp {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F1F5F9;
+}
+
 /* ========== ADMIN HEADER (DARK) ========== */
 .admin-header {
   background: linear-gradient(135deg, #0B1220 0%, #0C4A6E 48%, #0369A1 100%);
@@ -250,7 +263,11 @@ body {
 }
 
 /* ========== ADMIN PAGE ========== */
-.admin-page { padding: 16px 0 24px; }
+.admin-page {
+  flex: 1 0 auto;
+  padding: 16px 0 24px;
+  background: #F1F5F9;
+}
 
 .adm-stats-grid {
   display: grid;
@@ -496,20 +513,111 @@ body {
   grid-template-columns: 1fr;
   gap: 10px;
 }
-.adm-select-status {
+
+/* ========== CUSTOM DROPDOWN (BOTTOM SHEET) ========== */
+.custom-select-btn {
   width: 100%;
-  padding: 12px;
+  padding: 12px 14px;
   border: 2px solid var(--border-light);
   border-radius: 12px;
-  font-size: 0.84rem;
-  font-weight: 700;
-  font-family: inherit;
   background: white;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: #0F172A;
   cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
   box-sizing: border-box;
 }
-.adm-select-status:focus { outline: none; border-color: #0284C7; }
+.custom-select-btn:active {
+  background: #F8FAFC;
+  border-color: #0284C7;
+}
+
+.status-sheet-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+.status-sheet-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.status-sheet {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: #1E1E28;
+  color: #F8FAFC;
+  border-radius: 28px 28px 0 0;
+  padding: 24px 20px 30px;
+  z-index: 10001;
+  transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.25);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.status-sheet.show { bottom: 0; }
+
+.sheet-handle {
+  width: 48px;
+  height: 5px;
+  background: #475569;
+  border-radius: 10px;
+  margin: 0 auto 20px;
+}
+
+.sheet-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #94A3B8;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.status-option {
+  display: flex;
+  align-items: center;
+  padding: 16px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  border-radius: 8px;
+}
+.status-option:last-child { border-bottom: none; }
+.status-option:active { background: rgba(255,255,255,0.05); }
+
+.status-option .emoji {
+  font-size: 1.4rem;
+  margin-right: 16px;
+}
+.status-option .text {
+  flex: 1;
+  letter-spacing: 0.3px;
+}
+.status-option .radio {
+  color: #64748B;
+  font-size: 1.25rem;
+}
+.status-option.selected {
+  background: rgba(56, 189, 248, 0.08);
+}
+.status-option.selected .radio {
+  color: #38BDF8;
+}
 
 .btn-adm-act {
   padding: 12px 14px;
@@ -534,27 +642,6 @@ body {
   box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
 }
 .btn-adm-wa:hover { transform: translateY(-2px); }
-
-/* Pastikan tidak ada celah putih di bawah footer */
-html, body {
-  min-height: 100%;
-  height: 100%;
-  margin: 0;
-  background: #0B1220;
-}
-
-#adminApp {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #F1F5F9;
-}
-
-.admin-page {
-  flex: 1 0 auto;
-  padding: 16px 0 24px;
-  background: #F1F5F9;
-}
 
 /* ========== ADMIN FOOTER ========== */
 .admin-footer {
@@ -611,7 +698,6 @@ html, body {
   max-width: 280px;
 }
 
-/* 3 badge full width (stack di mobile) */
 .admin-footer-links {
   display: grid;
   grid-template-columns: 1fr;
@@ -659,11 +745,41 @@ html, body {
   line-height: 1.4;
 }
 
-.admin-footer-meta .dot {
-  opacity: 0.5;
+.admin-footer-meta .dot { opacity: 0.5; }
+
+/* ========== SWAL PREMIUM STYLING ========== */
+.swal-premium {
+  border-radius: 24px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2) !important;
+  padding: 1.5em 1em 1.5em !important;
+}
+.swal2-title {
+  font-weight: 800 !important;
+  color: #0F172A !important;
+  font-size: 1.4rem !important;
+}
+.swal2-html-container {
+  font-weight: 500 !important;
+  color: #475569 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+.swal2-confirm, .swal2-cancel {
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  padding: 12px 24px !important;
+  font-size: 0.9rem !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+.swal2-confirm {
+  box-shadow: 0 6px 16px rgba(2, 132, 199, 0.3) !important;
+}
+.swal2-cancel {
+  color: #475569 !important;
 }
 
-/* TOAST */
+/* TOAST (fallback) */
 .toast {
   position: fixed;
   bottom: 24px;
@@ -709,23 +825,18 @@ html, body {
   }
   .btn-logout { max-width: none; }
 
-  /* Desktop footer */
   .admin-footer-brand {
     flex-direction: row;
     text-align: left;
     max-width: 640px;
     width: 100%;
   }
-  .admin-footer-brand p {
-    max-width: none;
-  }
+  .admin-footer-brand p { max-width: none; }
   .admin-footer-links {
     grid-template-columns: repeat(3, 1fr);
     max-width: 640px;
   }
-  .admin-footer-meta {
-    max-width: 640px;
-  }
+  .admin-footer-meta { max-width: 640px; }
 }
 </style>
 </head>
@@ -862,8 +973,17 @@ html, body {
   </footer>
 </div>
 
+<!-- ============ CUSTOM STATUS BOTTOM SHEET ============ -->
+<div class="status-sheet-overlay" id="statusOverlay" onclick="closeStatusSheet()"></div>
+<div class="status-sheet" id="statusSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Pilih Status Pesanan</div>
+  <div id="statusSheetOptions"></div>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -884,6 +1004,7 @@ const db = firebase.firestore();
 
 let rawOrders = [];
 let currentFilter = 'all';
+let activeInvoiceForStatus = null;
 
 const STATUS_LABELS = {
   pending_payment: 'Menunggu Bayar',
@@ -892,6 +1013,15 @@ const STATUS_LABELS = {
   shipped: 'Dikirim',
   completed: 'Selesai',
   cancelled: 'Dibatalkan'
+};
+
+const STATUS_EMOJIS = {
+  pending_payment: '⏳',
+  paid: '✅',
+  processing: '📦',
+  shipped: '🚚',
+  completed: '🎉',
+  cancelled: '❌'
 };
 
 function rupiah(n) {
@@ -919,13 +1049,18 @@ function togglePassword(inputId, iconId) {
   }
 }
 
+function getEmojiStatus(status) {
+  return STATUS_EMOJIS[status] || '⏳';
+}
+
+// ================= AUTH OBSERVER =================
 auth.onAuthStateChanged(user => {
   const overlay = document.getElementById('authOverlay');
   const app = document.getElementById('adminApp');
 
   if (user) {
     if (overlay) overlay.style.display = 'none';
-    if (app) app.style.display = 'block';
+    if (app) app.style.display = 'flex';
 
     const tag = document.getElementById('userEmailTag');
     if (tag) {
@@ -950,7 +1085,14 @@ async function handleAdminLogin(e) {
 
   try {
     await auth.signInWithEmailAndPassword(email, pass);
-    toast('✓ Berhasil masuk sebagai Admin');
+    Swal.fire({
+      icon: 'success',
+      title: 'Login Berhasil!',
+      text: 'Selamat datang Admin PortalWarga',
+      timer: 1800,
+      showConfirmButton: false,
+      customClass: { popup: 'swal-premium' }
+    });
   } catch (err) {
     console.error(err);
     let msg = 'Gagal login';
@@ -963,7 +1105,12 @@ async function handleAdminLogin(e) {
     } else {
       msg = err.message;
     }
-    toast('❌ ' + msg);
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Gagal',
+      text: msg,
+      customClass: { popup: 'swal-premium' }
+    });
   } finally {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Masuk Ke Server';
@@ -971,14 +1118,36 @@ async function handleAdminLogin(e) {
 }
 
 async function handleAdminLogout() {
-  try {
-    await auth.signOut();
-    toast('Anda telah keluar');
-  } catch (err) {
-    console.error(err);
+  const result = await Swal.fire({
+    title: 'Keluar dari Admin?',
+    text: 'Anda perlu login ulang untuk mengakses dashboard.',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#EF4444',
+    cancelButtonColor: '#F1F5F9',
+    cancelButtonText: 'Batal',
+    confirmButtonText: 'Ya, Keluar',
+    reverseButtons: true,
+    customClass: { popup: 'swal-premium' }
+  });
+
+  if (result.isConfirmed) {
+    try {
+      await auth.signOut();
+      Swal.fire({
+        icon: 'success',
+        title: 'Berhasil Keluar',
+        timer: 1500,
+        showConfirmButton: false,
+        customClass: { popup: 'swal-premium' }
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 
+// ================= REALTIME FIRESTORE LISTENER =================
 function initRealtimeOrders() {
   db.collection('orders').onSnapshot(snapshot => {
     rawOrders = snapshot.docs.map(doc => ({
@@ -1132,14 +1301,10 @@ function renderOrders(orders) {
         </div>
 
         <div class="adm-card-foot">
-          <select class="adm-select-status" onchange="updateStatus('${inv}', this.value)">
-            <option value="pending_payment" ${status === 'pending_payment' ? 'selected' : ''}>⏳ Menunggu Bayar</option>
-            <option value="paid" ${status === 'paid' ? 'selected' : ''}>✅ Lunas</option>
-            <option value="processing" ${status === 'processing' ? 'selected' : ''}>📦 Diproses</option>
-            <option value="shipped" ${status === 'shipped' ? 'selected' : ''}>🚚 Dikirim</option>
-            <option value="completed" ${status === 'completed' ? 'selected' : ''}>🎉 Selesai</option>
-            <option value="cancelled" ${status === 'cancelled' ? 'selected' : ''}>❌ Batal</option>
-          </select>
+          <button type="button" class="custom-select-btn" onclick="openStatusSheet('${inv}', '${status}')">
+            <span>${getEmojiStatus(status)} ${STATUS_LABELS[status]}</span>
+            <i class="fas fa-chevron-down" style="color:#94A3B8"></i>
+          </button>
           
           <a href="https://wa.me/${telpClean}?text=${waText}" target="_blank" rel="noopener" class="btn-adm-act btn-adm-wa">
             <i class="fab fa-whatsapp"></i> Chat Pembeli
@@ -1150,16 +1315,115 @@ function renderOrders(orders) {
   }).join('');
 }
 
+// ================= CUSTOM DROPDOWN BOTTOM SHEET =================
+function openStatusSheet(invoiceId, currentStatus) {
+  activeInvoiceForStatus = invoiceId;
+  
+  const options = [
+    { id: 'pending_payment', emoji: '⏳', text: 'Menunggu Bayar' },
+    { id: 'paid', emoji: '✅', text: 'Lunas' },
+    { id: 'processing', emoji: '📦', text: 'Diproses' },
+    { id: 'shipped', emoji: '🚚', text: 'Dikirim' },
+    { id: 'completed', emoji: '🎉', text: 'Selesai' },
+    { id: 'cancelled', emoji: '❌', text: 'Batal' }
+  ];
+
+  let html = '';
+  options.forEach(opt => {
+    const isSelected = opt.id === currentStatus;
+    const icon = isSelected 
+      ? '<i class="fas fa-dot-circle" style="color:#38BDF8"></i>' 
+      : '<i class="far fa-circle"></i>';
+      
+    html += `
+      <div class="status-option ${isSelected ? 'selected' : ''}" onclick="confirmStatusChange('${opt.id}', '${opt.text}')">
+        <span class="emoji">${opt.emoji}</span>
+        <span class="text">${opt.text}</span>
+        <span class="radio">${icon}</span>
+      </div>`;
+  });
+
+  document.getElementById('statusSheetOptions').innerHTML = html;
+  document.getElementById('statusOverlay').classList.add('show');
+  document.getElementById('statusSheet').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeStatusSheet() {
+  document.getElementById('statusSheet').classList.remove('show');
+  document.getElementById('statusOverlay').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ================= SWEETALERT2 CONFIRMATION =================
+function confirmStatusChange(newStatusId, newStatusText) {
+  closeStatusSheet();
+
+  // Cari status lama untuk perbandingan
+  const orderData = rawOrders.find(o => o.invoice === activeInvoiceForStatus);
+  const currentStatus = orderData?.status || 'pending_payment';
+
+  if (newStatusId === currentStatus) {
+    Swal.fire({
+      icon: 'info',
+      title: 'Status Sama',
+      text: 'Status pesanan sudah ' + newStatusText + '. Tidak ada perubahan.',
+      customClass: { popup: 'swal-premium' }
+    });
+    return;
+  }
+
+  Swal.fire({
+    title: 'Ubah Status Pesanan?',
+    html: `Invoice <b style="color:#0F172A">${activeInvoiceForStatus}</b><br>Akan diubah menjadi <b style="color:#0284C7">${newStatusText}</b>.`,
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonColor: '#0284C7',
+    cancelButtonColor: '#F1F5F9',
+    cancelButtonText: 'Batal',
+    confirmButtonText: '<i class="fas fa-check"></i> Ya, Ubah!',
+    reverseButtons: true,
+    customClass: { popup: 'swal-premium' }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      updateStatus(activeInvoiceForStatus, newStatusId);
+    }
+  });
+}
+
+// ================= UPDATE STATUS WITH LOADING =================
 async function updateStatus(invoiceId, newStatus) {
+  Swal.fire({
+    title: 'Memproses...',
+    text: 'Menyimpan perubahan ke server',
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    customClass: { popup: 'swal-premium' },
+    didOpen: () => { Swal.showLoading(); }
+  });
+
   try {
     await db.collection('orders').doc(invoiceId).update({
       status: newStatus,
       updatedAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-    toast('✓ Status Invoice ' + invoiceId + ' diperbarui!');
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Berhasil!',
+      html: `Status pesanan <b>${invoiceId}</b><br>telah diperbarui menjadi <b style="color:#059669">${STATUS_LABELS[newStatus]}</b>`,
+      timer: 2500,
+      showConfirmButton: false,
+      customClass: { popup: 'swal-premium' }
+    });
   } catch (e) {
     console.error(e);
-    toast('❌ Gagal mengubah status: ' + e.message);
+    Swal.fire({
+      icon: 'error',
+      title: 'Gagal Menyimpan',
+      text: e.message,
+      customClass: { popup: 'swal-premium' }
+    });
   }
 }
 </script>
