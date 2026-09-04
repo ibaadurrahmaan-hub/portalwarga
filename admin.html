@@ -535,80 +535,133 @@ body {
 }
 .btn-adm-wa:hover { transform: translateY(-2px); }
 
+/* Pastikan tidak ada celah putih di bawah footer */
+html, body {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+  background: #0B1220;
+}
+
+#adminApp {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F1F5F9;
+}
+
+.admin-page {
+  flex: 1 0 auto;
+  padding: 16px 0 24px;
+  background: #F1F5F9;
+}
+
 /* ========== ADMIN FOOTER ========== */
 .admin-footer {
-  margin-top: 8px;
+  flex-shrink: 0;
+  margin-top: auto;
+  width: 100%;
   background: linear-gradient(180deg, #0B1220 0%, #0C4A6E 100%);
   color: #E2E8F0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 28px 0 22px;
+  padding: 28px 0 32px;
+  text-align: center;
 }
+
 .admin-footer-inner {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 18px;
+  text-align: center;
 }
+
 .admin-footer-brand {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  text-align: center;
 }
+
 .admin-footer-brand img {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   object-fit: contain;
   background: rgba(255, 255, 255, 0.1);
-  padding: 4px;
+  padding: 5px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-sizing: border-box;
 }
+
 .admin-footer-brand strong {
   display: block;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 800;
   color: #fff;
   line-height: 1.2;
 }
+
 .admin-footer-brand p {
-  margin: 3px 0 0;
-  font-size: 0.75rem;
+  margin: 4px 0 0;
+  font-size: 0.78rem;
   color: #94A3B8;
-  line-height: 1.35;
+  line-height: 1.4;
+  max-width: 280px;
 }
+
+/* 3 badge full width (stack di mobile) */
 .admin-footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: 100%;
+  max-width: 420px;
 }
+
 .admin-footer-links a {
   text-decoration: none;
   color: #E0F2FE;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.84rem;
   font-weight: 700;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
   transition: all 0.2s;
 }
+
 .admin-footer-links a:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.18);
   transform: translateY(-1px);
 }
+
 .admin-footer-meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: #94A3B8;
-  padding-top: 4px;
-  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.12);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  line-height: 1.4;
 }
-.admin-footer-meta .dot { opacity: 0.5; }
+
+.admin-footer-meta .dot {
+  opacity: 0.5;
+}
 
 /* TOAST */
 .toast {
@@ -656,12 +709,23 @@ body {
   }
   .btn-logout { max-width: none; }
 
-  .admin-footer-inner {
-    grid-template-columns: 1.4fr 1fr;
-    align-items: center;
+  /* Desktop footer */
+  .admin-footer-brand {
+    flex-direction: row;
+    text-align: left;
+    max-width: 640px;
+    width: 100%;
   }
-  .admin-footer-meta { grid-column: 1 / -1; }
-  .admin-footer-links { justify-content: flex-end; }
+  .admin-footer-brand p {
+    max-width: none;
+  }
+  .admin-footer-links {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 640px;
+  }
+  .admin-footer-meta {
+    max-width: 640px;
+  }
 }
 </style>
 </head>
