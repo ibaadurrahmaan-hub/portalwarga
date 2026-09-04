@@ -493,6 +493,59 @@ body { background: #FAFBFC; }
 .co-btn-wa { background: #25D366; color: white; }
 .co-btn-home { background: #F1F5F9; color: var(--text); }
 
+/* ============ BRAND BADGES (ANTI-BREAKING LOGOS) ============ */
+.brand-badge {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  color: white;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+  margin-bottom: 8px;
+  transition: transform 0.25s ease;
+}
+
+.co-payment-item:hover .brand-badge,
+.co-payment-item.active .brand-badge {
+  transform: scale(1.06);
+}
+
+/* Warna Resmi Merek */
+.badge-qris { background: linear-gradient(135deg, #1E293B, #0F172A); border-bottom: 3px solid #ED1C24; }
+.badge-dana { background: linear-gradient(135deg, #118EE9, #0C70B9); font-style: italic; }
+.badge-ovo  { background: linear-gradient(135deg, #4C2A86, #3B1E6D); text-transform: lowercase; font-size: 1.1rem; }
+.badge-gopay{ background: linear-gradient(135deg, #00AED6, #008AA9); text-transform: lowercase; }
+.badge-shopee{ background: linear-gradient(135deg, #EE4D2D, #C23518); font-size: 0.85rem; }
+
+.badge-bca { background: #0056A4; font-weight: 900; font-style: italic; font-size: 1.05rem; }
+.co-pay-logo-text.text-bri { 
+  height: 36px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: #00529C; 
+  font-weight: 900; 
+  font-size: 1rem; 
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.badge-mandiri { background: #003366; color: #FDB913; font-weight: 800; font-size: 0.9rem; }
+.badge-bni { background: #F15A23; font-weight: 900; font-style: italic; }
+.badge-cod { background: linear-gradient(135deg, #10B981, #059669); }
+
+.co-pay-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
 @media (min-width: 900px) {
   .checkout-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
   .co-summary-sticky { position: sticky; top: 20px; }
@@ -626,101 +679,104 @@ body { background: #FAFBFC; }
           </div>
         </div>
 
-        <!-- CARD 3: PEMBAYARAN -->
+        <!-- CARD 3: METODE PEMBAYARAN -->
         <div class="co-card">
           <div class="co-card-title"><i class="fas fa-wallet"></i> Metode Pembayaran</div>
           
+          <!-- E-WALLET & QRIS -->
           <div style="margin-bottom:20px">
             <div class="co-pay-group-label"><i class="fas fa-qrcode"></i> E-Wallet & QRIS</div>
             <div class="co-payment-grid" id="paymentGridEwallet">
+              
               <div class="co-payment-item active" data-payment="QRIS">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/QRIS_logo.svg/320px-QRIS_logo.svg.png" alt="QRIS"></div>
+                <div class="brand-badge badge-qris">
+                  <i class="fas fa-qrcode"></i> <span>QRIS</span>
+                </div>
                 <div class="co-pay-name">QRIS Semua Bayar</div>
               </div>
+
               <div class="co-payment-item" data-payment="DANA">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/320px-Logo_dana_blue.svg.png" alt="DANA"></div>
-                <div class="co-pay-name">DANA</div>
+                <div class="brand-badge badge-dana">
+                  <span>DANA</span>
+                </div>
+                <div class="co-pay-name">Dompet DANA</div>
               </div>
+
               <div class="co-payment-item" data-payment="OVO">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/320px-Logo_ovo_purple.svg.png" alt="OVO"></div>
-                <div class="co-pay-name">OVO</div>
+                <div class="brand-badge badge-ovo">
+                  <span>ovo</span>
+                </div>
+                <div class="co-pay-name">OVO Cash</div>
               </div>
+
               <div class="co-payment-item" data-payment="GoPay">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/320px-Gopay_logo.svg.png" alt="GoPay"></div>
+                <div class="brand-badge badge-gopay">
+                  <i class="fas fa-wallet"></i> <span>gopay</span>
+                </div>
                 <div class="co-pay-name">GoPay</div>
               </div>
+
               <div class="co-payment-item" data-payment="ShopeePay">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/ShopeePay_logo.svg/320px-ShopeePay_logo.svg.png" alt="ShopeePay"></div>
+                <div class="brand-badge badge-shopee">
+                  <i class="fas fa-shopping-bag"></i> <span>ShopeePay</span>
+                </div>
                 <div class="co-pay-name">ShopeePay</div>
               </div>
+
             </div>
           </div>
 
+          <!-- TRANSFER BANK -->
           <div style="margin-bottom:20px">
             <div class="co-pay-group-label"><i class="fas fa-university"></i> Transfer Bank</div>
             <div class="co-payment-grid" id="paymentGridBank">
+              
               <div class="co-payment-item" data-payment="BCA">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia_logo.svg/320px-Bank_Central_Asia_logo.svg.png" alt="BCA"></div>
+                <div class="brand-badge badge-bca">
+                  <span>BCA</span>
+                </div>
                 <div class="co-pay-name">Bank BCA</div>
               </div>
+
               <div class="co-payment-item" data-payment="BRI">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/BRI_2020.svg/320px-BRI_2020.svg.png" alt="BRI"></div>
+                <div class="co-pay-logo-text text-bri">
+                  <b>BANK BRI</b>
+                </div>
                 <div class="co-pay-name">Bank BRI</div>
               </div>
+
               <div class="co-payment-item" data-payment="Mandiri">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/320px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri"></div>
+                <div class="brand-badge badge-mandiri">
+                  <span>mandırı</span>
+                </div>
                 <div class="co-pay-name">Bank Mandiri</div>
               </div>
+
               <div class="co-payment-item" data-payment="BNI">
-                <div class="co-pay-logo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/BNI_logo.svg/320px-BNI_logo.svg.png" alt="BNI"></div>
+                <div class="brand-badge badge-bni">
+                  <span>BNI</span>
+                </div>
                 <div class="co-pay-name">Bank BNI</div>
               </div>
+
             </div>
           </div>
 
+          <!-- TUNAI -->
           <div>
             <div class="co-pay-group-label"><i class="fas fa-money-bill-wave"></i> Tunai</div>
             <div class="co-payment-grid" id="paymentGridCash">
+              
               <div class="co-payment-item" data-payment="COD">
-                <div class="co-pay-logo cod-badge"><i class="fas fa-hand-holding-usd"></i> <span>COD</span></div>
+                <div class="brand-badge badge-cod">
+                  <i class="fas fa-hand-holding-usd"></i> <span>COD</span>
+                </div>
                 <div class="co-pay-name">Bayar di Tempat</div>
               </div>
+
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- SUMMARY -->
-      <div class="co-summary-sticky">
-        <div class="co-card">
-          <div class="co-card-title"><i class="fas fa-receipt"></i> Ringkasan Pesanan</div>
-          <div class="co-summary-list" id="summaryList"></div>
-          
-          <div class="co-total-row">
-            <span class="co-total-label">Subtotal (<span id="totalItems">0</span> item)</span>
-            <span class="co-total-val" id="sumSubtotal">Rp 0</span>
-          </div>
-          <div class="co-total-row">
-            <span class="co-total-label">Ongkos Kirim</span>
-            <span class="co-total-val" id="sumOngkir">Rp 0</span>
-          </div>
-          <div class="co-total-row">
-            <span class="co-total-label">Biaya Admin</span>
-            <span class="co-total-val" id="sumAdmin">Rp 1.000</span>
-          </div>
-          <div class="co-total-row grand">
-            <span>Total Bayar</span>
-            <span class="co-total-val" id="sumGrand">Rp 0</span>
-          </div>
-          
-          <button class="btn-checkout-final" id="btnCheckoutDesktop" onclick="submitOrder()" style="display:none">
-            <i class="fas fa-shield-check"></i> Buat Pesanan
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- BOTTOM BAR MOBILE -->
 <div class="co-bottom-bar" id="bottomBar">
