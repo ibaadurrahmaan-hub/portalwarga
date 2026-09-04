@@ -250,7 +250,7 @@ body { background: #FAFBFC; }
   border-radius: 50%;
 }
 
-/* PAYMENT LOGOS */
+/* BRAND BADGES */
 .co-pay-group-label {
   font-size: 0.78rem;
   font-weight: 700;
@@ -316,184 +316,6 @@ body { background: #FAFBFC; }
   box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
 }
 
-.co-pay-logo {
-  width: 100%;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-
-.co-pay-logo img {
-  max-width: 85%;
-  max-height: 32px;
-  object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.03));
-  transition: transform 0.25s ease;
-}
-
-.co-payment-item:hover .co-pay-logo img {
-  transform: scale(1.08);
-}
-
-.co-pay-logo.cod-badge {
-  background: linear-gradient(135deg, #10B981, #059669);
-  color: white;
-  border-radius: 10px;
-  width: 70px;
-  height: 32px;
-  font-weight: 800;
-  font-size: 0.85rem;
-  gap: 6px;
-}
-
-.co-pay-name {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
-}
-
-/* ORDER SUMMARY */
-.co-summary-list {
-  max-height: 250px;
-  overflow-y: auto;
-  margin-bottom: 14px;
-  padding-right: 4px;
-}
-.co-summary-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px dashed var(--border-light);
-}
-.co-summary-item:last-child { border-bottom: none; }
-.co-sum-emoji {
-  width: 44px; height: 44px;
-  background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5rem;
-  flex-shrink: 0;
-}
-.co-sum-info { flex: 1; min-width: 0; }
-.co-sum-name {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 2px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.co-sum-meta { font-size: 0.72rem; color: var(--muted); }
-.co-sum-price { font-weight: 700; font-size: 0.85rem; color: var(--pasar); }
-
-.co-total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  font-size: 0.88rem;
-}
-.co-total-row.grand {
-  border-top: 2px dashed var(--border-light);
-  padding-top: 14px;
-  margin-top: 6px;
-  font-size: 1.1rem;
-  font-weight: 800;
-}
-.co-total-row.grand .co-total-val { color: var(--pasar); font-size: 1.35rem; }
-.co-total-label { color: var(--text-secondary); font-weight: 600; }
-.co-total-val { font-weight: 700; color: var(--text); }
-
-/* BOTTOM BAR */
-.co-bottom-bar {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: white;
-  padding: 14px 20px;
-  box-shadow: 0 -8px 24px rgba(0,0,0,0.08);
-  z-index: 100;
-  border-top: 1px solid var(--border-light);
-}
-.co-bottom-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-}
-.co-bottom-total flex: 1;
-.co-bottom-total small { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-.co-bottom-total b { display: block; font-size: 1.35rem; color: var(--pasar); font-weight: 800; }
-
-.btn-checkout-final {
-  background: var(--gradient-success);
-  color: white;
-  border: none;
-  padding: 15px 28px;
-  border-radius: 14px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: inherit;
-  transition: all 0.3s;
-  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
-  white-space: nowrap;
-}
-.btn-checkout-final:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(16, 185, 129, 0.45);
-}
-.btn-checkout-final:disabled { opacity: 0.6; cursor: not-allowed; background: #94A3B8; box-shadow: none; }
-
-/* MODAL */
-.co-modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  display: none; align-items: center; justify-content: center;
-  padding: 20px;
-}
-.co-modal-overlay.show { display: flex; }
-.co-modal {
-  background: white; border-radius: 28px;
-  max-width: 460px; width: 100%;
-  padding: 40px 28px 28px; text-align: center;
-}
-.co-modal-icon {
-  width: 90px; height: 90px;
-  background: var(--gradient-success);
-  color: white; border-radius: 50%;
-  margin: 0 auto 20px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 3rem;
-  box-shadow: 0 15px 40px rgba(16, 185, 129, 0.4);
-}
-.co-modal-invoice {
-  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
-  border-radius: 14px; padding: 14px; margin-bottom: 22px;
-}
-.co-modal-invoice small { display: block; color: var(--muted); font-size: 0.72rem; font-weight: 600; }
-.co-modal-invoice b { display: block; font-size: 1.1rem; color: var(--primary); font-weight: 800; }
-.co-modal-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.co-modal-btn {
-  padding: 13px; border-radius: 12px; font-weight: 700; font-size: 0.88rem;
-  border: none; cursor: pointer; text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.co-btn-wa { background: #25D366; color: white; }
-.co-btn-home { background: #F1F5F9; color: var(--text); }
-
-/* ============ BRAND BADGES (ANTI-BREAKING LOGOS) ============ */
 .brand-badge {
   height: 36px;
   padding: 0 14px;
@@ -516,187 +338,163 @@ body { background: #FAFBFC; }
   transform: scale(1.06);
 }
 
-/* Warna Resmi Merek */
 .badge-qris { background: linear-gradient(135deg, #1E293B, #0F172A); border-bottom: 3px solid #ED1C24; }
 .badge-dana { background: linear-gradient(135deg, #118EE9, #0C70B9); font-style: italic; }
 .badge-ovo  { background: linear-gradient(135deg, #4C2A86, #3B1E6D); text-transform: lowercase; font-size: 1.1rem; }
 .badge-gopay{ background: linear-gradient(135deg, #00AED6, #008AA9); text-transform: lowercase; }
 .badge-shopee{ background: linear-gradient(135deg, #EE4D2D, #C23518); font-size: 0.85rem; }
-
 .badge-bca { background: #0056A4; font-weight: 900; font-style: italic; font-size: 1.05rem; }
-.co-pay-logo-text.text-bri { 
-  height: 36px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  color: #00529C; 
-  font-weight: 900; 
-  font-size: 1rem; 
-  margin-bottom: 8px;
-  letter-spacing: -0.5px;
-}
 .badge-mandiri { background: #003366; color: #FDB913; font-weight: 800; font-size: 0.9rem; }
 .badge-bni { background: #F15A23; font-weight: 900; font-style: italic; }
 .badge-cod { background: linear-gradient(135deg, #10B981, #059669); }
 
-.co-pay-name {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.2;
+.co-pay-logo-text.text-bri { 
+  height: 36px; display: flex; align-items: center; justify-content: center; 
+  color: #00529C; font-weight: 900; font-size: 1rem; margin-bottom: 8px; letter-spacing: -0.5px;
 }
 
-/* ============ STYLING LOGO LOKAL ============ */
-.co-pay-logo {
-  width: 100%;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 6px;
-}
+.co-pay-name { font-size: 0.75rem; font-weight: 700; color: var(--text); line-height: 1.2; }
 
-.co-pay-logo img {
-  max-width: 85%;
-  max-height: 32px;
-  object-fit: contain; /* Memastikan rasio logo tidak gepeng */
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
-  transition: transform 0.25s ease;
+/* ORDER SUMMARY */
+.co-summary-list { max-height: 250px; overflow-y: auto; margin-bottom: 14px; padding-right: 4px; }
+.co-summary-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border-light); }
+.co-summary-item:last-child { border-bottom: none; }
+.co-sum-emoji {
+  width: 44px; height: 44px; background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+  border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;
 }
+.co-sum-info { flex: 1; min-width: 0; }
+.co-sum-name { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.co-sum-meta { font-size: 0.72rem; color: var(--muted); }
+.co-sum-price { font-weight: 700; font-size: 0.85rem; color: var(--pasar); }
 
-.co-payment-item:hover .co-pay-logo img,
-.co-payment-item.active .co-pay-logo img {
-  transform: scale(1.08);
+.co-total-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; font-size: 0.88rem; }
+.co-total-row.grand { border-top: 2px dashed var(--border-light); padding-top: 14px; margin-top: 6px; font-size: 1.1rem; font-weight: 800; }
+.co-total-row.grand .co-total-val { color: var(--pasar); font-size: 1.35rem; }
+.co-total-label { color: var(--text-secondary); font-weight: 600; }
+.co-total-val { font-weight: 700; color: var(--text); }
+
+/* BOTTOM BAR MOBILE */
+.co-bottom-bar {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: white; padding: 14px 20px;
+  box-shadow: 0 -8px 24px rgba(0,0,0,0.08); z-index: 100;
+  border-top: 1px solid var(--border-light);
 }
+.co-bottom-inner { max-width: 1280px; margin: 0 auto; display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+.co-bottom-total small { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+.co-bottom-total b { display: block; font-size: 1.35rem; color: var(--pasar); font-weight: 800; }
 
-/* ============ FULL-WIDTH DESKTOP OPTIMIZATION ============ */
-.container {
-  max-width: 1280px !important;
-  width: 100%;
-  margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
+.btn-checkout-final {
+  background: var(--gradient-success); color: white; border: none;
+  padding: 15px 28px; border-radius: 14px; font-weight: 800; font-size: 0.95rem;
+  cursor: pointer; display: flex; align-items: center; gap: 10px; font-family: inherit;
+  transition: all 0.3s; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35); white-space: nowrap;
 }
+.btn-checkout-final:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(16, 185, 129, 0.45); }
+.btn-checkout-final:disabled { opacity: 0.6; cursor: not-allowed; background: #94A3B8; box-shadow: none; }
 
-/* 2-KOLOM RESPONSIVE (AKTIF MULAI 768PX) */
+/* MODAL SUCCESS & INSTANTIATE PAYMENTS */
+.co-modal-overlay {
+  position: fixed; inset: 0; background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(8px); z-index: 1000;
+  display: none; align-items: center; justify-content: center; padding: 20px;
+  overflow-y: auto;
+}
+.co-modal-overlay.show { display: flex; }
+.co-modal {
+  background: white; border-radius: 28px; max-width: 480px; width: 100%;
+  padding: 30px 24px 24px; text-align: center; margin: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+.co-modal-icon {
+  width: 76px; height: 76px; background: var(--gradient-success);
+  color: white; border-radius: 50%; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.35);
+}
+.co-modal h2 { font-size: 1.35rem; font-weight: 800; margin-bottom: 6px; }
+.co-modal > p { color: var(--muted); font-size: 0.85rem; margin-bottom: 16px; }
+
+/* QRIS & APP OPENER BOX */
+.qris-display-box {
+  background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 20px;
+  padding: 16px; margin-bottom: 20px;
+}
+.qris-img-container {
+  background: white; padding: 12px; border-radius: 16px; display: inline-block;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06); margin-bottom: 12px;
+}
+.qris-img-container img { width: 180px; height: 180px; object-fit: contain; display: block; }
+.btn-dl-qris {
+  background: #0284C7; color: white; border: none; padding: 10px 18px;
+  border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px; font-family: inherit;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); transition: all 0.25s;
+}
+.btn-dl-qris:hover { background: #0369A1; transform: translateY(-2px); }
+
+/* APP LAUNCHER GRID */
+.app-launcher-title {
+  font-size: 0.75rem; font-weight: 800; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.5px; margin-bottom: 10px; text-align: left;
+}
+.app-launcher-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px;
+}
+.app-btn {
+  background: white; border: 1.5px solid #E2E8F0; border-radius: 12px;
+  padding: 8px 4px; text-align: center; text-decoration: none; color: var(--text);
+  font-size: 0.7rem; font-weight: 700; transition: all 0.2s; display: flex;
+  flex-direction: column; align-items: center; gap: 4px;
+}
+.app-btn:hover { border-color: var(--primary); background: #F0F9FF; transform: translateY(-2px); }
+.app-btn i { font-size: 1.1rem; }
+
+.co-modal-invoice {
+  background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
+  border-radius: 14px; padding: 12px; margin-bottom: 18px;
+}
+.co-modal-invoice small { display: block; color: var(--muted); font-size: 0.7rem; font-weight: 600; }
+.co-modal-invoice b { display: block; font-size: 1.05rem; color: var(--primary); font-weight: 800; }
+.co-modal-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.co-modal-btn {
+  padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.85rem;
+  border: none; cursor: pointer; text-decoration: none; display: flex;
+  align-items: center; justify-content: center; gap: 8px; font-family: inherit;
+}
+.co-btn-wa { background: #25D366; color: white; box-shadow: 0 6px 16px rgba(37, 211, 102, 0.3); }
+.co-btn-home { background: #F1F5F9; color: var(--text); }
+
+/* RESPONSIVE LAYOUT */
+.container { max-width: 1280px !important; width: 100%; margin: 0 auto; padding: 0 20px; }
+
 @media (min-width: 768px) {
-  .checkout-grid {
-    display: grid !important;
-    grid-template-columns: 1fr 380px !important;
-    gap: 24px !important;
-    align-items: start !important;
-  }
-  
-  .co-summary-sticky {
-    position: sticky;
-    top: 24px;
-  }
-
-  /* Sembunyikan bottom bar mobile di desktop */
-  .co-bottom-bar {
-    display: none !important;
-  }
-
-  /* Tampilkan tombol checkout di dalam ringkasan desktop */
-  #btnCheckoutDesktop {
-    display: flex !important;
-    width: 100%;
-    justify-content: center;
-    margin-top: 18px;
-  }
-
-  .checkout-page {
-    padding-bottom: 60px;
-  }
+  .checkout-grid { display: grid !important; grid-template-columns: 1fr 380px !important; gap: 24px !important; align-items: start !important; }
+  .co-summary-sticky { position: sticky; top: 24px; }
+  .co-bottom-bar { display: none !important; }
+  #btnCheckoutDesktop { display: flex !important; width: 100%; justify-content: center; margin-top: 18px; }
+  .checkout-page { padding-bottom: 60px; }
 }
 
-/* LAYAR MONITORS / PC BESAR (1100PX+) */
-@media (min-width: 1100px) {
-  .checkout-grid {
-    grid-template-columns: 1fr 420px !important;
-    gap: 32px !important;
-  }
-}
-
-@media (min-width: 900px) {
-  .checkout-grid { display: grid; grid-template-columns: 1fr 380px; gap: 20px; align-items: start; }
-  .co-summary-sticky { position: sticky; top: 20px; }
-  .co-bottom-bar { display: none; }
-  .checkout-page { padding-bottom: 40px; }
-  .co-summary-sticky .btn-checkout-final { width: 100%; justify-content: center; margin-top: 14px; }
-}
-
-/* ============ MOBILE OPTIMIZATION (MAX 768PX) ============ */
 @media (max-width: 768px) {
-  /* 1. Jarak scroll bawah agar tidak tertutup bottom bar */
-  .checkout-page {
-    padding-bottom: 130px !important;
-  }
-
-  /* 2. Ukuran Card lebih compact */
-  .co-card {
-    padding: 16px !important;
-    border-radius: 16px !important;
-  }
-
-  /* 3. Paksa Metode Pembayaran jadi persis 2 Kolom rata */
-  .co-payment-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 10px !important;
-  }
-  .co-payment-item {
-    padding: 12px 8px 10px !important;
-  }
-  .brand-badge {
-    font-size: 0.8rem !important;
-    padding: 0 8px !important;
-    height: 32px !important;
-  }
-  .co-pay-logo-text.text-bri {
-    font-size: 0.9rem !important;
-    height: 32px !important;
-  }
-  .co-pay-name {
-    font-size: 0.7rem !important;
-  }
-
-  /* 4. Rapikan Card Pengiriman (Kecilkan Ikon & Teks) */
-  .co-delivery-item {
-    padding: 12px !important;
-    gap: 10px !important;
-  }
-  .co-delivery-icon {
-    width: 38px !important;
-    height: 38px !important;
-    font-size: 1.1rem !important;
-  }
-  .co-delivery-info b {
-    font-size: 0.85rem !important;
-    line-height: 1.2 !important;
-  }
-  .co-delivery-info p {
-    font-size: 0.7rem !important;
-    margin-top: 2px !important;
-  }
-  .co-delivery-price {
-    font-size: 0.85rem !important;
-  }
-  .co-radio-dot {
-    width: 18px !important;
-    height: 18px !important;
-  }
-
-  /* 5. Rapikan Bottom Bar */
-  .co-bottom-bar {
-    padding: 12px 16px !important;
-  }
-  .btn-checkout-final {
-    padding: 12px 18px !important;
-    font-size: 0.9rem !important;
-  }
-  .co-bottom-total b {
-    font-size: 1.25rem !important;
-  }
+  .checkout-page { padding-bottom: 130px !important; }
+  .co-card { padding: 16px !important; border-radius: 16px !important; }
+  .co-payment-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
+  .co-payment-item { padding: 12px 8px 10px !important; }
+  .brand-badge { font-size: 0.8rem !important; padding: 0 8px !important; height: 32px !important; }
+  .co-pay-logo-text.text-bri { font-size: 0.9rem !important; height: 32px !important; }
+  .co-pay-name { font-size: 0.7rem !important; }
+  .co-delivery-item { padding: 12px !important; gap: 10px !important; }
+  .co-delivery-icon { width: 38px !important; height: 38px !important; font-size: 1.1rem !important; }
+  .co-delivery-info b { font-size: 0.85rem !important; }
+  .co-delivery-info p { font-size: 0.7rem !important; }
+  .co-delivery-price { font-size: 0.85rem !important; }
+  .co-radio-dot { width: 18px !important; height: 18px !important; }
+  .co-bottom-bar { padding: 12px 16px !important; }
+  .btn-checkout-final { padding: 12px 18px !important; font-size: 0.9rem !important; }
+  .co-bottom-total b { font-size: 1.25rem !important; }
+  .app-launcher-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 </style>
 </head>
@@ -815,105 +613,101 @@ body { background: #FAFBFC; }
           </div>
         </div>
 
-        <!-- CARD 3: METODE PEMBAYARAN -->
+        <!-- CARD 3: PEMBAYARAN -->
         <div class="co-card">
           <div class="co-card-title"><i class="fas fa-wallet"></i> Metode Pembayaran</div>
           
-          <!-- E-WALLET & QRIS -->
           <div style="margin-bottom:20px">
             <div class="co-pay-group-label"><i class="fas fa-qrcode"></i> E-Wallet & QRIS</div>
             <div class="co-payment-grid" id="paymentGridEwallet">
-              
               <div class="co-payment-item active" data-payment="QRIS">
-                <div class="co-pay-logo">
-                  <img src="qris.png" alt="QRIS" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=QRIS'">
-                </div>
+                <div class="brand-badge badge-qris"><i class="fas fa-qrcode"></i> <span>QRIS</span></div>
                 <div class="co-pay-name">QRIS Semua Bayar</div>
               </div>
-
               <div class="co-payment-item" data-payment="DANA">
-                <div class="co-pay-logo">
-                  <img src="dana.png" alt="DANA" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=DANA'">
-                </div>
-                <div class="co-pay-name">DANA</div>
+                <div class="brand-badge badge-dana"><span>DANA</span></div>
+                <div class="co-pay-name">Dompet DANA</div>
               </div>
-
               <div class="co-payment-item" data-payment="OVO">
-                <div class="co-pay-logo">
-                  <img src="ovo.png" alt="OVO" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=OVO'">
-                </div>
-                <div class="co-pay-name">OVO</div>
+                <div class="brand-badge badge-ovo"><span>ovo</span></div>
+                <div class="co-pay-name">OVO Cash</div>
               </div>
-
               <div class="co-payment-item" data-payment="GoPay">
-                <div class="co-pay-logo">
-                  <img src="gopay.png" alt="GoPay" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=GoPay'">
-                </div>
+                <div class="brand-badge badge-gopay"><i class="fas fa-wallet"></i> <span>gopay</span></div>
                 <div class="co-pay-name">GoPay</div>
               </div>
-
               <div class="co-payment-item" data-payment="ShopeePay">
-                <div class="co-pay-logo">
-                  <img src="shopeepay.png" alt="ShopeePay" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=ShopeePay'">
-                </div>
+                <div class="brand-badge badge-shopee"><i class="fas fa-shopping-bag"></i> <span>ShopeePay</span></div>
                 <div class="co-pay-name">ShopeePay</div>
               </div>
-
             </div>
           </div>
 
-          <!-- TRANSFER BANK -->
           <div style="margin-bottom:20px">
             <div class="co-pay-group-label"><i class="fas fa-university"></i> Transfer Bank</div>
             <div class="co-payment-grid" id="paymentGridBank">
-              
               <div class="co-payment-item" data-payment="BCA">
-                <div class="co-pay-logo">
-                  <img src="bca.png" alt="BCA" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=BCA'">
-                </div>
+                <div class="brand-badge badge-bca"><span>BCA</span></div>
                 <div class="co-pay-name">Bank BCA</div>
               </div>
-
               <div class="co-payment-item" data-payment="BRI">
-                <div class="co-pay-logo">
-                  <img src="bri.png" alt="BRI" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=BRI'">
-                </div>
+                <div class="co-pay-logo-text text-bri"><b>BANK BRI</b></div>
                 <div class="co-pay-name">Bank BRI</div>
               </div>
-
               <div class="co-payment-item" data-payment="Mandiri">
-                <div class="co-pay-logo">
-                  <img src="mandiri.png" alt="Mandiri" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=Mandiri'">
-                </div>
+                <div class="brand-badge badge-mandiri"><span>mandırı</span></div>
                 <div class="co-pay-name">Bank Mandiri</div>
               </div>
-
               <div class="co-payment-item" data-payment="BNI">
-                <div class="co-pay-logo">
-                  <img src="bni.png" alt="BNI" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=BNI'">
-                </div>
+                <div class="brand-badge badge-bni"><span>BNI</span></div>
                 <div class="co-pay-name">Bank BNI</div>
               </div>
-
             </div>
           </div>
 
-          <!-- TUNAI -->
           <div>
             <div class="co-pay-group-label"><i class="fas fa-money-bill-wave"></i> Tunai</div>
             <div class="co-payment-grid" id="paymentGridCash">
-              
               <div class="co-payment-item" data-payment="COD">
-                <div class="co-pay-logo">
-                  <img src="cod.png" alt="COD" onerror="this.onerror=null; this.src='https://placehold.co/100x40?text=COD'">
-                </div>
+                <div class="brand-badge badge-cod"><i class="fas fa-hand-holding-usd"></i> <span>COD</span></div>
                 <div class="co-pay-name">Bayar di Tempat</div>
               </div>
-
             </div>
           </div>
-
         </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="co-summary-sticky">
+        <div class="co-card">
+          <div class="co-card-title"><i class="fas fa-receipt"></i> Ringkasan Pesanan</div>
+          <div class="co-summary-list" id="summaryList"></div>
+          
+          <div class="co-total-row">
+            <span class="co-total-label">Subtotal (<span id="totalItems">0</span> item)</span>
+            <span class="co-total-val" id="sumSubtotal">Rp 0</span>
+          </div>
+          <div class="co-total-row">
+            <span class="co-total-label">Ongkos Kirim</span>
+            <span class="co-total-val" id="sumOngkir">Rp 0</span>
+          </div>
+          <div class="co-total-row">
+            <span class="co-total-label">Biaya Admin</span>
+            <span class="co-total-val" id="sumAdmin">Rp 1.000</span>
+          </div>
+          <div class="co-total-row grand">
+            <span>Total Bayar</span>
+            <span class="co-total-val" id="sumGrand">Rp 0</span>
+          </div>
+          
+          <button class="btn-checkout-final" id="btnCheckoutDesktop" onclick="submitOrder()" style="display:none">
+            <i class="fas fa-shield-check"></i> Buat Pesanan
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- BOTTOM BAR MOBILE -->
 <div class="co-bottom-bar" id="bottomBar">
@@ -928,18 +722,65 @@ body { background: #FAFBFC; }
   </div>
 </div>
 
-<!-- SUCCESS MODAL -->
+<!-- SUCCESS MODAL (INCLUDES QRIS DOWNLOAD & APP LAUNCHER) -->
 <div class="co-modal-overlay" id="successModal">
   <div class="co-modal">
     <div class="co-modal-icon"><i class="fas fa-check"></i></div>
     <h2>Pesanan Berhasil Dibuat!</h2>
-    <p>Silakan konfirmasi & selesaikan pembayaran ke admin WhatsApp untuk memproses pesanan Anda.</p>
+    <p>Silakan selesaikan pembayaran dan konfirmasi ke admin via WhatsApp.</p>
+    
     <div class="co-modal-invoice">
       <small>Nomor Invoice Anda</small>
       <b id="modalInvoice">-</b>
     </div>
+
+    <!-- BOX MODAL QRIS & DOWNLOAD -->
+    <div class="qris-display-box" id="qrisModalBox">
+      <div style="font-size:0.8rem; font-weight:800; color:var(--text); margin-bottom:8px;">
+        <i class="fas fa-qrcode" style="color:var(--primary)"></i> Scan / Download Kode QRIS
+      </div>
+      <div class="qris-img-container">
+        <!-- API Generator QRIS otomatis berdasarkan Invoice & Total -->
+        <img id="qrisImgDisplay" src="https://placehold.co/200x200?text=QRIS+PortalWarga" alt="QRIS Code">
+      </div>
+      <div>
+        <button type="button" class="btn-dl-qris" onclick="downloadQrisImage()">
+          <i class="fas fa-download"></i> Download Gambar QRIS
+        </button>
+      </div>
+    </div>
+
+    <!-- BUKA APLIKASI PEMBAYARAN (DEEP LINKS) -->
+    <div class="app-launcher-title"><i class="fas fa-external-link-alt"></i> Buka Aplikasi Pembayaran:</div>
+    <div class="app-launcher-grid">
+      <a href="dana://" target="_blank" class="app-btn" style="color:#118EE9;">
+        <i class="fas fa-wallet"></i> DANA
+      </a>
+      <a href="gopay://" target="_blank" class="app-btn" style="color:#00AED6;">
+        <i class="fas fa-mobile-alt"></i> GoPay
+      </a>
+      <a href="ovo://" target="_blank" class="app-btn" style="color:#4C2A86;">
+        <i class="fas fa-coins"></i> OVO
+      </a>
+      <a href="shopeepay://" target="_blank" class="app-btn" style="color:#EE4D2D;">
+        <i class="fas fa-shopping-bag"></i> Shopee
+      </a>
+      <a href="bcamobile://" target="_blank" class="app-btn" style="color:#0056A4;">
+        <i class="fas fa-university"></i> BCA
+      </a>
+      <a href="brimo://" target="_blank" class="app-btn" style="color:#00529C;">
+        <i class="fas fa-university"></i> BRI
+      </a>
+      <a href="bankmandiri://" target="_blank" class="app-btn" style="color:#003366;">
+        <i class="fas fa-university"></i> Mandiri
+      </a>
+      <a href="bnimobile://" target="_blank" class="app-btn" style="color:#F15A23;">
+        <i class="fas fa-university"></i> BNI
+      </a>
+    </div>
+
     <div class="co-modal-buttons">
-      <a href="#" id="modalWaBtn" target="_blank" class="co-modal-btn co-btn-wa"><i class="fab fa-whatsapp"></i> Chat Admin</a>
+      <a href="#" id="modalWaBtn" target="_blank" class="co-modal-btn co-btn-wa"><i class="fab fa-whatsapp"></i> Chat Admin WA</a>
       <a href="index.html" class="co-modal-btn co-btn-home"><i class="fas fa-home"></i> Beranda</a>
     </div>
   </div>
@@ -1069,7 +910,6 @@ function updateStepper() {
   if (addressComplete && deliveryComplete && paymentComplete) step4.classList.add('active');
 }
 
-// SAFE BINDINGS FOR SELECTIONS
 document.getElementById('deliveryList')?.addEventListener('click', (e) => {
   const item = e.target.closest('.co-delivery-item');
   if (!item) return;
@@ -1104,6 +944,29 @@ bindPaymentGrid('paymentGridCash');
 ['fNama', 'fTelp', 'fAlamat'].forEach(id => {
   document.getElementById(id)?.addEventListener('input', updateStepper);
 });
+
+// FITUR DOWNLOAD GAMBAR QRIS OTOMATIS
+async function downloadQrisImage() {
+  const imgEl = document.getElementById('qrisImgDisplay');
+  if (!imgEl) return;
+  
+  try {
+    const response = await fetch(imgEl.src);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `QRIS-PortalWarga-${document.getElementById('modalInvoice').textContent || 'Order'}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+    toast('✓ Gambar QRIS berhasil didownload!');
+  } catch (err) {
+    // Fallback direct open
+    window.open(imgEl.src, '_blank');
+  }
+}
 
 async function submitOrder() {
   if (isSubmitting) return;
@@ -1151,6 +1014,11 @@ async function submitOrder() {
     
     localStorage.removeItem('pw_cart');
     
+    // Set QRIS Image Generator API URL (atau jika punya file qris lokal: img/qris.png)
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent('00020101021126580014ID.GO.QRIS.WWW011893600911000000000002150000000000000005204581253033605802ID5911PortalWarga6007BOGOR61051611062070703A01630489AB')}`;
+    const qrisDisplay = document.getElementById('qrisImgDisplay');
+    if (qrisDisplay) qrisDisplay.src = qrApiUrl;
+
     const waMsg = buildWaMessage(invoiceId, orderData);
     const waUrl = `https://wa.me/${CS_WA}?text=${encodeURIComponent(waMsg)}`;
     
