@@ -115,7 +115,7 @@ body {
   line-height: 1.6;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 140px !important; /* Mencegah tertutup nav bawah */
+  padding-bottom: 140px !important;
   overflow-x: hidden;
 }
 
@@ -196,15 +196,15 @@ body {
 .hero { background: var(--gradient-mesh), linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%); padding: 80px 0 100px; position: relative; overflow: hidden; }
 .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, var(--primary-glow), transparent 70%); border-radius: 50%; animation: float-orb 8s ease-in-out infinite; }
 .hero::after { content: ''; position: absolute; bottom: -150px; left: -150px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(6, 182, 212, 0.2), transparent 70%); border-radius: 50%; animation: float-orb 10s ease-in-out infinite reverse; }
-.hero-content { position: relative; z-index: 2; max-width: 720px; }
+.hero-content { position: relative; z-index: 2; max-width: 850px; }
 .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: white; color: var(--primary); padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; margin-bottom: 24px; box-shadow: var(--shadow-md); border: 1px solid rgba(2, 132, 199, 0.15); animation: slide-down 0.6s var(--ease); }
 .hero-badge i { color: #FBBF24; animation: sparkle 1.5s ease-in-out infinite; }
-.hero h1 { font-size: clamp(2rem, 5vw, 3.4rem); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 20px; animation: slide-up 0.7s var(--ease); }
-.hero p { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 36px; max-width: 580px; line-height: 1.7; animation: slide-up 0.8s var(--ease); }
+.hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; line-height: 1.15; letter-spacing: -1.5px; margin-bottom: 20px; animation: slide-up 0.7s var(--ease); }
+.hero p { font-size: 1.12rem; color: var(--text-secondary); margin-bottom: 36px; max-width: 750px; line-height: 1.7; animation: slide-up 0.8s var(--ease); }
 
 /* HERO STATS */
 .hero-stats {
-  display: grid !important; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 0; width: 100%; max-width: 560px; padding: 18px 10px; margin-top: 8px;
+  display: grid !important; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 0; width: 100%; max-width: 680px; padding: 18px 14px; margin-top: 8px;
   background: linear-gradient(135deg, rgba(255,255,255,0.92) 0%, rgba(240,249,255,0.88) 100%); backdrop-filter: blur(18px); border-radius: 22px; border: 1px solid rgba(255, 255, 255, 0.95);
   box-shadow: 0 18px 40px rgba(2, 132, 199, 0.12), 0 4px 12px rgba(10, 14, 26, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.9); position: relative; overflow: hidden; animation: slide-up 0.9s var(--ease);
 }
@@ -212,15 +212,14 @@ body {
 .hero-stats::after { content: ''; position: absolute; bottom: -50%; left: -10%; width: 160px; height: 160px; background: radial-gradient(circle, rgba(37, 99, 235, 0.14), transparent 70%); pointer-events: none; }
 .stat { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px; padding: 10px 14px; position: relative; z-index: 1; transition: transform 0.25s ease; }
 .stat:hover { transform: translateY(-2px); }
-.stat-icon { width: 36px; height: 36px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--gradient-primary); color: #fff; font-size: 0.85rem; box-shadow: 0 8px 18px var(--primary-glow); margin-bottom: 2px; }
+.stat-icon { width: 38px; height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: var(--gradient-primary); color: #fff; font-size: 0.88rem; box-shadow: 0 8px 18px var(--primary-glow); margin-bottom: 2px; }
 .stat-body { display: flex; flex-direction: column; align-items: center; gap: 2px; }
 .stat b { display: block; font-size: 1.75rem; font-weight: 800; letter-spacing: -1px; line-height: 1; margin-bottom: 0; background: var(--gradient-primary); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-.stat span { font-size: 0.72rem; color: var(--muted); font-weight: 600; line-height: 1.25; max-width: 110px; }
+.stat span { font-size: 0.75rem; color: var(--muted); font-weight: 600; line-height: 1.25; }
 .stat-divider { width: 1px; align-self: stretch; margin: 8px 0; background: linear-gradient(180deg, transparent 0%, rgba(2, 132, 199, 0.25) 20%, rgba(6, 182, 212, 0.35) 50%, rgba(2, 132, 199, 0.25) 80%, transparent 100%); position: relative; z-index: 1; }
 
-
 /* ============================================
-   MAIN MENU (desktop cards)
+   MAIN MENU (desktop cards - Hidden by default on Desktop)
    ============================================ */
 .main-menu { padding: 70px 0 40px; }
 .section-title { text-align: center; margin-bottom: 44px; }
@@ -244,12 +243,6 @@ body {
 .menu-pendidikan { color: var(--pendidikan); }
 .menu-wifi { color: var(--wifi); }
 
-/* Hide "Pilih Layanan" di desktop — nav sudah ada di header */
-@media (min-width: 768px) {
-  .main-menu {
-    display: none !important;
-  }
-}
 /* ============================================
    CONTENT AREA
    ============================================ */
@@ -271,18 +264,18 @@ body {
 /* ============================================
    PASAR CONTROLS (SEARCH & FILTER PILLS)
    ============================================ */
-.pasar-controls { margin-bottom: 28px; }
-.search-box { position: relative; width: 100%; max-width: 520px; margin-bottom: 16px; }
+.pasar-controls { margin-bottom: 28px; width: 100%; }
+.search-box { position: relative; width: 100%; max-width: 100%; margin-bottom: 16px; }
 .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1rem; }
 .search-box input { width: 100%; padding: 14px 18px 14px 48px; border: 1.5px solid var(--border); border-radius: var(--radius-full); font-size: 0.92rem; background: var(--surface); transition: var(--transition-fast); box-shadow: var(--shadow-xs); color: var(--text); }
 .search-box input:focus { outline: none; border-color: var(--pasar); box-shadow: 0 0 0 4px var(--pasar-glow); background: white; }
-.filter-pills { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+.filter-pills { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; width: 100%; }
 .filter-pills::-webkit-scrollbar { display: none; }
 .filter-pills .pill { padding: 9px 20px; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--radius-full); font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); cursor: pointer; white-space: nowrap; transition: var(--transition-fast); box-shadow: var(--shadow-xs); font-family: inherit; }
 .filter-pills .pill:hover, .filter-pills .pill.active { background: var(--gradient-pasar); border-color: transparent; color: white; box-shadow: 0 4px 14px var(--pasar-glow); }
 
 /* PASAR GRID & PRODUCT CARDS */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; width: 100%; }
 .product-card { background: white; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border-light); transition: var(--transition); display: flex; flex-direction: column; }
 .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-xl); border-color: var(--pasar); }
 .product-img { height: 150px; background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%); display: flex; align-items: center; justify-content: center; font-size: 4.5rem; transition: var(--transition); position: relative; cursor: pointer; }
@@ -290,8 +283,9 @@ body {
 
 /* BADGES DISKON & HARGA PASAR */
 .disc-pill { position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #DC2626, #EF4444); color: white; font-size: 0.72rem; font-weight: 800; padding: 4px 8px; border-radius: var(--radius-sm); box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); }
-.price-row { display: flex; align-items: baseline; gap: 8px; }
-.strike-price { text-decoration: line-through; font-size: 0.78rem; color: var(--muted-light); font-weight: 500; }
+.price-row { display: flex !important; align-items: baseline !important; gap: 6px !important; flex-wrap: nowrap !important; overflow: hidden !important; white-space: nowrap !important; width: 100% !important; }
+.price-row > span:first-child { white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; flex-shrink: 0 !important; }
+.strike-price { white-space: nowrap !important; flex-shrink: 1 !important; min-width: 0 !important; overflow: hidden !important; text-overflow: ellipsis !important; opacity: 0.8; font-size: 0.78rem; color: var(--muted-light); font-weight: 500; text-decoration: line-through; }
 
 .product-info { padding: 18px 16px; flex: 1; display: flex; flex-direction: column; }
 .product-vendor { font-size: 0.68rem; color: var(--pasar); font-weight: 800; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
@@ -349,7 +343,7 @@ body {
 
 .voucher-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 0 8px; }
 
-/* TIKET VOUCHER CARD (CENTER ALIGNED) */
+/* TIKET VOUCHER CARD */
 .voucher-card {
   background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
   border-radius: var(--radius-lg);
@@ -366,7 +360,6 @@ body {
 }
 .voucher-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-xl), 0 16px 35px var(--wifi-glow); }
 
-/* Potongan Tiket Notches */
 .voucher-card::before, .voucher-card::after {
   content: ''; position: absolute; top: 50% !important; transform: translateY(-50%) !important;
   width: 24px !important; height: 24px !important; background: var(--bg) !important;
@@ -386,17 +379,16 @@ body {
 .btn-buy-voucher { margin-left: auto !important; margin-right: auto !important; max-width: 280px !important; width: 100% !important; background: white; color: var(--primary-darker); border: none; padding: 13px; border-radius: var(--radius); font-weight: 800; font-size: 0.92rem; cursor: pointer; transition: var(--transition-fast); display: flex; align-items: center; justify-content: center; gap: 8px; font-family: inherit; margin-top: auto; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2) !important; }
 .btn-buy-voucher:hover { background: #F0F9FF; transform: translateY(-2px); color: var(--primary-dark); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25) !important; }
 
-/* WIFI STANDAR CARDS (VIP UPGRADE) */
-.wifi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 40px; }
+/* WIFI STANDAR CARDS */
+.wifi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 40px; overflow: visible !important; padding-top: 18px !important; }
 .wifi-card { background: white; border-radius: 20px; padding: 36px 24px 28px; border: 2px solid var(--border-light); text-align: center; position: relative; transition: var(--transition); overflow: visible; }
 .wifi-card:hover { border-color: var(--wifi); transform: translateY(-10px); box-shadow: var(--shadow-xl), 0 20px 40px var(--wifi-glow); }
 
-/* KARTU "PALING LARIS" (3D GLASSMORPHISM) */
 .wifi-card.popular {
-  background: linear-gradient(145deg, #0284C7 0%, #06B6D4 50%, #0891B2 100%) !important; border: 1px solid rgba(255, 255, 255, 0.4) !important; box-shadow: 0 25px 50px rgba(2, 132, 199, 0.35), inset 0 2px 10px rgba(255, 255, 255, 0.5) !important; position: relative !important; overflow: hidden !important; margin-top: 24px !important; padding-top: 40px !important;
+  background: linear-gradient(145deg, #0284C7 0%, #06B6D4 50%, #0891B2 100%) !important; border: 1px solid rgba(255, 255, 255, 0.4) !important; box-shadow: 0 25px 50px rgba(2, 132, 199, 0.35), inset 0 2px 10px rgba(255, 255, 255, 0.5) !important; position: relative !important; overflow: visible !important; margin-top: 20px !important; padding-top: 40px !important;
 }
-.wifi-card.popular::before { content: '' !important; position: absolute !important; top: -30% !important; right: -20% !important; width: 250px !important; height: 250px !important; background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, transparent 70%) !important; border-radius: 50% !important; pointer-events: none !important; }
-.wifi-card.popular::after { content: "★ PALING LARIS" !important; background: linear-gradient(135deg, #FDE047 0%, #F59E0B 50%, #D97706 100%) !important; color: #451A03 !important; border: 1px solid #FEF3C7 !important; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5), inset 0 2px 4px rgba(255,255,255,0.8) !important; top: -16px !important; padding: 8px 24px !important; font-size: 0.8rem !important; letter-spacing: 1.5px !important; border-radius: 99px !important; display: inline-flex; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; z-index: 5; }
+.wifi-card.popular::before { content: '' !important; position: absolute !important; top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; border-radius: 20px !important; background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.22) 0%, transparent 60%) !important; pointer-events: none !important; }
+.wifi-card.popular::after { content: "★ PALING LARIS" !important; background: linear-gradient(135deg, #FDE047 0%, #F59E0B 50%, #D97706 100%) !important; color: #451A03 !important; border: 1px solid #FEF3C7 !important; box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5), inset 0 2px 4px rgba(255,255,255,0.8) !important; top: -15px !important; padding: 8px 24px !important; font-size: 0.8rem !important; letter-spacing: 1.5px !important; border-radius: 99px !important; display: inline-flex; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; z-index: 20 !important; }
 
 .wifi-name { font-size: 0.85rem; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; }
 .wifi-card.popular .wifi-name { color: rgba(255, 255, 255, 0.9) !important; font-size: 1rem !important; letter-spacing: 3px !important; margin-bottom: 10px !important; }
@@ -422,7 +414,7 @@ body {
 .wifi-card.popular .wifi-list li i { background: linear-gradient(135deg, #10B981, #059669) !important; color: white !important; border: none !important; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.5) !important; font-size: 0.8rem !important; width: 24px !important; height: 24px !important; }
 
 /* FORM CEK JARINGAN */
-.wifi-form-card { background: white; border-radius: var(--radius-lg); padding: 40px; border: 1px solid var(--border-light); box-shadow: var(--shadow-lg); max-width: 720px; margin: 0 auto; position: relative; overflow: hidden; }
+.wifi-form-card { background: white; border-radius: var(--radius-lg); padding: 40px; border: 1px solid var(--border-light); box-shadow: var(--shadow-lg); max-width: 100%; margin: 0 auto; position: relative; overflow: hidden; }
 .wifi-form-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--gradient-wifi); }
 .wifi-form-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 26px; display: flex; align-items: flex-start; gap: 12px; line-height: 1.3; }
 .wifi-form-card h3 i { color: white; background: var(--gradient-wifi); width: 36px; height: 36px; min-width: 36px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.9rem; box-shadow: 0 8px 20px var(--wifi-glow); margin-top: 2px; }
@@ -509,408 +501,39 @@ body {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast i { color: #22C55E; font-size: 1.1rem; }
 
-/* FAB WA — ICON ONLY */
+/* FAB WA */
 .fab-wa { position: fixed !important; bottom: 28px !important; right: 24px !important; width: auto !important; height: auto !important; background: transparent !important; box-shadow: none !important; z-index: 900 !important; text-decoration: none !important; border: none !important; display: block !important; transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease !important; }
 .fab-wa i { font-size: 58px !important; color: #25D366 !important; line-height: 1 !important; display: block !important; filter: drop-shadow(0 8px 16px rgba(37, 211, 102, 0.3)) drop-shadow(0 4px 6px rgba(10, 14, 26, 0.15)) !important; transition: var(--transition); }
 .fab-wa:hover i { transform: scale(1.1) rotate(-5deg) !important; color: #20ba5a !important; }
 body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important; visibility: hidden !important; }
 
-/* PAKSA IKON WHATSAPP MEMAKAI UNICODE & FONT ASLI */
+/* UNICODE WHATSAPP FIX */
 .fa-whatsapp, .fab.fa-whatsapp, i.fa-whatsapp, .fab-wa i, .btn-cs i { font-family: "Font Awesome 6 Brands" !important; font-style: normal !important; font-weight: 400 !important; }
 .fa-whatsapp::before, .fab.fa-whatsapp::before, i.fa-whatsapp::before { font-family: "Font Awesome 6 Brands" !important; content: "\f232" !important; font-weight: 400 !important; }
 
-/* ==========================================================
-   🎯 FIX: BADGE "PALING LARIS" TIDAK TERPOTONG (OVERFLOW VISIBLE)
-   ========================================================== */
+/* CART SUMMARY FOOTER */
+.cart-summary-box { background: #fff; border: 1.5px solid var(--border, #E2E8F0); border-radius: 14px; padding: 12px 14px; margin-bottom: 12px; }
+.cart-sum-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-size: 0.88rem; color: #475569; }
+.cart-sum-row b { font-weight: 700; color: #0F172A; }
+.cart-sum-row.muted { font-size: 0.72rem; color: #94A3B8; font-style: italic; padding: 6px 0; margin: 2px 0; border-top: 1px dashed var(--border, #E2E8F0); border-bottom: 1px dashed var(--border, #E2E8F0); gap: 6px; }
+.cart-sum-row.muted i { color: #0284C7; margin-right: 4px; }
+.cart-sum-row.grand { font-size: 0.95rem; font-weight: 700; color: #0F172A; padding-top: 8px; }
+.cart-sum-row.grand b { color: #059669; font-size: 1.25rem; font-weight: 800; }
+.cart-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 10px; }
+.btn-cart-continue { background: #F1F5F9; color: #475569; border: none; padding: 13px 10px; border-radius: 12px; font-weight: 700; font-size: 0.82rem; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.25s ease; }
+.btn-cart-continue:hover { background: #E2E8F0; }
+.btn-cart-checkout { background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #fff; border: none; padding: 13px 10px; border-radius: 12px; font-weight: 800; font-size: 0.88rem; cursor: pointer; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35); }
+.btn-cart-checkout:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(16, 185, 129, 0.45); }
+.btn-cart-checkout:disabled { opacity: 0.5; cursor: not-allowed; background: #94A3B8; box-shadow: none; transform: none; }
 
-/* 1. Beri ruang di atas grid agar badge tidak nabrak tombol tab di atasnya */
-.wifi-grid {
-  overflow: visible !important;
-  padding-top: 18px !important;
-}
 
-/* 2. Izinkan badge menembus keluar dari batas atas kartu */
-.wifi-card.popular {
-  overflow: visible !important; /* KUNCI: Ubah dari hidden ke visible */
-  margin-top: 20px !important;
-}
-
-/* 3. Atur ulang efek kilauan background (glare) agar tetap rapi di dalam sudut tumpul kartu */
-.wifi-card.popular::before {
-  top: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  border-radius: 20px !important;
-  background: radial-gradient(circle at 90% 10%, rgba(255,255,255,0.22) 0%, transparent 60%) !important;
-}
-
-/* 4. Presisikan Posisi Badge Emas di Atas Kartu */
-.wifi-card.popular::after {
-  top: -15px !important;
-  z-index: 20 !important;
-}
-
-/* ==========================================================
-   🎯 FIX HARGA PRODUK PASAR (1 BARIS, TIDAK TURUN)
-   ========================================================== */
-
-/* 1. Baris Harga - Pastikan Anak Elemen Tidak Turun */
-.price-row {
-  display: flex !important;
-  align-items: baseline !important;
-  gap: 6px !important;
-  flex-wrap: nowrap !important;      /* WAJIB: Jangan wrap ke bawah */
-  overflow: hidden !important;
-  white-space: nowrap !important;
-  width: 100% !important;
-}
-
-/* 2. Harga Utama (Aktif) - Paksa Tetap Sejajar Rapi */
-.price-row > span:first-child {
-  white-space: nowrap !important;    /* Rp dan angka wajib nyambung */
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  flex-shrink: 0 !important;         /* Jangan boleh menyusut */
-}
-
-/* 3. Harga Coret - Kalau kesempitan, dia yg mengalah (bukan harga utama) */
-.strike-price {
-  white-space: nowrap !important;
-  flex-shrink: 1 !important;         /* Boleh menyusut jika sempit */
-  min-width: 0 !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  opacity: 0.8;
-}
-
-/* ==========================================================
-   📱 KHUSUS MOBILE (Perkecil Font Harga Agar Muat Semua)
-   ========================================================== */
-@media (max-width: 768px) {
-  .price-row > span:first-child {
-    font-size: 0.9rem !important;    /* Diperkecil supaya "Rp XX.XXX" muat */
-    letter-spacing: -0.3px !important;
-  }
-  .strike-price {
-    font-size: 0.7rem !important;
-  }
-  .product-info {
-    padding: 12px 10px !important;   /* Padding samping dikurangi */
-  }
-  .product-vendor {
-    font-size: 0.62rem !important;
-  }
-  .product-name {
-    font-size: 0.88rem !important;
-  }
-}
-
-/* Layar sangat kecil (Iphone SE, dll) - font lebih kecil lagi */
-@media (max-width: 380px) {
-  .price-row > span:first-child {
-    font-size: 0.82rem !important;
-  }
-  .strike-price {
-    display: none !important;         /* Sembunyikan harga coret jika layar terlalu sempit */
-  }
-}
-
-/* ============ CART FOOTER REFACTOR ============ */
-.cart-summary-box {
-  background: #fff;
-  border: 1.5px solid var(--border, #E2E8F0);
-  border-radius: 14px;
-  padding: 12px 14px;
-  margin-bottom: 12px;
-}
-
-.cart-sum-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
-  font-size: 0.88rem;
-  color: #475569;
-}
-
-.cart-sum-row b {
-  font-weight: 700;
-  color: #0F172A;
-}
-
-.cart-sum-row.muted {
-  font-size: 0.72rem;
-  color: #94A3B8;
-  font-style: italic;
-  padding: 6px 0;
-  margin: 2px 0;
-  border-top: 1px dashed var(--border, #E2E8F0);
-  border-bottom: 1px dashed var(--border, #E2E8F0);
-  gap: 6px;
-}
-
-.cart-sum-row.muted i {
-  color: #0284C7;
-  margin-right: 4px;
-}
-
-.cart-sum-row.grand {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #0F172A;
-  padding-top: 8px;
-}
-
-.cart-sum-row.grand b {
-  color: #059669;
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.cart-actions {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 10px;
-}
-
-.btn-cart-continue {
-  background: #F1F5F9;
-  color: #475569;
-  border: none;
-  padding: 13px 10px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 0.82rem;
-  cursor: pointer;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition: all 0.25s ease;
-}
-
-.btn-cart-continue:hover {
-  background: #E2E8F0;
-}
-
-.btn-cart-checkout {
-  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-  color: #fff;
-  border: none;
-  padding: 13px 10px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 0.88rem;
-  cursor: pointer;
-  font-family: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
-}
-
-.btn-cart-checkout:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(16, 185, 129, 0.45);
-}
-
-.btn-cart-checkout:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  background: #94A3B8;
-  box-shadow: none;
-  transform: none;
-}
-
-/* Sembunyikan sisa elemen lama (jika masih ke-render dari cache) */
-.checkout-form-block,
-#cartPayment,
-.btn-checkout { /* tombol WA lama — biarkan tersembunyi jika masih ada di DOM */ }
-
-/* ========== FORCE OVERRIDE style.css ========== */
-body {
-  padding-bottom: 0 !important;
-  margin: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  min-height: 100vh !important;
-  min-height: 100dvh !important;
-  background: #0B1220 !important;
-}
-
-/*/* ==========================================================================
-   FULL WIDTH — Header + Section Header + Sub Filter (DESKTOP)
+/* ==========================================================================
+   🎯 DESKTOP FULL-WIDTH SYSTEM (MIN-WIDTH: 768px & 1024px)
    ========================================================================== */
+
 @media (min-width: 768px) {
-
-  /* ========== 1. HEADER UTAMA ========== */
-  .header,
-  .site-header,
-  .navbar,
-  .topbar,
-  header.header {
-    width: 100% !important;
-    max-width: 100% !important;
-    left: 0 !important;
-    right: 0 !important;
-  }
-
-  .header .container,
-  .site-header .container,
-  .navbar .container,
-  .header-inner,
-  .nav-inner,
-  .navbar-inner {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-    box-sizing: border-box !important;
-    margin: 0 auto !important;
-  }
-
-  /* ========== 2. SECTION HEADER (search + judul katalog) ========== */
-  .section-header,
-  .catalog-header,
-  .pasar-header,
-  .store-header,
-  .content-header,
-  .products-header,
-  .category-header,
-  .search-section,
-  .filter-section,
-  .toolbar-section {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .section-header .container,
-  .catalog-header .container,
-  .pasar-header .container,
-  .store-header .container,
-  .content-header .container,
-  .products-header .container,
-  .search-section .container,
-  .filter-section .container,
-  .toolbar-section .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-    box-sizing: border-box !important;
-  }
-
-  /* Search bar full lebar area konten */
-  .search-box,
-  .search-bar,
-  .catalog-search,
-  .pasar-search,
-  .search-input-wrap,
-  .search-form {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .search-box input,
-  .search-bar input,
-  .catalog-search input,
-  input[type="search"],
-  .search-input {
-    width: 100% !important;
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* ========== 3. SUB FILTER (pill kategori) ========== */
-  .sub-filter,
-  .sub-filters,
-  .filter-pills,
-  .filter-chips,
-  .category-filters,
-  .chip-group,
-  .pills-row,
-  .filter-row,
-  .pasar-filters,
-  .catalog-filters {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 10px !important;
-    overflow: visible !important; /* jangan scroll horizontal di desktop */
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    justify-content: flex-start !important;
-  }
-
-  .sub-filter .container,
-  .filter-pills .container,
-  .category-filters .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-  }
-
-  /* ========== 4. GRID PRODUK ikut full (biar selaras) ========== */
-  .products-grid,
-  .product-grid,
-  .product-list,
-  .items-grid,
-  .pasar-grid {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .products-section .container,
-  .product-section .container,
-  .pasar-section .container,
-  .catalog-section .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 32px !important;
-    padding-right: 32px !important;
-  }
-}
-
-/* Layar besar: padding sisi lebih longgar */
-@media (min-width: 1200px) {
-  .header .container,
-  .header-inner,
-  .nav-inner,
-  .section-header .container,
-  .catalog-header .container,
-  .pasar-header .container,
-  .search-section .container,
-  .filter-section .container,
-  .products-section .container,
-  .pasar-section .container,
-  .catalog-section .container {
-    padding-left: 48px !important;
-    padding-right: 48px !important;
-  }
-}
-
-
-/* ========/* ==========================================================================
-   HERO SECTION — FULL WIDTH DESKTOP
-   ========================================================================== */
-@media (min-width: 768px) {
-
-  /* 1. Paksa Hero & Container ke Lebar Penuh */
-  .hero {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 60px 0 !important;
-  }
-
-  .hero .container {
+  /* 1. KONTEN CONTAINER UTAMA FULL WIDTH */
+  .container {
     width: 100% !important;
     max-width: 100% !important;
     padding-left: 40px !important;
@@ -918,58 +541,91 @@ body {
     box-sizing: border-box !important;
   }
 
-  /* 2. Konten Hero Melebar & Proporsional */
-  .hero-content {
+  /* 2. HIDE "PILIH LAYANAN" (4 CARD) DI DESKTOP */
+  .main-menu {
+    display: none !important;
+  }
+
+  /* 3. APP HEADER FULL WIDTH */
+  .app-header {
+    width: 100% !important;
+  }
+  .header-inner {
+    width: 100% !important;
     max-width: 100% !important;
   }
 
-  .hero-content h1 {
-    font-size: clamp(2.4rem, 3.5vw, 3.8rem) !important;
-    line-height: 1.2 !important;
-  }
-
-  .hero-content p {
-    max-width: 750px !important; /* Batas teks agar tetap nyaman dibaca */
-    font-size: 1.1rem !important;
-    line-height: 1.6 !important;
-  }
-
-  /* 3. Kartu Statistik (Mitra / Produk / Estimasi Antar) Lebih Lebar */
-  .hero-stats {
-    max-width: 750px !important;
+  /* 4. HERO SECTION FULL LEBAR */
+  .hero {
     width: 100% !important;
+    padding: 70px 0 90px !important;
+  }
+  .hero-content {
+    max-width: 100% !important;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 3.8vw, 4rem) !important;
+  }
+  .hero p {
+    max-width: 850px !important;
+    font-size: 1.15rem !important;
+  }
+  .hero-stats {
+    max-width: 720px !important;
+  }
+
+  /* 5. PASAR / KATALOG CONTROLS FULL WIDTH */
+  .pasar-controls {
+    width: 100% !important;
+  }
+  .search-box {
+    max-width: 100% !important;
+  }
+  .filter-pills {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100% !important;
+  }
+
+  /* 6. GRID PRODUK KATALOG LENGKAP */
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+    gap: 22px !important;
   }
 }
 
-/* Untuk Monitor Lebar (> 1200px) */
+/* MONITOR BESAR (> 1200px) */
 @media (min-width: 1200px) {
-  .hero .container {
+  .container {
     padding-left: 60px !important;
     padding-right: 60px !important;
   }
-}====================================
-   RESPONSIVE — MEDIA QUERIES
-   ============================================ */
+  .product-grid {
+    grid-template-columns: repeat(5, 1fr) !important; /* 5 Produk per baris di Desktop Lebar */
+    gap: 24px !important;
+  }
+}
 
-/* Desktop / laptop: show top pill nav */
+
+/* ==========================================================================
+   📱 MOBILE & RESPONSIVE STYLES (MAX-WIDTH: 992px & 768px)
+   ========================================================================== */
+
 @media (min-width: 993px) {
-  .desktop-nav { display: flex; }
+  .desktop-nav { display: flex !important; }
   .mobile-bottom-nav { display: none !important; }
 }
 
-/* Tablet & below: hide desktop nav */
 @media (max-width: 992px) {
   .desktop-nav { display: none !important; }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
-  .container { padding: 0 18px; }
+  .container { padding: 0 18px !important; }
 
-  .mobile-bottom-nav { display: block; }
-  .main-menu { display: none; }
+  .mobile-bottom-nav { display: block !important; }
+  .main-menu { display: none !important; }
   
-  /* MENCEGAH KONTEN TERTUTUP NAVIGASI BAWAH & BISA DI-SCROLL MENTOK */
   body { padding-bottom: 140px !important; }
   .content-area { padding-bottom: 40px !important; }
 
@@ -984,11 +640,10 @@ body {
 
   .hero { padding: 40px 0 50px; }
   .hero-badge { font-size: 0.75rem; padding: 6px 14px; }
-  .hero h1 { font-size: 1.9rem; }
-  .hero p { font-size: 0.95rem; margin-bottom: 24px; }
+  .hero h1 { font-size: 1.9rem !important; }
+  .hero p { font-size: 0.95rem !important; margin-bottom: 24px; }
 
-  /* FIX: TULISAN "15 MENIT" TETAP 1 BARIS PADA STATS HERO */
-  .hero-stats { padding: 14px 6px !important; gap: 0; }
+  .hero-stats { padding: 14px 6px !important; gap: 0; max-width: 100% !important; }
   .stat b { font-size: 1.2rem !important; white-space: nowrap !important; letter-spacing: -0.5px !important; }
   .stat span { font-size: 0.65rem !important; max-width: 100% !important; }
   .stat-icon { width: 32px; height: 32px; border-radius: 10px; font-size: 0.78rem; }
@@ -996,12 +651,15 @@ body {
   .cat-header { margin-bottom: 26px; }
   .cat-header h2 { font-size: 1.5rem; }
 
-  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .product-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px !important; }
   .product-img { height: 110px; font-size: 2.8rem; }
-  .product-info { padding: 12px; }
+  .product-info { padding: 12px !important; }
   .product-name { font-size: 0.85rem; }
   .product-price { font-size: 0.95rem; }
   .btn-add { padding: 8px; font-size: 0.75rem; }
+
+  .price-row > span:first-child { font-size: 0.9rem !important; letter-spacing: -0.3px !important; }
+  .strike-price { font-size: 0.7rem !important; }
 
   .property-grid { grid-template-columns: 1fr; gap: 16px; }
   .property-img { height: 150px; font-size: 3.5rem; }
@@ -1025,7 +683,6 @@ body {
 
   .cart-drawer { border-radius: var(--radius-lg) 0 0 0; }
 
-  /* MEMPERBAIKI IKON WA MENGAMBANG (FAB) */
   .fab-wa { bottom: 95px !important; right: 16px !important; }
   .fab-wa i { font-size: 46px !important; }
 
@@ -1042,13 +699,15 @@ body {
 }
 
 @media (max-width: 480px) {
-  .hero h1 { font-size: 1.7rem; }
+  .hero h1 { font-size: 1.7rem !important; }
   .m-nav-item span { font-size: 0.58rem; }
   .mobile-bottom-nav { bottom: 16px; width: calc(100% - 24px); }
 }
 
 @media (max-width: 380px) {
   .stat b { font-size: 1.05rem !important; }
+  .price-row > span:first-child { font-size: 0.82rem !important; }
+  .strike-price { display: none !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
