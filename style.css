@@ -1130,3 +1130,47 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================================================
+   🖼️ FIX IMAGE PLACEHOLDER (MENGGANTI EMOJI MENJADI GAMBAR ASLI)
+   ========================================================================== */
+
+/* Hilangkan background bawaan emoji dan jadikan wadah gambar */
+.product-img, .property-img, .edu-icon {
+  background: #E2E8F0 !important;
+  padding: 0 !important;
+  border: none !important;
+  overflow: hidden !important;
+  position: relative;
+  display: block !important;
+}
+
+/* Atur agar gambar selalu full memenuhi kotak tanpa merusak rasio (anti gepeng) */
+.product-img img, 
+.property-img img, 
+.edu-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: block;
+}
+
+/* Efek zoom mulus saat disentuh/hover */
+.product-card:hover .product-img img,
+.property-card:hover .property-img img,
+.edu-card:hover .edu-icon img {
+  transform: scale(1.08);
+}
+
+/* Khusus icon pendidikan biarkan berbentuk kotak melengkung */
+.edu-icon {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+}
+
+/* Pastikan Badge Diskon & Status tetap di atas gambar */
+.product-img .disc-pill,
+.property-img .property-status {
+  z-index: 10;
+}
