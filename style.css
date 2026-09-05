@@ -1174,3 +1174,37 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 .property-img .property-status {
   z-index: 10;
 }
+
+/* ==========================================================================
+   🎯 FIX ALIGNMENT KARTU PRODUK (SEJAJAR RATA BAWAH)
+   ========================================================================== */
+
+/* 1. Pastikan setiap kartu tingginya mengikuti row grid yang paling tinggi */
+.product-card, .property-card, .edu-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 2. Area teks (info) mengisi sisa ruang kosong di bawah gambar */
+.product-info, .property-info, .edu-info {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 3. KUNCI UTAMA: Batasi judul maks 2 baris & beri tinggi tetap */
+.product-name {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important; /* Potong teks jika lebih dari 2 baris (tambah ...) */
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  line-height: 1.4 !important;
+  min-height: 2.8em !important; /* Memaksa judul 1 baris agar setinggi 2 baris */
+}
+
+/* 4. Dorong Harga, Rating, dan Tombol ke dasar kartu agar sejajar semua */
+.product-info .price-row {
+  margin-top: auto !important; /* Ini yg meratakan harga & tombol ke bawah */
+}
