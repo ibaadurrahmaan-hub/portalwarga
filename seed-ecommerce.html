@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Master Seeder PortalWarga v3.1 — Full 4 Kategori</title>
+<title>Master Seeder PortalWarga v4.0 — 5 Modul Lengkap</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root {
@@ -18,26 +18,30 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
   body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .card { background: var(--card-bg); border-radius: 20px; padding: 32px; max-width: 850px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid var(--border); }
+  .card { background: var(--card-bg); border-radius: 20px; padding: 32px; max-width: 950px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid var(--border); }
   .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed var(--border); padding-bottom: 20px; margin-bottom: 20px; }
   h1 { color: var(--accent); font-size: 1.7rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
   .badge { background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(56, 189, 248, 0.3); }
   
   .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-  @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(5, 1fr); } }
   .stat-cat { background: rgba(11, 15, 25, 0.6); padding: 14px 8px; border-radius: 12px; text-align: center; border: 1px solid var(--border); position: relative; overflow: hidden; }
   .stat-cat::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
   .stat-cat.pasar::before { background: #10b981; }
-  .stat-cat.property::before { background: #d97706; }
-  .stat-cat.pendidikan::before { background: #7c3aed; }
-  .stat-cat.wifi::before { background: #0284c7; }
-  .stat-cat b { font-size: 1.4rem; display: block; line-height: 1.2; }
+  .stat-cat.property::before { background: #3b82f6; }
+  .stat-cat.pendidikan::before { background: #8b5cf6; }
+  .stat-cat.umroh::before { background: #d97706; }
+  .stat-cat.wifi::before { background: #06b6d4; }
+  
+  .stat-cat b { font-size: 1.2rem; display: block; line-height: 1.2; }
   .stat-cat.pasar b { color: #10b981; }
-  .stat-cat.property b { color: #f59e0b; }
+  .stat-cat.property b { color: #3b82f6; }
   .stat-cat.pendidikan b { color: #a78bfa; }
-  .stat-cat.wifi b { color: #38bdf8; }
+  .stat-cat.umroh b { color: #f59e0b; }
+  .stat-cat.wifi b { color: #22d3ee; }
+  
   .stat-cat span { font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; display: block; margin-top: 4px; }
-  .stat-cat small { font-size: 0.65rem; color: var(--text-muted); display: block; margin-top: 2px; }
+  .stat-cat small { font-size: 0.6rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.2;}
 
   .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
   button { padding: 12px 24px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: all 0.2s ease; }
@@ -64,45 +68,50 @@
 <div class="card">
   <div class="header">
     <div>
-      <span class="badge"><i class="fas fa-database"></i> UNIFIED FIRESTORE v3.1</span>
-      <h1 style="margin-top: 8px;"><i class="fas fa-rocket"></i> PortalWarga Master Seeder</h1>
+      <span class="badge"><i class="fas fa-database"></i> UNIFIED FIRESTORE v4.0</span>
+      <h1 style="margin-top: 8px;"><i class="fas fa-rocket"></i> Master Seeder v4.0</h1>
     </div>
     <i class="fab fa-firebase" style="font-size: 3rem; color: #f5820d;"></i>
   </div>
   
   <p style="color:var(--text-muted); line-height: 1.6; font-size:0.95rem;">
-    Pusat kendali migrasi data untuk 4 modul utama PortalWarga: <b>Pasar UMKM, Properti Rakyat, Lembaga Pendidikan, & Jaringan WiFi (+ 5 Voucher).</b>
+    Pusat kendali migrasi data untuk 5 modul utama: <b>Food (Gacoan dkk), Properti, Pendidikan Salaf, Travel Umroh & Jaringan WiFi.</b>
   </p>
 
   <div class="stats-grid">
     <div class="stat-cat pasar">
-      <b>🛒 PASAR</b>
-      <span>6 Sellers + 18 Produk</span>
-      <small>10 Reviews · 6 Payment</small>
+      <b>🍔 FOOD</b>
+      <span>15 Produk F&B</span>
+      <small>Gacoan, Hokben, Domino</small>
     </div>
     <div class="stat-cat property">
       <b>🏠 PROPERTI</b>
-      <span>6 Listing</span>
-      <small>Kontrakan · Kos · Dijual</small>
+      <span>7 Listing</span>
+      <small>Dilengkapi GPS Lat/Lng</small>
     </div>
     <div class="stat-cat pendidikan">
-      <b>🎓 PENDIDIKAN</b>
-      <span>6 Lembaga</span>
-      <small>Bimbel · TPQ · Kursus</small>
+      <b>📚 BELAJAR</b>
+      <span>7 Lembaga</span>
+      <small>Manhaj Salaf / Sunnah</small>
+    </div>
+    <div class="stat-cat umroh">
+      <b>🕋 UMROH</b>
+      <span>5 Paket</span>
+      <small>Spesifikasi Lengkap</small>
     </div>
     <div class="stat-cat wifi">
       <b>📡 WIFI</b>
-      <span>6 Paket + 5 Voucher</span>
+      <span>6 Paket + 5 Vcr</span>
       <small>7 Zona GPS Coverage</small>
     </div>
   </div>
 
   <div class="btn-group">
-    <button class="btn-seed" id="btnSeed" onclick="seedAll()">
-      <i class="fas fa-cloud-upload-alt"></i> Inject All Modules
-    </button>
     <button class="btn-clear" id="btnClear" onclick="clearAll()">
-      <i class="fas fa-trash-alt"></i> Kosongkan Semua
+      <i class="fas fa-trash-alt"></i> 1. Kosongkan Semua (Wajib)
+    </button>
+    <button class="btn-seed" id="btnSeed" onclick="seedAll()">
+      <i class="fas fa-cloud-upload-alt"></i> 2. Inject Data Baru
     </button>
     <button class="btn-home" onclick="window.location.href='index.html'">
       <i class="fas fa-external-link-alt"></i> Buka Portal Warga
@@ -110,7 +119,7 @@
   </div>
 
   <div id="log">
-    <div class="log-line"><span class="log-time">[Ready]</span> <span class="log-info">Menunggu perintah injeksi database menyeluruh...</span></div>
+    <div class="log-line"><span class="log-time">[Ready]</span> <span class="log-warning">⚠️ KLIK KOSONGKAN SEMUA DULU agar Sayuran terhapus!</span></div>
   </div>
 </div>
 
@@ -137,127 +146,91 @@ function log(msg, type='info') {
 }
 
 // ==========================================================================
-// ============ DATA SET 1: PASAR (E-COMMERCE MODULES) ======================
+// ============ DATA 1: FOOD / PASAR (BRAND F&B POPULER) ====================
 // ==========================================================================
 const SELLERS = [
-  { id: 'toko_bu_tini', nama: 'Toko Bu Tini', slug: 'toko-bu-tini', emoji: '👩‍🌾', deskripsi: 'Sayuran segar pilihan setiap pagi.', alamat: 'Jl. Melati No. 12, Ds. Sukamaju', telepon: '081234567891', jamBuka: '05:00', jamTutup: '17:00', kategori: 'pasar', rating: 4.9, totalReview: 124, totalTerjual: 890, verified: true, badges: ['⭐ Star Seller'], jarak: '1.2 km' },
-  { id: 'kios_pak_amin', nama: 'Kios Pak Amin', slug: 'kios-pak-amin', emoji: '🧑‍🌾', deskripsi: 'Bumbu dapur & rempah lengkap.', alamat: 'Pasar Kec. Blok B12', telepon: '081234567892', jamBuka: '06:00', jamTutup: '18:00', kategori: 'pasar', rating: 4.7, totalReview: 89, totalTerjual: 543, verified: true, badges: ['✅ Verified'], jarak: '2.0 km' },
-  { id: 'peternakan_barokah', nama: 'Peternakan Barokah', slug: 'peternakan-barokah', emoji: '🐔', deskripsi: 'Telur ayam & ayam potong segar.', alamat: 'Ds. Cinta Damai RT 03', telepon: '081234567893', jamBuka: '06:00', jamTutup: '16:00', kategori: 'pasar', rating: 4.8, totalReview: 156, totalTerjual: 1240, verified: true, badges: ['⭐ Star Seller'], jarak: '3.5 km' },
-  { id: 'sembako_berkah', nama: 'Sembako Berkah', slug: 'sembako-berkah', emoji: '🏪', deskripsi: 'Beras, minyak, gula, kebutuhan pokok.', alamat: 'Jl. Raya Kec. No. 45', telepon: '081234567894', jamBuka: '07:00', jamTutup: '20:00', kategori: 'pasar', rating: 4.6, totalReview: 78, totalTerjual: 456, verified: true, badges: ['✅ Verified'], jarak: '0.8 km' },
-  { id: 'ayam_bu_sri', nama: 'Ayam Segar Bu Sri', slug: 'ayam-bu-sri', emoji: '🍗', deskripsi: 'Ayam potong hari ini.', alamat: 'Pasar Kec. Blok C05', telepon: '081234567895', jamBuka: '05:30', jamTutup: '14:00', kategori: 'pasar', rating: 4.9, totalReview: 234, totalTerjual: 890, verified: true, badges: ['🔥 Best Seller'], jarak: '2.0 km' },
-  { id: 'pak_kadir_fresh', nama: 'Pak Kadir Fresh', slug: 'pak-kadir-fresh', emoji: '🐟', deskripsi: 'Ikan segar tangkapan hari ini.', alamat: 'Ds. Muara Indah', telepon: '081234567896', jamBuka: '05:00', jamTutup: '12:00', kategori: 'pasar', rating: 4.7, totalReview: 92, totalTerjual: 345, verified: true, badges: ['✅ Verified'], jarak: '4.2 km' }
+  { id: 'gacoan', nama: 'Mie Gacoan Cabang', slug: 'gacoan', emoji: '🍜', deskripsi: 'Mie pedas no 1 di Indonesia.', alamat: 'Jl. Utama No 1', telepon: '081234567891', jamBuka: '09:00', jamTutup: '22:00', kategori: 'pasar', rating: 4.9, totalReview: 1540, totalTerjual: 8900, verified: true, badges: ['🔥 Viral'], jarak: '1.2 km' },
+  { id: 'hokben', nama: 'HokBen', slug: 'hokben', emoji: '🍱', deskripsi: 'Pelopor Makanan Bergaya Jepang di Indonesia.', alamat: 'Mall Utama Lt. GF', telepon: '081234567892', jamBuka: '10:00', jamTutup: '21:00', kategori: 'pasar', rating: 4.8, totalReview: 890, totalTerjual: 5430, verified: true, badges: ['✅ Official'], jarak: '2.0 km' },
+  { id: 'solaria', nama: 'Solaria', slug: 'solaria', emoji: '🍛', deskripsi: 'Resto keluarga porsi memuaskan.', alamat: 'Mall Utama Lt. 1', telepon: '081234567893', jamBuka: '10:00', jamTutup: '21:30', kategori: 'pasar', rating: 4.7, totalReview: 756, totalTerjual: 4240, verified: true, badges: ['⭐ Favorit Keluarga'], jarak: '2.1 km' },
+  { id: 'domino', nama: "Domino's Pizza", slug: 'domino', emoji: '🍕', deskripsi: 'Pizza lezat, cepat dan hangat.', alamat: 'Jl. Sudirman No 45', telepon: '081234567894', jamBuka: '10:00', jamTutup: '23:00', kategori: 'pasar', rating: 4.8, totalReview: 678, totalTerjual: 3456, verified: true, badges: ['🛵 Fast Delivery'], jarak: '0.8 km' },
+  { id: 'sabana', nama: 'Ayam Sabana', slug: 'sabana', emoji: '🍗', deskripsi: 'Fried chicken lokal legend.', alamat: 'Pujasera Kec. Utama', telepon: '081234567895', jamBuka: '08:00', jamTutup: '21:00', kategori: 'pasar', rating: 4.9, totalReview: 1234, totalTerjual: 8890, verified: true, badges: ['⭐ Best Seller Lokal'], jarak: '1.5 km' }
 ];
 
 const PRODUCTS = [
-  { id: 1, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Sayur Bayam Segar', slug: 'bayam-segar', emoji: '🥬', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Bayam segar dipetik pagi.', harga: 5000, hargaCoret: 7000, diskon: 28, satuan: 'ikat', stok: 25, berat: 250, minOrder: 1, terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh', 'organik'], aktif: true },
-  { id: 8, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Cabai Rawit', slug: 'cabai-rawit', emoji: '🌶️', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Cabai rawit pedas.', harga: 15000, hargaCoret: 18000, diskon: 17, satuan: '100gr', stok: 15, berat: 100, minOrder: 1, terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas'], aktif: true },
-  { id: 9, sellerId: 'toko_bu_tini', sellerName: 'Toko Bu Tini', nama: 'Kangkung Segar', slug: 'kangkung', emoji: '🥬', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Kangkung darat segar.', harga: 4000, satuan: 'ikat', stok: 30, berat: 300, minOrder: 1, terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh'], aktif: true },
-  { id: 2, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Tomat Merah', slug: 'tomat-merah', emoji: '🍅', kategori: 'pasar', subKategori: 'sayur', deskripsi: 'Tomat merah matang.', harga: 8000, satuan: '500gr', stok: 40, berat: 500, minOrder: 1, terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
-  { id: 7, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Merah', slug: 'bawang-merah', emoji: '🧅', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Bawang merah lokal.', harga: 12000, satuan: '250gr', stok: 50, berat: 250, minOrder: 1, terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu'], aktif: true },
-  { id: 10, sellerId: 'kios_pak_amin', sellerName: 'Kios Pak Amin', nama: 'Bawang Putih', slug: 'bawang-putih', emoji: '🧄', kategori: 'pasar', subKategori: 'bumbu', deskripsi: 'Bawang putih pilihan.', harga: 18000, satuan: '250gr', stok: 25, berat: 250, minOrder: 1, terjual: 67, rating: 4.7, totalReview: 19, tags: ['bumbu'], aktif: true },
-  { id: 3, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam 1 Kg', slug: 'telur-ayam', emoji: '🥚', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Telur ayam negeri grade A.', harga: 28000, hargaCoret: 30000, diskon: 7, satuan: 'kg', stok: 100, berat: 1000, minOrder: 1, terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh', 'protein'], aktif: true },
-  { id: 11, sellerId: 'peternakan_barokah', sellerName: 'Peternakan Barokah', nama: 'Telur Ayam Kampung', slug: 'telur-kampung', emoji: '🥚', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Telur ayam kampung asli.', harga: 4500, satuan: 'butir', stok: 80, berat: 60, minOrder: 5, terjual: 234, rating: 5.0, totalReview: 56, tags: ['organik'], aktif: true },
-  { id: 6, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Beras Premium 5 Kg', slug: 'beras-premium', emoji: '🍚', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Beras premium pulen.', harga: 65000, hargaCoret: 72000, diskon: 10, satuan: '5kg', stok: 30, berat: 5000, minOrder: 1, terjual: 178, rating: 4.7, totalReview: 89, tags: ['premium'], aktif: true },
-  { id: 12, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Minyak Goreng 2L', slug: 'minyak-goreng', emoji: '🫒', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Minyak goreng kelapa.', harga: 32000, satuan: '2 liter', stok: 45, berat: 2000, minOrder: 1, terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true },
-  { id: 13, sellerId: 'sembako_berkah', sellerName: 'Sembako Berkah', nama: 'Gula Pasir 1Kg', slug: 'gula-pasir', emoji: '🍬', kategori: 'pasar', subKategori: 'sembako', deskripsi: 'Gula tebu murni.', harga: 15000, satuan: 'kg', stok: 60, berat: 1000, minOrder: 1, terjual: 189, rating: 4.7, totalReview: 34, tags: ['sembako'], aktif: true },
-  { id: 4, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Potong 1 Ekor', slug: 'ayam-potong', emoji: '🍗', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Ayam potong segar dadakan.', harga: 45000, hargaCoret: 50000, diskon: 10, satuan: 'ekor', stok: 15, berat: 1000, minOrder: 1, terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh'], aktif: true },
-  { id: 14, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Ayam Fillet', slug: 'ayam-fillet', emoji: '🍖', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Dada ayam fillet tanpa tulang.', harga: 55000, satuan: '500gr', stok: 20, berat: 500, minOrder: 1, terjual: 123, rating: 4.8, totalReview: 67, tags: ['praktis'], aktif: true },
-  { id: 15, sellerId: 'ayam_bu_sri', sellerName: 'Ayam Segar Bu Sri', nama: 'Sayap Ayam 500gr', slug: 'sayap-ayam', emoji: '🍗', kategori: 'pasar', subKategori: 'protein', deskripsi: 'Sayap ayam segar.', harga: 28000, satuan: '500gr', stok: 25, berat: 500, minOrder: 1, terjual: 89, rating: 4.9, totalReview: 34, tags: ['fresh'], aktif: true },
-  { id: 5, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Lele Segar 1 Kg', slug: 'ikan-lele', emoji: '🐟', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Ikan lele segar tambak.', harga: 22000, satuan: 'kg', stok: 20, berat: 1000, minOrder: 1, terjual: 145, rating: 4.7, totalReview: 45, tags: ['ikan'], aktif: true },
-  { id: 16, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Ikan Nila 1 Kg', slug: 'ikan-nila', emoji: '🐠', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Ikan nila hidup segar.', harga: 30000, satuan: 'kg', stok: 15, berat: 1000, minOrder: 1, terjual: 67, rating: 4.8, totalReview: 23, tags: ['ikan'], aktif: true },
-  { id: 17, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Udang Segar 500gr', slug: 'udang-segar', emoji: '🦐', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Udang laut segar.', harga: 45000, hargaCoret: 55000, diskon: 18, satuan: '500gr', stok: 10, berat: 500, minOrder: 1, terjual: 56, rating: 5.0, totalReview: 28, tags: ['premium'], aktif: true },
-  { id: 18, sellerId: 'pak_kadir_fresh', sellerName: 'Pak Kadir Fresh', nama: 'Cumi Segar 500gr', slug: 'cumi-segar', emoji: '🦑', kategori: 'pasar', subKategori: 'ikan', deskripsi: 'Cumi segar kenyal.', harga: 40000, satuan: '500gr', stok: 12, berat: 500, minOrder: 1, terjual: 34, rating: 4.9, totalReview: 15, tags: ['fresh'], aktif: true }
-];
-
-const REVIEWS = [
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Budi S.', rating: 5, komentar: 'Bayamnya segar banget, cepat sampai. Recommended!', helpful: 12, balasanSeller: 'Terima kasih kak Budi 🙏' },
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Sari M.', rating: 5, komentar: 'Selalu langganan disini, sayuran paling fresh!', helpful: 8 },
-  { productId: 1, sellerId: 'toko_bu_tini', userName: 'Andi P.', rating: 4, komentar: 'Bagus tapi bisa lebih murah kalau beli banyak dong 😅', helpful: 3 },
-  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Ibu Wati', rating: 5, komentar: 'Telurnya besar-besar, kualitas premium.', helpful: 15 },
-  { productId: 3, sellerId: 'peternakan_barokah', userName: 'Pak Dedi', rating: 5, komentar: 'Sudah 3x pesan, selalu memuaskan.', helpful: 9 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Bu Yuli', rating: 5, komentar: 'Ayamnya seger, dipotong sesuai request.', helpful: 20 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Rina K.', rating: 5, komentar: 'Selalu langganan Bu Sri, ayamnya empuk.', helpful: 11 },
-  { productId: 4, sellerId: 'ayam_bu_sri', userName: 'Pak Bambang', rating: 4, komentar: 'Kualitas ok, cuma agak lama sampainya.', helpful: 5, balasanSeller: 'Mohon maaf pak, terima kasih masukannya!' },
-  { productId: 6, sellerId: 'sembako_berkah', userName: 'Ibu Ratna', rating: 5, komentar: 'Berasnya pulen dan bersih.', helpful: 14 },
-  { productId: 5, sellerId: 'pak_kadir_fresh', userName: 'Pak Joko', rating: 5, komentar: 'Lelenya segar, badannya masih licin.', helpful: 7 }
+  { id: 1, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Mie Gacoan Level 3 (Setan)', emoji: '🍜', subKategori: 'mie', harga: 15000, hargaCoret: 18000, diskon: 17, deskripsi: 'Mie pedas viral level setan.', stok: 99, terjual: 4520, rating: 4.9, totalReview: 890, aktif: true },
+  { id: 2, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Dimsum Mercon Gacoan', emoji: '🥟', subKategori: 'mie', harga: 12000, deskripsi: 'Dimsum ayam saus mercon.', stok: 60, terjual: 1200, rating: 4.8, totalReview: 234, aktif: true },
+  { id: 3, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Udang Keju Gacoan', emoji: '🍤', subKategori: 'mie', harga: 13000, deskripsi: 'Udang crispy saus keju.', stok: 40, terjual: 780, rating: 4.7, totalReview: 156, aktif: true },
+  { id: 4, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Paket Bento Spesial 1', emoji: '🍱', subKategori: 'bento', harga: 45000, deskripsi: 'Chicken teriyaki + ebi furai + salad.', stok: 30, terjual: 2340, rating: 4.9, totalReview: 567, aktif: true },
+  { id: 5, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Salmon Onigiri', emoji: '🍙', subKategori: 'bento', harga: 22000, deskripsi: 'Nasi kepal isi salmon mayo.', stok: 25, terjual: 1120, rating: 4.8, totalReview: 234, aktif: true },
+  { id: 6, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Beef Yakiniku Bento', emoji: '🍣', subKategori: 'bento', harga: 55000, hargaCoret: 60000, diskon: 8, deskripsi: 'Sapi bakar saus khas Jepang + nasi.', stok: 20, terjual: 890, rating: 4.9, totalReview: 145, aktif: true },
+  { id: 7, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Nasi Ayam Cabe Ijo', emoji: '🍛', subKategori: 'resto', harga: 42000, deskripsi: 'Ayam suwir cabe hijau khas Solaria.', stok: 40, terjual: 1876, rating: 4.7, totalReview: 345, aktif: true },
+  { id: 8, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Mie Ayam Jamur', emoji: '🍲', subKategori: 'resto', harga: 35000, deskripsi: 'Mie ayam premium + jamur.', stok: 40, terjual: 1450, rating: 4.6, totalReview: 267, aktif: true },
+  { id: 9, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Es Teller Special', emoji: '🍹', subKategori: 'resto', harga: 25000, deskripsi: 'Es teller alpukat kelapa nangka.', stok: 50, terjual: 987, rating: 4.8, totalReview: 189, aktif: true },
+  { id: 10, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Pizza Cheese Burst L", emoji: '🍕', subKategori: 'fastfood', harga: 129000, hargaCoret: 145000, diskon: 11, deskripsi: 'Pizza L pinggiran keju meleleh.', stok: 25, terjual: 2340, rating: 4.9, totalReview: 456, aktif: true },
+  { id: 11, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Meat Lover Reguler", emoji: '🍕', subKategori: 'fastfood', harga: 89000, deskripsi: 'Topping penuh daging premium.', stok: 30, terjual: 1567, rating: 4.8, totalReview: 289, aktif: true },
+  { id: 12, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Kentang + Cola", emoji: '🥤', subKategori: 'fastfood', harga: 35000, deskripsi: 'Paket hemat side dish + minuman.', stok: 50, terjual: 780, rating: 4.5, totalReview: 123, aktif: true },
+  { id: 13, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Combo Dada', emoji: '🍗', subKategori: 'ayam', harga: 20000, deskripsi: 'Dada crispy + nasi + saus.', stok: 100, terjual: 5670, rating: 4.8, totalReview: 890, aktif: true },
+  { id: 14, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Paha Bawah', emoji: '🍗', subKategori: 'ayam', harga: 18000, deskripsi: 'Paha bawah crispy + nasi.', stok: 100, terjual: 4520, rating: 4.9, totalReview: 780, aktif: true },
+  { id: 15, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Sabana Chicken Burger', emoji: '🍔', subKategori: 'ayam', harga: 15000, hargaCoret: 18000, diskon: 17, deskripsi: 'Burger ayam sabana khas.', stok: 40, terjual: 890, rating: 4.6, totalReview: 145, aktif: true }
 ];
 
 const PAYMENT_METHODS = [
   { id: 'qris', nama: 'QRIS PortalWarga', jenis: 'qris', icon: '📱', atasNama: 'PortalWarga', instruksi: 'Scan QR via M-Banking atau E-Wallet.', warna: '#DC2626', aktif: true, populer: true },
   { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦', nomor: '1234567890', atasNama: 'PortalWarga Indonesia', instruksi: 'Kirim ke Bank BCA no. rekening di atas.', warna: '#0F4C8F', aktif: true },
-  { id: 'transfer_bri', nama: 'Transfer BRI', jenis: 'bank', icon: '🏦', nomor: '9876543210', atasNama: 'PortalWarga Indonesia', instruksi: 'Kirim ke Bank BRI no. rekening di atas.', warna: '#003D7A', aktif: true },
-  { id: 'dana', nama: 'DANA Wallet', jenis: 'ewallet', icon: '💙', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun DANA di atas.', warna: '#118EEA', aktif: true, populer: true },
-  { id: 'ovo', nama: 'OVO Wallet', jenis: 'ewallet', icon: '💜', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun OVO di atas.', warna: '#4C2A85', aktif: true },
-  { id: 'gopay', nama: 'GoPay Wallet', jenis: 'ewallet', icon: '💚', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun GoPay di atas.', warna: '#00AA13', aktif: true, populer: true }
+  { id: 'dana', nama: 'DANA Wallet', jenis: 'ewallet', icon: '💙', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun DANA di atas.', warna: '#118EEA', aktif: true, populer: true }
 ];
 
 // ==========================================================================
-// ============ DATA SET 2: PROPERTY (LISTINGS) =============================
+// ============ DATA 2: PROPERTY (WITH GPS LAT LNG) =========================
 // ==========================================================================
 const PROPERTIES = [
-  { 
-    id: 'prop_01', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju, Kec. Utama', price: 'Rp 1,2 Jt/bulan', hargaAsli: 1200000, priceUnit: 'bulan', features: ['2 Kamar Tidur', '1 Kamar Mandi', 'Carport 1 Motor', 'Air Sumur Bor', 'Listrik 900 Watt'], deskripsi: 'Rumah kontrakan bersih & terawat, dekat pusat perbelanjaan pasar warga.', pemilik: 'Bu Aminah', kontakPemilik: '081234567801', aktif: true, verified: true
-  },
-  { 
-    id: 'prop_02', emoji: '🏡', type: 'Dijual', status: 'Nego', title: 'Rumah Minimalis SHM Baru', loc: 'Ds. Cinta Damai, Kec. Utama', price: 'Rp 350 Jt', hargaAsli: 350000000, priceUnit: 'total', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'LT 90m² LB 60m²', 'SHM Sertifikat'], deskripsi: 'Rumah baru gress 2024 dengan sertifikat hak milik (SHM).', pemilik: 'Pak Hendra', kontakPemilik: '081234567802', aktif: true, verified: true
-  },
-  { 
-    id: 'prop_03', emoji: '🛏️', type: 'Kos Putri', status: 'Sisa 2 Kamar', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari, Kec. Utama', price: 'Rp 600 Rb/bulan', hargaAsli: 600000, priceUnit: 'bulan', features: ['AC Split', 'WiFi Youfiber', 'K.Mandi Dalam', 'Lemari & Kasur'], deskripsi: 'Kos eksklusif khusus putri, aman & nyaman. Bebas biaya listrik & air.', pemilik: 'Bu Yanti', kontakPemilik: '081234567803', aktif: true, verified: true
-  },
-  { 
-    id: 'prop_04', emoji: '🌾', type: 'Tanah Dijual', status: 'Cash Keras', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec. Utama KM 5', price: 'Rp 500 Jt', hargaAsli: 500000000, priceUnit: 'total', features: ['Luas 200 m²', 'SHM Sertifikat', 'Pinggir Jalan Raya', 'Cocok Ruko/Toko'], deskripsi: 'Tanah strategis pinggir jalan raya utama kecamatan.', pemilik: 'Pak Rudi', kontakPemilik: '081234567804', aktif: true, verified: true
-  },
-  { 
-    id: 'prop_05', emoji: '🏘️', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar + Halaman Luas', loc: 'Ds. Sejahtera, Kec. Utama', price: 'Rp 1,8 Jt/bulan', hargaAsli: 1800000, priceUnit: 'bulan', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'Halaman 40m²', 'Carport 2 Mobil'], deskripsi: 'Kontrakan untuk keluarga besar, halaman luas cocok untuk kebun mini.', pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', aktif: true, verified: true
-  },
-  { 
-    id: 'prop_06', emoji: '🏬', type: 'Kos Putra', status: 'Sisa 3 Kamar', title: 'Kos Pria Ekonomis Kec. Utama', loc: 'Ds. Mulyasari, Kec. Utama', price: 'Rp 450 Rb/bulan', hargaAsli: 450000, priceUnit: 'bulan', features: ['Kasur & Lemari', 'K.Mandi Luar', 'WiFi Bersama', 'Dapur Umum'], deskripsi: 'Kos putra ekonomis harga terjangkau, cocok untuk karyawan.', pemilik: 'Pak Danu', kontakPemilik: '081234567806', aktif: true, verified: true
-  }
+  { id: 'prop_01', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true },
+  { id: 'prop_02', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true },
+  { id: 'prop_03', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true },
+  { id: 'prop_04', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true },
+  { id: 'prop_05', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true },
+  { id: 'prop_06', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true },
+  { id: 'prop_07', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', features: ['4 Kamar', '3 KM', '2 Lantai'], pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true }
 ];
 
 // ==========================================================================
-// ============ DATA SET 3: PENDIDIKAN (LEMBAGA BELAJAR) ====================
+// ============ DATA 3: PENDIDIKAN (MANHAJ SALAF) ===========================
 // ==========================================================================
 const EDUCATIONS = [
-  { 
-    id: 'edu_01', emoji: '📚', type: 'Bimbel Akademik', name: 'Bimbel Cerdas Bersama', desc: 'Bimbingan belajar khusus SD, SMP, hingga persiapan UTBK SMA.', alamat: 'Jl. Pendidikan No. 20, Kec. Utama', kontak: '081234567810', biaya: 'Mulai Rp 250 Rb/bulan', jadwal: 'Senin - Sabtu, 15:00 - 20:00', fasilitas: ['AC', 'Modul Gratis', 'Try Out Bulanan'], aktif: true, verified: true
-  },
-  { 
-    id: 'edu_02', emoji: '🕌', type: 'TPQ / Madrasah', name: 'TPQ Al-Hidayah', desc: 'Pendidikan agama Islam terpadu: tahfidz & pembinaan akhlak mulia.', alamat: 'Masjid Al-Hidayah, Ds. Sukamaju', kontak: '081234567811', biaya: 'Rp 75 Rb/bulan (infaq)', jadwal: 'Setiap hari ba\'da Ashar', fasilitas: ['Ustadz Berpengalaman', 'Buku Iqra Gratis'], aktif: true, verified: true
-  },
-  { 
-    id: 'edu_03', emoji: '💻', type: 'Kursus Skill', name: 'Kursus Komputer Cepat', desc: 'Program keahlian digital: Microsoft Office, desain grafis & digital marketing.', alamat: 'Ruko Cendana No. 5, Jl. Raya Kec.', kontak: '081234567812', biaya: 'Rp 500 Rb - 1,5 Jt/paket', jadwal: 'Flexible sesuai jadwal Anda', fasilitas: ['Sertifikat Resmi', '10 PC Modern'], aktif: true, verified: true
-  },
-  { 
-    id: 'edu_04', emoji: '🎨', type: 'Sanggar Seni', name: 'Sanggar Kreasi Anak', desc: 'Kelas kesenian anak: melukis, menari tradisional, musik, dan drama.', alamat: 'Balai Desa Cinta Damai', kontak: '081234567813', biaya: 'Rp 150 Rb/bulan/kelas', jadwal: 'Sabtu - Minggu, 09:00 - 15:00', fasilitas: ['Ruang Latihan Luas', 'Instrumen Lengkap'], aktif: true, verified: true
-  },
-  { 
-    id: 'edu_05', emoji: '⚽', type: 'Sekolah Sepak Bola', name: 'SSB Kec. Utama', desc: 'Sekolah sepak bola untuk anak usia 6-15 tahun.', alamat: 'Lapangan Utama Kec., Ds. Sejahtera', kontak: '081234567814', biaya: 'Rp 100 Rb/bulan', jadwal: 'Selasa, Kamis, Sabtu (16:00)', fasilitas: ['Jersey Latihan Gratis', 'Ikut Turnamen'], aktif: true, verified: true
-  },
-  { 
-    id: 'edu_06', emoji: '🗣️', type: 'Kursus Bahasa', name: 'English Corner Kec. Utama', desc: 'Kursus Bahasa Inggris untuk semua level: kids, teens, professionals.', alamat: 'Ruko Bougenvile, Jl. Raya Kec.', kontak: '081234567815', biaya: 'Rp 350 Rb/bulan', jadwal: 'Senin - Jumat, 16:00 - 20:00', fasilitas: ['Native Speaker', 'Modul Cambridge'], aktif: true, verified: true
-  }
+  { id: 'edu_01', emoji: '🕌', type: 'pesantren', typeName: 'Ponpes Salaf', name: 'Ma\'had Ibnul Qoyyim', desc: 'Pondok tahfidz & pengajaran ilmu syar\'i berdasarkan Manhaj Salaf.', biaya: 'Mulai Rp 600rb/bulan', jadwal: 'Mukim & Kalong', kontak: '081234567810', aktif: true },
+  { id: 'edu_02', emoji: '📖', type: 'tahfidz', typeName: 'Rumah Tahfidz', name: 'Tahfidz Al-Bayyinah', desc: 'Tahsin & Tahfidz metode Ummi, ustadz alumni Timur Tengah.', biaya: 'Rp 350rb/bulan', jadwal: 'Ba\'da Ashar', kontak: '081234567811', aktif: true },
+  { id: 'edu_03', emoji: '🏫', type: 'tksd', typeName: 'SDIT', name: 'SDIT Al-Furqon', desc: 'Sekolah Ahlussunnah. Kurikulum diknas + tahfidz 5 Juz.', biaya: 'Rp 750rb/bulan', jadwal: 'Senin-Jumat', kontak: '081234567812', aktif: true },
+  { id: 'edu_04', emoji: '🎒', type: 'tksd', typeName: 'TKIT', name: 'TKIT Ibnu Taimiyah', desc: 'Penekanan adab islami dan bahasa Arab dasar.', biaya: 'Rp 400rb/bulan', jadwal: 'Pagi', kontak: '081234567813', aktif: true },
+  { id: 'edu_05', emoji: '🏫', type: 'smpsma', typeName: 'SMAIT', name: 'SMAIT Darush Sholihin', desc: 'Program science & agama seimbang (Boarding).', biaya: 'Rp 950rb/bulan', jadwal: 'Full Day', kontak: '081234567814', aktif: true },
+  { id: 'edu_06', emoji: '🗣️', type: 'bahasa', typeName: 'B. Arab', name: 'Ma\'had Bina Karakter', desc: 'Kursus B. Arab metode Madinah & Baina Yadaik.', biaya: 'Rp 500rb/level', jadwal: 'Online & Offline', kontak: '081234567815', aktif: true },
+  { id: 'edu_07', emoji: '📚', type: 'tahfidz', typeName: 'Halaqoh', name: 'Halaqoh Akhwat', desc: 'Halaqoh khusus akhwat dewasa & remaja.', biaya: 'Infaq seikhlasnya', jadwal: 'Setiap Ahad', kontak: '081234567816', aktif: true }
 ];
 
 // ==========================================================================
-// ============ DATA SET 4: WIFI (PACKAGES, VOUCHERS & GPS COVERAGE) ========
+// ============ DATA 4: UMROH (BARU - SPESIFIKASI) ==========================
+// ==========================================================================
+const UMROH_PACKAGES = [
+  { id: 'um_01', emoji: '🕋', name: 'Umroh Ekonomis Direct Saudia', bulan: 'oktober', bulanLabel: 'Oktober 2026', harga: 27500000, hargaKategori: 'hemat', pesawat: 'saudia', pesawatLabel: 'Saudia Airlines (Direct)', hotel: 'bintang4', hotelLabel: 'Bintang 4', hotelMakkah: 'Rayyana Al Ajyad (400m)', hotelMadinah: 'Al Aqeeq (Ring 2)', durasi: '9 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Bus AC', 'Konsumsi 3x'], aktif: true },
+  { id: 'um_02', emoji: '🕋', name: 'Umroh Standar Ramadhan Awal', bulan: 'ramadhan', bulanLabel: 'Ramadhan Awal 2027', harga: 32000000, hargaKategori: 'standar', pesawat: 'garuda', pesawatLabel: 'Garuda Indonesia (Direct)', hotel: 'bintang5', hotelLabel: 'Bintang 5', hotelMakkah: 'Swissotel Al Maqam', hotelMadinah: 'Dar Al Iman Intercontinental', durasi: '12 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif Berpengalaman', 'Perlengkapan Umroh', 'Konsumsi 3x Prasmanan'], aktif: true },
+  { id: 'um_03', emoji: '⭐', name: 'Umroh Premium VIP Ring 1', bulan: 'desember', bulanLabel: 'Desember 2026', harga: 42500000, hargaKategori: 'premium', pesawat: 'emirates', pesawatLabel: 'Emirates (Transit Dubai)', hotel: 'ring1', hotelLabel: 'Ring 1 Makkah', hotelMakkah: 'Fairmont Clock Tower', hotelMadinah: 'Movenpick', durasi: '10 Hari', fasilitas: ['Visa', 'Manasik VIP', 'Ustadz Pembimbing', 'City Tour Dubai', 'Kamar Tripple/Double'], aktif: true },
+  { id: 'um_04', emoji: '🕋', name: 'Umroh Hemat Lion Air', bulan: 'november', bulanLabel: 'November 2026', harga: 26000000, hargaKategori: 'hemat', pesawat: 'lion', pesawatLabel: 'Lion Air (Direct)', hotel: 'bintang4', hotelLabel: 'Bintang 4', hotelMakkah: 'Le Meridien Towers', hotelMadinah: 'Retaj Al Bayt', durasi: '9 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Konsumsi', 'Ziarah'], aktif: true },
+  { id: 'um_05', emoji: '⭐', name: 'Umroh Syawal Qatar Airways', bulan: 'syawal', bulanLabel: 'Syawal 2027', harga: 35000000, hargaKategori: 'standar', pesawat: 'qatar', pesawatLabel: 'Qatar Airways (Transit Doha)', hotel: 'bintang5', hotelLabel: 'Bintang 5', hotelMakkah: 'Pullman Zamzam', hotelMadinah: 'The Oberoi', durasi: '11 Hari', fasilitas: ['Visa', 'Manasik', 'Kelas Tahsin', 'Kamar Kuad', 'Baggage 30kg'], aktif: true }
+];
+
+// ==========================================================================
+// ============ DATA 5: WIFI YOUFIBER REGYNET ===============================
 // ==========================================================================
 const WIFI_PACKAGES = [
-  { id: 1, name: 'Ekonomis', speed: '10', price: '130.000', features: ['Batas Kecepatan 10 Mbps', 'Unlimited Tanpa FUP', 'Gratis Sewa Modem', 'CS 24 Jam'], popular: false, aktif: true },
-  { id: 2, name: 'Basic', speed: '15', price: '165.000', features: ['Batas Kecepatan 15 Mbps', 'Unlimited Tanpa FUP', 'Gratis Sewa Modem', 'Gratis Kabel Optik'], popular: true, aktif: true },
-  { id: 3, name: 'Advanced', speed: '30', price: '220.000', features: ['Batas Kecepatan 30 Mbps', 'Unlimited Tanpa FUP', 'Modem Dual-Band', 'Prioritas Gangguan'], popular: false, aktif: true },
-  { id: 4, name: 'Extra', speed: '50', price: '330.000', features: ['Batas Kecepatan 50 Mbps', 'Unlimited Tanpa FUP', 'Modem Dual-Band', 'Bandwidth Stabil'], popular: false, aktif: true },
-  { id: 5, name: 'Premiere', speed: '100', price: '550.000', features: ['Kecepatan 100 Mbps', 'Unlimited Tanpa FUP', 'Modem Premium Wifi 6', 'CS Prioritas VIP'], popular: false, aktif: true },
-  { id: 6, name: 'Promo Cijeruk', speed: '100', price: '120.000', features: ['Khusus Kec. Cijeruk', '100 Mbps Super Hemat', 'Gratis Modem Wireless', 'Instalasi Gratis'], popular: true, aktif: true }
+  { id: 1, name: 'Ekonomis', speed: '10', price: '130.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'CS 24 Jam'], popular: false, aktif: true },
+  { id: 2, name: 'Basic', speed: '15', price: '165.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'Gratis Kabel Optik'], popular: true, aktif: true },
+  { id: 3, name: 'Advanced', speed: '30', price: '220.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Prioritas Gangguan'], popular: false, aktif: true },
+  { id: 4, name: 'Extra', speed: '50', price: '330.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Bandwidth Stabil'], popular: false, aktif: true },
+  { id: 5, name: 'Premiere', speed: '100', price: '550.000', features: ['Kecepatan 100 Mbps', 'Modem Premium Wifi 6', 'CS Prioritas VIP'], popular: false, aktif: true },
+  { id: 6, name: 'Promo Cijeruk', speed: '100', price: '120.000', features: ['Khusus Kec. Cijeruk', '100 Mbps Super Hemat', 'Gratis Modem Wireless'], popular: true, aktif: true }
 ];
 
 const WIFI_COVERAGE = [
-  { id: 'A', nama: 'Wilayah Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }, { name: 'Extra 50 Mbps', speed: 50, price: 330000 }, { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }] },
-  { id: 'B', nama: 'Wilayah Radar B', lat: -6.0941028, lng: 107.0514062, radiusKm: 2, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'C', nama: 'Wilayah Radar C', lat: -6.0929032, lng: 107.18109175, radiusKm: 2, paket: [{ name: 'Ekonomis 10 Mbps', speed: 10, price: 130000 }, { name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'D', nama: 'Wilayah Radar D', lat: -6.24266427, lng: 107.09106332, radiusKm: 2, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'E', nama: 'Wilayah Radar E', lat: -6.090539, lng: 107.209343, radiusKm: 3, paket: [{ name: 'Ekonomis 10 Mbps', speed: 10, price: 120000 }, { name: 'Basic 15 Mbps', speed: 15, price: 165000 }] },
-  { id: 'F', nama: 'Wilayah Radar F', lat: -6.230931, lng: 107.089664, radiusKm: 3, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
+  { id: 'A', nama: 'Wilayah Radar A', lat: -6.071855, lng: 107.020912, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
   { id: 'G', nama: 'Kec. Cijeruk, Bogor', lat: -6.715115, lng: 106.793385, radiusKm: 4, paket: [{ name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }] }
 ];
 
@@ -270,120 +243,17 @@ const WIFI_VOUCHERS = [
 ];
 
 // ==========================================================================
-// ============ INJECTION ENGINE - BATCH FIRESTORE ==========================
+// ============ BATCH UPLOADER SCRIPT =======================================
 // ==========================================================================
-async function seedAll() {
-  const btnS = document.getElementById('btnSeed');
-  const btnC = document.getElementById('btnClear');
-  btnS.disabled = true;
-  btnC.disabled = true;
-  btnS.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengunggah...';
-
-  try {
-    log('════════════════════════════════════════', 'info');
-    log('🚀 MULAI MIGRASI DATA UNIFIED PORTALWARGA v3.1', 'info');
-    log('════════════════════════════════════════', 'info');
-
-    // ================ KATEGORI 1: PASAR ================
-    log('', 'info');
-    log('╔════ 🛒 KATEGORI 1: PASAR (E-COMMERCE) ════╗', 'cat');
-    
-    log('👥 Uploading Merchant Sellers...', 'info');
-    const sellerBatch = db.batch();
-    SELLERS.forEach(s => sellerBatch.set(db.collection('sellers').doc(s.id), { ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp() }));
-    await sellerBatch.commit();
-    log(`   ✅ ${SELLERS.length} merchant terdaftar.`, 'ok');
-
-    log('📦 Uploading Katalog Produk...', 'info');
-    const prodBatch = db.batch();
-    PRODUCTS.forEach(p => prodBatch.set(db.collection('produk').doc(String(p.id)), { ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
-    await prodBatch.commit();
-    log(`   ✅ ${PRODUCTS.length} katalog produk online.`, 'ok');
-
-    log('🔄 Syncing legacy "pasar" collection...', 'info');
-    const legacyBatch = db.batch();
-    PRODUCTS.forEach(p => legacyBatch.set(db.collection('pasar').doc(String(p.id)), { id: p.id, emoji: p.emoji, name: p.nama, vendor: p.sellerName, price: p.harga }));
-    await legacyBatch.commit();
-    log('   ✅ Kompatibilitas legacy aman.', 'ok');
-
-    log('⭐ Uploading Ulasan & Rating...', 'info');
-    const reviewBatch = db.batch();
-    REVIEWS.forEach(r => reviewBatch.set(db.collection('reviews').doc(), { ...r, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
-    await reviewBatch.commit();
-    log(`   ✅ ${REVIEWS.length} ulasan terintegrasi.`, 'ok');
-
-    log('💳 Uploading Metode Pembayaran...', 'info');
-    const payBatch = db.batch();
-    PAYMENT_METHODS.forEach(pm => payBatch.set(db.collection('payment_methods').doc(pm.id), pm));
-    await payBatch.commit();
-    log(`   ✅ ${PAYMENT_METHODS.length} gateway pembayaran aktif.`, 'ok');
-
-    // ================ KATEGORI 2: PROPERTY ================
-    log('', 'info');
-    log('╔════ 🏠 KATEGORI 2: PROPERTY (LISTINGS) ════╗', 'cat');
-    log('🏘️ Uploading Listing Properti Warga...', 'info');
-    const propBatch = db.batch();
-    PROPERTIES.forEach(p => propBatch.set(db.collection('properti').doc(p.id), { ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
-    await propBatch.commit();
-    log(`   ✅ ${PROPERTIES.length} unit properti terdaftar.`, 'ok');
-
-    // ================ KATEGORI 3: PENDIDIKAN ================
-    log('', 'info');
-    log('╔════ 🎓 KATEGORI 3: PENDIDIKAN ════╗', 'cat');
-    log('📖 Uploading Lembaga Pendidikan...', 'info');
-    const eduBatch = db.batch();
-    EDUCATIONS.forEach(e => eduBatch.set(db.collection('pendidikan').doc(e.id), { ...e, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
-    await eduBatch.commit();
-    log(`   ✅ ${EDUCATIONS.length} lembaga pendidikan online.`, 'ok');
-
-    // ================ KATEGORI 4: WIFI ================
-    log('', 'info');
-    log('╔════ 📡 KATEGORI 4: WIFI YOUFIBER REGYNET ════╗', 'cat');
-    log('📶 Uploading Paket Internet...', 'info');
-    const wifiPkgBatch = db.batch();
-    WIFI_PACKAGES.forEach(pkg => wifiPkgBatch.set(db.collection('wifi_packages').doc(String(pkg.id)), pkg));
-    await wifiPkgBatch.commit();
-    log(`   ✅ ${WIFI_PACKAGES.length} paket internet aktif.`, 'ok');
-
-    log('🗺️ Uploading Zona Coverage GPS...', 'info');
-    const wifiCovBatch = db.batch();
-    WIFI_COVERAGE.forEach(zone => wifiCovBatch.set(db.collection('wifi_coverage').doc(zone.id), zone));
-    await wifiCovBatch.commit();
-    log(`   ✅ ${WIFI_COVERAGE.length} zona coverage GPS terkunci.`, 'ok');
-
-    log('🎟️ Uploading Paket Voucher Hotspot...', 'info');
-    const wifiVoucherBatch = db.batch();
-    WIFI_VOUCHERS.forEach(v => wifiVoucherBatch.set(db.collection('wifi_vouchers').doc(v.id), v));
-    await wifiVoucherBatch.commit();
-    log(`   ✅ ${WIFI_VOUCHERS.length} paket voucher online.`, 'ok');
-
-    // ================ FINALIZE ================
-    log('', 'info');
-    log('════════════════════════════════════════', 'info');
-    log('🎉 SEEDING SEMUA MODUL BERHASIL!', 'ok');
-    log('   📊 Data lengkap & tersinkronisasi 100%', 'ok');
-    log('════════════════════════════════════════', 'info');
-
-  } catch (error) {
-    log('❌ FATAL ERROR: ' + error.message, 'err');
-    console.error(error);
-  } finally {
-    btnS.disabled = false;
-    btnC.disabled = false;
-    btnS.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Inject All Modules';
-  }
-}
-
 async function clearAll() {
-  if (!confirm('Hapus SEMUA data 4 kategori PortalWarga (termasuk WiFi Voucher) dari Firestore?')) return;
+  if (!confirm('AWAS! Hapus SEMUA data di Firestore (Termasuk data lama sayuran dkk)?')) return;
 
-  const btnS = document.getElementById('btnSeed');
   const btnC = document.getElementById('btnClear');
-  btnS.disabled = true;
   btnC.disabled = true;
   btnC.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghapus...';
 
-  const collections = ['sellers', 'produk', 'pasar', 'reviews', 'payment_methods', 'properti', 'pendidikan', 'wifi_packages', 'wifi_coverage', 'wifi_vouchers'];
+  // Tambahkan umroh_packages di daftar penghapusan
+  const collections = ['sellers', 'produk', 'pasar', 'reviews', 'payment_methods', 'properti', 'pendidikan', 'umroh_packages', 'wifi_packages', 'wifi_coverage', 'wifi_vouchers'];
 
   try {
     log('════════════════════════════════════════', 'warning');
@@ -407,9 +277,92 @@ async function clearAll() {
   } catch (error) {
     log('❌ Pembersihan Gagal: ' + error.message, 'err');
   } finally {
-    btnS.disabled = false;
     btnC.disabled = false;
-    btnC.innerHTML = '<i class="fas fa-trash-alt"></i> Kosongkan Semua';
+    btnC.innerHTML = '<i class="fas fa-trash-alt"></i> 1. Kosongkan Semua (Wajib)';
+  }
+}
+
+async function seedAll() {
+  const btnS = document.getElementById('btnSeed');
+  btnS.disabled = true;
+  btnS.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengunggah...';
+
+  try {
+    log('════════════════════════════════════════', 'info');
+    log('🚀 MULAI MIGRASI DATA PORTALWARGA v4.0', 'info');
+    log('════════════════════════════════════════', 'info');
+
+    // 1. PASAR / FOOD
+    log('', 'info');
+    log('╔════ 🍔 KATEGORI 1: FOOD (F&B POPULER) ════╗', 'cat');
+    const sellerBatch = db.batch();
+    SELLERS.forEach(s => sellerBatch.set(db.collection('sellers').doc(s.id), { ...s, bergabung: firebase.firestore.FieldValue.serverTimestamp() }));
+    await sellerBatch.commit();
+    log(`   ✅ ${SELLERS.length} Merchant (Gacoan dkk) terdaftar.`, 'ok');
+
+    const prodBatch = db.batch();
+    PRODUCTS.forEach(p => prodBatch.set(db.collection('produk').doc(String(p.id)), { ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
+    await prodBatch.commit();
+    log(`   ✅ ${PRODUCTS.length} Menu Makanan online.`, 'ok');
+
+    const payBatch = db.batch();
+    PAYMENT_METHODS.forEach(pm => payBatch.set(db.collection('payment_methods').doc(pm.id), pm));
+    await payBatch.commit();
+    log(`   ✅ ${PAYMENT_METHODS.length} gateway pembayaran aktif.`, 'ok');
+
+    // 2. PROPERTI
+    log('', 'info');
+    log('╔════ 🏠 KATEGORI 2: PROPERTY (WITH GPS) ════╗', 'cat');
+    const propBatch = db.batch();
+    PROPERTIES.forEach(p => propBatch.set(db.collection('properti').doc(p.id), { ...p, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
+    await propBatch.commit();
+    log(`   ✅ ${PROPERTIES.length} unit properti terdaftar.`, 'ok');
+
+    // 3. PENDIDIKAN
+    log('', 'info');
+    log('╔════ 📚 KATEGORI 3: PENDIDIKAN SALAF ════╗', 'cat');
+    const eduBatch = db.batch();
+    EDUCATIONS.forEach(e => eduBatch.set(db.collection('pendidikan').doc(e.id), { ...e, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
+    await eduBatch.commit();
+    log(`   ✅ ${EDUCATIONS.length} lembaga pendidikan online.`, 'ok');
+
+    // 4. UMROH
+    log('', 'info');
+    log('╔════ 🕋 KATEGORI 4: TRAVEL UMROH ════╗', 'cat');
+    const umrohBatch = db.batch();
+    UMROH_PACKAGES.forEach(u => umrohBatch.set(db.collection('umroh_packages').doc(u.id), { ...u, createdAt: firebase.firestore.FieldValue.serverTimestamp() }));
+    await umrohBatch.commit();
+    log(`   ✅ ${UMROH_PACKAGES.length} paket travel umroh aktif.`, 'ok');
+
+    // 5. WIFI
+    log('', 'info');
+    log('╔════ 📡 KATEGORI 5: WIFI & VOUCHER ════╗', 'cat');
+    const wifiPkgBatch = db.batch();
+    WIFI_PACKAGES.forEach(pkg => wifiPkgBatch.set(db.collection('wifi_packages').doc(String(pkg.id)), pkg));
+    await wifiPkgBatch.commit();
+    
+    const wifiCovBatch = db.batch();
+    WIFI_COVERAGE.forEach(zone => wifiCovBatch.set(db.collection('wifi_coverage').doc(zone.id), zone));
+    await wifiCovBatch.commit();
+
+    const wifiVoucherBatch = db.batch();
+    WIFI_VOUCHERS.forEach(v => wifiVoucherBatch.set(db.collection('wifi_vouchers').doc(v.id), v));
+    await wifiVoucherBatch.commit();
+    log(`   ✅ Jaringan WiFi, GPS & Voucher berhasil diinjeksi.`, 'ok');
+
+    // FINALIZE
+    log('', 'info');
+    log('════════════════════════════════════════', 'info');
+    log('🎉 INJEKSI SEMUA 5 MODUL BERHASIL!', 'ok');
+    log('   📊 Database Anda sudah menggunakan data versi F&B & Umroh.', 'ok');
+    log('════════════════════════════════════════', 'info');
+
+  } catch (error) {
+    log('❌ FATAL ERROR: ' + error.message, 'err');
+    console.error(error);
+  } finally {
+    btnS.disabled = false;
+    btnS.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> 2. Inject Data Baru';
   }
 }
 </script>
