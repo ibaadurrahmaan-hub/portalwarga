@@ -744,111 +744,158 @@ body {
   background: #0B1220 !important;
 }
 
-/* ==========================================================================
-   FULL WIDTH DESKTOP LAYOUT
+/*/* ==========================================================================
+   FULL WIDTH — Header + Section Header + Sub Filter (DESKTOP)
    ========================================================================== */
 @media (min-width: 768px) {
 
-  /* 1. Container lebih lebar / full */
-  .container,
-  .header .container,
-  .hero .container,
-  main .container,
-  .section .container {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding-left: 40px !important;
-    padding-right: 40px !important;
-    box-sizing: border-box !important;
-  }
-
-  /* 2. Header full edge-to-edge */
+  /* ========== 1. HEADER UTAMA ========== */
   .header,
-  .navbar,
   .site-header,
-  .top-nav {
+  .navbar,
+  .topbar,
+  header.header {
     width: 100% !important;
     max-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
   }
 
+  .header .container,
+  .site-header .container,
+  .navbar .container,
   .header-inner,
   .nav-inner,
   .navbar-inner {
     width: 100% !important;
     max-width: 100% !important;
-    padding-left: 40px !important;
-    padding-right: 40px !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+  }
+
+  /* ========== 2. SECTION HEADER (search + judul katalog) ========== */
+  .section-header,
+  .catalog-header,
+  .pasar-header,
+  .store-header,
+  .content-header,
+  .products-header,
+  .category-header,
+  .search-section,
+  .filter-section,
+  .toolbar-section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .section-header .container,
+  .catalog-header .container,
+  .pasar-header .container,
+  .store-header .container,
+  .content-header .container,
+  .products-header .container,
+  .search-section .container,
+  .filter-section .container,
+  .toolbar-section .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
     box-sizing: border-box !important;
   }
 
-  /* 3. Hero full width + konten lebih lega */
-  .hero,
-  .hero-section,
-  section.hero {
+  /* Search bar full lebar area konten */
+  .search-box,
+  .search-bar,
+  .catalog-search,
+  .pasar-search,
+  .search-input-wrap,
+  .search-form {
     width: 100% !important;
     max-width: 100% !important;
   }
 
-  .hero-content,
-  .hero-text,
-  .hero-left {
-    max-width: 720px !important; /* biar teks tidak terlalu panjanglebar */
-  }
-
-  /* 4. Kartu statistik (6 Mitra / 18 Produk / 15 Menit) lebih lebar */
-  .hero-stats,
-  .stats-card,
-  .hero-metrics,
-  .stats-box {
-    max-width: 640px !important;
+  .search-box input,
+  .search-bar input,
+  .catalog-search input,
+  input[type="search"],
+  .search-input {
     width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  /* 5. Section produk / konten bawah juga full */
-  .products-section,
-  .category-section,
-  .pasar-section,
-  .content-section {
+  /* ========== 3. SUB FILTER (pill kategori) ========== */
+  .sub-filter,
+  .sub-filters,
+  .filter-pills,
+  .filter-chips,
+  .category-filters,
+  .chip-group,
+  .pills-row,
+  .filter-row,
+  .pasar-filters,
+  .catalog-filters {
     width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 10px !important;
+    overflow: visible !important; /* jangan scroll horizontal di desktop */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    justify-content: flex-start !important;
   }
 
+  .sub-filter .container,
+  .filter-pills .container,
+  .category-filters .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  /* ========== 4. GRID PRODUK ikut full (biar selaras) ========== */
   .products-grid,
+  .product-grid,
   .product-list,
-  .items-grid {
+  .items-grid,
+  .pasar-grid {
     width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .products-section .container,
+  .product-section .container,
+  .pasar-section .container,
+  .catalog-section .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 32px !important;
+    padding-right: 32px !important;
   }
 }
 
-/* Monitor lebar */
+/* Layar besar: padding sisi lebih longgar */
 @media (min-width: 1200px) {
-  .container,
+  .header .container,
   .header-inner,
   .nav-inner,
-  .navbar-inner,
-  .hero .container {
-    padding-left: 56px !important;
-    padding-right: 56px !important;
-  }
-
-  .hero-content,
-  .hero-text,
-  .hero-left {
-    max-width: 800px !important;
-  }
-}
-
-/* Optional: batasi max biar tidak “ulur” di layar 2K/4K */
-@media (min-width: 1600px) {
-  .container,
-  .header-inner,
-  .nav-inner,
-  .navbar-inner {
-    max-width: 1600px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+  .section-header .container,
+  .catalog-header .container,
+  .pasar-header .container,
+  .search-section .container,
+  .filter-section .container,
+  .products-section .container,
+  .pasar-section .container,
+  .catalog-section .container {
+    padding-left: 48px !important;
+    padding-right: 48px !important;
   }
 }
-
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
