@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v3.3 (SAFE DOM + CHECKOUT REDIRECT READY)
+   PORTALWARGA - SCRIPT CORE v4.0 (F&B POPULAR + UMROH SPEC + PROPERTY GPS)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
@@ -13,54 +13,162 @@ let liveReviews = [];
 let livePayments = [];
 let liveProperties = [];
 let liveEducations = [];
+let liveUmroh = [];
 let liveWifiPackages = [];
 let liveWifiCoverage = [];
 let liveWifiVouchers = [];
 
 let activeSubKategori = 'all';
+let activePropertyFilter = 'all';
+let activeEduFilter = 'all';
 let searchQuery = '';
 
+// Filter Spesifikasi Umroh
+let umrohFilter = { bulan: '', harga: '', pesawat: '', hotel: '' };
+let userGpsLat = null;
+let userGpsLng = null;
+
 // ============================================
-// DATA FALLBACKS (LENGKAP — JIKA FIREBASE OFFLINE)
+// DATA FALLBACKS — FOOD & FnB POPULER
 // ============================================
 let dataPasarFallback = [
-  { id: 1, emoji: '🥬', nama: 'Sayur Bayam Segar', sellerName: 'Toko Bu Tini', harga: 5000, hargaCoret: 7000, diskon: 28, subKategori: 'sayur', deskripsi: 'Bayam segar dipetik pagi.', stok: 25, berat: 250, satuan: 'ikat', terjual: 156, rating: 4.9, totalReview: 45, tags: ['fresh', 'organik'], aktif: true },
-  { id: 2, emoji: '🍅', nama: 'Tomat Merah', sellerName: 'Kios Pak Amin', harga: 8000, subKategori: 'sayur', deskripsi: 'Tomat merah matang.', stok: 40, berat: 500, satuan: '500gr', terjual: 89, rating: 4.7, totalReview: 23, tags: ['fresh'], aktif: true },
-  { id: 3, emoji: '🥚', nama: 'Telur Ayam 1 Kg', sellerName: 'Peternakan Barokah', harga: 28000, hargaCoret: 30000, diskon: 7, subKategori: 'protein', deskripsi: 'Telur ayam negeri grade A.', stok: 100, berat: 1000, satuan: 'kg', terjual: 456, rating: 4.9, totalReview: 123, tags: ['fresh', 'protein'], aktif: true },
-  { id: 4, emoji: '🍗', nama: 'Ayam Potong 1 Ekor', sellerName: 'Ayam Segar Bu Sri', harga: 45000, hargaCoret: 50000, diskon: 10, subKategori: 'protein', deskripsi: 'Ayam potong segar dadakan.', stok: 15, berat: 1000, satuan: 'ekor', terjual: 267, rating: 4.9, totalReview: 145, tags: ['fresh'], aktif: true },
-  { id: 5, emoji: '🐟', nama: 'Ikan Lele Segar 1 Kg', sellerName: 'Pak Kadir Fresh', harga: 22000, subKategori: 'ikan', deskripsi: 'Ikan lele segar tambak.', stok: 20, berat: 1000, satuan: 'kg', terjual: 145, rating: 4.7, totalReview: 45, tags: ['ikan'], aktif: true },
-  { id: 6, emoji: '🍚', nama: 'Beras Premium 5 Kg', sellerName: 'Sembako Berkah', harga: 65000, hargaCoret: 72000, diskon: 10, subKategori: 'sembako', deskripsi: 'Beras premium pulen.', stok: 30, berat: 5000, satuan: '5kg', terjual: 178, rating: 4.7, totalReview: 89, tags: ['premium'], aktif: true },
-  { id: 7, emoji: '🧅', nama: 'Bawang Merah', sellerName: 'Kios Pak Amin', harga: 12000, subKategori: 'bumbu', deskripsi: 'Bawang merah lokal.', stok: 50, berat: 250, satuan: '250gr', terjual: 145, rating: 4.6, totalReview: 34, tags: ['bumbu'], aktif: true },
-  { id: 8, emoji: '🌶️', nama: 'Cabai Rawit', sellerName: 'Toko Bu Tini', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'bumbu', deskripsi: 'Cabai rawit pedas.', stok: 15, berat: 100, satuan: '100gr', terjual: 89, rating: 4.8, totalReview: 32, tags: ['pedas'], aktif: true },
-  { id: 9, emoji: '🥬', nama: 'Kangkung Segar', sellerName: 'Toko Bu Tini', harga: 4000, subKategori: 'sayur', deskripsi: 'Kangkung darat segar.', stok: 30, berat: 300, satuan: 'ikat', terjual: 234, rating: 4.9, totalReview: 67, tags: ['fresh'], aktif: true },
-  { id: 10, emoji: '🫒', nama: 'Minyak Goreng 2L', sellerName: 'Sembako Berkah', harga: 32000, subKategori: 'sembako', deskripsi: 'Minyak goreng kelapa.', stok: 45, berat: 2000, satuan: '2 liter', terjual: 234, rating: 4.6, totalReview: 45, tags: ['sembako'], aktif: true }
+  // ==== MIE & DIMSUM ====
+  { id: 1, emoji: '🍜', nama: 'Mie Gacoan Level 3 (Setan)', sellerName: 'Mie Gacoan Cabang', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'mie', deskripsi: 'Mie pedas viral level setan.', stok: 99, terjual: 4520, rating: 4.9, totalReview: 890, tags: ['viral', 'pedas'], aktif: true },
+  { id: 2, emoji: '🥟', nama: 'Dimsum Mercon Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 12000, subKategori: 'mie', deskripsi: 'Dimsum ayam saus mercon.', stok: 60, terjual: 1200, rating: 4.8, totalReview: 234, tags: ['viral'], aktif: true },
+  { id: 3, emoji: '🍤', nama: 'Udang Keju Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 13000, subKategori: 'mie', deskripsi: 'Udang crispy saus keju.', stok: 40, terjual: 780, rating: 4.7, totalReview: 156, tags: ['premium'], aktif: true },
+  
+  // ==== BENTO JEPANG ====
+  { id: 4, emoji: '🍱', nama: 'HokBen Paket Bento Spesial 1', sellerName: 'HokBen', harga: 45000, subKategori: 'bento', deskripsi: 'Chicken teriyaki + ebi furai + salad.', stok: 30, terjual: 2340, rating: 4.9, totalReview: 567, tags: ['bento'], aktif: true },
+  { id: 5, emoji: '🍙', nama: 'HokBen Salmon Onigiri', sellerName: 'HokBen', harga: 22000, subKategori: 'bento', deskripsi: 'Nasi kepal isi salmon mayo.', stok: 25, terjual: 1120, rating: 4.8, totalReview: 234, tags: ['fresh'], aktif: true },
+  { id: 6, emoji: '🍣', nama: 'HokBen Beef Yakiniku Bento', sellerName: 'HokBen', harga: 55000, hargaCoret: 60000, diskon: 8, subKategori: 'bento', deskripsi: 'Sapi bakar saus khas Jepang + nasi.', stok: 20, terjual: 890, rating: 4.9, totalReview: 145, tags: ['premium'], aktif: true },
+
+  // ==== RESTO KELUARGA ====
+  { id: 7, emoji: '🍛', nama: 'Solaria Nasi Ayam Cabe Ijo', sellerName: 'Solaria', harga: 42000, subKategori: 'resto', deskripsi: 'Ayam suwir cabe hijau khas Solaria.', stok: 40, terjual: 1876, rating: 4.7, totalReview: 345, tags: ['pedas'], aktif: true },
+  { id: 8, emoji: '🍲', nama: 'Solaria Mie Ayam Jamur', sellerName: 'Solaria', harga: 35000, subKategori: 'resto', deskripsi: 'Mie ayam premium + jamur.', stok: 40, terjual: 1450, rating: 4.6, totalReview: 267, tags: [], aktif: true },
+  { id: 9, emoji: '🍹', nama: 'Solaria Es Teller Special', sellerName: 'Solaria', harga: 25000, subKategori: 'resto', deskripsi: 'Es teller alpukat kelapa nangka.', stok: 50, terjual: 987, rating: 4.8, totalReview: 189, tags: ['fresh'], aktif: true },
+
+  // ==== PIZZA & FAST FOOD ====
+  { id: 10, emoji: '🍕', nama: "Domino's Pizza Cheese Burst L", sellerName: "Domino's Pizza", harga: 129000, hargaCoret: 145000, diskon: 11, subKategori: 'fastfood', deskripsi: 'Pizza L pinggiran keju meleleh.', stok: 25, terjual: 2340, rating: 4.9, totalReview: 456, tags: ['viral', 'keju'], aktif: true },
+  { id: 11, emoji: '🍕', nama: "Domino's Meat Lover Reguler", sellerName: "Domino's Pizza", harga: 89000, subKategori: 'fastfood', deskripsi: 'Topping penuh daging premium.', stok: 30, terjual: 1567, rating: 4.8, totalReview: 289, tags: ['daging'], aktif: true },
+  { id: 12, emoji: '🥤', nama: "Domino's Kentang + Cola 500ml", sellerName: "Domino's Pizza", harga: 35000, subKategori: 'fastfood', deskripsi: 'Paket hemat side dish + minuman.', stok: 50, terjual: 780, rating: 4.5, totalReview: 123, tags: [], aktif: true },
+  
+  // ==== FRIED CHICKEN ====
+  { id: 13, emoji: '🍗', nama: 'Ayam Sabana Paket Combo Dada', sellerName: 'Ayam Sabana', harga: 20000, subKategori: 'ayam', deskripsi: 'Dada crispy + nasi + saus.', stok: 100, terjual: 5670, rating: 4.8, totalReview: 890, tags: ['legend', 'crispy'], aktif: true },
+  { id: 14, emoji: '🍗', nama: 'Ayam Sabana Paha Bawah', sellerName: 'Ayam Sabana', harga: 18000, subKategori: 'ayam', deskripsi: 'Paha bawah crispy + nasi.', stok: 100, terjual: 4520, rating: 4.9, totalReview: 780, tags: ['crispy'], aktif: true },
+  { id: 15, emoji: '🍔', nama: 'Sabana Chicken Burger', sellerName: 'Ayam Sabana', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'ayam', deskripsi: 'Burger ayam sabana khas.', stok: 40, terjual: 890, rating: 4.6, totalReview: 145, tags: [], aktif: true }
 ];
 
+// ============================================
+// DATA FALLBACKS — PROPERTY (LENGKAP GPS)
+// ============================================
 let dataPropertyFallback = [
-  { id: 'prop_01', emoji: '🏠', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', aktif: true },
-  { id: 'prop_02', emoji: '🏡', type: 'Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', aktif: true },
-  { id: 'prop_03', emoji: '🛏️', type: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', aktif: true },
-  { id: 'prop_04', emoji: '🌾', type: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', aktif: true },
-  { id: 'prop_05', emoji: '🏘️', type: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', aktif: true },
-  { id: 'prop_06', emoji: '🏬', type: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', aktif: true }
+  { id: 'prop_01', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true },
+  { id: 'prop_02', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true },
+  { id: 'prop_03', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true },
+  { id: 'prop_04', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true },
+  { id: 'prop_05', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true },
+  { id: 'prop_06', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true },
+  { id: 'prop_07', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', features: ['4 Kamar', '3 KM', '2 Lantai'], pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true }
 ];
 
+// ============================================
+// DATA FALLBACKS — PENDIDIKAN MANHAJ SALAF
+// ============================================
 let dataPendidikanFallback = [
-  { id: 'edu_01', emoji: '📚', type: 'Bimbel', name: 'Bimbel Cerdas Bersama', desc: 'Bimbingan belajar SD-SMA. Tutor berpengalaman.', biaya: 'Mulai Rp 250 Rb/bulan', jadwal: 'Senin - Sabtu', kontak: '081234567810', aktif: true },
-  { id: 'edu_02', emoji: '🕌', type: 'TPQ / Madrasah', name: 'TPQ Al-Hidayah', desc: 'Belajar mengaji, tahfidz, dan akhlak untuk anak.', biaya: 'Rp 75 Rb/bulan', jadwal: 'Setiap hari ba\'da Ashar', kontak: '081234567811', aktif: true },
-  { id: 'edu_03', emoji: '💻', type: 'Kursus Skill', name: 'Kursus Komputer Cepat', desc: 'Office, desain grafis, digital marketing. Bersertifikat.', biaya: 'Rp 500 Rb - 1,5 Jt', jadwal: 'Flexible', kontak: '081234567812', aktif: true },
-  { id: 'edu_04', emoji: '🎨', type: 'Sanggar Seni', name: 'Sanggar Kreasi Anak', desc: 'Melukis, menari, musik untuk anak & remaja.', biaya: 'Rp 150 Rb/bulan', jadwal: 'Sabtu - Minggu', kontak: '081234567813', aktif: true },
-  { id: 'edu_05', emoji: '⚽', type: 'SSB', name: 'SSB Kec. Utama', desc: 'Sekolah sepak bola usia 6-15 tahun.', biaya: 'Rp 100 Rb/bulan', jadwal: 'Selasa, Kamis, Sabtu', kontak: '081234567814', aktif: true },
-  { id: 'edu_06', emoji: '🗣️', type: 'Kursus Bahasa', name: 'English Corner', desc: 'Bahasa Inggris kids, teens, professional.', biaya: 'Rp 350 Rb/bulan', jadwal: 'Senin - Jumat', kontak: '081234567815', aktif: true }
+  { id: 'edu_01', emoji: '🕌', type: 'pesantren', typeName: 'Ponpes Salaf', name: 'Ma\'had Ibnul Qoyyim Yogyakarta', desc: 'Pondok tahfidz & pengajaran ilmu syar\'i berdasarkan Manhaj Salafush Shalih.', biaya: 'Kontribusi bulanan bervariasi', jadwal: 'Program Mukim & Kalong', kontak: CS_WA, aktif: true },
+  { id: 'edu_02', emoji: '📖', type: 'tahfidz', typeName: 'Rumah Tahfidz', name: 'Bimbingan Tahfidz Al-Bayyinah', desc: 'Tahsin & Tahfidz Qur\'an metode Ummi, sanad muttashil, ustadz alumni Timur Tengah.', biaya: 'Rp 350rb/bulan', jadwal: 'Ba\'da Subuh & Ba\'da Ashar', kontak: CS_WA, aktif: true },
+  { id: 'edu_03', emoji: '🏫', type: 'tksd', typeName: 'SDIT', name: 'SDIT Al-Furqon Al-Islami', desc: 'Sekolah dasar bermanhaj Ahlussunnah. Kurikulum diknas + tahfidz 5 Juz.', biaya: 'DPP Rp 4Jt + Bulanan Rp 750rb', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
+  { id: 'edu_04', emoji: '🎒', type: 'tksd', typeName: 'TKIT', name: 'TKIT Ibnu Taimiyah', desc: 'Taman kanak-kanak Islam terpadu, penekanan adab dan bahasa Arab dasar.', biaya: 'Rp 400rb/bulan', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
+  { id: 'edu_05', emoji: '🏫', type: 'smpsma', typeName: 'SMAIT', name: 'SMAIT Darush Sholihin', desc: 'Sekolah menengah manhaj salaf. Program science & agama seimbang.', biaya: 'DPP Rp 8Jt + Bulanan Rp 950rb', jadwal: 'Full Day School', kontak: CS_WA, aktif: true },
+  { id: 'edu_06', emoji: '🗣️', type: 'bahasa', typeName: 'Bahasa Arab', name: 'Ma\'had Al-Lughoh Bina Karakter', desc: 'Kursus bahasa Arab intensif metode Madinah & Al-Arabiyyah baina Yadaik.', biaya: 'Mulai Rp 500rb/level', jadwal: 'Kelas Online & Offline', kontak: CS_WA, aktif: true },
+  { id: 'edu_07', emoji: '📚', type: 'tahfidz', typeName: 'Halaqoh Al-Qur\'an', name: 'Rumah Qur\'an Al-Atsari', desc: 'Halaqoh khusus akhwat dewasa & remaja. Setoran & muraja\'ah rutin.', biaya: 'Infaq seikhlasnya', jadwal: 'Setiap Ahad Pagi', kontak: CS_WA, aktif: true }
 ];
 
+// ============================================
+// DATA FALLBACKS — TRAVEL UMROH (BARU!)
+// ============================================
+let dataUmrohFallback = [
+  {
+    id: 'um_01',
+    emoji: '🕋',
+    name: 'Umroh Ekonomis Direct Saudia',
+    bulan: 'oktober', bulanLabel: 'Oktober 2026',
+    harga: 27500000, hargaKategori: 'hemat',
+    pesawat: 'saudia', pesawatLabel: 'Saudia Airlines (Direct)',
+    hotel: 'bintang4', hotelLabel: 'Bintang 4',
+    hotelMakkah: 'Rayyana Al Ajyad (400m)',
+    hotelMadinah: 'Al Aqeeq (Ring 2)',
+    durasi: '9 Hari',
+    fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Bus AC', 'Konsumsi 3x'],
+    aktif: true
+  },
+  {
+    id: 'um_02',
+    emoji: '🕋',
+    name: 'Umroh Standar Ramadhan Awal',
+    bulan: 'ramadhan', bulanLabel: 'Ramadhan Awal 2027',
+    harga: 32000000, hargaKategori: 'standar',
+    pesawat: 'garuda', pesawatLabel: 'Garuda Indonesia (Direct)',
+    hotel: 'bintang5', hotelLabel: 'Bintang 5',
+    hotelMakkah: 'Swissotel Al Maqam',
+    hotelMadinah: 'Dar Al Iman Intercontinental',
+    durasi: '12 Hari',
+    fasilitas: ['Visa', 'Manasik', 'Muthowif Berpengalaman', 'Perlengkapan Umroh', 'Konsumsi 3x Prasmanan'],
+    aktif: true
+  },
+  {
+    id: 'um_03',
+    emoji: '⭐',
+    name: 'Umroh Premium VIP Ring 1',
+    bulan: 'desember', bulanLabel: 'Desember 2026',
+    harga: 42500000, hargaKategori: 'premium',
+    pesawat: 'emirates', pesawatLabel: 'Emirates (Transit Dubai)',
+    hotel: 'ring1', hotelLabel: 'Ring 1 Makkah',
+    hotelMakkah: 'Fairmont Makkah Clock Tower',
+    hotelMadinah: 'Anwar Al Madinah Movenpick',
+    durasi: '10 Hari',
+    fasilitas: ['Visa', 'Manasik VIP', 'Ustadz Pembimbing', 'City Tour Dubai', 'Kamar Tripple/Double'],
+    aktif: true
+  },
+  {
+    id: 'um_04',
+    emoji: '🕋',
+    name: 'Umroh Hemat Lion Air',
+    bulan: 'november', bulanLabel: 'November 2026',
+    harga: 26000000, hargaKategori: 'hemat',
+    pesawat: 'lion', pesawatLabel: 'Lion Air (Direct)',
+    hotel: 'bintang4', hotelLabel: 'Bintang 4',
+    hotelMakkah: 'Le Meridien Towers Makkah',
+    hotelMadinah: 'Retaj Al Bayt',
+    durasi: '9 Hari',
+    fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Konsumsi', 'Ziarah'],
+    aktif: true
+  },
+  {
+    id: 'um_05',
+    emoji: '⭐',
+    name: 'Umroh Syawal Qatar Airways',
+    bulan: 'syawal', bulanLabel: 'Syawal 2027',
+    harga: 35000000, hargaKategori: 'standar',
+    pesawat: 'qatar', pesawatLabel: 'Qatar Airways (Transit Doha)',
+    hotel: 'bintang5', hotelLabel: 'Bintang 5',
+    hotelMakkah: 'Pullman Zamzam Makkah',
+    hotelMadinah: 'The Oberoi Madinah',
+    durasi: '11 Hari',
+    fasilitas: ['Visa', 'Manasik', 'Kelas Tahsin', 'Kamar Kuad/Tripple', 'Baggage 30kg'],
+    aktif: true
+  }
+];
+
+// ============================================
+// WIFI FALLBACKS
+// ============================================
 let dataWifiFallback = [
   { id: 1, name: 'Ekonomis', speed: '10', price: '130.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'CS 24 Jam'], popular: false, aktif: true },
   { id: 2, name: 'Basic', speed: '15', price: '165.000', features: ['Unlimited Tanpa FUP', 'Gratis Modem', 'Gratis Kabel'], popular: true, aktif: true },
   { id: 3, name: 'Advanced', speed: '30', price: '220.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Prioritas'], popular: false, aktif: true },
   { id: 4, name: 'Extra', speed: '50', price: '330.000', features: ['Unlimited Tanpa FUP', 'Modem Dual-Band', 'Stabil'], popular: false, aktif: true },
-  { id: 5, name: 'Premiere', speed: '100', price: '550.000', features: ['100 Mbps', 'Wifi 6', 'CS VIP'], popular: false, aktif: true },
-  { id: 6, name: 'Promo Cijeruk', speed: '100', price: '120.000', features: ['Khusus Cijeruk', '100 Mbps', 'Gratis Modem'], popular: true, aktif: true }
+  { id: 5, name: 'Premiere', speed: '100', price: '550.000', features: ['100 Mbps', 'Wifi 6', 'CS VIP'], popular: false, aktif: true }
 ];
 
 let dataWifiCoverageFallback = [
@@ -77,17 +185,16 @@ let dataWifiVouchersFallback = [
 ];
 
 // ============================================
-// INITIALIZATION FIRESTORE LIVE SYNC ENGINE
+// INIT
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
   loadCartFromStorage();
   initLiveDatabase();
   updateCartUI();
+  bindUmrohFilters();
 
   const urlParams = new URLSearchParams(location.search);
-  if (urlParams.get('openCart') === '1') {
-    setTimeout(() => openCart(), 500);
-  }
+  if (urlParams.get('openCart') === '1') setTimeout(() => openCart(), 500);
 });
 
 function initLiveDatabase() {
@@ -96,6 +203,7 @@ function initLiveDatabase() {
     liveProducts = [...dataPasarFallback];
     liveProperties = [...dataPropertyFallback];
     liveEducations = [...dataPendidikanFallback];
+    liveUmroh = [...dataUmrohFallback];
     liveWifiPackages = [...dataWifiFallback];
     liveWifiCoverage = [...dataWifiCoverageFallback];
     liveWifiVouchers = [...dataWifiVouchersFallback];
@@ -107,93 +215,61 @@ function initLiveDatabase() {
 
   function liveCollection(name, onData, onEmptyFallback) {
     db.collection(name).where('aktif', '==', true).onSnapshot(snapshot => {
-      if (!snapshot.empty) {
-        onData(snapshot);
-      } else {
-        db.collection(name).onSnapshot(snap2 => {
-          if (!snap2.empty) onData(snap2);
-          else if (onEmptyFallback) onEmptyFallback();
-        }, () => { if (onEmptyFallback) onEmptyFallback(); });
-      }
+      if (!snapshot.empty) onData(snapshot);
+      else if (onEmptyFallback) onEmptyFallback();
     }, err => {
       console.warn(`⚠️ Sync ${name} gagal:`, err.message);
-      db.collection(name).onSnapshot(snap2 => {
-        if (!snap2.empty) onData(snap2);
-        else if (onEmptyFallback) onEmptyFallback();
-      }, () => { if (onEmptyFallback) onEmptyFallback(); });
+      if (onEmptyFallback) onEmptyFallback();
     });
   }
 
   liveCollection('produk', snapshot => {
     liveProducts = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
-    const el = document.getElementById('statProducts');
-    if (el) el.textContent = liveProducts.length;
     renderPasarStorefront();
-  }, () => {
-    liveProducts = [...dataPasarFallback];
-    renderPasarStorefront();
-  });
-
-  db.collection('sellers').onSnapshot(snapshot => {
-    liveSellers = snapshot.docs.map(doc => doc.data());
-    const el = document.getElementById('statSellers');
-    if (el) el.textContent = liveSellers.length || 6;
-  }, () => {});
-
-  liveCollection('payment_methods', snapshot => {
-    livePayments = snapshot.docs.map(doc => doc.data());
-    populatePaymentMethods();
-  }, () => populatePaymentMethods());
-
-  db.collection('reviews').onSnapshot(snapshot => {
-    liveReviews = snapshot.docs.map(doc => doc.data());
-  }, () => {});
+  }, () => { liveProducts = [...dataPasarFallback]; renderPasarStorefront(); });
 
   liveCollection('properti', snapshot => {
     liveProperties = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderProperty();
-  }, () => {
-    liveProperties = [...dataPropertyFallback];
-    renderProperty();
-  });
+  }, () => { liveProperties = [...dataPropertyFallback]; renderProperty(); });
 
   liveCollection('pendidikan', snapshot => {
     liveEducations = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
     renderEdu();
-  }, () => {
-    liveEducations = [...dataPendidikanFallback];
-    renderEdu();
-  });
+  }, () => { liveEducations = [...dataPendidikanFallback]; renderEdu(); });
+
+  liveCollection('umroh_packages', snapshot => {
+    liveUmroh = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+    renderUmroh();
+  }, () => { liveUmroh = [...dataUmrohFallback]; renderUmroh(); });
 
   liveCollection('wifi_packages', snapshot => {
     liveWifiPackages = snapshot.docs.map(doc => doc.data());
     renderWifi();
-  }, () => {
-    liveWifiPackages = [...dataWifiFallback];
-    renderWifi();
-  });
+  }, () => { liveWifiPackages = [...dataWifiFallback]; renderWifi(); });
 
   db.collection('wifi_coverage').onSnapshot(snapshot => {
     liveWifiCoverage = snapshot.docs.map(doc => doc.data());
     if (liveWifiCoverage.length === 0) liveWifiCoverage = [...dataWifiCoverageFallback];
-  }, () => {
-    liveWifiCoverage = [...dataWifiCoverageFallback];
-  });
+  }, () => { liveWifiCoverage = [...dataWifiCoverageFallback]; });
 
   liveCollection('wifi_vouchers', snapshot => {
     liveWifiVouchers = snapshot.docs.map(doc => doc.data());
     liveWifiVouchers.sort((a, b) => a.hari - b.hari);
     renderWifiVouchers();
-  }, () => {
-    liveWifiVouchers = [...dataWifiVouchersFallback];
-    renderWifiVouchers();
-  });
+  }, () => { liveWifiVouchers = [...dataWifiVouchersFallback]; renderWifiVouchers(); });
+
+  liveCollection('payment_methods', snapshot => {
+    livePayments = snapshot.docs.map(doc => doc.data());
+    populatePaymentMethods();
+  }, () => populatePaymentMethods());
 }
 
 function renderAll() {
   renderPasarStorefront();
   renderProperty();
   renderEdu();
+  renderUmroh();
   renderWifi();
   renderWifiVouchers();
 }
@@ -204,7 +280,7 @@ function openProductDetails(id) {
 }
 
 // ============================================
-// PASAR RENDER ENGINE
+// PASAR / FOOD RENDER
 // ============================================
 function renderPasarStorefront() {
   const grid = document.getElementById('pasarGrid');
@@ -212,49 +288,34 @@ function renderPasarStorefront() {
 
   let filtered = liveProducts.filter(item => {
     const matchKategori = (activeSubKategori === 'all' || item.subKategori === activeSubKategori);
-    const textQuery = searchQuery.toLowerCase();
-    const matchSearch = item.nama.toLowerCase().includes(textQuery) || 
-                        (item.sellerName && item.sellerName.toLowerCase().includes(textQuery)) ||
-                        (item.tags && item.tags.some(t => t.toLowerCase().includes(textQuery)));
+    const q = searchQuery.toLowerCase();
+    const matchSearch = item.nama.toLowerCase().includes(q) || 
+                        (item.sellerName && item.sellerName.toLowerCase().includes(q));
     return matchKategori && matchSearch;
   });
 
   if (filtered.length === 0) {
-    grid.innerHTML = `
-      <div style="grid-column: 1/-1; text-align: center; padding: 40px 0;">
-        <span style="font-size:3rem">🥕</span>
-        <h4 style="margin-top:10px; color:var(--dark)">Produk tidak ditemukan</h4>
-        <p style="color:var(--muted); font-size:0.85rem">Coba ubah kata kunci atau sub-kategori lain.</p>
-      </div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 0"><span style="font-size:3rem">🍽️</span><h4 style="margin-top:10px">Menu tidak ditemukan</h4><p style="color:var(--muted);font-size:0.85rem">Coba filter atau kata kunci lain.</p></div>`;
     return;
   }
 
   grid.innerHTML = filtered.map(p => {
     const originalPrice = p.hargaCoret ? `<span class="strike-price">Rp ${p.hargaCoret.toLocaleString('id-ID')}</span>` : '';
     const discLabel = p.diskon ? `<span class="disc-pill">-${p.diskon}%</span>` : '';
-    
     return `
       <div class="product-card">
-        <div class="product-img" onclick="openProductDetails(${p.id})">
-          ${p.emoji}
-          ${discLabel}
-        </div>
+        <div class="product-img" onclick="openProductDetails(${p.id})">${p.emoji}${discLabel}</div>
         <div class="product-info">
-          <div class="product-vendor"><i class="fas fa-store"></i> ${p.sellerName || 'Mitra UMKM'}</div>
+          <div class="product-vendor"><i class="fas fa-store"></i> ${p.sellerName}</div>
           <div class="product-name" onclick="openProductDetails(${p.id})">${p.nama}</div>
           <div class="price-row" style="margin-bottom:8px">
-            <span style="color:var(--pasar); font-weight:800; font-size:0.95rem">Rp ${p.harga.toLocaleString('id-ID')}</span>
+            <span style="color:var(--pasar);font-weight:800;font-size:0.95rem">Rp ${p.harga.toLocaleString('id-ID')}</span>
             ${originalPrice}
           </div>
-          <div style="font-size:0.75rem; color:var(--muted); margin-bottom:12px;">
-            ⭐ ${p.rating || '5.0'} (${p.totalReview || '0'}) · Terjual ${p.terjual || '0'}
-          </div>
-          <button class="btn-add" onclick="addToCart(${p.id})">
-            <i class="fas fa-plus"></i> Tambah
-          </button>
+          <div style="font-size:0.75rem;color:var(--muted);margin-bottom:12px">⭐ ${p.rating || '5.0'} (${p.totalReview || 0}) · Terjual ${p.terjual || 0}</div>
+          <button class="btn-add" onclick="addToCart(${p.id})"><i class="fas fa-plus"></i> Tambah</button>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
@@ -265,113 +326,236 @@ function handleSearch(val) {
 
 function filterBySubKategori(sub) {
   activeSubKategori = sub;
-  document.querySelectorAll('#pasarFilters .pill').forEach(btn => {
-    btn.classList.remove('active');
-    if (btn.outerHTML.includes(`'${sub}'`)) btn.classList.add('active');
-  });
+  document.querySelectorAll('#pasarFilters .pill').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = [...document.querySelectorAll('#pasarFilters .pill')].find(b => b.getAttribute('onclick')?.includes(`'${sub}'`));
+  if (activeBtn) activeBtn.classList.add('active');
   renderPasarStorefront();
 }
 
 function populatePaymentMethods() {
   const select = document.getElementById('cartPayment');
   if (!select) return;
-
   if (livePayments.length === 0) {
     select.innerHTML = '<option value="cod">💵 COD (Bayar di Tempat)</option>';
     return;
   }
-
   select.innerHTML = livePayments.map(p => {
     const info = p.jenis === 'bank' ? `(A/N ${p.atasNama} - ${p.nomor})` : `(A/N ${p.atasNama})`;
     return `<option value="${p.id}">${p.icon} ${p.nama} — ${info}</option>`;
-  }).join('') + '<option value="cod">💵 COD (Bayar di Tempat)</option>';
+  }).join('') + '<option value="cod">💵 COD</option>';
 }
 
 // ============================================
-// PROPERTY RENDER ENGINE
+// PROPERTY + GPS FILTER + JARAK
 // ============================================
+function haversineDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const a = Math.sin(dLat/2)**2 + Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function shareLocationProperty() {
+  if (!navigator.geolocation) {
+    showToast('❌ GPS tidak didukung browser Anda');
+    return;
+  }
+  showToast('📍 Mendeteksi lokasi Anda...');
+  navigator.geolocation.getCurrentPosition(pos => {
+    userGpsLat = pos.coords.latitude;
+    userGpsLng = pos.coords.longitude;
+    showToast('✓ Lokasi terdeteksi. Properti diurutkan dari terdekat!');
+    renderProperty();
+  }, () => {
+    showToast('❌ Gagal deteksi. Izinkan akses lokasi.');
+  }, { enableHighAccuracy: true, timeout: 10000 });
+}
+
+function filterProperty(type) {
+  activePropertyFilter = type;
+  document.querySelectorAll('#cat-property .filter-pills .pill').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = [...document.querySelectorAll('#cat-property .filter-pills .pill')].find(b => b.getAttribute('onclick')?.includes(`'${type}'`));
+  if (activeBtn) activeBtn.classList.add('active');
+  renderProperty();
+}
+
 function renderProperty() {
   const grid = document.getElementById('propertyGrid');
   if (!grid) return;
 
-  if (liveProperties.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px 0;"><span style="font-size:3rem">🏘️</span><p style="color:var(--muted); margin-top:10px">Belum ada listing properti tersedia.</p></div>`;
+  let list = liveProperties.filter(p => activePropertyFilter === 'all' || p.type === activePropertyFilter);
+
+  // Hitung jarak jika sudah share lokasi
+  if (userGpsLat !== null && userGpsLng !== null) {
+    list = list.map(p => ({
+      ...p,
+      jarak: (p.lat && p.lng) ? haversineDistance(userGpsLat, userGpsLng, p.lat, p.lng) : null
+    })).sort((a, b) => (a.jarak ?? 999) - (b.jarak ?? 999));
+  }
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 0"><span style="font-size:3rem">🏘️</span><p style="color:var(--muted);margin-top:10px">Belum ada properti untuk filter ini.</p></div>`;
     return;
   }
 
-  grid.innerHTML = liveProperties.map(p => {
+  grid.innerHTML = list.map(p => {
     const kontak = p.kontakPemilik || CS_WA;
-    const teks = encodeURIComponent(`Halo, saya berminat menanyakan detail properti: "${p.title}" di ${p.loc} dengan harga ${p.price}. Bisa info lebih lanjut?`);
+    const teks = encodeURIComponent(`Halo, saya berminat properti: "${p.title}" di ${p.loc}. Bisa info detail?`);
+    const jarakLabel = (p.jarak !== null && p.jarak !== undefined) ? `<div style="font-size:0.78rem;color:var(--property);font-weight:700;margin-top:6px"><i class="fas fa-route"></i> ${p.jarak.toFixed(2)} km dari lokasi Anda</div>` : '';
     return `
       <div class="property-card">
-        <div class="property-img">
-          ${p.emoji}
-          <span class="property-status">${p.status}</span>
-        </div>
+        <div class="property-img">${p.emoji}<span class="property-status">${p.status}</span></div>
         <div class="property-info">
-          <div class="property-type">${p.type}</div>
+          <div class="property-type">${p.typeName || p.type}</div>
           <div class="property-title">${p.title}</div>
           <div class="property-loc"><i class="fas fa-map-marker-alt"></i> ${p.loc}</div>
+          ${jarakLabel}
           <div class="property-price">${p.price}</div>
-          <div class="property-features">
-            ${p.features.map(f => `<span><i class="fas fa-check-circle"></i> ${f}</span>`).join('')}
-          </div>
-          <a href="https://wa.me/${kontak}?text=${teks}" target="_blank" class="btn-property">
-            <i class="fab fa-whatsapp"></i> Hubungi ${p.pemilik || 'CS'}
-          </a>
+          <div class="property-features">${p.features.map(f => `<span><i class="fas fa-check-circle"></i> ${f}</span>`).join('')}</div>
+          <a href="https://wa.me/${kontak}?text=${teks}" target="_blank" class="btn-property"><i class="fab fa-whatsapp"></i> Hubungi ${p.pemilik || 'Pemilik'}</a>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
 // ============================================
-// EDUCATION RENDER ENGINE
+// PENDIDIKAN (SALAF)
 // ============================================
+function filterEdu(type) {
+  activeEduFilter = type;
+  document.querySelectorAll('#cat-pendidikan .filter-pills .pill').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = [...document.querySelectorAll('#cat-pendidikan .filter-pills .pill')].find(b => b.getAttribute('onclick')?.includes(`'${type}'`));
+  if (activeBtn) activeBtn.classList.add('active');
+  renderEdu();
+}
+
 function renderEdu() {
   const grid = document.getElementById('eduGrid');
   if (!grid) return;
 
-  if (liveEducations.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px 0;"><span style="font-size:3rem">🎓</span><p style="color:var(--muted); margin-top:10px">Belum ada lembaga pendidikan yang terdaftar.</p></div>`;
+  const list = liveEducations.filter(e => activeEduFilter === 'all' || e.type === activeEduFilter);
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px 0"><span style="font-size:3rem">🎓</span><p style="color:var(--muted);margin-top:10px">Belum ada lembaga untuk kategori ini.</p></div>`;
     return;
   }
 
-  grid.innerHTML = liveEducations.map(e => {
+  grid.innerHTML = list.map(e => {
     const kontak = e.kontak || CS_WA;
-    const teks = encodeURIComponent(`Halo, saya berminat mendaftar / info lebih lanjut mengenai "${e.name}" (${e.type}). Mohon detailnya.`);
+    const teks = encodeURIComponent(`Assalamu'alaikum, saya berminat mendaftar / info mengenai "${e.name}" (${e.typeName || e.type}). Mohon detailnya.`);
     return `
       <div class="edu-card">
         <div class="edu-icon">${e.emoji}</div>
         <div class="edu-info">
-          <div class="edu-type">${e.type}</div>
+          <div class="edu-type">${e.typeName || e.type}</div>
           <div class="edu-name">${e.name}</div>
           <div class="edu-desc">${e.desc}</div>
-          ${e.biaya ? `<div style="font-size:0.78rem; color:var(--pendidikan); font-weight:700; margin-top:6px"><i class="fas fa-tag"></i> ${e.biaya}</div>` : ''}
-          ${e.jadwal ? `<div style="font-size:0.75rem; color:var(--muted); margin-top:2px"><i class="fas fa-clock"></i> ${e.jadwal}</div>` : ''}
-          <a href="https://wa.me/${kontak}?text=${teks}" target="_blank" class="btn-edu" style="margin-top:12px">
-            <i class="fab fa-whatsapp"></i> Ajukan Brosur / Daftar
-          </a>
+          ${e.biaya ? `<div style="font-size:0.78rem;color:var(--pendidikan);font-weight:700;margin-top:6px"><i class="fas fa-tag"></i> ${e.biaya}</div>` : ''}
+          ${e.jadwal ? `<div style="font-size:0.75rem;color:var(--muted);margin-top:2px"><i class="fas fa-clock"></i> ${e.jadwal}</div>` : ''}
+          <a href="https://wa.me/${kontak}?text=${teks}" target="_blank" class="btn-edu" style="margin-top:12px"><i class="fab fa-whatsapp"></i> Info & Pendaftaran</a>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 }
 
 // ============================================
-// WIFI ENGINE (SAFE MODE)
+// TRAVEL UMROH — SPEC & FILTER (BARU!)
+// ============================================
+function bindUmrohFilters() {
+  ['filterBulan','filterHarga','filterPesawat','filterHotel'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', () => {
+      umrohFilter.bulan = document.getElementById('filterBulan')?.value || '';
+      umrohFilter.harga = document.getElementById('filterHarga')?.value || '';
+      umrohFilter.pesawat = document.getElementById('filterPesawat')?.value || '';
+      umrohFilter.hotel = document.getElementById('filterHotel')?.value || '';
+      renderUmroh();
+    });
+  });
+}
+
+function renderUmroh() {
+  const grid = document.getElementById('umrohGrid');
+  if (!grid) return;
+
+  let list = liveUmroh.filter(u => {
+    if (umrohFilter.bulan && u.bulan !== umrohFilter.bulan) return false;
+    if (umrohFilter.harga && u.hargaKategori !== umrohFilter.harga) return false;
+    if (umrohFilter.pesawat && u.pesawat !== umrohFilter.pesawat) return false;
+    if (umrohFilter.hotel && u.hotel !== umrohFilter.hotel) return false;
+    return true;
+  });
+
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:white;border-radius:16px;border:1px solid var(--border)">
+        <i class="fas fa-kaaba" style="font-size:3rem;color:var(--umroh);margin-bottom:12px"></i>
+        <h3 style="font-weight:800">Tidak Ada Paket Sesuai Filter</h3>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px">Kami bisa custom sesuai spesifikasi Anda. Klik di bawah untuk konsultasi.</p>
+        <button onclick="konsultasiCustomUmroh()" class="btn-submit" style="background:var(--gradient-umroh);width:auto;display:inline-flex;margin:0;box-shadow:0 6px 16px var(--umroh-glow)">
+          <i class="fab fa-whatsapp"></i> Konsultasi Paket Customize
+        </button>
+      </div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map(u => {
+    const hargaLabel = 'Rp ' + u.harga.toLocaleString('id-ID');
+    return `
+      <div class="property-card">
+        <div class="property-img" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);font-size:5rem">
+          ${u.emoji}
+          <span class="property-status" style="color:var(--umroh)">${u.durasi}</span>
+        </div>
+        <div class="property-info">
+          <div class="property-type" style="color:var(--umroh)">${u.bulanLabel}</div>
+          <div class="property-title">${u.name}</div>
+          <div class="property-price" style="color:var(--umroh)">${hargaLabel}</div>
+          <div style="display:grid;gap:6px;font-size:0.82rem;color:var(--text-secondary);padding:10px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border);margin-bottom:14px">
+            <div><i class="fas fa-plane" style="color:var(--umroh);width:18px"></i> <b>${u.pesawatLabel}</b></div>
+            <div><i class="fas fa-hotel" style="color:var(--umroh);width:18px"></i> Makkah: <b>${u.hotelMakkah}</b></div>
+            <div><i class="fas fa-mosque" style="color:var(--umroh);width:18px"></i> Madinah: <b>${u.hotelMadinah}</b></div>
+          </div>
+          <div class="property-features" style="border:none;padding:0;margin-bottom:14px">
+            ${u.fasilitas.map(f => `<span><i class="fas fa-check-circle" style="color:var(--umroh)"></i> ${f}</span>`).join('')}
+          </div>
+          <button onclick="daftarUmroh('${u.id}')" class="btn-property" style="background:var(--gradient-umroh);box-shadow:0 4px 12px var(--umroh-glow)">
+            <i class="fab fa-whatsapp"></i> Daftar / Info Detail
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function daftarUmroh(id) {
+  const u = liveUmroh.find(x => x.id === id);
+  if (!u) return;
+  const msg = `*🕋 PENDAFTARAN UMROH*\n==============================\n\n📦 *Paket:* ${u.name}\n📅 *Keberangkatan:* ${u.bulanLabel}\n⏱️ *Durasi:* ${u.durasi}\n💰 *Harga:* Rp ${u.harga.toLocaleString('id-ID')}\n\n✈️ *Pesawat:* ${u.pesawatLabel}\n🏨 *Hotel Makkah:* ${u.hotelMakkah}\n🕌 *Hotel Madinah:* ${u.hotelMadinah}\n\n✅ *Fasilitas Include:*\n${u.fasilitas.map(f => '- ' + f).join('\n')}\n\nMohon info detail pembayaran & jadwal manasik. 🙏`;
+  window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function konsultasiCustomUmroh() {
+  const b = umrohFilter.bulan || '(fleksibel)';
+  const h = umrohFilter.harga || '(fleksibel)';
+  const p = umrohFilter.pesawat || '(fleksibel)';
+  const ht = umrohFilter.hotel || '(fleksibel)';
+  const msg = `*🕋 KONSULTASI UMROH CUSTOM*\n==============================\n\nAssalamu'alaikum, saya ingin custom paket Umroh dengan preferensi:\n\n📅 Bulan: *${b}*\n💰 Range Harga: *${h}*\n✈️ Pesawat: *${p}*\n🏨 Hotel: *${ht}*\n\nMohon bantuannya untuk menyusunkan paket yang sesuai. Jazakumullah khairan. 🙏`;
+  window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ============================================
+// WIFI ENGINE
 // ============================================
 function switchWifiTab(type) {
   const tabFiber = document.getElementById('btnTabFiber');
   const tabVoucher = document.getElementById('btnTabVoucher');
   const contentFiber = document.getElementById('contentWifiFiber');
   const contentVoucher = document.getElementById('contentWifiVoucher');
-  
   if (tabFiber) tabFiber.classList.remove('active');
   if (tabVoucher) tabVoucher.classList.remove('active');
   if (contentFiber) contentFiber.style.display = 'none';
   if (contentVoucher) contentVoucher.style.display = 'none';
-  
   if (type === 'fiber') {
     if (tabFiber) tabFiber.classList.add('active');
     if (contentFiber) contentFiber.style.display = 'block';
@@ -390,32 +574,19 @@ function renderWifi() {
       <div class="wifi-speed">${w.speed}</div>
       <div class="wifi-unit">Mbps</div>
       <div class="wifi-price">Rp ${w.price} <small>/bulan</small></div>
-      <ul class="wifi-list">
-        ${w.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}
-      </ul>
-    </div>
-  `).join('');
-}
-
-function distanceKm(lat1, lng1, lat2, lng2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLng = (lng2 - lng1) * Math.PI / 180;
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) ** 2;
-  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      <ul class="wifi-list">${w.features.map(f => `<li><i class="fas fa-check"></i> ${f}</li>`).join('')}</ul>
+    </div>`).join('');
 }
 
 function findCoverage(userLat, userLng) {
   const hits = [];
   liveWifiCoverage.forEach(w => {
-    const d = distanceKm(userLat, userLng, w.lat, w.lng);
+    const d = haversineDistance(userLat, userLng, w.lat, w.lng);
     if (d <= w.radiusKm) hits.push({ ...w, jarak: d });
   });
   hits.sort((a, b) => a.jarak - b.jarak);
   return hits;
 }
-
-let lastUserLat = null; let lastUserLng = null;
 
 function setLocStatus(msg, type) {
   const el = document.getElementById('locStatus');
@@ -429,7 +600,7 @@ function shareLocationWifi() {
   const btn = document.getElementById('btnShareLoc');
   if (!btn) return;
   if (!navigator.geolocation) {
-    setLocStatus('❌ Sensor GPS tidak disokong browser Anda.', 'err');
+    setLocStatus('❌ Sensor GPS tidak disokong browser.', 'err');
     showManualWifiForm();
     return;
   }
@@ -437,68 +608,42 @@ function shareLocationWifi() {
   btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menghubungi Satelit...';
   setLocStatus('📍 Menunggu izin GPS...', 'load');
 
-  navigator.geolocation.getCurrentPosition(
-    (pos) => {
-      lastUserLat = pos.coords.latitude;
-      lastUserLng = pos.coords.longitude;
-      const acc = Math.round(pos.coords.accuracy);
-
-      const latEl = document.getElementById('wifiLat');
-      const lngEl = document.getElementById('wifiLng');
-      if (latEl) latEl.value = lastUserLat;
-      if (lngEl) lngEl.value = lastUserLng;
-      setLocStatus(`✅ Lokasi teridentifikasi (Akurasi: ±${acc}m)<br><small>GPS: ${lastUserLat.toFixed(6)}, ${lastUserLng.toFixed(6)}</small>`, 'ok');
-
-      const hits = findCoverage(lastUserLat, lastUserLng);
-      renderCoverageResult(hits);
-      const form = document.getElementById('wifiForm');
-      if (form) form.style.display = 'block';
-      fillPaketOptions(hits);
-
-      const wDetected = document.getElementById('wifiWilayahDetected');
-      const wJarak = document.getElementById('wifiJarak');
-      if (hits.length > 0) {
-        if (wDetected) wDetected.value = hits[0].nama;
-        if (wJarak) wJarak.value = hits[0].jarak.toFixed(2) + ' km';
-      } else {
-        if (wDetected) wDetected.value = 'Di Luar Coverage';
-        if (wJarak) wJarak.value = '-';
-      }
-      reverseGeocode(lastUserLat, lastUserLng);
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-sync-alt"></i> Kalibrasi Ulang GPS';
-    },
-    () => {
-      setLocStatus('❌ GPS gagal. Isi alamat manual.', 'err');
-      showManualWifiForm();
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-location-arrow"></i> Coba Lagi';
-    },
-    { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
-  );
+  navigator.geolocation.getCurrentPosition(pos => {
+    const lat = pos.coords.latitude;
+    const lng = pos.coords.longitude;
+    const acc = Math.round(pos.coords.accuracy);
+    if (document.getElementById('wifiLat')) document.getElementById('wifiLat').value = lat;
+    if (document.getElementById('wifiLng')) document.getElementById('wifiLng').value = lng;
+    setLocStatus(`✅ Lokasi teridentifikasi (Akurasi: ±${acc}m)`, 'ok');
+    const hits = findCoverage(lat, lng);
+    renderCoverageResult(hits);
+    const form = document.getElementById('wifiForm');
+    if (form) form.style.display = 'block';
+    fillPaketOptions(hits);
+    if (hits.length > 0) {
+      if (document.getElementById('wifiWilayahDetected')) document.getElementById('wifiWilayahDetected').value = hits[0].nama;
+      if (document.getElementById('wifiJarak')) document.getElementById('wifiJarak').value = hits[0].jarak.toFixed(2) + ' km';
+    }
+    reverseGeocode(lat, lng);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-sync-alt"></i> Kalibrasi Ulang GPS';
+  }, () => {
+    setLocStatus('❌ GPS gagal. Isi alamat manual.', 'err');
+    showManualWifiForm();
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fas fa-location-arrow"></i> Coba Lagi';
+  }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 });
 }
 
 function renderCoverageResult(hits) {
   const box = document.getElementById('coverageResult');
   if (!box) return;
   box.style.display = 'block';
-
   if (!hits.length) {
-    box.innerHTML = `<div class="coverage-empty"><i class="fas fa-exclamation-triangle"></i><b>Maaf, rumah Anda di luar radius kabel fiber optik.</b><br>Tetap kirim koordinat agar tim survei kami periksa penambahan rute.</div>`;
+    box.innerHTML = `<div class="coverage-empty"><i class="fas fa-exclamation-triangle"></i><b>Maaf, di luar coverage saat ini.</b><br>Data akan diteruskan ke tim survei.</div>`;
     return;
   }
-
-  box.innerHTML = `
-    <div style="font-size:0.88rem;color:var(--muted);margin-bottom:10px;font-weight:600">
-      <i class="fas fa-check-circle" style="color:#059669"></i> Terbaca di jaringan rujukan:
-    </div>
-    ${hits.map(h => `
-      <div class="coverage-card">
-        <h4><i class="fas fa-broadcast-tower" style="color:var(--primary)"></i>${h.nama}<span style="font-size:0.72rem;font-weight:600;color:var(--muted);margin-left:auto">±${h.jarak.toFixed(2)} km</span></h4>
-        <div class="coverage-meta">Radius: <b>${h.radiusKm} km</b> · ISP: <b>Youfiber (Regynet)</b></div>
-      </div>
-    `).join('')}
-  `;
+  box.innerHTML = `<div style="font-size:0.88rem;color:var(--muted);margin-bottom:10px;font-weight:600"><i class="fas fa-check-circle" style="color:#059669"></i> Terdeteksi coverage:</div>${hits.map(h => `<div class="coverage-card"><h4><i class="fas fa-broadcast-tower" style="color:var(--primary)"></i>${h.nama}<span style="font-size:0.72rem;margin-left:auto;color:var(--muted)">±${h.jarak.toFixed(2)} km</span></h4></div>`).join('')}`;
 }
 
 function fillPaketOptions(hits) {
@@ -506,39 +651,28 @@ function fillPaketOptions(hits) {
   if (!sel) return;
   const map = new Map();
   if (hits.length) {
-    hits.forEach(h => {
-      h.paket.forEach(p => {
-        const key = p.name + '|' + p.price;
-        if (!map.has(key)) map.set(key, p);
-      });
-    });
+    hits.forEach(h => h.paket.forEach(p => map.set(p.name + '|' + p.price, p)));
   } else {
-    liveWifiPackages.forEach(p => {
-      map.set(p.name, { name: p.name + ' ' + p.speed + ' Mbps', price: Number(p.price.replace(/\./g, '')) });
-    });
+    liveWifiPackages.forEach(p => map.set(p.name, { name: p.name + ' ' + p.speed + ' Mbps', price: Number(p.price.replace(/\./g, '')) }));
   }
-  sel.innerHTML = '<option value="">-- Pilih Paket Internet --</option>' +
-    [...map.values()].map(p => `<option value="${p.name} - Rp ${p.price.toLocaleString('id-ID')}">${p.name} — Rp ${p.price.toLocaleString('id-ID')}/bulan</option>`).join('');
+  sel.innerHTML = '<option value="">-- Pilih Paket --</option>' + [...map.values()].map(p => `<option value="${p.name} - Rp ${p.price.toLocaleString('id-ID')}">${p.name} — Rp ${p.price.toLocaleString('id-ID')}/bulan</option>`).join('');
 }
 
 function showManualWifiForm() {
   const form = document.getElementById('wifiForm');
   if (form) form.style.display = 'block';
   fillPaketOptions([]);
-  const el = document.getElementById('wifiWilayahDetected');
-  if (el) el.value = 'Input Manual';
 }
 
 async function reverseGeocode(lat, lng) {
   try {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`;
-    const res = await fetch(url, { headers: { 'Accept-Language': 'id', 'User-Agent': 'PortalWargaApp/3.0' } });
+    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18`, { headers: { 'Accept-Language': 'id' } });
     const data = await res.json();
     if (data && data.display_name) {
       const el = document.getElementById('wifiAlamat');
       if (el && !el.value) el.value = data.display_name;
     }
-  } catch (e) { console.warn('Reverse geocode gagal:', e); }
+  } catch (e) {}
 }
 
 function submitWifiCoverage(e) {
@@ -547,42 +681,23 @@ function submitWifiCoverage(e) {
   const wa = document.getElementById('wifiWa')?.value.trim();
   const alamat = document.getElementById('wifiAlamat')?.value.trim();
   const paket = document.getElementById('wifiPaket')?.value;
-  const wilayah = document.getElementById('wifiWilayahDetected')?.value || '-';
-  const jarak = document.getElementById('wifiJarak')?.value || '-';
   const lat = document.getElementById('wifiLat')?.value || '-';
   const lng = document.getElementById('wifiLng')?.value || '-';
-
-  if (!nama || !wa || !alamat || !paket) { showToast('⚠️ Mohon lengkapi seluruh isian!'); return; }
-  if (typeof recordWifiRegistration === 'function') {
-    recordWifiRegistration(nama, wa, `[${wilayah} | ${jarak}] ${alamat} | GPS: ${lat},${lng}`, paket);
-  }
-
-  const mapsLink = (lat !== '-' && lng !== '-') ? `https://www.google.com/maps?q=${lat},${lng}` : '-';
-  let msg = `*📡 REGISTRASI YOUFIBER REGYNET*\n===========================\n\n👤 *Pendaftar:* ${nama}\n📱 *WhatsApp:* ${wa}\n\n📦 *Paket:* ${paket}\n🗺️ *Wilayah:* ${wilayah} (${jarak})\n📍 *Alamat:* ${alamat}\n\n📌 *Pin Maps:* ${mapsLink}\n_Koordinat: ${lat}, ${lng}_\n\nMohon dijadwalkan survei. 🙏`;
-
+  if (!nama || !wa || !alamat || !paket) { showToast('⚠️ Lengkapi seluruh isian!'); return; }
+  const mapsLink = (lat !== '-') ? `https://www.google.com/maps?q=${lat},${lng}` : '-';
+  const msg = `*📡 REGISTRASI WIFI RUMAH*\n\n👤 ${nama}\n📱 ${wa}\n📦 ${paket}\n📍 ${alamat}\n🗺️ ${mapsLink}`;
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
   showToast('✓ Pendaftaran terkirim!');
   e.target.reset();
-
-  setTimeout(() => {
-    const f1 = document.getElementById('wifiForm');
-    const f2 = document.getElementById('coverageResult');
-    const f3 = document.getElementById('locStatus');
-    if (f1) f1.style.display = 'none';
-    if (f2) f2.style.display = 'none';
-    if (f3) f3.style.display = 'none';
-  }, 4000);
 }
 
 function renderWifiVouchers() {
   const grid = document.getElementById('voucherGrid');
   if (!grid) return;
-
   if (liveWifiVouchers.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 20px 0; color:var(--muted)">Belum ada voucher yang tersedia saat ini.</div>`;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:20px 0;color:var(--muted)">Belum ada voucher.</div>`;
     return;
   }
-
   grid.innerHTML = liveWifiVouchers.map(v => `
     <div class="voucher-card">
       <div class="voucher-head">
@@ -591,107 +706,69 @@ function renderWifiVouchers() {
       </div>
       <div class="voucher-body">
         <div class="v-price">Rp ${v.hargaUser.toLocaleString('id-ID')}</div>
-        <div class="v-agen-price">
-          Harga Khusus Agen: <b>Rp ${v.hargaAgen.toLocaleString('id-ID')}</b>
-        </div>
-        <button class="btn-buy-voucher" onclick="beliVoucherWA(${v.hari}, ${v.hargaUser})">
-          <i class="fab fa-whatsapp" style="color:#25D366; font-size:1.1rem"></i> Beli via WhatsApp
-        </button>
+        <div class="v-agen-price">Harga Agen: <b>Rp ${v.hargaAgen.toLocaleString('id-ID')}</b></div>
+        <button class="btn-buy-voucher" onclick="beliVoucherWA(${v.hari}, ${v.hargaUser})"><i class="fab fa-whatsapp" style="color:#25D366"></i> Beli via WhatsApp</button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function beliVoucherWA(hari, harga) {
-  let msg = `*🎫 PEMBELIAN VOUCHER WIFI (HOTSPOT)*\n===========================\n\nHalo CS, saya berminat membeli Voucher WiFi dengan detail:\n\nMasa Aktif : *${hari} Hari*\nHarga User : *Rp ${harga.toLocaleString('id-ID')}*\n\nMohon kirimkan instruksi QRIS/Transfer untuk pembayarannya. Setelah transfer, tolong kirimkan kode vouchernya ke nomor WA ini ya. Terima kasih! 🙏`;
+  const msg = `*🎫 BELI VOUCHER HOTSPOT*\n\nMasa Aktif: *${hari} Hari*\nHarga: *Rp ${harga.toLocaleString('id-ID')}*\n\nMohon instruksi pembayaran. Terima kasih!`;
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 // ============================================
-// CART STORAGE SYSTEM
+// CART SYSTEM
 // ============================================
 let cart = [];
 
 function loadCartFromStorage() {
   const saved = localStorage.getItem('pw_cart');
-  if (saved) {
-    try { cart = JSON.parse(saved); } catch (e) { cart = []; }
-  }
+  if (saved) { try { cart = JSON.parse(saved); } catch (e) { cart = []; } }
 }
-
-function saveCartToStorage() {
-  localStorage.setItem('pw_cart', JSON.stringify(cart));
-}
+function saveCartToStorage() { localStorage.setItem('pw_cart', JSON.stringify(cart)); }
 
 function addToCart(id) {
   const product = liveProducts.find(p => p.id === id);
   if (!product) return;
   const existing = cart.find(c => c.id === id);
-  
-  if (existing) {
-    existing.qty++;
-  } else {
-    cart.push({
-      id: product.id,
-      nama: product.nama,
-      sellerName: product.sellerName,
-      sellerId: product.sellerId || product.sellerName,
-      emoji: product.emoji,
-      harga: product.harga,
-      qty: 1
-    });
-  }
-  
+  if (existing) existing.qty++;
+  else cart.push({ id: product.id, nama: product.nama, sellerName: product.sellerName, sellerId: product.sellerId || product.sellerName, emoji: product.emoji, harga: product.harga, qty: 1 });
   saveCartToStorage();
   updateCartUI();
   showToast(`✓ ${product.nama} ditambahkan!`);
 }
 
-function removeFromCart(id) {
-  cart = cart.filter(c => c.id !== id);
-  saveCartToStorage();
-  updateCartUI();
-}
+function removeFromCart(id) { cart = cart.filter(c => c.id !== id); saveCartToStorage(); updateCartUI(); }
 
 function changeQty(id, delta) {
   const item = cart.find(c => c.id === id);
   if (!item) return;
   item.qty += delta;
   if (item.qty <= 0) removeFromCart(id);
-  else {
-    saveCartToStorage();
-    updateCartUI();
-  }
+  else { saveCartToStorage(); updateCartUI(); }
 }
 
 function updateCartUI() {
-  const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
-  const totalPrice = cart.reduce((sum, c) => sum + (c.harga * c.qty), 0);
-  
-  // Header Badge
+  const totalItems = cart.reduce((s, c) => s + c.qty, 0);
+  const totalPrice = cart.reduce((s, c) => s + (c.harga * c.qty), 0);
   const badgeEl = document.getElementById('cartBadge');
   if (badgeEl) badgeEl.textContent = totalItems;
-
-  // Ringkasan Footer
   const elCount = document.getElementById('cartItemCount');
   const elSub = document.getElementById('cartSubtotal');
   const elTotal = document.getElementById('cartTotal');
   const btnGo = document.getElementById('btnGoCheckout');
-
   if (elCount) elCount.textContent = totalItems;
   if (elSub) elSub.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
   if (elTotal) elTotal.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
   if (btnGo) btnGo.disabled = (cart.length === 0);
 
-  // Isi Keranjang
   const cartBody = document.getElementById('cartBody');
   if (!cartBody) return;
-  
   if (cart.length === 0) {
     cartBody.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p>Keranjang kosong</p></div>`;
     return;
   }
-
   cartBody.innerHTML = cart.map(c => `
     <div class="cart-item">
       <div class="cart-item-img">${c.emoji}</div>
@@ -706,38 +783,27 @@ function updateCartUI() {
         </div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function openCart() {
-  const drawer = document.getElementById('cartDrawer');
-  const overlay = document.getElementById('cartOverlay');
-  if (drawer) drawer.classList.add('open');
-  if (overlay) overlay.classList.add('show');
+  document.getElementById('cartDrawer')?.classList.add('open');
+  document.getElementById('cartOverlay')?.classList.add('show');
+  document.body.classList.add('cart-open');
 }
-
 function closeCart() {
-  const drawer = document.getElementById('cartDrawer');
-  const overlay = document.getElementById('cartOverlay');
-  if (drawer) drawer.classList.remove('open');
-  if (overlay) overlay.classList.remove('show');
+  document.getElementById('cartDrawer')?.classList.remove('open');
+  document.getElementById('cartOverlay')?.classList.remove('show');
+  document.body.classList.remove('cart-open');
 }
-
-// ============================================
-// CHECKOUT REDIRECT
-// ============================================
 function goToCheckout() {
-  if (cart.length === 0) {
-    showToast('⚠️ Keranjang Anda masih kosong!');
-    return;
-  }
+  if (cart.length === 0) { showToast('⚠️ Keranjang kosong!'); return; }
   saveCartToStorage();
   window.location.href = 'checkout.html';
 }
 
 // ============================================
-// NAVIGATION SYSTEM (SAFE MODE)
+// NAVIGATION
 // ============================================
 function showCategory(cat) {
   document.querySelectorAll('.cat-section').forEach(s => s.classList.remove('active'));
@@ -745,16 +811,10 @@ function showCategory(cat) {
   if (target) target.classList.add('active');
 
   document.querySelectorAll('.desktop-nav .d-nav-item').forEach(m => m.classList.remove('active'));
-  const dTarget = document.querySelector(`.desktop-nav .d-nav-item[onclick*="'${cat}'"]`);
-  if (dTarget) dTarget.classList.add('active');
+  document.querySelector(`.desktop-nav .d-nav-item[onclick*="'${cat}'"]`)?.classList.add('active');
 
   document.querySelectorAll('.mobile-bottom-nav .m-nav-item').forEach(m => m.classList.remove('active'));
-  const mTarget = document.querySelector(`.mobile-bottom-nav .m-nav-item[data-target="${cat}"]`);
-  if (mTarget) mTarget.classList.add('active');
-
-  document.querySelectorAll('.menu-card').forEach(m => m.classList.remove('active'));
-  const menuCard = document.querySelector('.menu-' + cat);
-  if (menuCard) menuCard.classList.add('active');
+  document.querySelector(`.mobile-bottom-nav .m-nav-item[data-target="${cat}"]`)?.classList.add('active');
 
   const offset = window.innerWidth > 768 ? 100 : 120;
   const targetEl = document.getElementById('contentArea');
@@ -765,7 +825,7 @@ function showCategory(cat) {
 }
 
 // ============================================
-// TOAST UTILITIES
+// TOAST
 // ============================================
 let toastTimeout;
 function showToast(msg) {
