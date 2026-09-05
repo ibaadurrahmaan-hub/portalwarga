@@ -1208,3 +1208,21 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 .product-info .price-row {
   margin-top: auto !important; /* Ini yg meratakan harga & tombol ke bawah */
 }
+
+/* ==========================================================================
+   FIX: Tombol Pendidikan "Info & Pendaftaran" Rata Tengah
+   ========================================================================== */
+.btn-edu {
+  width: 100% !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;   /* teks + ikon ke tengah */
+  gap: 8px !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+}
+
+.btn-edu i {
+  margin: 0 !important;                 /* hilangkan margin kiri yang mendorong teks */
+  line-height: 1 !important;
+}
