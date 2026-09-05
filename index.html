@@ -16,37 +16,14 @@
 <!-- ============================================
      PRIMARY SEO META TAGS
      ============================================ -->
-<title>PortalWarga — Pusat Layanan Terpadu Kecamatan | Pasar, Property, Pendidikan & WiFi</title>
+<title>PortalWarga — Food, Properti, Pendidikan Salaf, WiFi & Umroh</title>
 <meta name="title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
-<meta name="description" content="Portal layanan terpadu tingkat kecamatan. Belanja pasar segar dari UMKM lokal, cari kontrakan & property, info pendidikan/bimbel, hingga pasang WiFi Youfiber Regynet.">
-<meta name="keywords" content="portal warga, layanan kecamatan, pasar online lokal, belanja UMKM, property kontrakan kos, info pendidikan bimbel, pasang wifi rumah, voucher wifi, youfiber, regynet, kurir lokal, super app kecamatan">
+<meta name="description" content="Pesan antar Gacoan & Solaria, cari properti terdekat, info pendidikan Islam/Salaf, pasang WiFi rumah, hingga pendaftaran Travel Umroh terpercaya.">
+<meta name="keywords" content="pesan gacoan, properti lokal, pendidikan manhaj salaf, pasang wifi, travel umroh terpercaya, portal warga kecamatan">
 <meta name="author" content="PortalWarga">
 <meta name="creator" content="Ibaadurrahmaan Web Designer">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta name="language" content="id-ID">
-<meta name="rating" content="general">
-<link rel="canonical" href="https://ibaadurrahmaan-hub.github.io/portalwarga/">
-
-<!-- ============================================
-     OPEN GRAPH (WHATSAPP, FACEBOOK, TELEGRAM)
-     ============================================ -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://ibaadurrahmaan-hub.github.io/portalwarga/">
-<meta property="og:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
-<meta property="og:description" content="Belanja sayur segar UMKM, cari properti, info pendidikan, hingga pasang WiFi fiber optik. Semua dalam satu genggaman warga.">
-<meta property="og:image" content="https://ibaadurrahmaan-hub.github.io/portalwarga/portalwarga.png">
-<meta property="og:image:alt" content="Logo PortalWarga">
-<meta property="og:site_name" content="PortalWarga">
-<meta property="og:locale" content="id_ID">
-
-<!-- ============================================
-     TWITTER CARDS
-     ============================================ -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://ibaadurrahmaan-hub.github.io/portalwarga/">
-<meta name="twitter:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
-<meta name="twitter:description" content="Belanja sayur segar UMKM, cari properti, info pendidikan, hingga pasang WiFi fiber optik.">
-<meta name="twitter:image" content="https://ibaadurrahmaan-hub.github.io/portalwarga/portalwarga.png">
 
 <!-- ============================================
      ICONS & FAVICON
@@ -62,6 +39,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
+
+<!-- CSS KHUSUS UNTUK UPDATE UMROH & 5 MENU NAVIGASI -->
+<style>
+  /* Warna Tema Umroh (Gold/Premium) */
+  :root {
+    --umroh: #D97706;
+    --umroh-light: #FEF3C7;
+    --umroh-glow: rgba(217, 119, 6, 0.35);
+    --gradient-umroh: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);
+  }
+  .cat-tag.umroh { background: var(--gradient-umroh); box-shadow: 0 8px 20px var(--umroh-glow); }
+  .menu-umroh { color: var(--umroh); }
+  
+  /* Filter Dropdown Umroh */
+  .advanced-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; width: 100%; }
+  .adv-select { padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); font-family: inherit; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); background: white; cursor: pointer; outline: none; transition: all 0.2s ease; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 14px top 50%; background-size: 10px auto; }
+  .adv-select:focus { border-color: var(--umroh); box-shadow: 0 0 0 4px var(--umroh-glow); }
+
+  /* Penyesuaian 5 Menu di Mobile Nav (Agar muat) */
+  @media (max-width: 768px) {
+    .m-nav-item span { font-size: 0.65rem !important; letter-spacing: -0.3px; }
+    .m-nav-item i { font-size: 1rem !important; }
+    .mobile-bottom-nav { max-width: 380px !important; }
+    .advanced-filters { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 
 <!-- ============================================
      FIREBASE DATABASE
@@ -97,16 +100,19 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation -->
+      <!-- Desktop Navigation (5 Menu) -->
       <nav class="desktop-nav">
         <a href="#cat-pasar" class="d-nav-item active" onclick="showCategory('pasar')">
-          <i class="fas fa-shopping-basket"></i> Pasar
+          <i class="fas fa-hamburger"></i> Food
         </a>
         <a href="#cat-property" class="d-nav-item" onclick="showCategory('property')">
           <i class="fas fa-home"></i> Property
         </a>
         <a href="#cat-pendidikan" class="d-nav-item" onclick="showCategory('pendidikan')">
-          <i class="fas fa-graduation-cap"></i> Pendidikan
+          <i class="fas fa-book-open"></i> Pendidikan
+        </a>
+        <a href="#cat-umroh" class="d-nav-item" onclick="showCategory('umroh')">
+          <i class="fas fa-kaaba"></i> Umroh
         </a>
         <a href="#cat-wifi" class="d-nav-item" onclick="showCategory('wifi')">
           <i class="fas fa-wifi"></i> WiFi
@@ -133,148 +139,195 @@
 <section class="hero">
   <div class="container">
     <div class="hero-content">
-      <span class="hero-badge"><i class="fas fa-bolt" aria-hidden="true"></i> Hyperlocal E-Commerce Warga</span>
-      <h1>Semua Kebutuhan Warga <br><span class="text-highlight">Dalam Satu Portal</span></h1>
-      <p>Belanja pasar segar, cari property, info pendidikan, hingga pasang WiFi & beli Voucher. Tim CS kami siap melayani Anda.</p>
+      <span class="hero-badge"><i class="fas fa-bolt" aria-hidden="true"></i> Layanan Terpadu Warga</span>
+      <h1>Kebutuhan Harian Warga <br><span class="text-highlight">Dalam Satu Portal</span></h1>
+      <p>Pesan Gacoan & Solaria, cari rumah, info sekolah Islam, daftar Umroh, hingga pasang WiFi. CS kami siap memandu Anda.</p>
       <div class="hero-stats">
         <div class="stat">
-          <div class="stat-icon" style="color:var(--pasar); background:var(--pasar-light);"><i class="fas fa-store"></i></div>
+          <div class="stat-icon" style="color:var(--pasar); background:var(--pasar-light);"><i class="fas fa-utensils"></i></div>
           <div class="stat-body">
-            <b id="statSellers">6</b>
-            <span>Mitra UMKM</span>
+            <b id="statSellers">Top</b>
+            <span>Brand F&B</span>
           </div>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
-          <div class="stat-icon" style="color:var(--primary); background:var(--primary-light);"><i class="fas fa-cubes"></i></div>
+          <div class="stat-icon" style="color:var(--property); background:var(--property-light);"><i class="fas fa-map-marked-alt"></i></div>
           <div class="stat-body">
-            <b id="statProducts">18</b>
-            <span>Produk Segar</span>
+            <b id="statProducts">100+</b>
+            <span>Listing Lokal</span>
           </div>
         </div>
         <div class="stat-divider"></div>
         <div class="stat">
-          <div class="stat-icon" style="color:var(--property); background:var(--property-light);"><i class="fas fa-shipping-fast"></i></div>
+          <div class="stat-icon" style="color:var(--umroh); background:var(--umroh-light);"><i class="fas fa-plane-departure"></i></div>
           <div class="stat-body">
-            <b>15 Menit</b>
-            <span>Estimasi Antar</span>
+            <b>Aman</b>
+            <span>Travel Verifikasi</span>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-
-
-<!-- ============ MAIN MENU ============ -->
-<section class="main-menu" aria-label="Menu layanan utama">
-  <div class="container">
-    <div class="section-title">
-      <h2>Pilih Layanan</h2>
-      <p>Semua terpusat & dikawal oleh WhatsApp CS kami</p>
-    </div>
-
-    <div class="menu-grid">
-      <button class="menu-card menu-pasar active" onclick="showCategory('pasar')" type="button">
-        <div class="menu-icon">🛒</div>
-        <h3>Pasar Warga</h3>
-        <p>Sayur, lauk, sembako</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
-      </button>
-
-      <button class="menu-card menu-property" onclick="showCategory('property')" type="button">
-        <div class="menu-icon">🏠</div>
-        <h3>Property</h3>
-        <p>Kontrakan, kos, tanah</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
-      </button>
-
-      <button class="menu-card menu-pendidikan" onclick="showCategory('pendidikan')" type="button">
-        <div class="menu-icon">🎓</div>
-        <h3>Pendidikan</h3>
-        <p>Sekolah, bimbel, kursus</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
-      </button>
-
-      <button class="menu-card menu-wifi" onclick="showCategory('wifi')" type="button">
-        <div class="menu-icon">📡</div>
-        <h3>Internet WiFi</h3>
-        <p>Pasang baru & Beli Voucher</p>
-        <span class="menu-arrow"><i class="fas fa-arrow-right"></i></span>
-      </button>
-    </div>
-  </div>
-</section>
-
 
 <!-- ============ CONTENT AREA (DYNAMIC) ============ -->
 <section class="content-area" id="contentArea">
 
-  <!-- ==== PASAR (E-COMMERCE) ==== -->
+  <!-- ==== 1. PASAR / FOOD (Brand Populer Fokus) ==== -->
   <div class="cat-section active" id="cat-pasar">
     <div class="container">
       <div class="cat-header">
         <div>
-          <span class="cat-tag pasar"><i class="fas fa-shopping-cart"></i> PASAR ONLINE</span>
-          <h2>Lapak Bahan Segar & Sembako</h2>
-          <p>Belanja harian praktis dari UMKM lokal, diantar kurir langsung ke rumah Anda!</p>
+          <span class="cat-tag pasar"><i class="fas fa-motorcycle"></i> PESAN ANTAR MAKANAN</span>
+          <h2>Jajanan Hits & F&B Populer</h2>
+          <p>Mie Gacoan, Hokben, Solaria, Domino's hingga Ayam Sabana. Pesan via kami, diantar cepat tanpa antri!</p>
         </div>
       </div>
 
-      <!-- Fitur Pencarian & Filter Kategori -->
       <div class="pasar-controls">
         <div class="search-box">
           <i class="fas fa-search"></i>
-          <input type="text" id="pasarSearch" placeholder="Cari bayam, telur, beras, ikan segar..." oninput="handleSearch(this.value)">
+          <input type="text" id="pasarSearch" placeholder="Cari Gacoan, dimsum, bento, pizza..." oninput="handleSearch(this.value)">
         </div>
         <div class="filter-pills" id="pasarFilters">
-          <button class="pill active" onclick="filterBySubKategori('all')">🌟 Semua</button>
-          <button class="pill" onclick="filterBySubKategori('sayur')">🥬 Sayuran</button>
-          <button class="pill" onclick="filterBySubKategori('protein')">🥚 Protein & Daging</button>
-          <button class="pill" onclick="filterBySubKategori('sembako')">🍚 Sembako</button>
-          <button class="pill" onclick="filterBySubKategori('bumbu')">🧅 Bumbu Dapur</button>
-          <button class="pill" onclick="filterBySubKategori('ikan')">🐟 Ikan & Seafood</button>
+          <button class="pill active" onclick="filterBySubKategori('all')">🌟 Semua Favorit</button>
+          <button class="pill" onclick="filterBySubKategori('mie')">🍜 Mie & Dimsum</button>
+          <button class="pill" onclick="filterBySubKategori('bento')">🍱 Bento & Jepang</button>
+          <button class="pill" onclick="filterBySubKategori('resto')">🍛 Resto Keluarga</button>
+          <button class="pill" onclick="filterBySubKategori('fastfood')">🍕 Pizza & Burger</button>
+          <button class="pill" onclick="filterBySubKategori('ayam')">🍗 Fried Chicken Lokal</button>
         </div>
       </div>
 
       <div class="product-grid" id="pasarGrid">
         <div style="grid-column: 1/-1; text-align: center; padding: 40px 0;">
           <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: var(--pasar)"></i>
-          <p style="margin-top: 10px; color: var(--muted)">Memuat produk dari database...</p>
+          <p style="margin-top: 10px; color: var(--muted)">Memuat menu dari database...</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ==== PROPERTY ==== -->
+  <!-- ==== 2. PROPERTY (Update ShareLoc) ==== -->
   <div class="cat-section" id="cat-property">
     <div class="container">
       <div class="cat-header">
         <div>
           <span class="cat-tag property"><i class="fas fa-home"></i> PROPERTY</span>
-          <h2>Cari Hunian Sekitar Anda</h2>
-          <p>Kontrakan, kos, rumah, dan tanah dari warga lokal. Diverifikasi oleh CS.</p>
+          <h2>Cari Hunian & Lahan</h2>
+          <p>Kontrakan, kos, rumah, dan tanah yang telah disurvei & diverifikasi langsung.</p>
         </div>
       </div>
+      
+      <!-- Tombol Filter & ShareLoc Properti -->
+      <div class="pasar-controls">
+        <div class="advanced-filters" style="margin-bottom: 12px;">
+          <button class="btn-submit" onclick="shareLocationProperty()" style="margin:0; background:var(--property); width:auto;">
+            <i class="fas fa-location-arrow"></i> Deteksi Properti di Sekitar Saya
+          </button>
+        </div>
+        <div class="filter-pills">
+          <button class="pill active" onclick="filterProperty('all')">🏢 Semua Tipe</button>
+          <button class="pill" onclick="filterProperty('kontrakan')">🔑 Kontrakan</button>
+          <button class="pill" onclick="filterProperty('kos')">🛏️ Kos-kosan</button>
+          <button class="pill" onclick="filterProperty('rumah')">🏠 Rumah Beli</button>
+          <button class="pill" onclick="filterProperty('tanah')">🏞️ Tanah</button>
+        </div>
+      </div>
+
       <div class="property-grid" id="propertyGrid"></div>
     </div>
   </div>
 
-  <!-- ==== PENDIDIKAN ==== -->
+  <!-- ==== 3. PENDIDIKAN (Update Manhaj Salaf / Islam) ==== -->
   <div class="cat-section" id="cat-pendidikan">
     <div class="container">
       <div class="cat-header">
         <div>
-          <span class="cat-tag pendidikan"><i class="fas fa-graduation-cap"></i> PENDIDIKAN</span>
-          <h2>Info Sekolah & Bimbel</h2>
-          <p>Direktori pendidikan lokal, daftar cepat via CS kami.</p>
+          <span class="cat-tag pendidikan"><i class="fas fa-book-open"></i> PENDIDIKAN ISLAM</span>
+          <h2>Sekolah & Pesantren Sunnah</h2>
+          <p>Direktori pendidikan Bermanhaj Salaf, Tahfidz Qur'an, dan lembaga bereputasi baik.</p>
         </div>
       </div>
+
+      <div class="pasar-controls">
+        <div class="filter-pills">
+          <button class="pill active" onclick="filterEdu('all')">📚 Semua Jenjang</button>
+          <button class="pill" onclick="filterEdu('tksd')">🎒 TK & SDIT</button>
+          <button class="pill" onclick="filterEdu('smpsma')">🏫 SMP & SMAIT</button>
+          <button class="pill" onclick="filterEdu('pesantren')">🕌 Pondok Pesantren</button>
+          <button class="pill" onclick="filterEdu('tahfidz')">📖 Rumah Tahfidz</button>
+          <button class="pill" onclick="filterEdu('bahasa')">🗣️ Kursus B. Arab</button>
+        </div>
+      </div>
+
       <div class="edu-grid" id="eduGrid"></div>
     </div>
   </div>
 
-  <!-- ==== WIFI & VOUCHER ==== -->
+  <!-- ==== 4. TRAVEL UMROH (BARU - FULL SPESIFIKASI) ==== -->
+  <div class="cat-section" id="cat-umroh">
+    <div class="container">
+      <div class="cat-header">
+        <div>
+          <span class="cat-tag umroh"><i class="fas fa-kaaba"></i> TRAVEL UMROH</span>
+          <h2>Paket Umroh Terpercaya</h2>
+          <p>Temukan keberangkatan yang pas. Customize paket Anda sesuai budget, maskapai, dan hotel pilihan di Makkah & Madinah.</p>
+        </div>
+      </div>
+
+      <!-- Advanced Filters Umroh -->
+      <div class="advanced-filters">
+        <select class="adv-select" id="filterBulan">
+          <option value="">🗓️ Pilih Bulan Keberangkatan</option>
+          <option value="oktober">Oktober 2026</option>
+          <option value="november">November 2026</option>
+          <option value="desember">Desember 2026</option>
+          <option value="ramadhan">Ramadhan 2027</option>
+          <option value="syawal">Syawal 2027</option>
+        </select>
+        
+        <select class="adv-select" id="filterHarga">
+          <option value="">💰 Range Harga</option>
+          <option value="hemat">Hemat (Rp 25 - 28 Juta)</option>
+          <option value="standar">Standar (Rp 28 - 32 Juta)</option>
+          <option value="premium">Premium (Rp 33+ Juta)</option>
+        </select>
+
+        <select class="adv-select" id="filterPesawat">
+          <option value="">✈️ Maskapai Pilihan</option>
+          <option value="saudia">Saudia Airlines (Direct)</option>
+          <option value="garuda">Garuda Indonesia (Direct)</option>
+          <option value="emirates">Emirates (Transit)</option>
+          <option value="qatar">Qatar Airways (Transit)</option>
+          <option value="lion">Lion Air (Direct)</option>
+        </select>
+
+        <select class="adv-select" id="filterHotel">
+          <option value="">🏨 Fasilitas Hotel</option>
+          <option value="ring1">Ring 1 (Makkah < 100m, Zamzam Tower dsk)</option>
+          <option value="bintang5">Bintang 5 Standar</option>
+          <option value="bintang4">Bintang 4 (Ekonomis Jarak Sedang)</option>
+        </select>
+      </div>
+
+      <!-- Grid Umroh (Menggunakan style edu-grid untuk awal/atau grid khusus di script) -->
+      <div class="property-grid" id="umrohGrid">
+         <div style="grid-column: 1/-1; text-align: center; padding: 40px 0; background:white; border-radius: 16px; border:1px solid var(--border);">
+          <i class="fas fa-kaaba" style="font-size: 3rem; color: var(--umroh); margin-bottom:12px;"></i>
+          <h3 style="font-weight: 800;">Atur Spesifikasi Anda</h3>
+          <p style="color: var(--muted); font-size: 0.9rem;">Gunakan filter di atas untuk menemukan paket yang sesuai, atau klik tombol di bawah untuk konsultasi langsung.</p>
+          <a href="https://wa.me/6285267891619?text=Halo%20Admin,%20saya%20mau%20konsultasi%20paket%20Umroh%20Customize" class="btn-submit" style="background: var(--gradient-umroh); width: auto; display: inline-flex; margin-top:16px;" target="_blank">
+             <i class="fab fa-whatsapp"></i> Konsultasi Paket Customize
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==== 5. WIFI & VOUCHER ==== -->
   <div class="cat-section" id="cat-wifi">
     <div class="container">
       <div class="cat-header">
@@ -285,7 +338,6 @@
         </div>
       </div>
 
-      <!-- TAB SWITCHER: FIBER vs VOUCHER -->
       <div class="wifi-tabs">
         <button class="wifi-tab-btn active" onclick="switchWifiTab('fiber')" id="btnTabFiber">
           <i class="fas fa-network-wired"></i> Pasang WiFi Rumah
@@ -295,11 +347,9 @@
         </button>
       </div>
 
-      <!-- KONTEN 1: WIFI FIBER (RUMAHAN) -->
       <div id="contentWifiFiber">
         <div class="wifi-grid" id="wifiGrid"></div>
 
-        <!-- FORM CEK LOKASI GPS -->
         <div class="wifi-form-card" id="wifiCoverageBox">
           <h3><i class="fas fa-map-marker-alt"></i> Cek Jaringan & Registrasi Alamat</h3>
           <p style="color:var(--muted);font-size:0.9rem;margin-bottom:16px;line-height:1.6">
@@ -338,7 +388,6 @@
         </div>
       </div>
 
-      <!-- KONTEN 2: VOUCHER WIFI -->
       <div id="contentWifiVoucher" style="display:none;">
         <div class="voucher-info-banner">
           <i class="fas fa-info-circle"></i> 
@@ -362,28 +411,28 @@
   <div class="container">
     <div class="section-title">
       <h2>Kenapa PortalWarga?</h2>
-      <p>Kami memudahkan hidup warga sekitar</p>
+      <p>Kami memudahkan akses ke layanan terpercaya</p>
     </div>
     <div class="why-grid">
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-headset"></i></div>
-        <h4>CS Ramah 24/7</h4>
-        <p>Tim CS kami siap melayani dan menjawab pertanyaan Anda kapan saja.</p>
+        <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
+        <h4>Verifikasi Ketat</h4>
+        <p>Properti, Travel Umroh & Pendidikan semua diverifikasi untuk menghindari penipuan.</p>
       </div>
       <div class="why-item">
         <div class="why-icon"><i class="fas fa-motorcycle"></i></div>
-        <h4>Kurir Lokal Cepat</h4>
-        <p>Kurir kami hafal jalan sekitar, antar pesanan dalam hitungan menit.</p>
+        <h4>Delivery Hits</h4>
+        <p>Mager antri Gacoan atau Hokben? Biar kurir lokal kami yang antrikan untuk Anda.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-handshake"></i></div>
-        <h4>Support UMKM</h4>
-        <p>Setiap transaksi membantu UMKM tetangga Anda naik kelas.</p>
+        <div class="why-icon"><i class="fas fa-hands-helping"></i></div>
+        <h4>Pendampingan CS</h4>
+        <p>Bingung pilih paket WiFi atau Custom Umroh? CS WhatsApp kami siap memandu 100%.</p>
       </div>
       <div class="why-item">
-        <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
-        <h4>Terpercaya & Aman</h4>
-        <p>Berbagai opsi pembayaran digital (QRIS, e-wallet) yang aman diverifikasi CS.</p>
+        <div class="why-icon"><i class="fas fa-wallet"></i></div>
+        <h4>Pembayaran Fleksibel</h4>
+        <p>Mendukung COD, QRIS, e-Wallet, hingga transfer bank langsung ke agen resmi.</p>
       </div>
     </div>
   </div>
@@ -416,7 +465,7 @@
   </div>
 </footer>
 
-   <!-- ============ CART DRAWER & OVERLAY ============ -->
+<!-- ============ CART DRAWER & OVERLAY ============ -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <aside class="cart-drawer" id="cartDrawer" aria-label="Keranjang belanja">
   <div class="cart-head">
@@ -427,7 +476,6 @@
   <div class="cart-body" id="cartBody"></div>
   
   <div class="cart-foot">
-    <!-- Ringkasan -->
     <div class="cart-summary-box">
       <div class="cart-sum-row">
         <span>Subtotal (<span id="cartItemCount">0</span> item)</span>
@@ -442,7 +490,6 @@
       </div>
     </div>
 
-    <!-- Tombol Aksi -->
     <div class="cart-actions">
       <button type="button" class="btn-cart-continue" onclick="closeCart()">
         <i class="fas fa-arrow-left"></i> Lanjut Belanja
@@ -454,8 +501,7 @@
   </div>
 </aside>
 
-
-<!-- ============ FLOATING WA & MOBILE NAV ============ -->
+<!-- ============ FLOATING WA & MOBILE NAV (5 Menu) ============ -->
 <a href="https://wa.me/6285267891619" class="fab-wa" title="Chat CS WhatsApp" target="_blank" rel="noopener noreferrer">
   <i class="fab fa-whatsapp"></i>
 </a>
@@ -463,16 +509,20 @@
 <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
   <div class="m-nav-container">
     <button class="m-nav-item active" data-target="pasar" onclick="showCategory('pasar')">
-      <i class="fas fa-shopping-basket"></i>
-      <span>Pasar</span>
+      <i class="fas fa-hamburger"></i>
+      <span>Food</span>
     </button>
     <button class="m-nav-item" data-target="property" onclick="showCategory('property')">
       <i class="fas fa-home"></i>
       <span>Properti</span>
     </button>
     <button class="m-nav-item" data-target="pendidikan" onclick="showCategory('pendidikan')">
-      <i class="fas fa-graduation-cap"></i>
+      <i class="fas fa-book-open"></i>
       <span>Belajar</span>
+    </button>
+    <button class="m-nav-item" data-target="umroh" onclick="showCategory('umroh')">
+      <i class="fas fa-kaaba"></i>
+      <span>Umroh</span>
     </button>
     <button class="m-nav-item" data-target="wifi" onclick="showCategory('wifi')">
       <i class="fas fa-wifi"></i>
@@ -483,7 +533,14 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<!-- 2. SCRIPT UTAMA RENDER (Kedua) -->
+<!-- 2. SCRIPT UTAMA RENDER -->
 <script src="script.js"></script>
+
+<!-- Script Tambahan Untuk Mencegah Error Dummy ShareLoc Properti -->
+<script>
+  function shareLocationProperty() {
+    alert("Fitur pencarian lokasi GPS Properti sedang disiapkan.");
+  }
+</script>
 </body>
 </html>
