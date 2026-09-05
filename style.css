@@ -744,6 +744,111 @@ body {
   background: #0B1220 !important;
 }
 
+/* ==========================================================================
+   FULL WIDTH DESKTOP LAYOUT
+   ========================================================================== */
+@media (min-width: 768px) {
+
+  /* 1. Container lebih lebar / full */
+  .container,
+  .header .container,
+  .hero .container,
+  main .container,
+  .section .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Header full edge-to-edge */
+  .header,
+  .navbar,
+  .site-header,
+  .top-nav {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .header-inner,
+  .nav-inner,
+  .navbar-inner {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3. Hero full width + konten lebih lega */
+  .hero,
+  .hero-section,
+  section.hero {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .hero-content,
+  .hero-text,
+  .hero-left {
+    max-width: 720px !important; /* biar teks tidak terlalu panjanglebar */
+  }
+
+  /* 4. Kartu statistik (6 Mitra / 18 Produk / 15 Menit) lebih lebar */
+  .hero-stats,
+  .stats-card,
+  .hero-metrics,
+  .stats-box {
+    max-width: 640px !important;
+    width: 100% !important;
+  }
+
+  /* 5. Section produk / konten bawah juga full */
+  .products-section,
+  .category-section,
+  .pasar-section,
+  .content-section {
+    width: 100% !important;
+  }
+
+  .products-grid,
+  .product-list,
+  .items-grid {
+    width: 100% !important;
+  }
+}
+
+/* Monitor lebar */
+@media (min-width: 1200px) {
+  .container,
+  .header-inner,
+  .nav-inner,
+  .navbar-inner,
+  .hero .container {
+    padding-left: 56px !important;
+    padding-right: 56px !important;
+  }
+
+  .hero-content,
+  .hero-text,
+  .hero-left {
+    max-width: 800px !important;
+  }
+}
+
+/* Optional: batasi max biar tidak “ulur” di layar 2K/4K */
+@media (min-width: 1600px) {
+  .container,
+  .header-inner,
+  .nav-inner,
+  .navbar-inner {
+    max-width: 1600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
 /* ============================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
