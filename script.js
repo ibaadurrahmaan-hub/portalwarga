@@ -1,8 +1,22 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v4.0 (F&B POPULAR + UMROH SPEC + PROPERTY GPS)
+   PORTALWARGA - SCRIPT CORE v4.1 (FULL IMAGE SUPPORT + 5 KATEGORI)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
+
+// ============================================
+// FALLBACK IMAGES (Jika field .image kosong)
+// ============================================
+const FALLBACK_IMG = {
+  food: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&auto=format',
+  property: 'https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=500&auto=format',
+  edu: 'https://images.unsplash.com/photo-1609599006353-e629aaab31f5?w=300&auto=format',
+  umroh: 'https://images.unsplash.com/photo-1565552643952-250626c7284d?w=500&auto=format'
+};
+
+function safeImg(url, type) {
+  return url && url.trim() !== '' ? url : FALLBACK_IMG[type];
+}
 
 // ============================================
 // STATE MANAGER (LIVE CONTAINERS)
@@ -29,135 +43,61 @@ let userGpsLat = null;
 let userGpsLng = null;
 
 // ============================================
-// DATA FALLBACKS — FOOD & FnB POPULER
+// DATA FALLBACKS — FOOD & F&B POPULER
 // ============================================
 let dataPasarFallback = [
-  // ==== MIE & DIMSUM ====
-  { id: 1, emoji: '🍜', nama: 'Mie Gacoan Level 3 (Setan)', sellerName: 'Mie Gacoan Cabang', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'mie', deskripsi: 'Mie pedas viral level setan.', stok: 99, terjual: 4520, rating: 4.9, totalReview: 890, tags: ['viral', 'pedas'], aktif: true },
-  { id: 2, emoji: '🥟', nama: 'Dimsum Mercon Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 12000, subKategori: 'mie', deskripsi: 'Dimsum ayam saus mercon.', stok: 60, terjual: 1200, rating: 4.8, totalReview: 234, tags: ['viral'], aktif: true },
-  { id: 3, emoji: '🍤', nama: 'Udang Keju Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 13000, subKategori: 'mie', deskripsi: 'Udang crispy saus keju.', stok: 40, terjual: 780, rating: 4.7, totalReview: 156, tags: ['premium'], aktif: true },
-  
-  // ==== BENTO JEPANG ====
-  { id: 4, emoji: '🍱', nama: 'HokBen Paket Bento Spesial 1', sellerName: 'HokBen', harga: 45000, subKategori: 'bento', deskripsi: 'Chicken teriyaki + ebi furai + salad.', stok: 30, terjual: 2340, rating: 4.9, totalReview: 567, tags: ['bento'], aktif: true },
-  { id: 5, emoji: '🍙', nama: 'HokBen Salmon Onigiri', sellerName: 'HokBen', harga: 22000, subKategori: 'bento', deskripsi: 'Nasi kepal isi salmon mayo.', stok: 25, terjual: 1120, rating: 4.8, totalReview: 234, tags: ['fresh'], aktif: true },
-  { id: 6, emoji: '🍣', nama: 'HokBen Beef Yakiniku Bento', sellerName: 'HokBen', harga: 55000, hargaCoret: 60000, diskon: 8, subKategori: 'bento', deskripsi: 'Sapi bakar saus khas Jepang + nasi.', stok: 20, terjual: 890, rating: 4.9, totalReview: 145, tags: ['premium'], aktif: true },
-
-  // ==== RESTO KELUARGA ====
-  { id: 7, emoji: '🍛', nama: 'Solaria Nasi Ayam Cabe Ijo', sellerName: 'Solaria', harga: 42000, subKategori: 'resto', deskripsi: 'Ayam suwir cabe hijau khas Solaria.', stok: 40, terjual: 1876, rating: 4.7, totalReview: 345, tags: ['pedas'], aktif: true },
-  { id: 8, emoji: '🍲', nama: 'Solaria Mie Ayam Jamur', sellerName: 'Solaria', harga: 35000, subKategori: 'resto', deskripsi: 'Mie ayam premium + jamur.', stok: 40, terjual: 1450, rating: 4.6, totalReview: 267, tags: [], aktif: true },
-  { id: 9, emoji: '🍹', nama: 'Solaria Es Teller Special', sellerName: 'Solaria', harga: 25000, subKategori: 'resto', deskripsi: 'Es teller alpukat kelapa nangka.', stok: 50, terjual: 987, rating: 4.8, totalReview: 189, tags: ['fresh'], aktif: true },
-
-  // ==== PIZZA & FAST FOOD ====
-  { id: 10, emoji: '🍕', nama: "Domino's Pizza Cheese Burst L", sellerName: "Domino's Pizza", harga: 129000, hargaCoret: 145000, diskon: 11, subKategori: 'fastfood', deskripsi: 'Pizza L pinggiran keju meleleh.', stok: 25, terjual: 2340, rating: 4.9, totalReview: 456, tags: ['viral', 'keju'], aktif: true },
-  { id: 11, emoji: '🍕', nama: "Domino's Meat Lover Reguler", sellerName: "Domino's Pizza", harga: 89000, subKategori: 'fastfood', deskripsi: 'Topping penuh daging premium.', stok: 30, terjual: 1567, rating: 4.8, totalReview: 289, tags: ['daging'], aktif: true },
-  { id: 12, emoji: '🥤', nama: "Domino's Kentang + Cola 500ml", sellerName: "Domino's Pizza", harga: 35000, subKategori: 'fastfood', deskripsi: 'Paket hemat side dish + minuman.', stok: 50, terjual: 780, rating: 4.5, totalReview: 123, tags: [], aktif: true },
-  
-  // ==== FRIED CHICKEN ====
-  { id: 13, emoji: '🍗', nama: 'Ayam Sabana Paket Combo Dada', sellerName: 'Ayam Sabana', harga: 20000, subKategori: 'ayam', deskripsi: 'Dada crispy + nasi + saus.', stok: 100, terjual: 5670, rating: 4.8, totalReview: 890, tags: ['legend', 'crispy'], aktif: true },
-  { id: 14, emoji: '🍗', nama: 'Ayam Sabana Paha Bawah', sellerName: 'Ayam Sabana', harga: 18000, subKategori: 'ayam', deskripsi: 'Paha bawah crispy + nasi.', stok: 100, terjual: 4520, rating: 4.9, totalReview: 780, tags: ['crispy'], aktif: true },
-  { id: 15, emoji: '🍔', nama: 'Sabana Chicken Burger', sellerName: 'Ayam Sabana', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'ayam', deskripsi: 'Burger ayam sabana khas.', stok: 40, terjual: 890, rating: 4.6, totalReview: 145, tags: [], aktif: true }
+  { id: 1, image: '', emoji: '🍜', nama: 'Mie Gacoan Level 3 (Setan)', sellerName: 'Mie Gacoan Cabang', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'mie', deskripsi: 'Mie pedas viral level setan.', stok: 99, terjual: 4520, rating: 4.9, totalReview: 890, tags: ['viral', 'pedas'], aktif: true },
+  { id: 2, image: '', emoji: '🥟', nama: 'Dimsum Mercon Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 12000, subKategori: 'mie', deskripsi: 'Dimsum ayam saus mercon.', stok: 60, terjual: 1200, rating: 4.8, totalReview: 234, tags: ['viral'], aktif: true },
+  { id: 3, image: '', emoji: '🍤', nama: 'Udang Keju Gacoan', sellerName: 'Mie Gacoan Cabang', harga: 13000, subKategori: 'mie', deskripsi: 'Udang crispy saus keju.', stok: 40, terjual: 780, rating: 4.7, totalReview: 156, tags: ['premium'], aktif: true },
+  { id: 4, image: '', emoji: '🍱', nama: 'HokBen Paket Bento Spesial 1', sellerName: 'HokBen', harga: 45000, subKategori: 'bento', deskripsi: 'Chicken teriyaki + ebi furai + salad.', stok: 30, terjual: 2340, rating: 4.9, totalReview: 567, tags: ['bento'], aktif: true },
+  { id: 5, image: '', emoji: '🍙', nama: 'HokBen Salmon Onigiri', sellerName: 'HokBen', harga: 22000, subKategori: 'bento', deskripsi: 'Nasi kepal isi salmon mayo.', stok: 25, terjual: 1120, rating: 4.8, totalReview: 234, tags: ['fresh'], aktif: true },
+  { id: 6, image: '', emoji: '🍣', nama: 'HokBen Beef Yakiniku Bento', sellerName: 'HokBen', harga: 55000, hargaCoret: 60000, diskon: 8, subKategori: 'bento', deskripsi: 'Sapi bakar saus khas Jepang + nasi.', stok: 20, terjual: 890, rating: 4.9, totalReview: 145, tags: ['premium'], aktif: true },
+  { id: 7, image: '', emoji: '🍛', nama: 'Solaria Nasi Ayam Cabe Ijo', sellerName: 'Solaria', harga: 42000, subKategori: 'resto', deskripsi: 'Ayam suwir cabe hijau khas Solaria.', stok: 40, terjual: 1876, rating: 4.7, totalReview: 345, tags: ['pedas'], aktif: true },
+  { id: 8, image: '', emoji: '🍲', nama: 'Solaria Mie Ayam Jamur', sellerName: 'Solaria', harga: 35000, subKategori: 'resto', deskripsi: 'Mie ayam premium + jamur.', stok: 40, terjual: 1450, rating: 4.6, totalReview: 267, tags: [], aktif: true },
+  { id: 9, image: '', emoji: '🍹', nama: 'Solaria Es Teller Special', sellerName: 'Solaria', harga: 25000, subKategori: 'resto', deskripsi: 'Es teller alpukat kelapa nangka.', stok: 50, terjual: 987, rating: 4.8, totalReview: 189, tags: ['fresh'], aktif: true },
+  { id: 10, image: '', emoji: '🍕', nama: "Domino's Pizza Cheese Burst L", sellerName: "Domino's Pizza", harga: 129000, hargaCoret: 145000, diskon: 11, subKategori: 'fastfood', deskripsi: 'Pizza L pinggiran keju meleleh.', stok: 25, terjual: 2340, rating: 4.9, totalReview: 456, tags: ['viral', 'keju'], aktif: true },
+  { id: 11, image: '', emoji: '🍕', nama: "Domino's Meat Lover Reguler", sellerName: "Domino's Pizza", harga: 89000, subKategori: 'fastfood', deskripsi: 'Topping penuh daging premium.', stok: 30, terjual: 1567, rating: 4.8, totalReview: 289, tags: ['daging'], aktif: true },
+  { id: 12, image: '', emoji: '🥤', nama: "Domino's Kentang + Cola 500ml", sellerName: "Domino's Pizza", harga: 35000, subKategori: 'fastfood', deskripsi: 'Paket hemat side dish + minuman.', stok: 50, terjual: 780, rating: 4.5, totalReview: 123, tags: [], aktif: true },
+  { id: 13, image: '', emoji: '🍗', nama: 'Ayam Sabana Paket Combo Dada', sellerName: 'Ayam Sabana', harga: 20000, subKategori: 'ayam', deskripsi: 'Dada crispy + nasi + saus.', stok: 100, terjual: 5670, rating: 4.8, totalReview: 890, tags: ['legend', 'crispy'], aktif: true },
+  { id: 14, image: '', emoji: '🍗', nama: 'Ayam Sabana Paha Bawah', sellerName: 'Ayam Sabana', harga: 18000, subKategori: 'ayam', deskripsi: 'Paha bawah crispy + nasi.', stok: 100, terjual: 4520, rating: 4.9, totalReview: 780, tags: ['crispy'], aktif: true },
+  { id: 15, image: '', emoji: '🍔', nama: 'Sabana Chicken Burger', sellerName: 'Ayam Sabana', harga: 15000, hargaCoret: 18000, diskon: 17, subKategori: 'ayam', deskripsi: 'Burger ayam sabana khas.', stok: 40, terjual: 890, rating: 4.6, totalReview: 145, tags: [], aktif: true }
 ];
 
 // ============================================
 // DATA FALLBACKS — PROPERTY (LENGKAP GPS)
 // ============================================
 let dataPropertyFallback = [
-  { id: 'prop_01', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true },
-  { id: 'prop_02', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true },
-  { id: 'prop_03', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true },
-  { id: 'prop_04', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true },
-  { id: 'prop_05', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true },
-  { id: 'prop_06', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true },
-  { id: 'prop_07', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', features: ['4 Kamar', '3 KM', '2 Lantai'], pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true }
+  { id: 'prop_01', image: '', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', features: ['2 Kamar', '1 KM', 'Carport'], pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true },
+  { id: 'prop_02', image: '', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', features: ['3 Kamar', '2 KM', 'LT 90m²'], pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true },
+  { id: 'prop_03', image: '', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', features: ['AC', 'WiFi', 'K.Dalam'], pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true },
+  { id: 'prop_04', image: '', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec.', price: 'Rp 500 Jt', features: ['200 m²', 'SHM', 'Strategis'], pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true },
+  { id: 'prop_05', image: '', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', features: ['3 Kamar', '2 KM', 'Halaman'], pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true },
+  { id: 'prop_06', image: '', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', features: ['Kasur', 'WiFi', 'Dapur'], pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true },
+  { id: 'prop_07', image: '', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', features: ['4 Kamar', '3 KM', '2 Lantai'], pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true }
 ];
 
 // ============================================
 // DATA FALLBACKS — PENDIDIKAN MANHAJ SALAF
 // ============================================
 let dataPendidikanFallback = [
-  { id: 'edu_01', emoji: '🕌', type: 'pesantren', typeName: 'Ponpes Salaf', name: 'Ma\'had Ibnul Qoyyim Yogyakarta', desc: 'Pondok tahfidz & pengajaran ilmu syar\'i berdasarkan Manhaj Salafush Shalih.', biaya: 'Kontribusi bulanan bervariasi', jadwal: 'Program Mukim & Kalong', kontak: CS_WA, aktif: true },
-  { id: 'edu_02', emoji: '📖', type: 'tahfidz', typeName: 'Rumah Tahfidz', name: 'Bimbingan Tahfidz Al-Bayyinah', desc: 'Tahsin & Tahfidz Qur\'an metode Ummi, sanad muttashil, ustadz alumni Timur Tengah.', biaya: 'Rp 350rb/bulan', jadwal: 'Ba\'da Subuh & Ba\'da Ashar', kontak: CS_WA, aktif: true },
-  { id: 'edu_03', emoji: '🏫', type: 'tksd', typeName: 'SDIT', name: 'SDIT Al-Furqon Al-Islami', desc: 'Sekolah dasar bermanhaj Ahlussunnah. Kurikulum diknas + tahfidz 5 Juz.', biaya: 'DPP Rp 4Jt + Bulanan Rp 750rb', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
-  { id: 'edu_04', emoji: '🎒', type: 'tksd', typeName: 'TKIT', name: 'TKIT Ibnu Taimiyah', desc: 'Taman kanak-kanak Islam terpadu, penekanan adab dan bahasa Arab dasar.', biaya: 'Rp 400rb/bulan', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
-  { id: 'edu_05', emoji: '🏫', type: 'smpsma', typeName: 'SMAIT', name: 'SMAIT Darush Sholihin', desc: 'Sekolah menengah manhaj salaf. Program science & agama seimbang.', biaya: 'DPP Rp 8Jt + Bulanan Rp 950rb', jadwal: 'Full Day School', kontak: CS_WA, aktif: true },
-  { id: 'edu_06', emoji: '🗣️', type: 'bahasa', typeName: 'Bahasa Arab', name: 'Ma\'had Al-Lughoh Bina Karakter', desc: 'Kursus bahasa Arab intensif metode Madinah & Al-Arabiyyah baina Yadaik.', biaya: 'Mulai Rp 500rb/level', jadwal: 'Kelas Online & Offline', kontak: CS_WA, aktif: true },
-  { id: 'edu_07', emoji: '📚', type: 'tahfidz', typeName: 'Halaqoh Al-Qur\'an', name: 'Rumah Qur\'an Al-Atsari', desc: 'Halaqoh khusus akhwat dewasa & remaja. Setoran & muraja\'ah rutin.', biaya: 'Infaq seikhlasnya', jadwal: 'Setiap Ahad Pagi', kontak: CS_WA, aktif: true }
+  { id: 'edu_01', image: '', emoji: '🕌', type: 'pesantren', typeName: 'Ponpes Salaf', name: 'Ma\'had Ibnul Qoyyim', desc: 'Pondok tahfidz & pengajaran ilmu syar\'i berdasarkan Manhaj Salafush Shalih.', biaya: 'Mulai Rp 600rb/bulan', jadwal: 'Mukim & Kalong', kontak: CS_WA, aktif: true },
+  { id: 'edu_02', image: '', emoji: '📖', type: 'tahfidz', typeName: 'Rumah Tahfidz', name: 'Tahfidz Al-Bayyinah', desc: 'Tahsin & Tahfidz Qur\'an metode Ummi, ustadz alumni Timur Tengah.', biaya: 'Rp 350rb/bulan', jadwal: 'Ba\'da Subuh & Ashar', kontak: CS_WA, aktif: true },
+  { id: 'edu_03', image: '', emoji: '🏫', type: 'tksd', typeName: 'SDIT', name: 'SDIT Al-Furqon Al-Islami', desc: 'Sekolah dasar bermanhaj Ahlussunnah. Kurikulum diknas + tahfidz 5 Juz.', biaya: 'DPP Rp 4Jt + Bulanan Rp 750rb', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
+  { id: 'edu_04', image: '', emoji: '🎒', type: 'tksd', typeName: 'TKIT', name: 'TKIT Ibnu Taimiyah', desc: 'Taman kanak-kanak Islam terpadu, penekanan adab dan bahasa Arab dasar.', biaya: 'Rp 400rb/bulan', jadwal: 'Senin - Jumat', kontak: CS_WA, aktif: true },
+  { id: 'edu_05', image: '', emoji: '🏫', type: 'smpsma', typeName: 'SMAIT', name: 'SMAIT Darush Sholihin', desc: 'Sekolah menengah manhaj salaf. Program science & agama seimbang.', biaya: 'DPP Rp 8Jt + Bulanan Rp 950rb', jadwal: 'Full Day School', kontak: CS_WA, aktif: true },
+  { id: 'edu_06', image: '', emoji: '🗣️', type: 'bahasa', typeName: 'Bahasa Arab', name: 'Ma\'had Al-Lughoh Bina Karakter', desc: 'Kursus bahasa Arab intensif metode Madinah & Al-Arabiyyah baina Yadaik.', biaya: 'Mulai Rp 500rb/level', jadwal: 'Online & Offline', kontak: CS_WA, aktif: true },
+  { id: 'edu_07', image: '', emoji: '📚', type: 'tahfidz', typeName: 'Halaqoh Qur\'an', name: 'Rumah Qur\'an Al-Atsari', desc: 'Halaqoh khusus akhwat dewasa & remaja. Setoran & muraja\'ah rutin.', biaya: 'Infaq seikhlasnya', jadwal: 'Setiap Ahad Pagi', kontak: CS_WA, aktif: true }
 ];
 
 // ============================================
-// DATA FALLBACKS — TRAVEL UMROH (BARU!)
+// DATA FALLBACKS — TRAVEL UMROH
 // ============================================
 let dataUmrohFallback = [
-  {
-    id: 'um_01',
-    emoji: '🕋',
-    name: 'Umroh Ekonomis Direct Saudia',
-    bulan: 'oktober', bulanLabel: 'Oktober 2026',
-    harga: 27500000, hargaKategori: 'hemat',
-    pesawat: 'saudia', pesawatLabel: 'Saudia Airlines (Direct)',
-    hotel: 'bintang4', hotelLabel: 'Bintang 4',
-    hotelMakkah: 'Rayyana Al Ajyad (400m)',
-    hotelMadinah: 'Al Aqeeq (Ring 2)',
-    durasi: '9 Hari',
-    fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Bus AC', 'Konsumsi 3x'],
-    aktif: true
-  },
-  {
-    id: 'um_02',
-    emoji: '🕋',
-    name: 'Umroh Standar Ramadhan Awal',
-    bulan: 'ramadhan', bulanLabel: 'Ramadhan Awal 2027',
-    harga: 32000000, hargaKategori: 'standar',
-    pesawat: 'garuda', pesawatLabel: 'Garuda Indonesia (Direct)',
-    hotel: 'bintang5', hotelLabel: 'Bintang 5',
-    hotelMakkah: 'Swissotel Al Maqam',
-    hotelMadinah: 'Dar Al Iman Intercontinental',
-    durasi: '12 Hari',
-    fasilitas: ['Visa', 'Manasik', 'Muthowif Berpengalaman', 'Perlengkapan Umroh', 'Konsumsi 3x Prasmanan'],
-    aktif: true
-  },
-  {
-    id: 'um_03',
-    emoji: '⭐',
-    name: 'Umroh Premium VIP Ring 1',
-    bulan: 'desember', bulanLabel: 'Desember 2026',
-    harga: 42500000, hargaKategori: 'premium',
-    pesawat: 'emirates', pesawatLabel: 'Emirates (Transit Dubai)',
-    hotel: 'ring1', hotelLabel: 'Ring 1 Makkah',
-    hotelMakkah: 'Fairmont Makkah Clock Tower',
-    hotelMadinah: 'Anwar Al Madinah Movenpick',
-    durasi: '10 Hari',
-    fasilitas: ['Visa', 'Manasik VIP', 'Ustadz Pembimbing', 'City Tour Dubai', 'Kamar Tripple/Double'],
-    aktif: true
-  },
-  {
-    id: 'um_04',
-    emoji: '🕋',
-    name: 'Umroh Hemat Lion Air',
-    bulan: 'november', bulanLabel: 'November 2026',
-    harga: 26000000, hargaKategori: 'hemat',
-    pesawat: 'lion', pesawatLabel: 'Lion Air (Direct)',
-    hotel: 'bintang4', hotelLabel: 'Bintang 4',
-    hotelMakkah: 'Le Meridien Towers Makkah',
-    hotelMadinah: 'Retaj Al Bayt',
-    durasi: '9 Hari',
-    fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Konsumsi', 'Ziarah'],
-    aktif: true
-  },
-  {
-    id: 'um_05',
-    emoji: '⭐',
-    name: 'Umroh Syawal Qatar Airways',
-    bulan: 'syawal', bulanLabel: 'Syawal 2027',
-    harga: 35000000, hargaKategori: 'standar',
-    pesawat: 'qatar', pesawatLabel: 'Qatar Airways (Transit Doha)',
-    hotel: 'bintang5', hotelLabel: 'Bintang 5',
-    hotelMakkah: 'Pullman Zamzam Makkah',
-    hotelMadinah: 'The Oberoi Madinah',
-    durasi: '11 Hari',
-    fasilitas: ['Visa', 'Manasik', 'Kelas Tahsin', 'Kamar Kuad/Tripple', 'Baggage 30kg'],
-    aktif: true
-  }
+  { id: 'um_01', image: '', emoji: '🕋', name: 'Umroh Ekonomis Direct Saudia', bulan: 'oktober', bulanLabel: 'Oktober 2026', harga: 27500000, hargaKategori: 'hemat', pesawat: 'saudia', pesawatLabel: 'Saudia Airlines (Direct)', hotel: 'bintang4', hotelLabel: 'Bintang 4', hotelMakkah: 'Rayyana Al Ajyad (400m)', hotelMadinah: 'Al Aqeeq (Ring 2)', durasi: '9 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Bus AC', 'Konsumsi 3x'], aktif: true },
+  { id: 'um_02', image: '', emoji: '🕋', name: 'Umroh Standar Ramadhan Awal', bulan: 'ramadhan', bulanLabel: 'Ramadhan Awal 2027', harga: 32000000, hargaKategori: 'standar', pesawat: 'garuda', pesawatLabel: 'Garuda Indonesia (Direct)', hotel: 'bintang5', hotelLabel: 'Bintang 5', hotelMakkah: 'Swissotel Al Maqam', hotelMadinah: 'Dar Al Iman Intercontinental', durasi: '12 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif Berpengalaman', 'Perlengkapan Umroh', 'Konsumsi 3x Prasmanan'], aktif: true },
+  { id: 'um_03', image: '', emoji: '⭐', name: 'Umroh Premium VIP Ring 1', bulan: 'desember', bulanLabel: 'Desember 2026', harga: 42500000, hargaKategori: 'premium', pesawat: 'emirates', pesawatLabel: 'Emirates (Transit Dubai)', hotel: 'ring1', hotelLabel: 'Ring 1 Makkah', hotelMakkah: 'Fairmont Clock Tower', hotelMadinah: 'Movenpick', durasi: '10 Hari', fasilitas: ['Visa', 'Manasik VIP', 'Ustadz Pembimbing', 'City Tour Dubai', 'Kamar Tripple/Double'], aktif: true },
+  { id: 'um_04', image: '', emoji: '🕋', name: 'Umroh Hemat Lion Air', bulan: 'november', bulanLabel: 'November 2026', harga: 26000000, hargaKategori: 'hemat', pesawat: 'lion', pesawatLabel: 'Lion Air (Direct)', hotel: 'bintang4', hotelLabel: 'Bintang 4', hotelMakkah: 'Le Meridien Towers', hotelMadinah: 'Retaj Al Bayt', durasi: '9 Hari', fasilitas: ['Visa', 'Manasik', 'Muthowif', 'Konsumsi', 'Ziarah'], aktif: true },
+  { id: 'um_05', image: '', emoji: '⭐', name: 'Umroh Syawal Qatar Airways', bulan: 'syawal', bulanLabel: 'Syawal 2027', harga: 35000000, hargaKategori: 'standar', pesawat: 'qatar', pesawatLabel: 'Qatar Airways (Transit Doha)', hotel: 'bintang5', hotelLabel: 'Bintang 5', hotelMakkah: 'Pullman Zamzam', hotelMadinah: 'The Oberoi', durasi: '11 Hari', fasilitas: ['Visa', 'Manasik', 'Kelas Tahsin', 'Kamar Kuad', 'Baggage 30kg'], aktif: true }
 ];
 
 // ============================================
@@ -223,10 +163,23 @@ function initLiveDatabase() {
     });
   }
 
+  // === PRODUK FOOD (dengan validasi F&B) ===
   liveCollection('produk', snapshot => {
-    liveProducts = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+    const fromFb = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
+    const FNB_CATS = ['mie', 'bento', 'resto', 'fastfood', 'ayam'];
+    const hasFnB = fromFb.some(p => FNB_CATS.includes(p.subKategori));
+
+    if (!hasFnB) {
+      console.warn('⚠️ Produk Firebase masih data lama. Menggunakan fallback F&B.');
+      liveProducts = [...dataPasarFallback];
+    } else {
+      liveProducts = fromFb;
+    }
     renderPasarStorefront();
-  }, () => { liveProducts = [...dataPasarFallback]; renderPasarStorefront(); });
+  }, () => {
+    liveProducts = [...dataPasarFallback];
+    renderPasarStorefront();
+  });
 
   liveCollection('properti', snapshot => {
     liveProperties = snapshot.docs.map(doc => ({ firestoreId: doc.id, ...doc.data() }));
@@ -280,7 +233,7 @@ function openProductDetails(id) {
 }
 
 // ============================================
-// PASAR / FOOD RENDER
+// PASAR / FOOD RENDER (WITH IMAGE)
 // ============================================
 function renderPasarStorefront() {
   const grid = document.getElementById('pasarGrid');
@@ -304,7 +257,10 @@ function renderPasarStorefront() {
     const discLabel = p.diskon ? `<span class="disc-pill">-${p.diskon}%</span>` : '';
     return `
       <div class="product-card">
-        <div class="product-img" onclick="openProductDetails(${p.id})">${p.emoji}${discLabel}</div>
+        <div class="product-img" onclick="openProductDetails(${p.id})">
+          <img src="${safeImg(p.image, 'food')}" alt="${p.nama}" loading="lazy" onerror="this.src='${FALLBACK_IMG.food}'">
+          ${discLabel}
+        </div>
         <div class="product-info">
           <div class="product-vendor"><i class="fas fa-store"></i> ${p.sellerName}</div>
           <div class="product-name" onclick="openProductDetails(${p.id})">${p.nama}</div>
@@ -346,7 +302,7 @@ function populatePaymentMethods() {
 }
 
 // ============================================
-// PROPERTY + GPS FILTER + JARAK
+// PROPERTY + GPS + JARAK (WITH IMAGE)
 // ============================================
 function haversineDistance(lat1, lng1, lat2, lng2) {
   const R = 6371;
@@ -365,7 +321,7 @@ function shareLocationProperty() {
   navigator.geolocation.getCurrentPosition(pos => {
     userGpsLat = pos.coords.latitude;
     userGpsLng = pos.coords.longitude;
-    showToast('✓ Lokasi terdeteksi. Properti diurutkan dari terdekat!');
+    showToast('✓ Lokasi terdeteksi. Properti diurutkan terdekat!');
     renderProperty();
   }, () => {
     showToast('❌ Gagal deteksi. Izinkan akses lokasi.');
@@ -386,7 +342,6 @@ function renderProperty() {
 
   let list = liveProperties.filter(p => activePropertyFilter === 'all' || p.type === activePropertyFilter);
 
-  // Hitung jarak jika sudah share lokasi
   if (userGpsLat !== null && userGpsLng !== null) {
     list = list.map(p => ({
       ...p,
@@ -405,7 +360,10 @@ function renderProperty() {
     const jarakLabel = (p.jarak !== null && p.jarak !== undefined) ? `<div style="font-size:0.78rem;color:var(--property);font-weight:700;margin-top:6px"><i class="fas fa-route"></i> ${p.jarak.toFixed(2)} km dari lokasi Anda</div>` : '';
     return `
       <div class="property-card">
-        <div class="property-img">${p.emoji}<span class="property-status">${p.status}</span></div>
+        <div class="property-img">
+          <img src="${safeImg(p.image, 'property')}" alt="${p.title}" loading="lazy" onerror="this.src='${FALLBACK_IMG.property}'">
+          <span class="property-status">${p.status}</span>
+        </div>
         <div class="property-info">
           <div class="property-type">${p.typeName || p.type}</div>
           <div class="property-title">${p.title}</div>
@@ -420,7 +378,7 @@ function renderProperty() {
 }
 
 // ============================================
-// PENDIDIKAN (SALAF)
+// PENDIDIKAN SALAF (WITH IMAGE)
 // ============================================
 function filterEdu(type) {
   activeEduFilter = type;
@@ -446,7 +404,9 @@ function renderEdu() {
     const teks = encodeURIComponent(`Assalamu'alaikum, saya berminat mendaftar / info mengenai "${e.name}" (${e.typeName || e.type}). Mohon detailnya.`);
     return `
       <div class="edu-card">
-        <div class="edu-icon">${e.emoji}</div>
+        <div class="edu-icon">
+          <img src="${safeImg(e.image, 'edu')}" alt="${e.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG.edu}'">
+        </div>
         <div class="edu-info">
           <div class="edu-type">${e.typeName || e.type}</div>
           <div class="edu-name">${e.name}</div>
@@ -460,7 +420,7 @@ function renderEdu() {
 }
 
 // ============================================
-// TRAVEL UMROH — SPEC & FILTER (BARU!)
+// TRAVEL UMROH — SPEC & FILTER (WITH IMAGE)
 // ============================================
 function bindUmrohFilters() {
   ['filterBulan','filterHarga','filterPesawat','filterHotel'].forEach(id => {
@@ -504,8 +464,8 @@ function renderUmroh() {
     const hargaLabel = 'Rp ' + u.harga.toLocaleString('id-ID');
     return `
       <div class="property-card">
-        <div class="property-img" style="background:linear-gradient(135deg,#FEF3C7,#FDE68A);font-size:5rem">
-          ${u.emoji}
+        <div class="property-img">
+          <img src="${safeImg(u.image, 'umroh')}" alt="${u.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG.umroh}'">
           <span class="property-status" style="color:var(--umroh)">${u.durasi}</span>
         </div>
         <div class="property-info">
@@ -531,7 +491,7 @@ function renderUmroh() {
 function daftarUmroh(id) {
   const u = liveUmroh.find(x => x.id === id);
   if (!u) return;
-  const msg = `*🕋 PENDAFTARAN UMROH*\n==============================\n\n📦 *Paket:* ${u.name}\n📅 *Keberangkatan:* ${u.bulanLabel}\n⏱️ *Durasi:* ${u.durasi}\n💰 *Harga:* Rp ${u.harga.toLocaleString('id-ID')}\n\n✈️ *Pesawat:* ${u.pesawatLabel}\n🏨 *Hotel Makkah:* ${u.hotelMakkah}\n🕌 *Hotel Madinah:* ${u.hotelMadinah}\n\n✅ *Fasilitas Include:*\n${u.fasilitas.map(f => '- ' + f).join('\n')}\n\nMohon info detail pembayaran & jadwal manasik. 🙏`;
+  const msg = `*🕋 PENDAFTARAN UMROH*\n==============================\n\n📦 *Paket:* ${u.name}\n📅 *Keberangkatan:* ${u.bulanLabel}\n⏱️ *Durasi:* ${u.durasi}\n💰 *Harga:* Rp ${u.harga.toLocaleString('id-ID')}\n\n✈️ *Pesawat:* ${u.pesawatLabel}\n🏨 *Hotel Makkah:* ${u.hotelMakkah}\n🕌 *Hotel Madinah:* ${u.hotelMadinah}\n\n✅ *Fasilitas:*\n${u.fasilitas.map(f => '- ' + f).join('\n')}\n\nMohon info detail pembayaran & jadwal manasik. 🙏`;
   window.open(`https://wa.me/${CS_WA}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
@@ -718,7 +678,7 @@ function beliVoucherWA(hari, harga) {
 }
 
 // ============================================
-// CART SYSTEM
+// CART SYSTEM (WITH IMAGE)
 // ============================================
 let cart = [];
 
@@ -733,7 +693,16 @@ function addToCart(id) {
   if (!product) return;
   const existing = cart.find(c => c.id === id);
   if (existing) existing.qty++;
-  else cart.push({ id: product.id, nama: product.nama, sellerName: product.sellerName, sellerId: product.sellerId || product.sellerName, emoji: product.emoji, harga: product.harga, qty: 1 });
+  else cart.push({ 
+    id: product.id, 
+    nama: product.nama, 
+    sellerName: product.sellerName, 
+    sellerId: product.sellerId || product.sellerName, 
+    image: product.image, 
+    emoji: product.emoji, 
+    harga: product.harga, 
+    qty: 1 
+  });
   saveCartToStorage();
   updateCartUI();
   showToast(`✓ ${product.nama} ditambahkan!`);
@@ -769,21 +738,26 @@ function updateCartUI() {
     cartBody.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-basket"></i><p>Keranjang kosong</p></div>`;
     return;
   }
-  cartBody.innerHTML = cart.map(c => `
-    <div class="cart-item">
-      <div class="cart-item-img">${c.emoji}</div>
-      <div class="cart-item-info">
-        <div class="cart-item-name">${c.nama}</div>
-        <div class="cart-item-vendor"><i class="fas fa-store"></i> ${c.sellerName}</div>
-        <div class="cart-item-price">Rp ${(c.harga * c.qty).toLocaleString('id-ID')}</div>
-        <div class="cart-qty">
-          <button class="qty-btn" onclick="changeQty(${c.id}, -1)">−</button>
-          <span class="qty-num">${c.qty}</span>
-          <button class="qty-btn" onclick="changeQty(${c.id}, 1)">+</button>
+  cartBody.innerHTML = cart.map(c => {
+    const imgHtml = c.image ? 
+      `<img src="${c.image}" alt="${c.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:14px" onerror="this.src='${FALLBACK_IMG.food}'">` :
+      c.emoji;
+    return `
+      <div class="cart-item">
+        <div class="cart-item-img" style="overflow:hidden">${imgHtml}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${c.nama}</div>
+          <div class="cart-item-vendor"><i class="fas fa-store"></i> ${c.sellerName}</div>
+          <div class="cart-item-price">Rp ${(c.harga * c.qty).toLocaleString('id-ID')}</div>
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="changeQty(${c.id}, -1)">−</button>
+            <span class="qty-num">${c.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${c.id}, 1)">+</button>
+          </div>
         </div>
-      </div>
-      <button class="cart-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
-    </div>`).join('');
+        <button class="cart-item-remove" onclick="removeFromCart(${c.id})"><i class="fas fa-trash"></i></button>
+      </div>`;
+  }).join('');
 }
 
 function openCart() {
