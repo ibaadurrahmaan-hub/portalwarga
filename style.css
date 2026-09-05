@@ -606,6 +606,61 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   }
 }
 
+/* ==========================================================================
+   🚀 FIX DESKTOP FULL WIDTH (Melebar Penuh Kanan-Kiri)
+   ========================================================================== */
+
+@media (min-width: 992px) {
+  /* 1. BUKA GEMBOK CONTAINER GLOBAL (Lebar hingga 96% layar) */
+  .container {
+    max-width: 96% !important; /* Sengaja disisakan 4% margin agar terlihat premium */
+    width: 100% !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* 2. SEARCH BAR & FILTER (Melebar Penuh) */
+  .pasar-controls {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .search-box {
+    max-width: 100% !important; /* Membuat search bar panjang full screen */
+  }
+  .filter-pills {
+    width: 100% !important;
+  }
+
+  /* 3. HERO SECTION (Teks & Kotak Statistik Melebar) */
+  .hero-content {
+    max-width: 100% !important;
+  }
+  .hero p {
+    max-width: 900px !important; /* Teks jangan terlalu panjang agar tetap enak dibaca */
+  }
+  .hero-stats {
+    max-width: 100% !important; /* Kotak '15 Menit' dll akan membentang penuh */
+  }
+
+  /* 4. GRID PRODUK (Mengisi ruang kosong di kanan) */
+  .product-grid {
+    width: 100% !important;
+    /* Paksa minimal 5 kolom di monitor laptop standar */
+    grid-template-columns: repeat(5, 1fr) !important; 
+    gap: 20px !important;
+  }
+}
+
+/* 5. MONITOR BESAR / PC (Ultrawide) */
+@media (min-width: 1400px) {
+  .container {
+    max-width: 98% !important;
+  }
+  .product-grid {
+    /* Paksa 6 kolom jika layar sangat lebar */
+    grid-template-columns: repeat(6, 1fr) !important; 
+  }
+}
 
 /* ==========================================================================
    📱 MOBILE & RESPONSIVE STYLES (MAX-WIDTH: 992px & 768px)
