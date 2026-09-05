@@ -1226,3 +1226,174 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   margin: 0 !important;                 /* hilangkan margin kiri yang mendorong teks */
   line-height: 1 !important;
 }
+
+/* ==========================================================================
+   🖼️ IMAGE FIT — Food / Property / Edu / Umroh
+   ========================================================================== */
+
+/* ---- FOOD: kotak gambar proporsional ---- */
+.product-img {
+  width: 100% !important;
+  height: 160px !important;          /* HP */
+  min-height: 160px !important;
+  max-height: 200px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px 16px 0 0 !important;
+  background: #E2E8F0 !important;
+  position: relative !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+}
+
+.product-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;      /* crop rapi, tidak gepeng */
+  object-position: center center !important;
+  display: block !important;
+  border: none !important;
+}
+
+@media (min-width: 768px) {
+  .product-img {
+    height: 180px !important;
+  }
+}
+
+/* Badge diskon tetap di atas gambar */
+.product-img .disc-pill {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 5 !important;
+}
+
+
+/* ---- PROPERTY: banner lebar ---- */
+.property-img {
+  width: 100% !important;
+  height: 200px !important;
+  min-height: 200px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 18px 18px 0 0 !important;
+  background: #E2E8F0 !important;
+  position: relative !important;
+  display: block !important;
+  font-size: 0 !important;           /* hilangkan sisa emoji spacing */
+}
+
+.property-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+}
+
+.property-img .property-status {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  z-index: 5 !important;
+}
+
+@media (min-width: 768px) {
+  .property-img {
+    height: 220px !important;
+  }
+}
+
+
+/* ---- PENDIDIKAN: box gambar BESAR (bukan icon kecil) ---- */
+.edu-card {
+  display: flex !important;
+  flex-direction: column !important;  /* gambar di atas, teks di bawah */
+  gap: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+.edu-icon {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 160px !important;           /* jauh lebih besar dari icon 68px */
+  min-height: 160px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;        /* ikut radius kartu */
+  overflow: hidden !important;
+  background: #EDE9FE !important;
+  box-shadow: none !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+.edu-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  display: block !important;
+  border-radius: 0 !important;
+}
+
+.edu-info {
+  padding: 16px 18px 18px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+.edu-info .btn-edu {
+  margin-top: auto !important;
+  width: 100% !important;
+  justify-content: center !important;
+}
+
+/* Matikan strip ungu kiri lama (opsional, biar bersih) */
+.edu-card::before {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .edu-icon {
+    height: 180px !important;
+  }
+}
+
+
+/* ---- UMROH: banner hero di kartu ---- */
+#umrohGrid .property-img,
+#cat-umroh .property-img {
+  height: 180px !important;
+  min-height: 180px !important;
+}
+
+@media (min-width: 768px) {
+  #umrohGrid .property-img,
+  #cat-umroh .property-img {
+    height: 200px !important;
+  }
+}
+
+
+/* ---- Umum: anti stretch / anti blank ---- */
+.product-card img,
+.property-card img,
+.edu-card img {
+  max-width: none !important;
+  -webkit-user-drag: none;
+}
+
+/* Hover zoom halus */
+.product-card:hover .product-img img,
+.property-card:hover .property-img img,
+.edu-card:hover .edu-icon img {
+  transform: scale(1.05);
+  transition: transform 0.35s ease;
+}
