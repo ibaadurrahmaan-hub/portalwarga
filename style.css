@@ -1228,20 +1228,19 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 }
 
 /* ==========================================================================
-   🖼️ IMAGE FIT — Food / Property / Edu / Umroh
+   🖼️ PERFECT ASPECT RATIO FIT (UNTUK POSTER GAMBAR & BROSUR)
    ========================================================================== */
 
-/* ---- FOOD: kotak gambar proporsional ---- */
+/* 1. KATEGORI FOOD (Rasio 5:4 Pas Sesuai Poster Gacoan 1344x1080) */
 .product-img {
   width: 100% !important;
-  height: 160px !important;          /* HP */
-  min-height: 160px !important;
-  max-height: 200px !important;
+  aspect-ratio: 5 / 4 !important; /* Otomatis menghitung tinggi presisi */
+  height: auto !important;        /* Matikan tinggi statis px */
   padding: 0 !important;
   margin: 0 !important;
   overflow: hidden !important;
   border-radius: 16px 16px 0 0 !important;
-  background: #E2E8F0 !important;
+  background: #F1F5F9 !important;
   position: relative !important;
   display: block !important;
   flex-shrink: 0 !important;
@@ -1250,96 +1249,62 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;      /* crop rapi, tidak gepeng */
-  object-position: center center !important;
+  object-fit: cover !important;   /* Menampilkan poster penuh & rapi */
+  object-position: center !important;
   display: block !important;
-  border: none !important;
-}
-
-@media (min-width: 768px) {
-  .product-img {
-    height: 180px !important;
-  }
-}
-
-/* Badge diskon tetap di atas gambar */
-.product-img .disc-pill {
-  position: absolute !important;
-  top: 10px !important;
-  right: 10px !important;
-  z-index: 5 !important;
 }
 
 
-/* ---- PROPERTY: banner lebar ---- */
+/* 2. KATEGORI PROPERTI (Rasio 1:1 Persegi Pas Sesuai Brosur 1080x1200) */
 .property-img {
   width: 100% !important;
-  height: 200px !important;
-  min-height: 200px !important;
+  aspect-ratio: 1 / 1 !important; /* Rasio persegi ideal untuk brosur properti */
+  height: auto !important;
   padding: 0 !important;
   overflow: hidden !important;
   border-radius: 18px 18px 0 0 !important;
-  background: #E2E8F0 !important;
+  background: #F1F5F9 !important;
   position: relative !important;
   display: block !important;
-  font-size: 0 !important;           /* hilangkan sisa emoji spacing */
 }
 
 .property-img img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  object-position: center center !important;
+  object-position: top center !important; /* Prioritaskan bagian atas brosur */
   display: block !important;
 }
 
-.property-img .property-status {
-  position: absolute !important;
-  top: 12px !important;
-  right: 12px !important;
-  z-index: 5 !important;
-}
 
-@media (min-width: 768px) {
-  .property-img {
-    height: 220px !important;
-  }
-}
-
-
-/* ---- PENDIDIKAN: box gambar BESAR (bukan icon kecil) ---- */
+/* 3. KATEGORI PENDIDIKAN (Brosur Banner 4:3) */
 .edu-card {
   display: flex !important;
-  flex-direction: column !important;  /* gambar di atas, teks di bawah */
-  gap: 0 !important;
+  flex-direction: column !important;
   padding: 0 !important;
   overflow: hidden !important;
+  height: 100% !important;
 }
 
 .edu-icon {
   width: 100% !important;
   min-width: 100% !important;
-  max-width: 100% !important;
-  height: 160px !important;           /* jauh lebih besar dari icon 68px */
-  min-height: 160px !important;
+  aspect-ratio: 4 / 3 !important; /* Rasio banner brosur sekolah */
+  height: auto !important;
   margin: 0 !important;
   padding: 0 !important;
-  border-radius: 0 !important;        /* ikut radius kartu */
+  border-radius: 0 !important;
   overflow: hidden !important;
-  background: #EDE9FE !important;
-  box-shadow: none !important;
+  background: #F1F5F9 !important;
   display: block !important;
-  flex-shrink: 0 !important;
-  position: relative !important;
 }
 
 .edu-icon img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  object-position: center center !important;
+  object-position: center !important;
   display: block !important;
-  border-radius: 0 !important;
 }
 
 .edu-info {
@@ -1349,51 +1314,20 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   flex: 1 1 auto !important;
 }
 
-.edu-info .btn-edu {
-  margin-top: auto !important;
-  width: 100% !important;
-  justify-content: center !important;
-}
 
-/* Matikan strip ungu kiri lama (opsional, biar bersih) */
-.edu-card::before {
-  display: none !important;
-}
-
-@media (min-width: 768px) {
-  .edu-icon {
-    height: 180px !important;
-  }
-}
-
-
-/* ---- UMROH: banner hero di kartu ---- */
+/* 4. KATEGORI UMROH (Rasio 4:3 atau 5:4) */
 #umrohGrid .property-img,
 #cat-umroh .property-img {
-  height: 180px !important;
-  min-height: 180px !important;
-}
-
-@media (min-width: 768px) {
-  #umrohGrid .property-img,
-  #cat-umroh .property-img {
-    height: 200px !important;
-  }
+  aspect-ratio: 4 / 3 !important;
+  height: auto !important;
 }
 
 
-/* ---- Umum: anti stretch / anti blank ---- */
-.product-card img,
-.property-card img,
-.edu-card img {
-  max-width: none !important;
-  -webkit-user-drag: none;
-}
-
-/* Hover zoom halus */
-.product-card:hover .product-img img,
-.property-card:hover .property-img img,
-.edu-card:hover .edu-icon img {
-  transform: scale(1.05);
-  transition: transform 0.35s ease;
+/* 5. TATA LETAK GRID & Z-INDEX BADGE */
+.product-img .disc-pill,
+.property-img .property-status {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 10 !important;
 }
