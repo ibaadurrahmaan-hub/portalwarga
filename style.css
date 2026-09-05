@@ -896,7 +896,58 @@ body {
     padding-right: 48px !important;
   }
 }
-/* ============================================
+
+
+/* ========/* ==========================================================================
+   HERO SECTION — FULL WIDTH DESKTOP
+   ========================================================================== */
+@media (min-width: 768px) {
+
+  /* 1. Paksa Hero & Container ke Lebar Penuh */
+  .hero {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 60px 0 !important;
+  }
+
+  .hero .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 2. Konten Hero Melebar & Proporsional */
+  .hero-content {
+    max-width: 100% !important;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2.4rem, 3.5vw, 3.8rem) !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-content p {
+    max-width: 750px !important; /* Batas teks agar tetap nyaman dibaca */
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+  }
+
+  /* 3. Kartu Statistik (Mitra / Produk / Estimasi Antar) Lebih Lebar */
+  .hero-stats {
+    max-width: 750px !important;
+    width: 100% !important;
+  }
+}
+
+/* Untuk Monitor Lebar (> 1200px) */
+@media (min-width: 1200px) {
+  .hero .container {
+    padding-left: 60px !important;
+    padding-right: 60px !important;
+  }
+}====================================
    RESPONSIVE — MEDIA QUERIES
    ============================================ */
 
