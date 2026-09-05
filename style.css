@@ -663,6 +663,54 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 }
 
 /* ==========================================================================
+   🎯 PERBAIKAN DESKTOP: BADGE KATEGORI FULL WIDTH & FOOTER BOTTOM SPACE
+   ========================================================================== */
+
+/* 1. HILANGKAN RUANG PUTIH DIBUTUHKAN HP DI BAWAH FOOTER DESKTOP */
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0 !important; /* Matikan offset bottom nav HP pada desktop */
+  }
+  .footer {
+    padding-bottom: 30px !important;
+    margin-bottom: 0 !important;
+  }
+}
+
+/* 2. BADGE KATEGORI, HEADER KATALOG, & SUB FILTER FULL WIDTH */
+@media (min-width: 992px) {
+  /* Beri jarak atas agar Judul / Badge Kategori tidak tertutup Header Sticky */
+  .cat-section {
+    padding-top: 15px !important;
+  }
+
+  /* Header & Badge Kategori Full Width */
+  .cat-header,
+  .cat-tag,
+  .cat-header h2,
+  .cat-header p {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Sub-Filter (Pill Kategori: Semua, Sayuran, dll) Melebar Penuh */
+  .pasar-controls,
+  .filter-pills {
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+  }
+
+  .filter-pills .pill {
+    padding: 10px 22px !important;
+    font-size: 0.88rem !important;
+  }
+}
+
+/* ==========================================================================
    📱 MOBILE & RESPONSIVE STYLES (MAX-WIDTH: 992px & 768px)
    ========================================================================== */
 
