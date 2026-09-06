@@ -1552,3 +1552,57 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   white-space: normal; /* MEMPERBAIKI TEKS TERPOTONG KOLOM */
 }
 
+
+/* ============ PERBAIKAN PERNYATAAN PERSETUJUAN ============ */
+
+/* Box Utama Pernyataan */
+.approval-box {
+  background: #f0f9ff;               /* Biru muda lembut */
+  border: 2px solid #0284c7;         /* Bingkai biru tegas */
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 16px;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+}
+
+.approval-box h3 {
+  color: #0369a1;
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* FIX KUNCI: Memaksa List Menjadi Vertikal Bersusun Ke Bawah */
+.approval-list {
+  list-style: none !important;       /* Hapus titik pembulat bawaan browser */
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important; /* WAJIB: Agar tersusun lurus ke bawah */
+  gap: 12px !important;              /* Jarak antar poin */
+}
+
+/* Styling Poin List */
+.approval-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: #334155;
+  line-height: 1.55;
+  width: 100%;                       /* Memastikan lebar penuh */
+}
+
+/* Menambahkan Icon Centang Otomatis di Depan Setiap Poin */
+.approval-list li::before {
+  content: "\f14a";                  /* Kode Icon Check-Square FontAwesome */
+  font-family: "Font Awesome 5 Free", "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #0284c7;
+  font-size: 1.05rem;
+  flex-shrink: 0;                    /* Mencegah icon tertekan/gepeng */
+  margin-top: 1px;
+}
