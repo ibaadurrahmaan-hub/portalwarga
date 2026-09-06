@@ -1331,3 +1331,30 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   right: 10px !important;
   z-index: 10 !important;
 }
+
+/* ==========================================================================
+   🎓 FIX GAMBAR BROSUR PENDIDIKAN (TIDAK TERPOTONG DI ATAS/HEADER)
+   ========================================================================== */
+
+/* 1. Wadah Gambar Dibuat Persegi (1:1) Agar Muat Area Brosur Lebih Luas */
+.edu-icon {
+  width: 100% !important;
+  min-width: 100% !important;
+  aspect-ratio: 1 / 1 !important; /* Rasio persegi 1:1 ideal untuk brosur sekolah */
+  height: auto !important;
+  background: #f8fafc !important; /* Background bersih untuk sisa area */
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+  border-radius: 16px 16px 0 0 !important;
+}
+
+/* 2. Paksa Gambar Tampil Utuh Mulai Dari Paling Atas (Top Center) */
+.edu-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;      /* KUNCI: Menampilkan 100% brosur tanpa terpotong */
+  object-position: top center !important; /* Fokus pada header paling atas brosur */
+  background: #f8fafc !important;
+  display: block !important;
+}
