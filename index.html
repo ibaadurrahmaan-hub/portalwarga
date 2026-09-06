@@ -87,6 +87,7 @@
 
 <body>
 
+
 <!-- ============ TOP HEADER & DESKTOP NAV ============ -->
 <header class="app-header">
   <div class="container">
@@ -100,7 +101,7 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation (5 Menu) -->
+      <!-- Desktop Navigation (5 Menu Kategori) -->
       <nav class="desktop-nav">
         <a href="#cat-pasar" class="d-nav-item active" onclick="showCategory('pasar')">
           <i class="fas fa-hamburger"></i> Food
@@ -121,10 +122,18 @@
 
       <!-- Action Buttons -->
       <div class="header-actions">
+        
+        <!-- 🔥 TOMBOL JADI MITRA / SYARAT MITRA (BARU) -->
+        <a href="terms-seller.html" class="btn-mitra" title="Syarat & Ketentuan Kemitraan">
+          <i class="fas fa-handshake"></i>
+          <span>Jadi Mitra</span>
+        </a>
+
         <button class="btn-cart" onclick="openCart()" aria-label="Keranjang">
           <i class="fas fa-shopping-cart"></i>
           <span class="cart-badge" id="cartBadge">0</span>
         </button>
+
         <a href="https://wa.me/6285267891619" class="btn-cs" title="CS WhatsApp" target="_blank" rel="noopener">
           <i class="fab fa-whatsapp"></i>
         </a>
