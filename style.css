@@ -1415,3 +1415,36 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   font-size: 0.85rem !important;
   flex-shrink: 0 !important;      /* Ikon centang tidak akan gepeng */
 }
+
+
+/* Styling Tombol Jadi Mitra di Header */
+.btn-mitra {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #0284C7, #06B6D4);
+  color: #ffffff !important;
+  padding: 7px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-mitra:hover {
+  background: linear-gradient(135deg, #0369A1, #0891B2);
+  transform: translateY(-1px);
+}
+
+/* Responsif Mobile (Layar HP sempit) */
+@media (max-width: 576px) {
+  .btn-mitra span {
+    display: none; /* Sembunyikan teks di HP agar muat, hanya icon jabat tangan */
+  }
+  .btn-mitra {
+    padding: 8px 10px;
+    border-radius: 50%; /* Jadi tombol bulat seperti icon lainnya */
+  }
+}
