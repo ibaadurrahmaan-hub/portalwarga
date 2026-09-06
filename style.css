@@ -1606,3 +1606,210 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   flex-shrink: 0;                    /* Mencegah icon tertekan/gepeng */
   margin-top: 1px;
 }
+
+/* ============ FOOTER STYLES ============ */
+.footer {
+  background: #0A0E1A;
+  color: #94A3B8;
+  padding: 40px 0 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-brand .brand-icon {
+  font-size: 1.8rem;
+}
+
+.footer-brand strong {
+  color: #FFFFFF;
+  font-size: 1.15rem;
+  display: block;
+}
+
+.footer-brand p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #94A3B8;
+}
+
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 211, 102, 0.12);
+  color: #4ADE80;
+  padding: 8px 16px;
+  border-radius: 99px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: 1px solid rgba(74, 222, 128, 0.25);
+  transition: all 0.2s ease;
+}
+
+.footer-contact a:hover {
+  background: rgba(37, 211, 102, 0.25);
+  transform: translateY(-1px);
+}
+
+/* Section Ajakan Mitra */
+.footer-mitra-section {
+  margin: 20px 0;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-mitra-title {
+  text-align: center;
+  color: #67E8F9;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-mitra-title i {
+  color: #FBBF24;
+}
+
+.footer-mitra-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .footer-mitra-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.footer-mitra-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.footer-mitra-card.seller {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.12), rgba(6, 182, 212, 0.12));
+  border: 1px solid rgba(6, 182, 212, 0.25);
+  color: #E0F2FE;
+}
+
+.footer-mitra-card.seller:hover {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.28), rgba(6, 182, 212, 0.28));
+  border-color: #06B6D4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.2);
+}
+
+.footer-mitra-card.kurir {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.12), rgba(234, 88, 12, 0.12));
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  color: #FFEDD5;
+}
+
+.footer-mitra-card.kurir:hover {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.28), rgba(234, 88, 12, 0.28));
+  border-color: #F97316;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.2);
+}
+
+.mitra-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  flex-shrink: 0;
+}
+
+.footer-mitra-card.seller .mitra-icon { color: #67E8F9; }
+.footer-mitra-card.kurir .mitra-icon { color: #FDBA74; }
+
+.mitra-info { flex: 1; min-width: 0; }
+.mitra-info strong { display: block; font-size: 0.88rem; font-weight: 800; color: #FFFFFF; margin-bottom: 2px; }
+.mitra-info span { display: block; font-size: 0.75rem; opacity: 0.8; line-height: 1.3; }
+
+.mitra-arrow { font-size: 0.85rem; opacity: 0.5; transition: all 0.25s; flex-shrink: 0; }
+.footer-mitra-card:hover .mitra-arrow { opacity: 1; transform: translateX(4px); }
+
+/* Footer Bottom & Admin Link */
+.footer-bottom {
+  padding-top: 12px;
+  font-size: 0.8rem;
+  color: #64748B;
+}
+
+.footer-bottom-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  text-align: center;
+}
+
+.footer-dot {
+  opacity: 0.4;
+}
+
+/* 🔥 LINK ADMIN SAMAR */
+.footer-admin-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #94A3B8 !important;
+  text-decoration: none;
+  opacity: 0.25; /* Sangat samar agar orang umum tidak sadar */
+  transition: all 0.25s ease;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.78rem;
+}
+
+/* Efek saat pengelola menyorot kursor ke area admin */
+.footer-admin-link:hover {
+  opacity: 1; /* Menyala terang saat di-hover pengelola */
+  color: #38BDF8 !important;
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.footer-admin-link i {
+  font-size: 0.72rem;
+}
+
+@media (max-width: 576px) {
+  .footer-top { flex-direction: column; text-align: center; }
+  .footer-brand { flex-direction: column; }
+  .footer-mitra-card { padding: 12px 14px; }
+}
