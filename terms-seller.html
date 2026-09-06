@@ -209,10 +209,12 @@
   color: #475569;
   line-height: 1.7;
   margin-bottom: 6px;
+  display: list-item !important;
 }
 .terms-section strong, .terms-section b {
   color: #0F172A;
   font-weight: 700;
+  display: inline !important;
 }
 .terms-section .ref-hukum {
   font-size: 0.78rem;
@@ -265,6 +267,9 @@
   font-size: 0.88rem;
   line-height: 1.6;
   color: #78350F;
+  overflow: hidden;
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 /* Tables */
@@ -315,44 +320,147 @@
 .cat-label.umroh { background: #FEF3C7; color: #78350F; }
 .cat-label.wifi { background: #CFFAFE; color: #155E75; }
 
-/* Checkbox Persetujuan */
+/* ============================================
+   ⚡ BOX PERSETUJUAN v2 — ANTI-BENTROK
+   ============================================ */
 .approval-box {
   background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
   border: 2px solid #0284C7;
   border-radius: 16px;
-  padding: 24px 22px;
-  margin: 30px 0;
+  padding: 20px 18px;
+  margin: 24px 0;
 }
-.approval-box h3 {
+
+.approval-title {
   color: #0369A1;
   font-size: 1.05rem;
   font-weight: 800;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-.approval-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.approval-list li {
-  padding: 8px 0;
-  color: #0F172A;
-  font-size: 0.88rem;
-  font-weight: 500;
-  line-height: 1.6;
-  display: flex;
-  align-items: flex-start;
   gap: 10px;
+  line-height: 1.4;
 }
-.approval-list li::before {
-  content: '☐';
-  font-size: 1.15rem;
+
+.approval-title i {
   color: #0284C7;
-  flex-shrink: 0;
-  line-height: 1;
+  font-size: 1.2rem;
+}
+
+.approval-list-v2 {
+  display: block !important;
+}
+
+.approval-item {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  padding: 12px 0 !important;
+  border-bottom: 1px dashed rgba(2, 132, 199, 0.2);
+  width: 100% !important;
+}
+
+.approval-item:last-child {
+  border-bottom: none;
+}
+
+.approval-check {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  background: #0284C7;
+  color: #fff !important;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  flex-shrink: 0 !important;
+  margin-top: 2px;
+}
+
+.approval-text {
+  flex: 1 !important;
+  font-size: 0.9rem !important;
+  color: #0F172A !important;
+  line-height: 1.6 !important;
+  white-space: normal !important;
+  word-wrap: break-word !important;
+  display: inline-block !important;
+  min-width: 0 !important;
+}
+
+.approval-text .tebal {
+  font-weight: 700 !important;
+  color: #0369A1 !important;
+  display: inline !important;
+  min-width: unset !important;
+  width: auto !important;
+}
+
+/* ============================================
+   ⚡ BOX KALKULASI v2 — ANTI-BOCOR
+   ============================================ */
+.calc-box-v2 {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  padding: 18px 20px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+}
+
+.calc-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: baseline !important;
+  gap: 12px !important;
+  padding: 6px 0 !important;
+  font-size: 0.9rem !important;
+  color: #78350F !important;
+  flex-wrap: wrap;
+}
+
+.calc-label {
+  flex: 1 !important;
+  min-width: 0 !important;
+  text-align: left !important;
+}
+
+.calc-value {
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+  color: #78350F !important;
+}
+
+.calc-minus {
+  color: #DC2626 !important;
+}
+
+.calc-divider {
+  border-top: 2px dashed #B45309;
+  margin: 10px 0;
+}
+
+.calc-total {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 10px 12px !important;
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+.calc-total .calc-label,
+.calc-total .calc-value {
+  color: #166534 !important;
+  font-weight: 800 !important;
+  font-size: 0.95rem !important;
+}
+
+@media (max-width: 576px) {
+  .calc-row { font-size: 0.82rem !important; }
+  .calc-total .calc-label,
+  .calc-total .calc-value { font-size: 0.88rem !important; }
 }
 
 /* Keunggulan Grid */
@@ -466,42 +574,62 @@
   transform: translateY(-3px);
 }
 
-/* Kontak Card */
+/* ============================================
+   ⚡ KONTAK CARD v2 — TEKS TERANG DI DARK BG
+   ============================================ */
 .kontak-card {
   background: linear-gradient(135deg, #0F172A, #1E293B);
-  color: #fff;
+  color: #E2E8F0 !important;
   padding: 24px 22px;
   border-radius: 16px;
   margin: 20px 0;
 }
 .kontak-card h3 {
-  color: #67E8F9;
+  color: #67E8F9 !important;
   font-size: 1.05rem;
   font-weight: 800;
   margin-bottom: 14px;
-}
-.kontak-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.kontak-list li {
-  padding: 8px 0;
-  color: #E2E8F0;
-  font-size: 0.9rem;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+}
+.kontak-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+.kontak-list li {
+  padding: 12px 0 !important;
+  color: #E2E8F0 !important;
+  font-size: 0.9rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
   border-bottom: 1px dashed rgba(255,255,255,0.1);
 }
 .kontak-list li:last-child { border: none; }
 .kontak-list li i {
-  color: #38BDF8;
-  width: 20px;
+  color: #38BDF8 !important;
+  width: 22px;
   text-align: center;
+  font-size: 1rem;
+  flex-shrink: 0;
 }
-.kontak-list a { color: #67E8F9; text-decoration: none; font-weight: 600; }
-.kontak-list a:hover { color: #fff; }
+.kontak-list li span {
+  color: #E2E8F0 !important;
+  flex: 1;
+}
+.kontak-list li span b,
+.kontak-list li b {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+.kontak-list a { 
+  color: #67E8F9 !important; 
+  text-decoration: none; 
+  font-weight: 700 !important; 
+}
+.kontak-list a:hover { color: #fff !important; }
 
 /* Back to top */
 .back-to-top {
@@ -575,123 +703,12 @@
   font-weight: 600;
 }
 .terms-footer a:hover { color: #fff; }
-
-/* ==============================================
-   ⚡ HOTFIX — OVERRIDE STYLE.CSS EKSTERNAL
-   Perbaikan: Checklist Vertikal, Kontak Gelap, Box Kuning
-   ============================================== */
-
-/* 🔴 FIX 1: Checklist Persetujuan (Foto 2) — Paksa horizontal */
-.approval-box .approval-list,
-.terms-section .approval-list {
-  list-style: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  display: block !important;
-  columns: unset !important;
-  column-count: unset !important;
-  grid-template-columns: unset !important;
-}
-
-.approval-box .approval-list li,
-.terms-section .approval-list li {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  gap: 10px !important;
-  width: 100% !important;
-  padding: 10px 0 !important;
-  margin: 0 !important;
-  font-size: 0.9rem !important;
-  color: #0F172A !important;
-  line-height: 1.6 !important;
-  white-space: normal !important;
-  word-break: normal !important;
-  border-bottom: 1px dashed rgba(2, 132, 199, 0.15);
-}
-
-.approval-box .approval-list li:last-child {
-  border-bottom: none !important;
-}
-
-.approval-box .approval-list li::before {
-  content: '\f14a' !important;  /* Icon check-square FontAwesome */
-  font-family: "Font Awesome 6 Free" !important;
-  font-weight: 900 !important;
-  color: #0284C7 !important;
-  font-size: 1rem !important;
-  flex-shrink: 0 !important;
-  margin-top: 2px !important;
-  line-height: 1 !important;
-}
-
-/* 🔴 FIX 2: Kontak Card Gelap (Foto 3) — Jam Operasional Terbaca */
-.kontak-card {
-  background: linear-gradient(135deg, #0F172A, #1E293B) !important;
-  color: #E2E8F0 !important;
-}
-
-.kontak-card .kontak-list li,
-.kontak-card .kontak-list li span,
-.kontak-card .kontak-list li b {
-  color: #E2E8F0 !important;
-  opacity: 1 !important;
-}
-
-.kontak-card .kontak-list li b {
-  color: #FFFFFF !important;
-  font-weight: 700 !important;
-}
-
-.kontak-card .kontak-list a {
-  color: #67E8F9 !important;
-  font-weight: 700 !important;
-}
-
-/* 🔴 FIX 3: Box Kuning Perhitungan (Foto 1) — Cegah bocor keluar */
-.gold-box {
-  overflow: hidden !important;
-  box-sizing: border-box !important;
-  word-wrap: break-word !important;
-  max-width: 100% !important;
-  line-height: 1.8 !important;
-  font-size: 0.85rem !important;
-}
-
-@media (max-width: 576px) {
-  .gold-box {
-    font-size: 0.78rem !important;
-    padding: 14px 12px !important;
-  }
-}
-
-/* 🔴 BONUS FIX: Semua UL/OL di terms-section — Paksa vertikal */
-.terms-section ul,
-.terms-section ol {
-  display: block !important;
-  columns: unset !important;
-  column-count: 1 !important;
-  grid-template-columns: unset !important;
-}
-
-.terms-section ul li,
-.terms-section ol li {
-  display: list-item !important;
-  width: 100% !important;
-  white-space: normal !important;
-  word-break: normal !important;
-}
-
-/* Khusus list dalam approval-list tetap flex */
-.approval-list li {
-  display: flex !important;
-}
 </style>
 </head>
 
 <body>
 
-<!-- HEADER APP (Reuse header dari index) -->
+<!-- HEADER APP -->
 <header class="app-header">
   <div class="container">
     <div class="header-inner">
@@ -732,9 +749,9 @@
   </div>
 </section>
 
-<!-- DAFTAR ISI / TOC -->
 <div class="terms-container">
 
+  <!-- TOC -->
   <div class="toc-box">
     <h3><i class="fas fa-list-ul"></i> Daftar Isi</h3>
     <ul class="toc-list">
@@ -763,18 +780,8 @@
   <!-- PEMBUKAAN -->
   <section class="terms-section">
     <h2><i class="fas fa-book-open" style="color:#0284C7"></i> Pembukaan</h2>
-    <p>
-      Dokumen ini merupakan perjanjian hukum yang sah dan mengikat antara 
-      <b>Pengelola Platform PortalWarga</b> (selanjutnya disebut <b>"Pengelola"</b>) 
-      dan <b>Calon Penjual, Mitra UMKM, Pemilik Properti, Lembaga Pendidikan, Travel Agent, atau Penyedia Jasa</b> 
-      (selanjutnya disebut <b>"Seller"</b> atau <b>"Mitra"</b>).
-    </p>
-    <p>
-      Dengan melakukan pendaftaran, mengaktifkan akun, mengunggah produk/jasa, dan/atau menggunakan 
-      layanan PortalWarga dalam bentuk apapun, <b>Seller menyatakan telah membaca, memahami, 
-      menyetujui, dan tunduk</b> pada seluruh ketentuan dalam dokumen ini.
-    </p>
-    
+    <p>Dokumen ini merupakan perjanjian hukum yang sah dan mengikat antara <b>Pengelola Platform PortalWarga</b> (selanjutnya disebut <b>"Pengelola"</b>) dan <b>Calon Penjual, Mitra UMKM, Pemilik Properti, Lembaga Pendidikan, Travel Agent, atau Penyedia Jasa</b> (selanjutnya disebut <b>"Seller"</b> atau <b>"Mitra"</b>).</p>
+    <p>Dengan melakukan pendaftaran, mengaktifkan akun, mengunggah produk/jasa, dan/atau menggunakan layanan PortalWarga dalam bentuk apapun, <b>Seller menyatakan telah membaca, memahami, menyetujui, dan tunduk</b> pada seluruh ketentuan dalam dokumen ini.</p>
     <h3>Dasar Hukum</h3>
     <p>Dokumen ini disusun berdasarkan dan tunduk pada peraturan perundang-undangan Republik Indonesia:</p>
     <ol>
@@ -790,7 +797,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 1: DEFINISI -->
+  <!-- PASAL 1 -->
   <section class="terms-section" id="pasal-1">
     <h2><span class="pasal-num">PASAL 1</span> Definisi</h2>
     <p>Dalam perjanjian ini, istilah-istilah berikut memiliki pengertian:</p>
@@ -807,18 +814,16 @@
     </ol>
   </section>
 
-  <!-- PASAL 2: REGISTRASI -->
+  <!-- PASAL 2 -->
   <section class="terms-section" id="pasal-2">
     <h2><span class="pasal-num">PASAL 2</span> Persyaratan Registrasi & Verifikasi</h2>
     <div class="ref-hukum"><i class="fas fa-book"></i> Merujuk Permendag No. 31 Tahun 2023 Pasal 4 & 5</div>
-    
     <h3>2.1 Syarat Umum</h3>
     <ol>
       <li>Seller wajib WNI berusia minimal <b>18 tahun</b> atau telah menikah dan cakap hukum, atau berbentuk Badan Usaha resmi.</li>
       <li>Wajib memiliki lokasi usaha/domisili di wilayah operasional PortalWarga.</li>
       <li>Wajib memiliki nomor WhatsApp aktif.</li>
     </ol>
-
     <h3>2.2 Kelengkapan Dokumen Registrasi</h3>
     <ol>
       <li>Nama Lengkap sesuai KTP</li>
@@ -829,7 +834,6 @@
       <li>Nomor Rekening Bank atau Akun E-Wallet (atas nama sendiri)</li>
       <li>Foto/logo usaha (opsional)</li>
     </ol>
-
     <h3>2.3 Dokumen Tambahan per Kategori</h3>
     <table class="terms-table">
       <thead>
@@ -842,7 +846,6 @@
         <tr><td><span class="cat-label edu">Pendidikan</span></td><td>Akta/Legalitas lembaga; Izin operasional (jika formal)</td></tr>
       </tbody>
     </table>
-
     <h3>2.4 Verifikasi & Persetujuan</h3>
     <ol>
       <li>Pengelola berhak melakukan verifikasi via telepon, kunjungan lokasi, atau meminta dokumen tambahan.</li>
@@ -851,7 +854,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 3: HAK SELLER -->
+  <!-- PASAL 3 -->
   <section class="terms-section" id="pasal-3">
     <h2><span class="pasal-num">PASAL 3</span> Hak Seller / Mitra</h2>
     <p>Seller yang telah terverifikasi berhak atas:</p>
@@ -874,7 +877,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 4: KEWAJIBAN SELLER -->
+  <!-- PASAL 4 -->
   <section class="terms-section" id="pasal-4">
     <h2><span class="pasal-num">PASAL 4</span> Kewajiban Seller / Mitra</h2>
     <div class="ref-hukum"><i class="fas fa-book"></i> Merujuk UU Perlindungan Konsumen, UU ITE, dan Permendag 31/2023</div>
@@ -892,7 +895,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 5: KETENTUAN KATEGORI -->
+  <!-- PASAL 5 -->
   <section class="terms-section" id="pasal-5">
     <h2><span class="pasal-num">PASAL 5</span> Ketentuan Khusus Tiap Kategori</h2>
 
@@ -938,15 +941,13 @@
     </ol>
   </section>
 
-  <!-- PASAL 6: LARANGAN -->
+  <!-- PASAL 6 -->
   <section class="terms-section" id="pasal-6">
     <h2><span class="pasal-num">PASAL 6</span> Larangan Produk & Konten</h2>
     <div class="ref-hukum"><i class="fas fa-book"></i> Merujuk Permendag 31/2023 & UU ITE</div>
-    
     <div class="warning-box">
       <b>⚠️ Seller DILARANG KERAS menjual, menawarkan, atau mempromosikan:</b>
     </div>
-
     <h4>1. Barang Ilegal</h4>
     <ul>
       <li>Narkotika, psikotropika, obat terlarang</li>
@@ -954,14 +955,12 @@
       <li>Senjata api/tajam ilegal, bahan peledak</li>
       <li>Zat kimia berbahaya</li>
     </ul>
-
     <h4>2. Produk Haram/Ilegal untuk Konsumsi</h4>
     <ul>
       <li>Makanan/minuman kadaluarsa, rusak, tercemar</li>
       <li>Minuman keras (alkohol) tanpa izin khusus</li>
       <li>Produk daging tidak jelas kehalalan/sumbernya</li>
     </ul>
-
     <h4>3. Konten Ilegal</h4>
     <ul>
       <li>Pornografi</li>
@@ -969,37 +968,32 @@
       <li>Perjudian online / money game / skema piramida</li>
       <li>Investasi bodong / robot trading ilegal</li>
     </ul>
-
     <h4>4. Pelanggaran HKI</h4>
     <ul>
       <li>Produk bajakan (software, film, musik, buku)</li>
       <li>Barang KW/replika merek tanpa lisensi</li>
       <li>Konten copy-paste kompetitor</li>
     </ul>
-
     <h4>5. Jasa Terlarang</h4>
     <ul>
       <li>Prostitusi/jasa seksual</li>
       <li>Peretasan, carding, kejahatan siber</li>
       <li>Ijazah palsu, dokumen palsu, review fiktif</li>
     </ul>
-
     <h4>6. Produk Sensitif</h4>
     <ul>
       <li>Satwa/tumbuhan dilindungi</li>
       <li>Organ tubuh manusia</li>
       <li>Produk medis tanpa izin edar BPOM</li>
     </ul>
-
     <div class="warning-box">
       <b>⛔ Pelanggaran Pasal ini = Penutupan Akun Permanen + Pelaporan ke Pihak Berwajib.</b>
     </div>
   </section>
 
-  <!-- PASAL 7: HAK KEWAJIBAN PENGELOLA -->
+  <!-- PASAL 7 -->
   <section class="terms-section" id="pasal-7">
     <h2><span class="pasal-num">PASAL 7</span> Hak & Kewajiban Pengelola</h2>
-
     <h3>7.1 Hak Pengelola</h3>
     <ol>
       <li>Menyeleksi, menolak, atau menyetujui calon Seller.</li>
@@ -1010,7 +1004,6 @@
       <li>Menggunakan data agregat (bukan personal) untuk analisis.</li>
       <li>Menampilkan produk Seller di kanal promosi (Instagram, WA Broadcast).</li>
     </ol>
-
     <h3>7.2 Kewajiban Pengelola</h3>
     <ol>
       <li>Menyediakan platform yang beroperasi baik (target uptime min 95%).</li>
@@ -1024,17 +1017,15 @@
     </ol>
   </section>
 
-  <!-- PASAL 8: DATA PRIBADI -->
+  <!-- PASAL 8 -->
   <section class="terms-section" id="pasal-8">
     <h2><span class="pasal-num">PASAL 8</span> Pelindungan Data Pribadi</h2>
     <div class="ref-hukum"><i class="fas fa-book"></i> Merujuk UU No. 27 Tahun 2022 tentang UU PDP</div>
-
     <h3>8.1 Data Seller</h3>
     <ol>
       <li>Data pribadi (KTP, rekening) hanya untuk verifikasi, transaksi, operasional.</li>
       <li>Pengelola <b>TIDAK</b> menjual/membagikan data Seller ke pihak ketiga tanpa izin.</li>
     </ol>
-
     <h3>8.2 Data Buyer/Pembeli</h3>
     <div class="warning-box">
       <b>⚠️ Seller DILARANG KERAS menyalahgunakan data pribadi Pembeli!</b>
@@ -1052,7 +1043,6 @@
       <li>Menjual/menyebarkan data Pembeli</li>
       <li>Menyimpan data Pembeli setelah transaksi selesai</li>
     </ul>
-
     <h3>8.3 Sanksi Pelanggaran Data</h3>
     <div class="warning-box">
       Pelanggaran kerahasiaan data pribadi dapat dikenakan:<br>
@@ -1061,10 +1051,9 @@
     </div>
   </section>
 
-  <!-- PASAL 9: SANKSI -->
+  <!-- PASAL 9 -->
   <section class="terms-section" id="pasal-9">
     <h2><span class="pasal-num">PASAL 9</span> Sanksi Pelanggaran</h2>
-
     <h3>9.1 Klasifikasi Pelanggaran</h3>
     <table class="terms-table">
       <thead>
@@ -1088,7 +1077,6 @@
         </tr>
       </tbody>
     </table>
-
     <h3>9.2 Ganti Rugi</h3>
     <ol>
       <li>Seller wajib memberikan ganti rugi atas kerugian akibat kelalaian.</li>
@@ -1097,7 +1085,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 10: SENGKETA -->
+  <!-- PASAL 10 -->
   <section class="terms-section" id="pasal-10">
     <h2><span class="pasal-num">PASAL 10</span> Penyelesaian Sengketa</h2>
     <ol>
@@ -1108,7 +1096,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 11: BIAYA & KOMISI (HIGHLIGHT!) -->
+  <!-- PASAL 11 -->
   <section class="terms-section" id="pasal-11">
     <h2><span class="pasal-num">PASAL 11</span> Biaya Pendaftaran, Komisi & Fee</h2>
     <div class="ref-hukum"><i class="fas fa-book"></i> Merujuk Permendag No. 31 Tahun 2023 tentang Transparansi Biaya PMSE</div>
@@ -1160,11 +1148,20 @@
     </table>
 
     <h3>11.3 Contoh Perhitungan Kategori Food</h3>
-    <div class="gold-box" style="font-family: 'Courier New', monospace; font-size: 0.9rem;">
-      Seller menjual: Mie Gacoan Level 3 &nbsp;&nbsp;<b>Rp 15.000</b><br>
-      Komisi PortalWarga (5%) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>- Rp &nbsp;&nbsp;&nbsp;750</b><br>
-      ────────────────────────────────────<br>
-      <b style="color:#166534">Pendapatan Bersih Seller &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rp 14.250</b>
+    <div class="gold-box calc-box-v2">
+      <div class="calc-row">
+        <span class="calc-label">Seller menjual: Mie Gacoan Level 3</span>
+        <span class="calc-value">Rp 15.000</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-label">Komisi PortalWarga (5%)</span>
+        <span class="calc-value calc-minus">– Rp 750</span>
+      </div>
+      <div class="calc-divider"></div>
+      <div class="calc-row calc-total">
+        <span class="calc-label">Pendapatan Bersih Seller</span>
+        <span class="calc-value">Rp 14.250</span>
+      </div>
     </div>
 
     <h3>11.4 Transparansi</h3>
@@ -1184,19 +1181,16 @@
     </ul>
   </section>
 
-  <!-- PASAL 12: PENCAIRAN DANA -->
+  <!-- PASAL 12 -->
   <section class="terms-section" id="pasal-12">
     <h2><span class="pasal-num">PASAL 12</span> Sistem Pencairan Dana (Payout)</h2>
-
     <h3>12.1 Sistem Escrow</h3>
     <div class="info-box">
-      💰 Seluruh pembayaran non-tunai (QRIS, E-Wallet, Transfer Bank) ditampung sementara di 
-      <b>rekening resmi PortalWarga</b>.<br><br>
+      💰 Seluruh pembayaran non-tunai (QRIS, E-Wallet, Transfer Bank) ditampung sementara di <b>rekening resmi PortalWarga</b>.<br><br>
       <b>Manfaat Sistem Escrow:</b><br>
       • <b>Pembeli</b> aman: Dana tidak langsung ke Seller sebelum produk diterima.<br>
       • <b>Seller</b> aman: Jaminan pembayaran pasti masuk setelah pesanan selesai.
     </div>
-
     <h3>12.2 Jadwal Pencairan</h3>
     <table class="terms-table">
       <thead>
@@ -1208,7 +1202,6 @@
         <tr><td>Umroh / Properti</td><td>Sesuai termin (DP, cicilan, lunas)</td></tr>
       </tbody>
     </table>
-
     <h3>12.3 Ketentuan Pencairan</h3>
     <ol>
       <li>Ditransfer ke rekening/e-wallet <b>terdaftar</b> di akun Seller.</li>
@@ -1217,7 +1210,6 @@
       <li>Data rekening wajib aktif dan atas nama sendiri/badan usaha.</li>
       <li>Kesalahan transfer akibat data salah dari Seller <b>bukan tanggung jawab Pengelola</b>.</li>
     </ol>
-
     <h3>12.4 Penahanan Dana (Hold)</h3>
     <p>Dana dapat ditahan sementara jika:</p>
     <ol>
@@ -1226,7 +1218,6 @@
       <li>Permintaan aparat hukum berwenang.</li>
     </ol>
     <p><i>Penahanan wajib disertai penjelasan tertulis kepada Seller.</i></p>
-
     <h3>12.5 Rekapitulasi & Laporan</h3>
     <p>Seller menerima laporan via WhatsApp/email/dashboard:</p>
     <ul>
@@ -1236,7 +1227,7 @@
     </ul>
   </section>
 
-  <!-- PASAL 13: PAJAK -->
+  <!-- PASAL 13 -->
   <section class="terms-section" id="pasal-13">
     <h2><span class="pasal-num">PASAL 13</span> Perpajakan</h2>
     <ol>
@@ -1252,7 +1243,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 14: FORCE MAJEURE -->
+  <!-- PASAL 14 -->
   <section class="terms-section" id="pasal-14">
     <h2><span class="pasal-num">PASAL 14</span> Force Majeure</h2>
     <ol>
@@ -1270,17 +1261,15 @@
     </ol>
   </section>
 
-  <!-- PASAL 15: PENGAKHIRAN -->
+  <!-- PASAL 15 -->
   <section class="terms-section" id="pasal-15">
     <h2><span class="pasal-num">PASAL 15</span> Pengakhiran Kemitraan</h2>
-
     <h3>15.1 Pengakhiran oleh Seller</h3>
     <ol>
       <li>Pemberitahuan tertulis min <b>7 hari kerja</b> via WhatsApp/email resmi.</li>
       <li>Selesaikan seluruh transaksi berjalan.</li>
       <li>Lunasi kewajiban fee/komisi.</li>
     </ol>
-
     <h3>15.2 Pengakhiran oleh Pengelola</h3>
     <ol>
       <li>Pelanggaran berat (Pasal 9).</li>
@@ -1288,7 +1277,6 @@
       <li>Perubahan regulasi pemerintah.</li>
       <li>PortalWarga menghentikan operasional di wilayah tersebut.</li>
     </ol>
-
     <h3>15.3 Akibat Pengakhiran</h3>
     <ol>
       <li>Akun dinonaktifkan permanen.</li>
@@ -1297,7 +1285,7 @@
     </ol>
   </section>
 
-  <!-- PASAL 16: PERUBAHAN -->
+  <!-- PASAL 16 -->
   <section class="terms-section" id="pasal-16">
     <h2><span class="pasal-num">PASAL 16</span> Perubahan Syarat & Ketentuan</h2>
     <ol>
@@ -1321,25 +1309,53 @@
     </ol>
   </section>
 
-  <!-- PERSETUJUAN -->
+  <!-- ============================================
+       PERSETUJUAN v2 — STRUKTUR BARU ANTI-BENTROK
+       ============================================ -->
   <section class="terms-section" id="persetujuan">
     <h2><i class="fas fa-signature" style="color:#059669"></i> Pernyataan Persetujuan</h2>
     <p>Dengan mendaftarkan diri dan mengaktifkan akun Seller di PortalWarga, saya menyatakan bahwa:</p>
     
     <div class="approval-box">
-      <h3><i class="fas fa-check-square"></i> Saya (Calon Seller) Menyatakan:</h3>
-      <ul class="approval-list">
-        <li>Saya telah <b>membaca dan memahami</b> seluruh isi dokumen Syarat & Ketentuan ini.</li>
-        <li>Saya <b>menyetujui semua ketentuan</b> tanpa paksaan dari pihak manapun.</li>
-        <li>Saya <b>sadar akan hak, kewajiban, dan sanksi</b> yang berlaku.</li>
-        <li>Saya <b>menjamin seluruh data</b> yang saya berikan adalah benar dan valid.</li>
-        <li>Saya siap <b>tunduk pada hukum Republik Indonesia</b> terkait aktivitas di platform ini.</li>
-        <li>Saya siap <b>menerima sanksi</b> jika terbukti melanggar perjanjian ini.</li>
-      </ul>
+      <div class="approval-title">
+        <i class="fas fa-check-square"></i> Saya (Calon Seller) Menyatakan:
+      </div>
+
+      <div class="approval-list-v2">
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya telah <span class="tebal">membaca dan memahami</span> seluruh isi dokumen Syarat &amp; Ketentuan ini.</span>
+        </div>
+
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya <span class="tebal">menyetujui semua ketentuan</span> tanpa paksaan dari pihak manapun.</span>
+        </div>
+
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya <span class="tebal">sadar akan hak, kewajiban, dan sanksi</span> yang berlaku.</span>
+        </div>
+
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya <span class="tebal">menjamin seluruh data</span> yang saya berikan adalah benar dan valid.</span>
+        </div>
+
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya siap <span class="tebal">tunduk pada hukum Republik Indonesia</span> terkait aktivitas di platform ini.</span>
+        </div>
+
+        <div class="approval-item">
+          <span class="approval-check">✓</span>
+          <span class="approval-text">Saya siap <span class="tebal">menerima sanksi</span> jika terbukti melanggar perjanjian ini.</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- KEUNGGULAN MITRA -->
+  <!-- KEUNGGULAN -->
   <section class="terms-section" id="keunggulan">
     <h2><i class="fas fa-star" style="color:#F59E0B"></i> Keunggulan Mitra PortalWarga</h2>
     <div class="keunggulan-grid">
@@ -1378,7 +1394,7 @@
     </div>
   </section>
 
-  <!-- CTA DAFTAR -->
+  <!-- CTA -->
   <div class="cta-section">
     <h2>🚀 Siap Bergabung Jadi Mitra PortalWarga?</h2>
     <p>Klik tombol di bawah untuk memulai pendaftaran GRATIS via WhatsApp CS resmi kami.</p>
@@ -1418,16 +1434,8 @@
   <!-- PENUTUP -->
   <section class="terms-section">
     <h2><i class="fas fa-flag-checkered" style="color:#059669"></i> Penutup</h2>
-    <p>
-      Dokumen Perjanjian Kemitraan & Syarat Ketentuan Penjual (Seller) PortalWarga ini disusun 
-      dengan itikad baik untuk membangun ekosistem <i>hyperlocal e-commerce</i> yang 
-      <b>adil, transparan, aman, dan saling menguntungkan</b> antara Pengelola, Seller/UMKM, 
-      dan warga sebagai Pembeli.
-    </p>
-    <p>
-      Semoga kerjasama ini memberikan <b>keberkahan</b>, memajukan ekonomi warga, dan menjadi 
-      kontribusi nyata bagi kemajuan digitalisasi UMKM Indonesia.
-    </p>
+    <p>Dokumen Perjanjian Kemitraan & Syarat Ketentuan Penjual (Seller) PortalWarga ini disusun dengan itikad baik untuk membangun ekosistem <i>hyperlocal e-commerce</i> yang <b>adil, transparan, aman, dan saling menguntungkan</b> antara Pengelola, Seller/UMKM, dan warga sebagai Pembeli.</p>
+    <p>Semoga kerjasama ini memberikan <b>keberkahan</b>, memajukan ekonomi warga, dan menjadi kontribusi nyata bagi kemajuan digitalisasi UMKM Indonesia.</p>
     <p style="text-align:center; margin-top:24px; font-weight:800; color:#0284C7; font-size:1.05rem;">
       🤝 Terima kasih atas kepercayaan Anda menjadi bagian dari PortalWarga!
     </p>
@@ -1435,7 +1443,7 @@
 
 </div>
 
-<!-- BACK TO TOP BUTTON -->
+<!-- BACK TO TOP -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" title="Kembali ke atas">
   <i class="fas fa-arrow-up"></i>
 </button>
@@ -1466,7 +1474,7 @@ document.querySelectorAll('.toc-list a').forEach(link => {
     const targetId = this.getAttribute('href').substring(1);
     const target = document.getElementById(targetId);
     if (target) {
-      const offset = 90; // untuk sticky header
+      const offset = 90;
       const topPos = target.getBoundingClientRect().top + window.pageYOffset - offset;
       window.scrollTo({ top: topPos, behavior: 'smooth' });
     }
