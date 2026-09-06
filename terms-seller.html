@@ -575,6 +575,117 @@
   font-weight: 600;
 }
 .terms-footer a:hover { color: #fff; }
+
+/* ==============================================
+   ⚡ HOTFIX — OVERRIDE STYLE.CSS EKSTERNAL
+   Perbaikan: Checklist Vertikal, Kontak Gelap, Box Kuning
+   ============================================== */
+
+/* 🔴 FIX 1: Checklist Persetujuan (Foto 2) — Paksa horizontal */
+.approval-box .approval-list,
+.terms-section .approval-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+  columns: unset !important;
+  column-count: unset !important;
+  grid-template-columns: unset !important;
+}
+
+.approval-box .approval-list li,
+.terms-section .approval-list li {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 10px !important;
+  width: 100% !important;
+  padding: 10px 0 !important;
+  margin: 0 !important;
+  font-size: 0.9rem !important;
+  color: #0F172A !important;
+  line-height: 1.6 !important;
+  white-space: normal !important;
+  word-break: normal !important;
+  border-bottom: 1px dashed rgba(2, 132, 199, 0.15);
+}
+
+.approval-box .approval-list li:last-child {
+  border-bottom: none !important;
+}
+
+.approval-box .approval-list li::before {
+  content: '\f14a' !important;  /* Icon check-square FontAwesome */
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  color: #0284C7 !important;
+  font-size: 1rem !important;
+  flex-shrink: 0 !important;
+  margin-top: 2px !important;
+  line-height: 1 !important;
+}
+
+/* 🔴 FIX 2: Kontak Card Gelap (Foto 3) — Jam Operasional Terbaca */
+.kontak-card {
+  background: linear-gradient(135deg, #0F172A, #1E293B) !important;
+  color: #E2E8F0 !important;
+}
+
+.kontak-card .kontak-list li,
+.kontak-card .kontak-list li span,
+.kontak-card .kontak-list li b {
+  color: #E2E8F0 !important;
+  opacity: 1 !important;
+}
+
+.kontak-card .kontak-list li b {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+.kontak-card .kontak-list a {
+  color: #67E8F9 !important;
+  font-weight: 700 !important;
+}
+
+/* 🔴 FIX 3: Box Kuning Perhitungan (Foto 1) — Cegah bocor keluar */
+.gold-box {
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  max-width: 100% !important;
+  line-height: 1.8 !important;
+  font-size: 0.85rem !important;
+}
+
+@media (max-width: 576px) {
+  .gold-box {
+    font-size: 0.78rem !important;
+    padding: 14px 12px !important;
+  }
+}
+
+/* 🔴 BONUS FIX: Semua UL/OL di terms-section — Paksa vertikal */
+.terms-section ul,
+.terms-section ol {
+  display: block !important;
+  columns: unset !important;
+  column-count: 1 !important;
+  grid-template-columns: unset !important;
+}
+
+.terms-section ul li,
+.terms-section ol li {
+  display: list-item !important;
+  width: 100% !important;
+  white-space: normal !important;
+  word-break: normal !important;
+}
+
+/* Khusus list dalam approval-list tetap flex */
+.approval-list li {
+  display: flex !important;
+}
 </style>
 </head>
 
