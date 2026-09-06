@@ -1358,3 +1358,29 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   background: #f8fafc !important;
   display: block !important;
 }
+
+/* ==========================================================================
+   🎓 FIX FINAL BROSUR PENDIDIKAN: FULL WIDTH (TANPA SPASI PUTIH SAMPLING)
+   ========================================================================== */
+
+/* 1. Gunakan Rasio Potret Poster (4:5) Agar Area Gambar Lebih Tinggi */
+.edu-icon {
+  width: 100% !important;
+  min-width: 100% !important;
+  aspect-ratio: 4 / 5 !important; /* Rasio tinggi poster yang pas di layar HP */
+  height: auto !important;
+  background: #f1f5f9 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+  border-radius: 16px 16px 0 0 !important;
+}
+
+/* 2. Isi Penuh 100% Lebar (Cover) & Mulai Pembacaan Dari Atas (Top Center) */
+.edu-icon img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;        /* KUNCI: Menghilangkan ruang putih di kiri-kanan */
+  object-position: top center !important; /* KUNCI: Menampilkan judul header & foto atas brosur */
+  display: block !important;
+}
