@@ -447,10 +447,11 @@
   </div>
 </section>
 
-
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
+    
+    <!-- Bagian Atas: Brand + Kontak -->
     <div class="footer-top">
       <div class="footer-brand">
         <span class="brand-icon">📍</span>
@@ -465,14 +466,201 @@
         </a>
       </div>
     </div>
-<div class="footer-bottom">
-  © 2026 PortalWarga — Web Design by Ibaadurrahmaan 
-  <a href="admin.html" style="color: inherit; text-decoration: none; opacity: 0.3; margin-left: 8px;" title="Kelola Toko">
-    <i class="fas fa-lock" style="font-size: 0.75rem;"></i>
-  </a>
-</div>
+
+    <!-- 🔥 BAGIAN BARU: Ajakan Jadi Mitra -->
+    <div class="footer-mitra-section">
+      <div class="footer-mitra-title">
+        <i class="fas fa-handshake"></i> Bergabung Bersama Kami
+      </div>
+      <div class="footer-mitra-grid">
+        
+        <!-- Card Seller -->
+        <a href="terms-seller.html" class="footer-mitra-card seller">
+          <div class="mitra-icon"><i class="fas fa-store"></i></div>
+          <div class="mitra-info">
+            <strong>Jadi Mitra Seller</strong>
+            <span>UMKM, Food, Property, Umroh, Pendidikan</span>
+          </div>
+          <i class="fas fa-arrow-right mitra-arrow"></i>
+        </a>
+
+        <!-- Card Kurir -->
+        <a href="terms-kurir.html" class="footer-mitra-card kurir">
+          <div class="mitra-icon"><i class="fas fa-motorcycle"></i></div>
+          <div class="mitra-info">
+            <strong>Jadi Mitra Kurir</strong>
+            <span>Driver antar pesanan warga di area Anda</span>
+          </div>
+          <i class="fas fa-arrow-right mitra-arrow"></i>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- Bagian Bawah: Copyright + Admin (tersembunyi) -->
+    <div class="footer-bottom">
+      <span>© 2026 PortalWarga — Web Design by Ibaadurrahmaan</span>
+      <a href="admin.html" 
+         style="color: inherit; text-decoration: none; opacity: 0.3; margin-left: 8px;" 
+         title="Kelola Toko">
+        <i class="fas fa-lock" style="font-size: 0.75rem;"></i>
+      </a>
+    </div>
+
   </div>
 </footer>
+
+<!-- ============ CSS TAMBAHAN UNTUK FOOTER ============ -->
+<style>
+/* Section Ajakan Mitra */
+.footer-mitra-section {
+  margin: 24px 0 20px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-mitra-title {
+  text-align: center;
+  color: #67E8F9;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-mitra-title i {
+  color: #FBBF24;
+}
+
+.footer-mitra-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .footer-mitra-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.footer-mitra-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-mitra-card.seller {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.15), rgba(6, 182, 212, 0.15));
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #E0F2FE;
+}
+
+.footer-mitra-card.seller:hover {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.3), rgba(6, 182, 212, 0.3));
+  border-color: #06B6D4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(6, 182, 212, 0.25);
+}
+
+.footer-mitra-card.kurir {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15), rgba(234, 88, 12, 0.15));
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  color: #FFEDD5;
+}
+
+.footer-mitra-card.kurir:hover {
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.3), rgba(234, 88, 12, 0.3));
+  border-color: #F97316;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.25);
+}
+
+.mitra-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.footer-mitra-card.seller .mitra-icon {
+  color: #67E8F9;
+}
+
+.footer-mitra-card.kurir .mitra-icon {
+  color: #FDBA74;
+}
+
+.mitra-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.mitra-info strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-bottom: 2px;
+}
+
+.mitra-info span {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+.mitra-arrow {
+  font-size: 0.85rem;
+  opacity: 0.6;
+  transition: all 0.25s;
+  flex-shrink: 0;
+}
+
+.footer-mitra-card:hover .mitra-arrow {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  padding-top: 6px;
+  font-size: 0.82rem;
+  opacity: 0.85;
+}
+
+@media (max-width: 576px) {
+  .footer-mitra-card {
+    padding: 12px 14px;
+  }
+  .mitra-info strong {
+    font-size: 0.85rem;
+  }
+  .mitra-info span {
+    font-size: 0.72rem;
+  }
+}
+</style>
 
 <!-- ============ CART DRAWER & OVERLAY ============ -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
