@@ -1384,3 +1384,34 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   object-position: top center !important; /* KUNCI: Menampilkan judul header & foto atas brosur */
   display: block !important;
 }
+
+/* ==========================================================================
+   📐 FIX FITUR PROPERTI SEJAJAR (GRID 2 KOLOM RAPI)
+   ========================================================================== */
+
+.property-features {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* Paksa 2 kolom sama lebar */
+  gap: 8px 12px !important;                          /* Jarak antar baris 8px, antar kolom 12px */
+  padding: 12px 0 !important;
+  border-top: 1px dashed var(--border, #E2E8F0) !important;
+  margin-bottom: 16px !important;
+  font-size: 0.8rem !important;
+  color: var(--text-secondary, #475569) !important;
+  font-weight: 600 !important;
+}
+
+.property-features span {
+  display: flex !important;
+  align-items: center !important; /* Ikon centang & teks sejajar vertikal */
+  gap: 6px !important;            /* Jarak antara ikon centang dengan teks */
+  white-space: nowrap !important; /* Mencegah teks turun baris */
+  overflow: hidden !important;
+  text-overflow: ellipsis !important; /* Jika teks terlalu panjang diberi titik-titik (...) */
+}
+
+.property-features span i {
+  color: var(--property, #2563EB) !important;
+  font-size: 0.85rem !important;
+  flex-shrink: 0 !important;      /* Ikon centang tidak akan gepeng */
+}
