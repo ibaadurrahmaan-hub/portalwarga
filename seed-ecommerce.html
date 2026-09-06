@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Master Seeder PortalWarga v4.1 — Full Image Support</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
@@ -16,102 +16,294 @@
     --text-muted: #94a3b8;
     --border: #1e293b;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-  body { background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-  .card { background: var(--card-bg); border-radius: 20px; padding: 32px; max-width: 950px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid var(--border); }
-  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px dashed var(--border); padding-bottom: 20px; margin-bottom: 20px; }
-  h1 { color: var(--accent); font-size: 1.7rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
-  .badge { background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 6px 12px; border-radius: 99px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; border: 1px solid rgba(56, 189, 248, 0.3); }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
   
-  .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-  @media (min-width: 600px) { .stats-grid { grid-template-columns: repeat(5, 1fr); } }
-  .stat-cat { background: rgba(11, 15, 25, 0.6); padding: 14px 8px; border-radius: 12px; text-align: center; border: 1px solid var(--border); position: relative; overflow: hidden; }
-  .stat-cat::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+  body { 
+    background: var(--bg); 
+    color: var(--text); 
+    min-height: 100vh; 
+    min-height: 100dvh;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 16px; 
+  }
+
+  .card { 
+    background: var(--card-bg); 
+    border-radius: 20px; 
+    padding: 24px 20px; 
+    max-width: 900px; 
+    width: 100%; 
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); 
+    border: 1px solid var(--border); 
+  }
+
+  .header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px dashed var(--border); 
+    padding-bottom: 16px; 
+    margin-bottom: 16px; 
+    gap: 12px;
+  }
+
+  .header-title h1 { 
+    color: var(--accent); 
+    font-size: 1.35rem; 
+    font-weight: 800; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+  }
+
+  .badge { 
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(56, 189, 248, 0.15); 
+    color: var(--accent); 
+    padding: 4px 10px; 
+    border-radius: 99px; 
+    font-size: 0.7rem; 
+    font-weight: 700; 
+    letter-spacing: 0.5px; 
+    border: 1px solid rgba(56, 189, 248, 0.3); 
+    margin-bottom: 6px;
+  }
+
+  .header-icon {
+    font-size: 2.2rem;
+    color: #f5820d;
+    flex-shrink: 0;
+  }
+
+  .desc-text {
+    color: var(--text-muted); 
+    line-height: 1.5; 
+    font-size: 0.85rem;
+  }
+
+  .info-box {
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin: 14px 0;
+    font-size: 0.8rem;
+    color: #bae6fd;
+    line-height: 1.5;
+  }
+  .info-box b { color: #38bdf8; }
+
+  /* Grid Statistik Kategori (HP 2 Kolom, 5th Card Full Width) */
+  .stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px; 
+    margin: 16px 0; 
+  }
+
+  .stat-cat { 
+    background: rgba(11, 15, 25, 0.7); 
+    padding: 12px 10px; 
+    border-radius: 12px; 
+    text-align: center; 
+    border: 1px solid var(--border); 
+    position: relative; 
+    overflow: hidden; 
+  }
+
+  .stat-cat::before { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 4px; 
+    height: 100%; 
+  }
+
   .stat-cat.pasar::before { background: #10b981; }
   .stat-cat.property::before { background: #3b82f6; }
   .stat-cat.pendidikan::before { background: #8b5cf6; }
   .stat-cat.umroh::before { background: #d97706; }
   .stat-cat.wifi::before { background: #06b6d4; }
+
+  /* Card ke-5 (WiFi) membentang penuh jika ganjil */
+  .stat-cat:nth-child(5) {
+    grid-column: span 2;
+  }
   
-  .stat-cat b { font-size: 1.2rem; display: block; line-height: 1.2; }
+  .stat-cat b { 
+    font-size: 1.05rem; 
+    display: block; 
+    line-height: 1.2; 
+  }
+
   .stat-cat.pasar b { color: #10b981; }
   .stat-cat.property b { color: #3b82f6; }
   .stat-cat.pendidikan b { color: #a78bfa; }
   .stat-cat.umroh b { color: #f59e0b; }
   .stat-cat.wifi b { color: #22d3ee; }
   
-  .stat-cat span { font-size: 0.7rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; display: block; margin-top: 4px; }
-  .stat-cat small { font-size: 0.6rem; color: var(--text-muted); display: block; margin-top: 2px; line-height: 1.2;}
+  .stat-cat span { 
+    font-size: 0.68rem; 
+    color: var(--text-muted); 
+    font-weight: 700; 
+    text-transform: uppercase; 
+    display: block; 
+    margin-top: 3px; 
+  }
 
-  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0; }
-  button { padding: 12px 24px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; transition: all 0.2s ease; }
-  .btn-seed { background: var(--success); color: white; }
-  .btn-seed:hover { background: #059669; transform: scale(1.02); }
-  .btn-clear { background: var(--danger); color: white; }
-  .btn-clear:hover { background: #e11d48; transform: scale(1.02); }
-  .btn-home { background: #475569; color: white; margin-left: auto; }
-  .btn-home:hover { background: #334155; }
-  button:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; }
+  .stat-cat small { 
+    font-size: 0.62rem; 
+    color: var(--text-muted); 
+    display: block; 
+    margin-top: 2px; 
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-  #log { background: #070a13; border-radius: 12px; padding: 20px; font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; max-height: 300px; overflow-y: auto; border: 1px solid var(--border); }
-  .log-line { margin-bottom: 6px; line-height: 1.4; display: flex; gap: 8px; }
-  .log-time { color: #64748b; flex-shrink: 0; }
+  /* Group Tombol Aksi */
+  .btn-group { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    margin: 18px 0; 
+  }
+
+  button { 
+    width: 100%; 
+    padding: 13px 16px; 
+    border: none; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 8px; 
+    font-size: 0.88rem; 
+    transition: all 0.2s ease; 
+  }
+
+  .btn-clear { 
+    background: #e11d48; 
+    color: white; 
+    box-shadow: 0 4px 12px rgba(225, 29, 72, 0.25);
+  }
+
+  .btn-clear:hover { background: #be123c; }
+
+  .btn-seed { 
+    background: #059669; 
+    color: white; 
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+  }
+
+  .btn-seed:hover { background: #047857; }
+
+  .btn-home { 
+    background: #334155; 
+    color: white; 
+  }
+
+  .btn-home:hover { background: #1e293b; }
+
+  button:disabled { 
+    opacity: 0.5; 
+    cursor: not-allowed; 
+    transform: none !important; 
+    box-shadow: none !important;
+  }
+
+  /* Log Terminal Box */
+  #log { 
+    background: #060911; 
+    border-radius: 12px; 
+    padding: 14px; 
+    font-family: 'Consolas', 'Fira Code', Monaco, monospace; 
+    font-size: 0.78rem; 
+    max-height: 260px; 
+    overflow-y: auto; 
+    border: 1px solid var(--border); 
+  }
+
+  .log-line { 
+    margin-bottom: 6px; 
+    line-height: 1.45; 
+    display: flex; 
+    gap: 8px; 
+    word-break: break-word;
+  }
+
+  .log-time { color: #475569; flex-shrink: 0; font-size: 0.72rem; }
   .log-ok { color: #4ade80; }
-  .log-err { color: #f87171; }
+  .log-err { color: #f87171; font-weight: bold; }
   .log-info { color: #38bdf8; }
   .log-warning { color: #fbbf24; }
-  .log-cat { color: #a78bfa; font-weight: bold; }
+  .log-cat { color: #c084fc; font-weight: bold; }
 
-  .info-box {
-    background: rgba(56, 189, 248, 0.1);
-    border: 1px solid rgba(56, 189, 248, 0.3);
-    border-radius: 10px;
-    padding: 12px 16px;
-    margin: 16px 0;
-    font-size: 0.85rem;
-    color: #bae6fd;
-    line-height: 1.5;
+  /* Desktop View Enhancements */
+  @media (min-width: 640px) {
+    .card { padding: 32px; }
+    .header-title h1 { font-size: 1.6rem; }
+    .header-icon { font-size: 3rem; }
+    .desc-text { font-size: 0.95rem; }
+    .info-box { font-size: 0.85rem; padding: 14px 16px; }
+    
+    .stats-grid { 
+      grid-template-columns: repeat(5, 1fr); 
+      gap: 10px;
+    }
+    .stat-cat:nth-child(5) {
+      grid-column: span 1;
+    }
+
+    .btn-group { 
+      flex-direction: row; 
+      gap: 12px;
+    }
+    .btn-group button { 
+      width: auto; 
+    }
+    .btn-home { 
+      margin-left: auto; 
+    }
+    #log { font-size: 0.82rem; padding: 18px; }
   }
-  .info-box b { color: #38bdf8; }
-
-.product-img {
-  overflow: hidden !important;
-  background: #E2E8F0 !important;
-}
-.product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
 </style>
 </head>
 <body>
 
 <div class="card">
   <div class="header">
-    <div>
+    <div class="header-title">
       <span class="badge"><i class="fas fa-database"></i> UNIFIED FIRESTORE v4.1</span>
-      <h1 style="margin-top: 8px;"><i class="fas fa-rocket"></i> Master Seeder v4.1 (Image Ready)</h1>
+      <h1><i class="fas fa-rocket"></i> Master Seeder v4.1</h1>
     </div>
-    <i class="fab fa-firebase" style="font-size: 3rem; color: #f5820d;"></i>
+    <i class="fab fa-firebase header-icon"></i>
   </div>
   
-  <p style="color:var(--text-muted); line-height: 1.6; font-size:0.95rem;">
-    Pusat kendali migrasi data untuk 5 modul utama: <b>Food, Properti, Pendidikan, Travel Umroh & WiFi.</b> Semua sudah di-inject dengan gambar dari GitHub.
+  <p class="desc-text">
+    Pusat kendali migrasi data 5 modul utama: <b>Food, Properti, Pendidikan, Travel Umroh & WiFi.</b>
   </p>
 
   <div class="info-box">
-    <b>⚠️ LANGKAH WAJIB:</b><br>
-    1️⃣ Klik <b>"Kosongkan Semua"</b> DULU (agar data lama hilang)<br>
-    2️⃣ Baru klik <b>"Inject Data Baru"</b> untuk upload seluruh katalog baru<br>
-    3️⃣ Buka web utama — <b>Hard Refresh</b> browser (Ctrl+Shift+R)
+    <b>⚠️ PETUNJUK PENGGUNAAN:</b><br>
+    1️⃣ Klik <b>"1. Kosongkan Semua"</b> terlebih dahulu.<br>
+    2️⃣ Klik <b>"2. Inject Data Baru"</b> untuk mengunggah katalog.<br>
+    3️⃣ Buka website utama dan tekan **Hard Refresh** (`Ctrl+Shift+R`).
   </div>
 
   <div class="stats-grid">
     <div class="stat-cat pasar">
       <b>🍔 FOOD</b>
-      <span>15 Produk F&B</span>
+      <span>15 Produk</span>
       <small>Gacoan, Hokben, Domino</small>
     </div>
     <div class="stat-cat property">
@@ -131,7 +323,7 @@
     </div>
     <div class="stat-cat wifi">
       <b>📡 WIFI</b>
-      <span>6 Paket + 5 Vcr</span>
+      <span>6 Pkt + 5 Vcr</span>
       <small>7 Zona GPS Coverage</small>
     </div>
   </div>
@@ -149,7 +341,7 @@
   </div>
 
   <div id="log">
-    <div class="log-line"><span class="log-time">[Ready]</span> <span class="log-warning">⚠️ KLIK KOSONGKAN SEMUA DULU agar data lama tidak bertabrakan!</span></div>
+    <div class="log-line"><span class="log-time">[Ready]</span> <span class="log-warning">⚠️ KLIK KOSONGKAN SEMUA DULU agar data lama bersih!</span></div>
   </div>
 </div>
 
@@ -187,62 +379,46 @@ const SELLERS = [
 ];
 
 const PRODUCTS = [
-  // ==== MIE & DIMSUM ====
   { id: 1, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Mie Gacoan Level 3 (Setan)', slug: 'gacoan-setan', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_1.jpg', emoji: '🍜', kategori: 'pasar', subKategori: 'mie', deskripsi: 'Mie pedas viral level setan.', harga: 15000, hargaCoret: 18000, diskon: 17, satuan: 'porsi', stok: 99, minOrder: 1, terjual: 4520, rating: 4.9, totalReview: 890, tags: ['viral', 'pedas'], aktif: true },
-  { id: 8, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Dimsum Mercon Gacoan', slug: 'dimsum-mercon', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_2.jpg', emoji: '🥟', kategori: 'pasar', subKategori: 'mie', deskripsi: 'Dimsum ayam saus mercon pedas.', harga: 12000, satuan: 'porsi', stok: 60, minOrder: 1, terjual: 1200, rating: 4.8, totalReview: 234, tags: ['viral'], aktif: true },
-  { id: 3, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Udang Keju Gacoan', slug: 'udang-keju', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food-9.jpg', emoji: '🍤', kategori: 'pasar', subKategori: 'mie', deskripsi: 'Udang crispy saus keju.', harga: 13000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 780, rating: 4.7, totalReview: 156, tags: ['premium'], aktif: true },
-
-
-  // ==== BENTO JEPANG ====
-  { id: 4, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Paket Bento Spesial 1', slug: 'bento-spesial-1', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_10.jpg', emoji: '🍱', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Chicken teriyaki + ebi furai + salad.', harga: 45000, satuan: 'paket', stok: 30, minOrder: 1, terjual: 2340, rating: 4.9, totalReview: 567, tags: ['bento'], aktif: true },
-  { id: 5, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Salmon Onigiri', slug: 'salmon-onigiri', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_11.jpg', emoji: '🍙', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Nasi kepal isi salmon mayo.', harga: 22000, satuan: 'pcs', stok: 25, minOrder: 1, terjual: 1120, rating: 4.8, totalReview: 234, tags: ['fresh'], aktif: true },
-  { id: 6, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Beef Yakiniku Bento', slug: 'beef-yakiniku', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_12.jpg', emoji: '🍣', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Sapi bakar saus khas Jepang + nasi.', harga: 55000, hargaCoret: 60000, diskon: 8, satuan: 'paket', stok: 20, minOrder: 1, terjual: 890, rating: 4.9, totalReview: 145, tags: ['premium'], aktif: true },
-
-  // ==== RESTO KELUARGA ====
-  { id: 7, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Nasi Ayam Cabe Ijo', slug: 'nasi-cabe-ijo', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_13.jpg', emoji: '🍛', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Ayam suwir cabe hijau khas Solaria.', harga: 42000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 1876, rating: 4.7, totalReview: 345, tags: ['pedas'], aktif: true },
-  { id: 8, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Mie Ayam Jamur', slug: 'mie-ayam-jamur', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_14.jpg', emoji: '🍲', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Mie ayam premium + jamur.', harga: 35000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 1450, rating: 4.6, totalReview: 267, tags: [], aktif: true },
-  { id: 9, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Es Teller Special', slug: 'es-teller', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_15.jpg', emoji: '🍹', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Es teller alpukat kelapa nangka.', harga: 25000, satuan: 'gelas', stok: 50, minOrder: 1, terjual: 987, rating: 4.8, totalReview: 189, tags: ['fresh'], aktif: true },
-
-  // ==== PIZZA & FAST FOOD ====
-  { id: 10, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Pizza Cheese Burst L", slug: 'cheese-burst-l', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_2.jpg', emoji: '🍕', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Pizza L pinggiran keju meleleh.', harga: 129000, hargaCoret: 145000, diskon: 11, satuan: 'pizza', stok: 25, minOrder: 1, terjual: 2340, rating: 4.9, totalReview: 456, tags: ['viral', 'keju'], aktif: true },
-  { id: 11, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Meat Lover Reguler", slug: 'meat-lover', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_3.jpg', emoji: '🍕', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Topping penuh daging premium.', harga: 89000, satuan: 'pizza', stok: 30, minOrder: 1, terjual: 1567, rating: 4.8, totalReview: 289, tags: ['daging'], aktif: true },
-  { id: 4, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Kentang + Cola 500ml", slug: 'kentang-cola', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_4.jpg', emoji: '🥤', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Paket hemat side dish + minuman.', harga: 35000, satuan: 'paket', stok: 50, minOrder: 1, terjual: 780, rating: 4.5, totalReview: 123, tags: [], aktif: true },
-  
-  // ==== FRIED CHICKEN ====
-  { id: 13, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Paket Combo Dada', slug: 'sabana-dada', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_5.jpg', emoji: '🍗', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Dada crispy + nasi + saus.', harga: 20000, satuan: 'paket', stok: 100, minOrder: 1, terjual: 5670, rating: 4.8, totalReview: 890, tags: ['legend', 'crispy'], aktif: true },
-  { id: 14, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Paha Bawah', slug: 'sabana-paha', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_6.jpg', emoji: '🍗', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Paha bawah crispy + nasi.', harga: 18000, satuan: 'paket', stok: 100, minOrder: 1, terjual: 4520, rating: 4.9, totalReview: 780, tags: ['crispy'], aktif: true },
-  { id: 15, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Sabana Chicken Burger', slug: 'sabana-burger', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_7.jpg', emoji: '🍔', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Burger ayam sabana khas.', harga: 15000, hargaCoret: 18000, diskon: 17, satuan: 'burger', stok: 40, minOrder: 1, terjual: 890, rating: 4.6, totalReview: 145, tags: [], aktif: true }
+  { id: 2, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Dimsum Mercon Gacoan', slug: 'dimsum-mercon', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_2.jpg', emoji: '🥟', kategori: 'pasar', subKategori: 'mie', deskripsi: 'Dimsum ayam saus mercon pedas.', harga: 12000, satuan: 'porsi', stok: 60, minOrder: 1, terjual: 1200, rating: 4.8, totalReview: 234, tags: ['viral'], aktif: true },
+  { id: 3, sellerId: 'gacoan', sellerName: 'Mie Gacoan Cabang', nama: 'Udang Keju Gacoan', slug: 'udang-keju', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_3.jpg', emoji: '🍤', kategori: 'pasar', subKategori: 'mie', deskripsi: 'Udang crispy saus keju.', harga: 13000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 780, rating: 4.7, totalReview: 156, tags: ['premium'], aktif: true },
+  { id: 4, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Paket Bento Spesial 1', slug: 'bento-spesial-1', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_4.jpg', emoji: '🍱', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Chicken teriyaki + ebi furai + salad.', harga: 45000, satuan: 'paket', stok: 30, minOrder: 1, terjual: 2340, rating: 4.9, totalReview: 567, tags: ['bento'], aktif: true },
+  { id: 5, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Salmon Onigiri', slug: 'salmon-onigiri', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_5.jpg', emoji: '🍙', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Nasi kepal isi salmon mayo.', harga: 22000, satuan: 'pcs', stok: 25, minOrder: 1, terjual: 1120, rating: 4.8, totalReview: 234, tags: ['fresh'], aktif: true },
+  { id: 6, sellerId: 'hokben', sellerName: 'HokBen', nama: 'HokBen Beef Yakiniku Bento', slug: 'beef-yakiniku', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_6.jpg', emoji: '🍣', kategori: 'pasar', subKategori: 'bento', deskripsi: 'Sapi bakar saus khas Jepang + nasi.', harga: 55000, hargaCoret: 60000, diskon: 8, satuan: 'paket', stok: 20, minOrder: 1, terjual: 890, rating: 4.9, totalReview: 145, tags: ['premium'], aktif: true },
+  { id: 7, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Nasi Ayam Cabe Ijo', slug: 'nasi-cabe-ijo', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_7.jpg', emoji: '🍛', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Ayam suwir cabe hijau khas Solaria.', harga: 42000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 1876, rating: 4.7, totalReview: 345, tags: ['pedas'], aktif: true },
+  { id: 8, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Mie Ayam Jamur', slug: 'mie-ayam-jamur', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_8.jpg', emoji: '🍲', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Mie ayam premium + jamur.', harga: 35000, satuan: 'porsi', stok: 40, minOrder: 1, terjual: 1450, rating: 4.6, totalReview: 267, tags: [], aktif: true },
+  { id: 9, sellerId: 'solaria', sellerName: 'Solaria', nama: 'Solaria Es Teller Special', slug: 'es-teller', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_9.jpg', emoji: '🍹', kategori: 'pasar', subKategori: 'resto', deskripsi: 'Es teller alpukat kelapa nangka.', harga: 25000, satuan: 'gelas', stok: 50, minOrder: 1, terjual: 987, rating: 4.8, totalReview: 189, tags: ['fresh'], aktif: true },
+  { id: 10, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Pizza Cheese Burst L", slug: 'cheese-burst-l', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_10.jpg', emoji: '🍕', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Pizza L pinggiran keju meleleh.', harga: 129000, hargaCoret: 145000, diskon: 11, satuan: 'pizza', stok: 25, minOrder: 1, terjual: 2340, rating: 4.9, totalReview: 456, tags: ['viral', 'keju'], aktif: true },
+  { id: 11, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Meat Lover Reguler", slug: 'meat-lover', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_11.jpg', emoji: '🍕', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Topping penuh daging premium.', harga: 89000, satuan: 'pizza', stok: 30, minOrder: 1, terjual: 1567, rating: 4.8, totalReview: 289, tags: ['daging'], aktif: true },
+  { id: 12, sellerId: 'domino', sellerName: "Domino's Pizza", nama: "Domino's Kentang + Cola 500ml", slug: 'kentang-cola', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_12.jpg', emoji: '🥤', kategori: 'pasar', subKategori: 'fastfood', deskripsi: 'Paket hemat side dish + minuman.', harga: 35000, satuan: 'paket', stok: 50, minOrder: 1, terjual: 780, rating: 4.5, totalReview: 123, tags: [], aktif: true },
+  { id: 13, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Paket Combo Dada', slug: 'sabana-dada', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_13.jpg', emoji: '🍗', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Dada crispy + nasi + saus.', harga: 20000, satuan: 'paket', stok: 100, minOrder: 1, terjual: 5670, rating: 4.8, totalReview: 890, tags: ['legend', 'crispy'], aktif: true },
+  { id: 14, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Ayam Sabana Paha Bawah', slug: 'sabana-paha', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_14.jpg', emoji: '🍗', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Paha bawah crispy + nasi.', harga: 18000, satuan: 'paket', stok: 100, minOrder: 1, terjual: 4520, rating: 4.9, totalReview: 780, tags: ['crispy'], aktif: true },
+  { id: 15, sellerId: 'sabana', sellerName: 'Ayam Sabana', nama: 'Sabana Chicken Burger', slug: 'sabana-burger', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/food_15.jpg', emoji: '🍔', kategori: 'pasar', subKategori: 'ayam', deskripsi: 'Burger ayam sabana khas.', harga: 15000, hargaCoret: 18000, diskon: 17, satuan: 'burger', stok: 40, minOrder: 1, terjual: 890, rating: 4.6, totalReview: 145, tags: [], aktif: true }
 ];
 
 const REVIEWS = [
-  { productId: 1, sellerId: 'gacoan', userName: 'Budi S.', rating: 5, komentar: 'Gacoan tetap terbaik, pedasnya nampol!', helpful: 45, balasanSeller: 'Terima kasih kak Budi 🙏' },
-  { productId: 1, sellerId: 'gacoan', userName: 'Sari M.', rating: 5, komentar: 'Mager antri, delivery portalwarga membantu banget!', helpful: 32 },
+  { productId: 1, sellerId: 'gacoan', userName: 'Budi S.', rating: 5, komentar: 'Gacoan tetap terbaik, pedasnya nampol!', helpful: 45 },
   { productId: 4, sellerId: 'hokben', userName: 'Andi P.', rating: 5, komentar: 'HokBen selalu enak, bento porsinya pas!', helpful: 28 },
-  { productId: 7, sellerId: 'solaria', userName: 'Ibu Wati', rating: 5, komentar: 'Cabe ijonya nampol, ayamnya empuk.', helpful: 40 },
-  { productId: 10, sellerId: 'domino', userName: 'Pak Dedi', rating: 5, komentar: 'Cheese burstnya melimpah, keju banget!', helpful: 55 },
-  { productId: 13, sellerId: 'sabana', userName: 'Bu Yuli', rating: 5, komentar: 'Sabana legend, ayamnya crispy renyah!', helpful: 78 }
+  { productId: 7, sellerId: 'solaria', userName: 'Ibu Wati', rating: 5, komentar: 'Cabe ijonya nampol, ayamnya empuk.', helpful: 40 }
 ];
 
 const PAYMENT_METHODS = [
-  { id: 'qris', nama: 'QRIS PortalWarga', jenis: 'qris', icon: '📱', atasNama: 'PortalWarga', instruksi: 'Scan QR via M-Banking atau E-Wallet.', warna: '#DC2626', aktif: true, populer: true },
-  { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦', nomor: '1234567890', atasNama: 'PortalWarga Indonesia', instruksi: 'Kirim ke Bank BCA no. rekening di atas.', warna: '#0F4C8F', aktif: true },
-  { id: 'transfer_bri', nama: 'Transfer BRI', jenis: 'bank', icon: '🏦', nomor: '9876543210', atasNama: 'PortalWarga Indonesia', instruksi: 'Kirim ke Bank BRI no. rekening di atas.', warna: '#003D7A', aktif: true },
-  { id: 'dana', nama: 'DANA Wallet', jenis: 'ewallet', icon: '💙', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun DANA di atas.', warna: '#118EEA', aktif: true, populer: true },
-  { id: 'ovo', nama: 'OVO Wallet', jenis: 'ewallet', icon: '💜', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun OVO di atas.', warna: '#4C2A85', aktif: true },
-  { id: 'gopay', nama: 'GoPay Wallet', jenis: 'ewallet', icon: '💚', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun GoPay di atas.', warna: '#00AA13', aktif: true, populer: true }
+  { id: 'qris', nama: 'QRIS PortalWarga', jenis: 'qris', icon: '📱', atasNama: 'PortalWarga', instruksi: 'Scan QR via M-Banking / E-Wallet.', warna: '#DC2626', aktif: true, populer: true },
+  { id: 'transfer_bca', nama: 'Transfer BCA', jenis: 'bank', icon: '🏦', nomor: '1234567890', atasNama: 'PortalWarga Indonesia', instruksi: 'Kirim ke Bank BCA.', warna: '#0F4C8F', aktif: true },
+  { id: 'dana', nama: 'DANA Wallet', jenis: 'ewallet', icon: '💙', nomor: '081234567890', atasNama: 'PortalWarga', instruksi: 'Kirim ke akun DANA.', warna: '#118EEA', aktif: true, populer: true }
 ];
 
 // ==========================================================================
 // ============ DATA 2: PROPERTY (WITH GPS + IMAGE) =========================
 // ==========================================================================
 const PROPERTIES = [
-  { id: 'prop_01', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_1.jpg', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', hargaAsli: 1200000, priceUnit: 'bulan', features: ['2 Kamar Tidur', '1 Kamar Mandi', 'Carport 1 Motor', 'Air Sumur Bor', 'Listrik 900W'], deskripsi: 'Rumah kontrakan bersih & terawat, dekat pusat perbelanjaan.', pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true, verified: true },
-  { id: 'prop_02', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_2.jpg', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM Baru', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', hargaAsli: 350000000, priceUnit: 'total', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'LT 90m² LB 60m²', 'SHM Sertifikat'], deskripsi: 'Rumah baru gress 2024 dengan SHM.', pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true, verified: true },
-  { id: 'prop_03', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_3.jpg', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2 Kamar', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', hargaAsli: 600000, priceUnit: 'bulan', features: ['AC Split', 'WiFi Youfiber', 'K.Mandi Dalam', 'Lemari & Kasur'], deskripsi: 'Kos eksklusif khusus putri. Bebas biaya listrik & air.', pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true, verified: true },
-  { id: 'prop_04', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_4.jpg', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash Keras', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec. Utama KM 5', price: 'Rp 500 Jt', hargaAsli: 500000000, priceUnit: 'total', features: ['Luas 200 m²', 'SHM', 'Pinggir Jalan Raya', 'Cocok Ruko'], deskripsi: 'Tanah strategis pinggir jalan raya utama.', pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true, verified: true },
-  { id: 'prop_05', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_5.jpg', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar + Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', hargaAsli: 1800000, priceUnit: 'bulan', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'Halaman 40m²', 'Carport 2 Mobil'], deskripsi: 'Kontrakan untuk keluarga besar dengan halaman luas.', pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true, verified: true },
-  { id: 'prop_06', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_6.jpg', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3 Kamar', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', hargaAsli: 450000, priceUnit: 'bulan', features: ['Kasur & Lemari', 'K.Mandi Luar', 'WiFi Bersama', 'Dapur Umum'], deskripsi: 'Kos putra ekonomis untuk karyawan.', pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true, verified: true },
-  { id: 'prop_07', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_7.jpg', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', hargaAsli: 725000000, priceUnit: 'total', features: ['4 Kamar Tidur', '3 Kamar Mandi', '2 Lantai', 'Perumahan Aman'], deskripsi: 'Rumah 2 lantai baru di perumahan cluster.', pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true, verified: true }
+  { id: 'prop_01', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_1.jpg', emoji: '🏠', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 2 Kamar Dekat Pasar', loc: 'Ds. Sukamaju', price: 'Rp 1,2 Jt/bulan', hargaAsli: 1200000, priceUnit: 'bulan', features: ['2 Kamar Tidur', '1 Kamar Mandi', 'Carport 1 Motor', 'Air Sumur Bor', 'Listrik 900W'], deskripsi: 'Rumah kontrakan bersih & terawat.', pemilik: 'Bu Aminah', kontakPemilik: '081234567801', lat: -6.72015, lng: 106.79001, aktif: true, verified: true },
+  { id: 'prop_02', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_2.jpg', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Nego', title: 'Rumah Minimalis SHM Baru', loc: 'Ds. Cinta Damai', price: 'Rp 350 Jt', hargaAsli: 350000000, priceUnit: 'total', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'LT 90m² LB 60m²', 'SHM Sertifikat'], deskripsi: 'Rumah baru gress dengan SHM.', pemilik: 'Pak Hendra', kontakPemilik: '081234567802', lat: -6.72505, lng: 106.79350, aktif: true, verified: true },
+  { id: 'prop_03', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_3.jpg', emoji: '🛏️', type: 'kos', typeName: 'Kos Putri', status: 'Sisa 2 Kamar', title: 'Kos Nyaman Dekat Kampus', loc: 'Ds. Mulyasari', price: 'Rp 600 Rb/bulan', hargaAsli: 600000, priceUnit: 'bulan', features: ['AC Split', 'WiFi Youfiber', 'K.Mandi Dalam', 'Lemari & Kasur'], deskripsi: 'Kos eksklusif khusus putri.', pemilik: 'Bu Yanti', kontakPemilik: '081234567803', lat: -6.71800, lng: 106.79600, aktif: true, verified: true },
+  { id: 'prop_04', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_4.jpg', emoji: '🌾', type: 'tanah', typeName: 'Tanah Dijual', status: 'Cash Keras', title: 'Tanah Datar Cocok Usaha', loc: 'Jl. Raya Kec. Utama KM 5', price: 'Rp 500 Jt', hargaAsli: 500000000, priceUnit: 'total', features: ['Luas 200 m²', 'SHM', 'Pinggir Jalan Raya', 'Cocok Ruko'], deskripsi: 'Tanah strategis pinggir jalan raya.', pemilik: 'Pak Rudi', kontakPemilik: '081234567804', lat: -6.71250, lng: 106.79800, aktif: true, verified: true },
+  { id: 'prop_05', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_5.jpg', emoji: '🏘️', type: 'kontrakan', typeName: 'Kontrakan', status: 'Tersedia', title: 'Rumah 3 Kamar + Halaman Luas', loc: 'Ds. Sejahtera', price: 'Rp 1,8 Jt/bulan', hargaAsli: 1800000, priceUnit: 'bulan', features: ['3 Kamar Tidur', '2 Kamar Mandi', 'Halaman 40m²', 'Carport 2 Mobil'], deskripsi: 'Kontrakan untuk keluarga besar.', pemilik: 'Pak Yusuf', kontakPemilik: '081234567805', lat: -6.72900, lng: 106.78700, aktif: true, verified: true },
+  { id: 'prop_06', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_6.jpg', emoji: '🏬', type: 'kos', typeName: 'Kos Putra', status: 'Sisa 3 Kamar', title: 'Kos Pria Ekonomis', loc: 'Ds. Mulyasari', price: 'Rp 450 Rb/bulan', hargaAsli: 450000, priceUnit: 'bulan', features: ['Kasur & Lemari', 'K.Mandi Luar', 'WiFi Bersama', 'Dapur Umum'], deskripsi: 'Kos putra ekonomis.', pemilik: 'Pak Danu', kontakPemilik: '081234567806', lat: -6.71950, lng: 106.79450, aktif: true, verified: true },
+  { id: 'prop_07', image: 'https://raw.githubusercontent.com/ibaadurrahmaan-hub/portalwarga/main/prop_7.jpg', emoji: '🏡', type: 'rumah', typeName: 'Rumah Dijual', status: 'Tersedia', title: 'Rumah Baru 2 Lantai', loc: 'Perumahan Melati', price: 'Rp 725 Jt', hargaAsli: 725000000, priceUnit: 'total', features: ['4 Kamar Tidur', '3 Kamar Mandi', '2 Lantai', 'Perumahan Aman'], deskripsi: 'Rumah 2 lantai di perumahan cluster.', pemilik: 'Pak Iwan', kontakPemilik: '081234567807', lat: -6.71050, lng: 106.79200, aktif: true, verified: true }
 ];
 
 // ==========================================================================
@@ -282,12 +458,7 @@ const WIFI_PACKAGES = [
 ];
 
 const WIFI_COVERAGE = [
-  { id: 'A', nama: 'Wilayah Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }, { name: 'Extra 50 Mbps', speed: 50, price: 330000 }, { name: 'Premiere 100 Mbps', speed: 100, price: 550000 }] },
-  { id: 'B', nama: 'Wilayah Radar B', lat: -6.0941028, lng: 107.0514062, radiusKm: 2, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'C', nama: 'Wilayah Radar C', lat: -6.0929032, lng: 107.18109175, radiusKm: 2, paket: [{ name: 'Ekonomis 10 Mbps', speed: 10, price: 130000 }, { name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'D', nama: 'Wilayah Radar D', lat: -6.24266427, lng: 107.09106332, radiusKm: 2, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
-  { id: 'E', nama: 'Wilayah Radar E', lat: -6.090539, lng: 107.209343, radiusKm: 3, paket: [{ name: 'Ekonomis 10 Mbps', speed: 10, price: 120000 }, { name: 'Basic 15 Mbps', speed: 15, price: 165000 }] },
-  { id: 'F', nama: 'Wilayah Radar F', lat: -6.230931, lng: 107.089664, radiusKm: 3, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
+  { id: 'A', nama: 'Wilayah Radar A', lat: -6.07185544, lng: 107.02091269, radiusKm: 1, paket: [{ name: 'Basic 15 Mbps', speed: 15, price: 165000 }, { name: 'Advanced 30 Mbps', speed: 30, price: 220000 }] },
   { id: 'G', nama: 'Kec. Cijeruk, Bogor', lat: -6.715115, lng: 106.793385, radiusKm: 4, paket: [{ name: 'PROMO Cijeruk 100 Mbps', speed: 100, price: 120000 }] }
 ];
 
@@ -335,6 +506,7 @@ async function clearAll() {
 
   } catch (error) {
     log('❌ Pembersihan Gagal: ' + error.message, 'err');
+    console.error(error);
   } finally {
     btnC.disabled = false;
     btnS.disabled = false;
