@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id-ID" dir="ltr">
 <head>
+
 <!-- ============================================
-     BASIC META TAGS & PWA SUPPORT
+     1. BASIC META TAGS & PWA SUPPORT
      ============================================ -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,36 +12,190 @@
 <meta name="msapplication-TileColor" content="#0284C7">
 <meta name="msapplication-navbutton-color" content="#0284C7">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PortalWarga">
 <meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="PortalWarga">
+<meta name="format-detection" content="telephone=no">
 
 <!-- ============================================
-     PRIMARY SEO META TAGS
+     2. PRIMARY SEO META TAGS & CANONICAL
      ============================================ -->
 <title>PortalWarga — Food, Properti, Pendidikan Salaf, WiFi & Umroh</title>
 <meta name="title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
 <meta name="description" content="Pesan antar Gacoan & Solaria, cari properti terdekat, info pendidikan Islam/Salaf, pasang WiFi rumah, hingga pendaftaran Travel Umroh terpercaya.">
-<meta name="keywords" content="pesan gacoan, properti lokal, pendidikan manhaj salaf, pasang wifi, travel umroh terpercaya, portal warga kecamatan">
+<meta name="keywords" content="portal warga, hyperlocal ecommerce, pesan gacoan, properti lokal, pendidikan manhaj salaf, pasang wifi, travel umroh terpercaya, portal warga kecamatan">
 <meta name="author" content="PortalWarga">
 <meta name="creator" content="Ibaadurrahmaan Web Designer">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="language" content="id-ID">
+<meta name="publisher" content="PortalWarga Indonesia">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="googlebot" content="index, follow">
+<meta name="language" content="Indonesian">
+<meta name="revisit-after" content="1 days">
+
+<!-- URL Canonical Resmi -->
+<link rel="canonical" href="https://portalwarga.id/">
 
 <!-- ============================================
-     ICONS & FAVICON
+     3. OPEN GRAPH META TAGS (WHATSAPP, FACEBOOK, LINKEDIN)
+     ============================================ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://portalwarga.id/">
+<meta property="og:site_name" content="PortalWarga">
+<meta property="og:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta property="og:description" content="Pesan antar makanan, cari properti terdekat, info pendidikan Salaf, WiFi rumah, hingga pendaftaran paket Umroh terpercaya.">
+<meta property="og:image" content="https://portalwarga.id/portalwarga.png">
+<meta property="og:image:secure_url" content="https://portalwarga.id/portalwarga.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Logo dan Preview Platform PortalWarga">
+<meta property="og:locale" content="id_ID">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- ============================================
+     4. TWITTER CARDS META TAGS (X)
+     ============================================ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://portalwarga.id/">
+<meta name="twitter:title" content="PortalWarga — Pusat Layanan Terpadu Kecamatan">
+<meta name="twitter:description" content="Pesan antar makanan, cari properti terdekat, info pendidikan Salaf, WiFi rumah, hingga pendaftaran paket Umroh terpercaya.">
+<meta name="twitter:image" content="https://portalwarga.id/portalwarga.png">
+<meta name="twitter:image:alt" content="Logo PortalWarga Hyperlocal E-Commerce">
+<meta name="twitter:creator" content="@portalwarga">
+<meta name="twitter:site" content="@portalwarga">
+
+<!-- ============================================
+     5. GEOGRAPHIC & HYPERLOCAL META TAGS
+     ============================================ -->
+<meta name="geo.region" content="ID">
+<meta name="geo.placename" content="Indonesia">
+<meta name="target" content="all">
+<meta name="audience" content="all">
+<meta name="coverage" content="Worldwide">
+
+<!-- ============================================
+     6. ICONS, FAVICON & MANIFEST
      ============================================ -->
 <link rel="icon" href="portalwarga.png" type="image/png">
-<link rel="apple-touch-icon" href="portalwarga.png">
+<link rel="shortcut icon" href="portalwarga.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="portalwarga.png">
+<!-- <link rel="manifest" href="site.webmanifest"> -->
 
 <!-- ============================================
-     PRECONNECT & STYLES
+     7. PRECONNECT, DNS-PREFETCH, FONTS & STYLESHEETS
      ============================================ -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.gstatic.com">
+<link rel="dns-prefetch" href="https://firestore.googleapis.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="style.css">
 
-<!-- CSS KHUSUS UNTUK UPDATE UMROH & 5 MENU NAVIGASI -->
+<!-- ============================================
+     8. PRIVACY, SECURITY & TRANSLATION EXTRAS
+     ============================================ -->
+<meta name="google" content="notranslate">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+<!-- ============================================
+     9. STRUCTURED DATA / SCHEMA.ORG (JSON-LD) FOR GOOGLE
+     ============================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PortalWarga",
+  "alternateName": ["Portal Warga Kecamatan", "PortalWarga.id"],
+  "url": "https://portalwarga.id/",
+  "description": "Platform Hyperlocal E-Commerce terpadu tingkat kecamatan untuk produk kuliner, properti, pendidikan Islam, WiFi, dan travel Umroh.",
+  "inLanguage": "id-ID",
+  "publisher": {
+    "@type": "Organization",
+    "name": "PortalWarga Indonesia",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://portalwarga.id/portalwarga.png"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+6285267891619",
+      "contactType": "customer service",
+      "areaServed": "ID",
+      "availableLanguage": "Indonesian"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://portalwarga.id/?s={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "PortalWarga",
+  "image": "https://portalwarga.id/portalwarga.png",
+  "@id": "https://portalwarga.id/#business",
+  "url": "https://portalwarga.id/",
+  "telephone": "+6285267891619",
+  "priceRange": "Rp",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "ID"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ],
+    "opens": "08:00",
+    "closes": "21:00"
+  },
+  "sameAs": [
+    "https://wa.me/6285267891619"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "PortalWarga",
+  "url": "https://portalwarga.id/",
+  "logo": "https://portalwarga.id/portalwarga.png",
+  "description": "Hyperlocal E-Commerce Kecamatan untuk Food, Properti, Pendidikan, WiFi & Umroh.",
+  "founder": {
+    "@type": "Person",
+    "name": "Ibaadurrahmaan"
+  },
+  "contactPoint": [{
+    "@type": "ContactPoint",
+    "telephone": "+6285267891619",
+    "contactType": "customer service",
+    "availableLanguage": ["Indonesian"],
+    "areaServed": "ID"
+  }]
+}
+</script>
+
+<!-- ============================================
+     10. CSS KHUSUS UPDATE UMROH & 5 MENU NAVIGASI
+     ============================================ -->
 <style>
   /* Warna Tema Umroh (Gold/Premium) */
   :root {
@@ -49,15 +204,44 @@
     --umroh-glow: rgba(217, 119, 6, 0.35);
     --gradient-umroh: linear-gradient(135deg, #F59E0B 0%, #B45309 100%);
   }
-  .cat-tag.umroh { background: var(--gradient-umroh); box-shadow: 0 8px 20px var(--umroh-glow); }
+  .cat-tag.umroh {
+    background: var(--gradient-umroh);
+    box-shadow: 0 8px 20px var(--umroh-glow);
+  }
   .menu-umroh { color: var(--umroh); }
-  
-  /* Filter Dropdown Umroh */
-  .advanced-filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; width: 100%; }
-  .adv-select { padding: 12px 16px; border-radius: 12px; border: 1.5px solid var(--border); font-family: inherit; font-size: 0.9rem; font-weight: 600; color: var(--text-secondary); background: white; cursor: pointer; outline: none; transition: all 0.2s ease; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 14px top 50%; background-size: 10px auto; }
-  .adv-select:focus { border-color: var(--umroh); box-shadow: 0 0 0 4px var(--umroh-glow); }
 
-  /* Penyesuaian 5 Menu di Mobile Nav (Agar muat) */
+  /* Filter Dropdown Umroh */
+  .advanced-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+  .adv-select {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: white;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2364748B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px top 50%;
+    background-size: 10px auto;
+  }
+  .adv-select:focus {
+    border-color: var(--umroh);
+    box-shadow: 0 0 0 4px var(--umroh-glow);
+  }
+
+  /* Penyesuaian 5 Menu di Mobile Nav */
   @media (max-width: 768px) {
     .m-nav-item span { font-size: 0.65rem !important; letter-spacing: -0.3px; }
     .m-nav-item i { font-size: 1rem !important; }
@@ -67,7 +251,7 @@
 </style>
 
 <!-- ============================================
-     FIREBASE DATABASE
+     11. FIREBASE DATABASE
      ============================================ -->
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -83,8 +267,8 @@
   if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
   const db = firebase.firestore();
 </script>
-</head> 
 
+</head>
 <body>
 
 
