@@ -1448,3 +1448,107 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
     border-radius: 50%; /* Jadi tombol bulat seperti icon lainnya */
   }
 }
+
+/* Perbaikan Box Kalkulasi (Kuning) */
+.calc-box {
+  background: #fef08a; /* Warna kuning lembut */
+  border: 1px solid #fde047;
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 16px 0;
+  position: relative;
+  overflow: hidden; /* MEMPERBAIKI GARIS BOCOR KELUAR */
+  box-sizing: border-box;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #1e293b;
+  line-height: 1.6;
+}
+
+.calc-box hr {
+  border: none;
+  border-top: 1px solid #eab308;
+  margin: 10px 0;
+  width: 100%;
+}
+
+/* CSS Checklist Pernyataan */
+.declaration-box {
+  background: #f0f9ff;
+  border: 2px solid #0284c7;
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.declaration-title {
+  color: #0369a1;
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-item {
+  display: flex; /* Flexbox horizontal antara kotak & teks */
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+/* Perbaikan Card Dark "Kantor Pengelola" */
+.dark-card {
+  background: #0f172a; /* Warna Navy Gelap */
+  color: #ffffff !important;
+  border-radius: 16px;
+  padding: 22px;
+  margin: 20px 0;
+}
+
+.dark-card h4 {
+  color: #38bdf8; /* Biru terang untuk judul */
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.1rem;
+}
+
+.dark-card .contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: #e2e8f0; /* MEMPERBAIKI TEKS SUPAYA TERANG & JELAS DIBACA */
+  font-size: 0.9rem;
+}
+
+.dark-card .contact-row i {
+  color: #38bdf8;
+  width: 20px;
+  text-align: center;
+}
+
+.dark-card a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 700;
+}
+.check-input {
+  width: 18px;
+  height: 18px;
+  accent-color: #0284c7;
+  flex-shrink: 0; /* Mencegah kotak checkbox memgecil */
+  margin-top: 2px;
+}
+
+.check-text {
+  flex: 1; /* Teks mengambil sisa ruang dengan wajar */
+  font-size: 0.88rem;
+  color: #334155;
+  line-height: 1.5;
+  white-space: normal; /* MEMPERBAIKI TEKS TERPOTONG KOLOM */
+}
+
