@@ -2013,3 +2013,117 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
   z-index: 10 !important;
 }
+
+/* ==========================================================================
+   PROPERTI & PENDIDIKAN — BROSUR UTUH (TIDAK TERPOTONG)
+   ========================================================================== */
+
+/* ---------- PROPERTI ---------- */
+#propertyGrid .property-img,
+#cat-property .property-img {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 200px !important;
+  aspect-ratio: auto !important;          /* matikan paksaan 1:1 */
+  background: #F8FAFC !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  border-radius: 18px 18px 0 0 !important;
+}
+
+#propertyGrid .property-img img,
+#cat-property .property-img img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 520px !important;           /* batasi biar tidak terlalu panjang */
+  object-fit: contain !important;         /* tampil 100% utuh */
+  object-position: center top !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+  display: block !important;
+  transform: none !important;             /* nonaktifkan zoom hover yang memotong */
+}
+
+#propertyGrid .property-card:hover .property-img img,
+#cat-property .property-card:hover .property-img img {
+  transform: none !important;
+}
+
+#propertyGrid .property-status,
+#cat-property .property-status {
+  top: 14px !important;
+  right: 14px !important;
+  z-index: 10 !important;
+  background: #fff !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.12) !important;
+}
+
+/* ---------- PENDIDIKAN / BELAJAR ---------- */
+#eduGrid .edu-icon,
+#cat-pendidikan .edu-icon {
+  width: 100% !important;
+  min-width: 100% !important;
+  height: auto !important;
+  min-height: 200px !important;
+  aspect-ratio: auto !important;          /* matikan paksaan 4:5 / 1:1 */
+  background: #F8FAFC !important;
+  padding: 10px !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  border-radius: 16px 16px 0 0 !important;
+  box-shadow: none !important;
+}
+
+#eduGrid .edu-icon img,
+#cat-pendidikan .edu-icon img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 560px !important;           /* brosur sekolah biasanya lebih panjang */
+  object-fit: contain !important;         /* tampil 100% utuh */
+  object-position: center top !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
+  background: transparent !important;
+  display: block !important;
+  transform: none !important;
+}
+
+#eduGrid .edu-card:hover .edu-icon img,
+#cat-pendidikan .edu-card:hover .edu-icon img {
+  transform: none !important;
+}
+
+/* Kartu pendidikan: layout kolom tetap rapi */
+#eduGrid .edu-card,
+#cat-pendidikan .edu-card {
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+#eduGrid .edu-info,
+#cat-pendidikan .edu-info {
+  padding: 16px 18px 18px !important;
+  flex: 1 1 auto !important;
+}
+
+/* ---------- Mobile: batasi tinggi biar scroll tidak terlalu panjang ---------- */
+@media (max-width: 768px) {
+  #propertyGrid .property-img img,
+  #cat-property .property-img img {
+    max-height: 420px !important;
+  }
+
+  #eduGrid .edu-icon img,
+  #cat-pendidikan .edu-icon img {
+    max-height: 460px !important;
+  }
+}
