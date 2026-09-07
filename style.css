@@ -1551,6 +1551,55 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
+   CSS BROSUR/GAMBAR UTUH (FIT CONTENT - NO CROP)
+   ========================================================================== */
+
+/* 1. Wadah Gambar */
+.property-img, 
+.edu-icon,
+.product-img {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: auto !important; /* Matikan paksaan rasio kaku */
+  background: #F8FAFC !important;
+  padding: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* 2. Tag Gambar (Kunci Utama Agar Tidak Terpotong) */
+.property-img img, 
+.edu-icon img,
+.product-img img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important; /* PENTING: Gambar tampil 100% utuh */
+  object-position: center top !important;
+  border-radius: 10px !important;
+  display: block !important;
+  transform: none !important;
+}
+
+/* 3. Batas Tinggi Maksimal di HP agar tidak terlalu panjang saat di-scroll */
+@media (max-width: 768px) {
+  #umrohGrid .property-img img,
+  #cat-umroh .property-img img {
+    max-height: 480px !important; /* Brosur Umroh */
+  }
+  
+  #propertyGrid .property-img img,
+  #cat-property .property-img img {
+    max-height: 420px !important; /* Brosur Properti */
+  }
+
+  #eduGrid .edu-icon img,
+  #cat-pendidikan .edu-icon img {
+    max-height: 460px !important; /* Brosur Sekolah */
+  }
+}
+/* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
 @media (min-width: 768px) {
