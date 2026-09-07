@@ -318,7 +318,7 @@ function initCustomDropdowns() {
 }
 
 // ============================================
-// PASAR / FOOD RENDER (WITH IMAGE)
+// PASAR / FOOD RENDER (WITH NO-CROP IMAGE)
 // ============================================
 function renderPasarStorefront() {
   const grid = document.getElementById('pasarGrid');
@@ -339,11 +339,15 @@ function renderPasarStorefront() {
 
   grid.innerHTML = filtered.map(p => {
     const originalPrice = p.hargaCoret ? `<span class="strike-price">Rp ${p.hargaCoret.toLocaleString('id-ID')}</span>` : '';
-    const discLabel = p.diskon ? `<span class="disc-pill">-${p.diskon}%</span>` : '';
+    const discLabel = p.diskon ? `<span class="disc-pill" style="top:10px !important; right:10px !important; z-index:10 !important;">-${p.diskon}%</span>` : '';
     return `
       <div class="product-card">
-        <div class="product-img" onclick="openProductDetails(${p.id})">
-          <img src="${safeImg(p.image, 'food')}" alt="${p.nama}" loading="lazy" onerror="this.src='${FALLBACK_IMG.food}'">
+        <!-- WRAPPER IMAGE: DIJAMIN UTUH (CONTAIN) -->
+        <div class="product-img" onclick="openProductDetails(${p.id})" 
+             style="height:auto !important; min-height:160px !important; aspect-ratio:auto !important; background:#F8FAFC !important; padding:8px !important; margin:0 !important; overflow:hidden !important; border-radius:16px 16px 0 0 !important; display:flex !important; align-items:center !important; justify-content:center !important; position:relative !important; flex-shrink:0 !important;">
+          <img src="${safeImg(p.image, 'food')}" alt="${p.nama}" loading="lazy" 
+               style="width:100% !important; height:auto !important; max-height:280px !important; object-fit:contain !important; object-position:center center !important; border-radius:10px !important; display:block !important; transform:none !important; background:transparent !important;"
+               onerror="this.src='${FALLBACK_IMG.food}'">
           ${discLabel}
         </div>
         <div class="product-info">
@@ -387,7 +391,7 @@ function populatePaymentMethods() {
 }
 
 // ============================================
-// PROPERTY + GPS + JARAK (WITH IMAGE)
+// PROPERTY + GPS + JARAK (WITH NO-CROP IMAGE)
 // ============================================
 function haversineDistance(lat1, lng1, lat2, lng2) {
   const R = 6371;
@@ -445,8 +449,12 @@ function renderProperty() {
     const jarakLabel = (p.jarak !== null && p.jarak !== undefined) ? `<div style="font-size:0.78rem;color:var(--property);font-weight:700;margin-top:6px"><i class="fas fa-route"></i> ${p.jarak.toFixed(2)} km dari lokasi Anda</div>` : '';
     return `
       <div class="property-card">
-        <div class="property-img">
-          <img src="${safeImg(p.image, 'property')}" alt="${p.title}" loading="lazy" onerror="this.src='${FALLBACK_IMG.property}'">
+        <!-- WRAPPER IMAGE: DIJAMIN UTUH (CONTAIN) -->
+        <div class="property-img" 
+             style="height:auto !important; min-height:160px !important; aspect-ratio:auto !important; background:#F8FAFC !important; padding:8px !important; margin:0 !important; overflow:hidden !important; border-radius:16px 16px 0 0 !important; display:flex !important; align-items:center !important; justify-content:center !important; position:relative !important; flex-shrink:0 !important;">
+          <img src="${safeImg(p.image, 'property')}" alt="${p.title}" loading="lazy" 
+               style="width:100% !important; height:auto !important; max-height:280px !important; object-fit:contain !important; object-position:center center !important; border-radius:10px !important; display:block !important; transform:none !important; background:transparent !important;"
+               onerror="this.src='${FALLBACK_IMG.property}'">
           <span class="property-status">${p.status}</span>
         </div>
         <div class="property-info">
@@ -463,7 +471,7 @@ function renderProperty() {
 }
 
 // ============================================
-// PENDIDIKAN SALAF (WITH IMAGE)
+// PENDIDIKAN SALAF (WITH NO-CROP IMAGE)
 // ============================================
 function filterEdu(type) {
   activeEduFilter = type;
@@ -489,8 +497,12 @@ function renderEdu() {
     const teks = encodeURIComponent(`Assalamu'alaikum, saya berminat mendaftar / info mengenai "${e.name}" (${e.typeName || e.type}). Mohon detailnya.`);
     return `
       <div class="edu-card">
-        <div class="edu-icon">
-          <img src="${safeImg(e.image, 'edu')}" alt="${e.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG.edu}'">
+        <!-- WRAPPER IMAGE: DIJAMIN UTUH (CONTAIN) -->
+        <div class="edu-icon" 
+             style="width:100% !important; height:auto !important; min-height:150px !important; background:#F8FAFC !important; padding:8px !important; border-radius:12px !important; display:flex !important; align-items:center !important; justify-content:center !important; overflow:hidden !important; margin-bottom:12px !important;">
+          <img src="${safeImg(e.image, 'edu')}" alt="${e.name}" loading="lazy" 
+               style="width:100% !important; height:auto !important; max-height:220px !important; object-fit:contain !important; border-radius:8px !important;"
+               onerror="this.src='${FALLBACK_IMG.edu}'">
         </div>
         <div class="edu-info">
           <div class="edu-type">${e.typeName || e.type}</div>
@@ -535,7 +547,7 @@ function bindUmrohFilters() {
 }
 
 // ============================================
-// TRAVEL UMROH — RENDER (WITH IMAGE)
+// TRAVEL UMROH — RENDER (WITH NO-CROP IMAGE)
 // ============================================
 function renderUmroh() {
   const grid = document.getElementById('umrohGrid');
@@ -566,8 +578,12 @@ function renderUmroh() {
     const hargaLabel = 'Rp ' + u.harga.toLocaleString('id-ID');
     return `
       <div class="property-card">
-        <div class="property-img">
-          <img src="${safeImg(u.image, 'umroh')}" alt="${u.name}" loading="lazy" onerror="this.src='${FALLBACK_IMG.umroh}'">
+        <!-- WRAPPER IMAGE: DIJAMIN UTUH (CONTAIN) -->
+        <div class="property-img" 
+             style="height:auto !important; min-height:160px !important; aspect-ratio:auto !important; background:#F8FAFC !important; padding:8px !important; margin:0 !important; overflow:hidden !important; border-radius:16px 16px 0 0 !important; display:flex !important; align-items:center !important; justify-content:center !important; position:relative !important; flex-shrink:0 !important;">
+          <img src="${safeImg(u.image, 'umroh')}" alt="${u.name}" loading="lazy" 
+               style="width:100% !important; height:auto !important; max-height:280px !important; object-fit:contain !important; object-position:center center !important; border-radius:10px !important; display:block !important; transform:none !important; background:transparent !important;"
+               onerror="this.src='${FALLBACK_IMG.umroh}'">
           <span class="property-status" style="color:var(--umroh)">${u.durasi}</span>
         </div>
         <div class="property-info">
@@ -780,7 +796,7 @@ function beliVoucherWA(hari, harga) {
 }
 
 // ============================================
-// CART SYSTEM (WITH IMAGE)
+// CART SYSTEM (WITH IMAGE CONTAIN)
 // ============================================
 let cart = [];
 
@@ -841,12 +857,13 @@ function updateCartUI() {
     return;
   }
   cartBody.innerHTML = cart.map(c => {
+    // Diatur ke object-fit contain agar logo voucher/flyer promo di cart tidak terpotong
     const imgHtml = c.image ? 
-      `<img src="${c.image}" alt="${c.nama}" style="width:100%;height:100%;object-fit:cover;border-radius:14px" onerror="this.src='${FALLBACK_IMG.food}'">` :
+      `<img src="${c.image}" alt="${c.nama}" style="width:100%;height:100%;object-fit:contain;background:#F8FAFC;border-radius:8px" onerror="this.src='${FALLBACK_IMG.food}'">` :
       c.emoji;
     return `
       <div class="cart-item">
-        <div class="cart-item-img" style="overflow:hidden">${imgHtml}</div>
+        <div class="cart-item-img" style="overflow:hidden; display:flex; align-items:center; justify-content:center; background:#F8FAFC; border-radius:10px;">${imgHtml}</div>
         <div class="cart-item-info">
           <div class="cart-item-name">${c.nama}</div>
           <div class="cart-item-vendor"><i class="fas fa-store"></i> ${c.sellerName}</div>
