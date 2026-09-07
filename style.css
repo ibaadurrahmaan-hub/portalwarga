@@ -668,6 +668,52 @@ body {
 .btn-property:hover { transform: translateY(-2px); box-shadow: 0 8px 20px var(--property-glow); }
 
 /* ==========================================================================
+   FITUR UMROH — 1 baris utuh, tidak wrap, tidak terpotong
+   ========================================================================== */
+#umrohGrid .property-features,
+#cat-umroh .property-features {
+  display: flex !important;
+  flex-direction: column;   /* 1 kolom, tiap fitur 1 baris */
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px dashed var(--border);
+  margin-bottom: 16px;
+}
+
+#umrohGrid .property-features span,
+#cat-umroh .property-features span {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  line-height: 1.35;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+
+  white-space: nowrap !important;   /* tidak turun baris */
+  overflow: visible !important;     /* tidak terpotong */
+  text-overflow: unset !important;
+}
+
+#umrohGrid .property-features span i,
+#cat-umroh .property-features span i {
+  color: var(--umroh);
+  background: var(--umroh-light);
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
    12. EDUCATION CARDS
    ========================================================================== */
 .edu-grid {
