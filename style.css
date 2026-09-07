@@ -1956,3 +1956,35 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   background: rgba(148, 163, 184, 0.35);
   border-radius: 99px;
 }
+
+/* ============================================
+   KARTU UMROH KHUSUS (GAMBAR FIT CONTENT)
+   ============================================ */
+
+/* Kita targetkan .property-img khusus yang ada di dalam grid Umroh */
+#umrohGrid .property-img {
+  height: auto; /* Biarkan tinggi menyesuaikan gambar otomatis */
+  min-height: 200px;
+  background: #f8fafc; /* Warna background soft jika gambar belum penuh */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px; /* Opsional: memberi sedikit bingkai dalam */
+}
+
+#umrohGrid .property-img img {
+  width: 100%;
+  height: auto; /* Gambar akan mengikuti proporsi aslinya */
+  object-fit: contain; /* PENTING: Mencegah gambar terpotong */
+  border-radius: 8px; /* Menyesuaikan sudut gambar brosur */
+}
+
+/* Penyesuaian label status (cth: '9 Hari') agar tetap rapi */
+#umrohGrid .property-status {
+  top: 15px;
+  right: 15px;
+  background: white;
+  border: 1px solid var(--umroh);
+  color: var(--umroh);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
