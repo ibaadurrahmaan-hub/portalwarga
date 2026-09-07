@@ -1,5 +1,5 @@
 /* ==========================================================================
-   PORTALWARGA - SCRIPT CORE v4.1 (FULL IMAGE SUPPORT + 5 KATEGORI)
+   PORTALWARGA - SCRIPT CORE v4.2 (FULL IMAGE + CUSTOM DROPDOWN + 5 KATEGORI)
    ========================================================================== */
 
 const CS_WA = '6285267891619';
@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadCartFromStorage();
   initLiveDatabase();
   updateCartUI();
+  initCustomDropdowns();   // ← Engine dropdown baru
   bindUmrohFilters();
 
   const urlParams = new URLSearchParams(location.search);
@@ -230,6 +231,90 @@ function renderAll() {
 function openProductDetails(id) {
   if (!id) return;
   window.location.href = `product.html?id=${id}`;
+}
+
+// ============================================
+// CUSTOM DROPDOWN ENGINE (UMROH & CATEGORY FILTERS)
+// ============================================
+function initCustomDropdowns() {
+  const dropdowns = document.querySelectorAll('.c-dropdown');
+  if (!dropdowns.length) return;
+
+  let backdrop = null;
+
+  function closeAll(except = null) {
+    dropdowns.forEach(dd => {
+      if (dd === except) return;
+      dd.classList.remove('is-open');
+      const btn = dd.querySelector('.c-dropdown-toggle');
+      const menu = dd.querySelector('.c-dropdown-menu');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (menu) menu.hidden = true;
+    });
+    if (backdrop) { backdrop.remove(); backdrop = null; }
+  }
+
+  function openDropdown(dd) {
+    closeAll(dd);
+    dd.classList.add('is-open');
+    dd.querySelector('.c-dropdown-toggle')?.setAttribute('aria-expanded', 'true');
+    const menu = dd.querySelector('.c-dropdown-menu');
+    if (menu) menu.hidden = false;
+
+    backdrop = document.createElement('button');
+    backdrop.type = 'button';
+    backdrop.className = 'c-dropdown-backdrop';
+    backdrop.setAttribute('aria-label', 'Tutup filter');
+    backdrop.addEventListener('click', () => closeAll());
+    document.body.appendChild(backdrop);
+  }
+
+  dropdowns.forEach(dd => {
+    const btn = dd.querySelector('.c-dropdown-toggle');
+    const menu = dd.querySelector('.c-dropdown-menu');
+    const label = dd.querySelector('.c-dropdown-label');
+    const hidden = dd.querySelector('input[type="hidden"]');
+    const placeholder = dd.dataset.placeholder || 'Pilih';
+
+    if (!btn || !menu || !label || !hidden) return;
+
+    // Toggle buka/tutup
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dd.classList.contains('is-open') ? closeAll() : openDropdown(dd);
+    });
+
+    // Pilih item
+    menu.querySelectorAll('.c-dropdown-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const value = item.dataset.value ?? '';
+        const text = item.querySelector('span')?.textContent?.trim() || placeholder;
+
+        // Update UI selection
+        menu.querySelectorAll('.c-dropdown-item').forEach(i => i.classList.remove('is-selected'));
+        item.classList.add('is-selected');
+
+        // Update label & hidden value
+        label.textContent = value === '' ? placeholder : text;
+        hidden.value = value;
+        dd.classList.toggle('has-value', value !== '');
+
+        closeAll();
+
+        // Trigger event ke .c-dropdown supaya bindUmrohFilters() menangkap
+        dd.dispatchEvent(new CustomEvent('change', {
+          detail: { name: dd.dataset.name, value },
+          bubbles: true
+        }));
+      });
+    });
+  });
+
+  // Klik di luar → tutup
+  document.addEventListener('click', () => closeAll());
+  // ESC → tutup
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
 }
 
 // ============================================
@@ -420,21 +505,38 @@ function renderEdu() {
 }
 
 // ============================================
-// TRAVEL UMROH — SPEC & FILTER (WITH IMAGE)
+// TRAVEL UMROH — BIND FILTER (SUPPORT CUSTOM DROPDOWN + FALLBACK SELECT)
 // ============================================
 function bindUmrohFilters() {
-  ['filterBulan','filterHarga','filterPesawat','filterHotel'].forEach(id => {
+  const ids = ['filterBulan', 'filterHarga', 'filterPesawat', 'filterHotel'];
+
+  const updateFilterAndRender = () => {
+    umrohFilter.bulan   = document.getElementById('filterBulan')?.value || '';
+    umrohFilter.harga   = document.getElementById('filterHarga')?.value || '';
+    umrohFilter.pesawat = document.getElementById('filterPesawat')?.value || '';
+    umrohFilter.hotel   = document.getElementById('filterHotel')?.value || '';
+    renderUmroh();
+  };
+
+  ids.forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.addEventListener('change', () => {
-      umrohFilter.bulan = document.getElementById('filterBulan')?.value || '';
-      umrohFilter.harga = document.getElementById('filterHarga')?.value || '';
-      umrohFilter.pesawat = document.getElementById('filterPesawat')?.value || '';
-      umrohFilter.hotel = document.getElementById('filterHotel')?.value || '';
-      renderUmroh();
-    });
+    if (!el) return;
+
+    // Kasus 1: Custom Dropdown (input hidden dibungkus .c-dropdown)
+    const parentDropdown = el.closest('.c-dropdown');
+    if (parentDropdown) {
+      parentDropdown.addEventListener('change', updateFilterAndRender);
+    }
+    // Kasus 2: Native <select> (backward compatibility)
+    else if (el.tagName === 'SELECT') {
+      el.addEventListener('change', updateFilterAndRender);
+    }
   });
 }
 
+// ============================================
+// TRAVEL UMROH — RENDER (WITH IMAGE)
+// ============================================
 function renderUmroh() {
   const grid = document.getElementById('umrohGrid');
   if (!grid) return;
