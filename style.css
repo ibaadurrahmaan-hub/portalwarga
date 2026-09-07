@@ -2127,3 +2127,73 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
     max-height: 460px !important;
   }
 }
+
+/* ==========================================================================
+   FOOD — POSTER PRODUK UTUH (TIDAK TERPOTONG)
+   ========================================================================== */
+
+#pasarGrid .product-img,
+#cat-pasar .product-img,
+.product-grid .product-img {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 160px !important;
+  aspect-ratio: auto !important;       /* matikan paksaan 5:4 */
+  background: #F8FAFC !important;
+  padding: 8px !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border-radius: 16px 16px 0 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+}
+
+#pasarGrid .product-img img,
+#cat-pasar .product-img img,
+.product-grid .product-img img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 280px !important;        /* grid 2 kolom HP: jangan terlalu tinggi */
+  object-fit: contain !important;      /* poster utuh */
+  object-position: center center !important;
+  border-radius: 10px !important;
+  display: block !important;
+  transform: none !important;          /* nonaktifkan zoom hover yang “memotong” */
+  background: transparent !important;
+}
+
+/* Matikan scale hover yang membuat terasa crop */
+.product-card:hover .product-img,
+.product-card:hover .product-img img {
+  transform: none !important;
+}
+
+/* Badge diskon tetap di pojok */
+#pasarGrid .product-img .disc-pill,
+#cat-pasar .product-img .disc-pill,
+.product-grid .product-img .disc-pill {
+  top: 10px !important;
+  right: 10px !important;
+  z-index: 10 !important;
+}
+
+/* Desktop: boleh sedikit lebih tinggi */
+@media (min-width: 768px) {
+  #pasarGrid .product-img img,
+  #cat-pasar .product-img img,
+  .product-grid .product-img img {
+    max-height: 320px !important;
+  }
+}
+
+/* HP sempit: batasi biar kartu tidak terlalu panjang */
+@media (max-width: 480px) {
+  #pasarGrid .product-img img,
+  #cat-pasar .product-img img,
+  .product-grid .product-img img {
+    max-height: 220px !important;
+  }
+}
