@@ -1315,11 +1315,28 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 }
 
 
-/* 4. KATEGORI UMROH (Rasio 4:3 atau 5:4) */
+/* 4. KATEGORI UMROH (FIT CONTENT - GAMBAR BROSUR UTUH TANPA TERPOTONG) */
 #umrohGrid .property-img,
 #cat-umroh .property-img {
-  aspect-ratio: 4 / 3 !important;
+  width: 100% !important;
   height: auto !important;
+  min-height: 220px !important;
+  aspect-ratio: auto !important; /* Mematikan paksaan rasio 4/3 agar brosur vertikal muat */
+  background: #f8fafc !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#umrohGrid .property-img img,
+#cat-umroh .property-img img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 480px !important;
+  object-fit: contain !important; /* PENTING: Brosur tampil 100% utuh tanpa terpotong */
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
 }
 
 
@@ -1958,33 +1975,41 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
 }
 
 /* ============================================
-   KARTU UMROH KHUSUS (GAMBAR FIT CONTENT)
+   KARTU UMROH KHUSUS (GAMBAR FIT CONTENT UTUH)
    ============================================ */
 
-/* Kita targetkan .property-img khusus yang ada di dalam grid Umroh */
-#umrohGrid .property-img {
-  height: auto; /* Biarkan tinggi menyesuaikan gambar otomatis */
-  min-height: 200px;
-  background: #f8fafc; /* Warna background soft jika gambar belum penuh */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px; /* Opsional: memberi sedikit bingkai dalam */
+/* Targetkan container gambar pada kartu Umroh di grid */
+#umrohGrid .property-img,
+#cat-umroh .property-img {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 220px !important;
+  aspect-ratio: auto !important; /* Mematikan paksaan rasio 4/3 agar brosur vertikal muat */
+  background: #F8FAFC !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-#umrohGrid .property-img img {
-  width: 100%;
-  height: auto; /* Gambar akan mengikuti proporsi aslinya */
-  object-fit: contain; /* PENTING: Mencegah gambar terpotong */
-  border-radius: 8px; /* Menyesuaikan sudut gambar brosur */
+#umrohGrid .property-img img,
+#cat-umroh .property-img img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: 480px !important;
+  object-fit: contain !important; /* PENTING: Brosur tampil 100% utuh tanpa terpotong */
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06) !important;
 }
 
-/* Penyesuaian label status (cth: '9 Hari') agar tetap rapi */
-#umrohGrid .property-status {
-  top: 15px;
-  right: 15px;
-  background: white;
-  border: 1px solid var(--umroh);
-  color: var(--umroh);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+/* Penyesuaian label status (cth: '9 Hari') agar tetap di pojok atas */
+#umrohGrid .property-status,
+#cat-umroh .property-status {
+  top: 15px !important;
+  right: 15px !important;
+  background: #FFFFFF !important;
+  border: 1px solid var(--umroh) !important;
+  color: var(--umroh) !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1) !important;
+  z-index: 10 !important;
 }
