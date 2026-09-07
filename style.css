@@ -1442,7 +1442,7 @@ body.cart-open .fab-wa { opacity: 0 !important; pointer-events: none !important;
   background: linear-gradient(135deg, #0284C7, #06B6D4);
   color: #ffffff !important;
   padding: 7px 14px;
-  border-radius: 20px;
+  border-radius: 5px;
   font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
