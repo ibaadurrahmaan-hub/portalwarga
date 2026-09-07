@@ -460,66 +460,156 @@
     </div>
   </div>
 
-  <!-- ==== 4. TRAVEL UMROH (BARU - FULL SPESIFIKASI) ==== -->
-  <div class="cat-section" id="cat-umroh">
-    <div class="container">
-      <div class="cat-header">
-        <div>
-          <span class="cat-tag umroh"><i class="fas fa-kaaba"></i> TRAVEL UMROH</span>
-          <h2>Paket Umroh Terpercaya</h2>
-          <p>Temukan keberangkatan yang pas. Customize paket Anda sesuai budget, maskapai, dan hotel pilihan di Makkah & Madinah.</p>
-        </div>
+
+<!-- ==== 4. TRAVEL UMROH (CUSTOM DROPDOWN + FULL SPESIFIKASI) ==== -->
+<div class="cat-section" id="cat-umroh">
+  <div class="container">
+    <div class="cat-header">
+      <div>
+        <span class="cat-tag umroh"><i class="fas fa-kaaba"></i> TRAVEL UMROH</span>
+        <h2>Paket Umroh Terpercaya</h2>
+        <p>Temukan keberangkatan yang pas. Customize paket Anda sesuai budget, maskapai, dan hotel pilihan di Makkah &amp; Madinah.</p>
+      </div>
+    </div>
+
+    <!-- ========== CUSTOM DROPDOWN FILTERS ========== -->
+    <div class="advanced-filters umroh-filters">
+
+      <!-- 1. Bulan Keberangkatan -->
+      <div class="c-dropdown" data-name="bulan" data-placeholder="Pilih Bulan Keberangkatan">
+        <button type="button" class="c-dropdown-toggle" aria-haspopup="listbox" aria-expanded="false">
+          <span class="c-dropdown-icon"><i class="fas fa-calendar-alt"></i></span>
+          <span class="c-dropdown-label">Pilih Bulan Keberangkatan</span>
+          <span class="c-dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <ul class="c-dropdown-menu" role="listbox" hidden>
+          <li class="c-dropdown-item is-selected" data-value="" role="option">
+            <span>Semua Bulan</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="september" role="option">
+            <span>September 2026</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="oktober" role="option">
+            <span>Oktober 2026</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="november" role="option">
+            <span>November 2026</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="desember" role="option">
+            <span>Desember 2026</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="ramadhan" role="option">
+            <span>Ramadhan 2027</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="syawal" role="option">
+            <span>Syawal 2027</span><i class="fas fa-check"></i>
+          </li>
+        </ul>
+        <input type="hidden" id="filterBulan" name="filter_bulan" value="">
       </div>
 
-      <!-- Advanced Filters Umroh -->
-      <div class="advanced-filters">
-        <select class="adv-select" id="filterBulan">
-          <option value="">🗓️ Pilih Bulan Keberangkatan</option>
-          <option value="oktober">Oktober 2026</option>
-          <option value="november">November 2026</option>
-          <option value="desember">Desember 2026</option>
-          <option value="ramadhan">Ramadhan 2027</option>
-          <option value="syawal">Syawal 2027</option>
-        </select>
-        
-        <select class="adv-select" id="filterHarga">
-          <option value="">💰 Range Harga</option>
-          <option value="hemat">Hemat (Rp 25 - 28 Juta)</option>
-          <option value="standar">Standar (Rp 28 - 32 Juta)</option>
-          <option value="premium">Premium (Rp 33+ Juta)</option>
-        </select>
-
-        <select class="adv-select" id="filterPesawat">
-          <option value="">✈️ Maskapai Pilihan</option>
-          <option value="saudia">Saudia Airlines (Direct)</option>
-          <option value="garuda">Garuda Indonesia (Direct)</option>
-          <option value="emirates">Emirates (Transit)</option>
-          <option value="qatar">Qatar Airways (Transit)</option>
-          <option value="lion">Lion Air (Direct)</option>
-        </select>
-
-        <select class="adv-select" id="filterHotel">
-          <option value="">🏨 Fasilitas Hotel</option>
-          <option value="ring1">Ring 1 (Makkah < 100m, Zamzam Tower dsk)</option>
-          <option value="bintang5">Bintang 5 Standar</option>
-          <option value="bintang4">Bintang 4 (Ekonomis Jarak Sedang)</option>
-        </select>
+      <!-- 2. Range Harga -->
+      <div class="c-dropdown" data-name="harga" data-placeholder="Range Harga">
+        <button type="button" class="c-dropdown-toggle" aria-haspopup="listbox" aria-expanded="false">
+          <span class="c-dropdown-icon"><i class="fas fa-tags"></i></span>
+          <span class="c-dropdown-label">Range Harga</span>
+          <span class="c-dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <ul class="c-dropdown-menu" role="listbox" hidden>
+          <li class="c-dropdown-item is-selected" data-value="" role="option">
+            <span>Semua Harga</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="hemat" role="option">
+            <span>Hemat (Rp 25 – 28 Juta)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="standar" role="option">
+            <span>Standar (Rp 28 – 32 Juta)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="premium" role="option">
+            <span>Premium (Rp 33+ Juta)</span><i class="fas fa-check"></i>
+          </li>
+        </ul>
+        <input type="hidden" id="filterHarga" name="filter_harga" value="">
       </div>
 
-      <!-- Grid Umroh (Menggunakan style edu-grid untuk awal/atau grid khusus di script) -->
-      <div class="property-grid" id="umrohGrid">
-         <div style="grid-column: 1/-1; text-align: center; padding: 40px 0; background:white; border-radius: 16px; border:1px solid var(--border);">
-          <i class="fas fa-kaaba" style="font-size: 3rem; color: var(--umroh); margin-bottom:12px;"></i>
-          <h3 style="font-weight: 800;">Atur Spesifikasi Anda</h3>
-          <p style="color: var(--muted); font-size: 0.9rem;">Gunakan filter di atas untuk menemukan paket yang sesuai, atau klik tombol di bawah untuk konsultasi langsung.</p>
-          <a href="https://wa.me/6285267891619?text=Halo%20Admin,%20saya%20mau%20konsultasi%20paket%20Umroh%20Customize" class="btn-submit" style="background: var(--gradient-umroh); width: auto; display: inline-flex; margin-top:16px;" target="_blank">
-             <i class="fab fa-whatsapp"></i> Konsultasi Paket Customize
-          </a>
-        </div>
+      <!-- 3. Maskapai -->
+      <div class="c-dropdown" data-name="pesawat" data-placeholder="Maskapai Pilihan">
+        <button type="button" class="c-dropdown-toggle" aria-haspopup="listbox" aria-expanded="false">
+          <span class="c-dropdown-icon"><i class="fas fa-plane"></i></span>
+          <span class="c-dropdown-label">Maskapai Pilihan</span>
+          <span class="c-dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <ul class="c-dropdown-menu" role="listbox" hidden>
+          <li class="c-dropdown-item is-selected" data-value="" role="option">
+            <span>Semua Maskapai</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="saudia" role="option">
+            <span>Saudia Airlines (Direct)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="garuda" role="option">
+            <span>Garuda Indonesia (Direct)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="emirates" role="option">
+            <span>Emirates (Transit)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="qatar" role="option">
+            <span>Qatar Airways (Transit)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="lion" role="option">
+            <span>Lion Air (Direct)</span><i class="fas fa-check"></i>
+          </li>
+        </ul>
+        <input type="hidden" id="filterPesawat" name="filter_pesawat" value="">
+      </div>
+
+      <!-- 4. Hotel -->
+      <div class="c-dropdown" data-name="hotel" data-placeholder="Fasilitas Hotel">
+        <button type="button" class="c-dropdown-toggle" aria-haspopup="listbox" aria-expanded="false">
+          <span class="c-dropdown-icon"><i class="fas fa-hotel"></i></span>
+          <span class="c-dropdown-label">Fasilitas Hotel</span>
+          <span class="c-dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
+        </button>
+        <ul class="c-dropdown-menu" role="listbox" hidden>
+          <li class="c-dropdown-item is-selected" data-value="" role="option">
+            <span>Semua Hotel</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="ring1" role="option">
+            <span>Ring 1 (Makkah &lt; 100m)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="bintang5" role="option">
+            <span>Bintang 5 Standar</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="bintang4" role="option">
+            <span>Bintang 4 (Ekonomis)</span><i class="fas fa-check"></i>
+          </li>
+          <li class="c-dropdown-item" data-value="bintang3" role="option">
+            <span>Bintang 3 / Setara</span><i class="fas fa-check"></i>
+          </li>
+        </ul>
+        <input type="hidden" id="filterHotel" name="filter_hotel" value="">
       </div>
 
     </div>
+
+    <!-- Grid Hasil Paket Umroh -->
+    <div class="property-grid" id="umrohGrid">
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px 0; background: white; border-radius: 16px; border: 1px solid var(--border);">
+        <i class="fas fa-kaaba" style="font-size: 3rem; color: var(--umroh); margin-bottom: 12px;"></i>
+        <h3 style="font-weight: 800;">Atur Spesifikasi Anda</h3>
+        <p style="color: var(--muted); font-size: 0.9rem;">
+          Gunakan filter di atas untuk menemukan paket yang sesuai, atau klik tombol di bawah untuk konsultasi langsung.
+        </p>
+        <a href="https://wa.me/6285267891619?text=Halo%20Admin%2C%20saya%20mau%20konsultasi%20paket%20Umroh%20Customize"
+           class="btn-submit"
+           style="background: var(--gradient-umroh); width: auto; display: inline-flex; margin-top: 16px;"
+           target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Konsultasi Paket Customize
+        </a>
+      </div>
+    </div>
+
   </div>
+</div>
 
   <!-- ==== 5. WIFI & VOUCHER ==== -->
   <div class="cat-section" id="cat-wifi">
