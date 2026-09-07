@@ -5,85 +5,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Firebase Seeder — PortalWarga</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Reset & Base Settings */
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: #0f172a;
       color: #e2e8f0;
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
+      line-height: 1.6;
     }
+
+    /* Main Card */
     .card {
       background: #1e293b;
       border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 32px;
-      max-width: 650px;
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 600px;
       width: 100%;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
     }
-    h1 { color: #38bdf8; font-size: 1.5rem; margin-bottom: 8px; }
-    p.desc { color: #94a3b8; font-size: 0.9rem; margin-bottom: 24px; }
+
+    /* Badge */
     .badge {
-      background: #0369a1;
-      color: #e0f2fe;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-block;
-      margin-bottom: 20px;
-    }
-    .btn-group { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
-    button {
-      padding: 12px 24px;
+      background: rgba(3, 105, 161, 0.2);
+      color: #7dd3fc;
+      padding: 6px 12px;
       border-radius: 8px;
-      border: none;
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 16px;
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+
+    /* Typography */
+    h1 { 
+      color: #f8fafc; 
+      font-size: 1.4rem; 
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+    p.desc { 
+      color: #94a3b8; 
+      font-size: 0.95rem; 
+      margin-bottom: 24px; 
+    }
+    
+    /* Code tag styling inside paragraph */
+    code {
+      background: #0f172a;
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      border: 1px solid #334155;
+    }
+
+    /* Button Group */
+    .btn-group { 
+      display: flex; 
+      flex-direction: column; /* Stack on mobile */
+      gap: 12px; 
+      margin-bottom: 24px; 
+    }
+
+    button {
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 600;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 1rem;
       transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
     }
     button:hover { transform: translateY(-2px); }
-    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .btn-seed { background: #22c55e; color: #ffffff; }
-    .btn-seed:hover { background: #16a34a; }
-    .btn-clear { background: #ef4444; color: #ffffff; }
+    button:active { transform: translateY(0); } /* Touch feedback */
+    button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    
+    .btn-seed { 
+      background: #10b981; 
+      color: #ffffff; 
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    }
+    .btn-seed:hover { background: #059669; }
+    
+    .btn-clear { 
+      background: #ef4444; 
+      color: #ffffff; 
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+    }
     .btn-clear:hover { background: #dc2626; }
+
+    /* Log Terminal */
     #log {
-      background: #090d16;
-      border: 1px solid #334155;
-      border-radius: 10px;
+      background: #020617;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
       padding: 16px;
-      font-family: 'Consolas', monospace;
+      font-family: 'Consolas', 'Courier New', monospace;
       font-size: 0.85rem;
-      min-height: 180px;
-      max-height: 320px;
+      min-height: 200px;
+      max-height: 300px;
       overflow-y: auto;
       line-height: 1.7;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
     }
+
+    /* Custom Scrollbar for Terminal */
+    #log::-webkit-scrollbar { width: 8px; }
+    #log::-webkit-scrollbar-track { background: #020617; border-radius: 10px; }
+    #log::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    #log::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    /* Log Colors */
     .log-ok { color: #4ade80; }
     .log-err { color: #f87171; }
     .log-info { color: #38bdf8; }
     .log-warn { color: #facc15; }
+
+    /* Responsive adjustments for tablet/desktop */
+    @media (min-width: 600px) {
+      .card { padding: 40px; }
+      h1 { font-size: 1.7rem; }
+      .btn-group { flex-direction: row; }
+      button { flex: 1; width: auto; }
+    }
   </style>
 </head>
 <body>
 
 <div class="card">
   <span class="badge">Project: portalwarga-963e4</span>
-  <h1>🔥 Firebase Auto-Seed Database</h1>
+  <h1>🔥 Firebase Auto-Seed</h1>
   <p class="desc">Klik tombol di bawah untuk membuat koleksi <code>pasar</code>, <code>property</code>, <code>pendidikan</code>, <code>wifi_paket</code>, <code>pendaftaran_wifi</code>, dan <code>pesanan</code> secara otomatis.</p>
 
   <div class="btn-group">
-    <button class="btn-seed" onclick="seedDatabase()" id="btnSeed">🚀 Mulai Isi Database Otomatis</button>
+    <button class="btn-seed" onclick="seedDatabase()" id="btnSeed">🚀 Mulai Isi Data</button>
     <button class="btn-clear" onclick="clearDatabase()">🗑️ Kosongkan Database</button>
   </div>
 
-  <div id="log"><div class="log-info">Siap. Klik "Mulai Isi Database Otomatis" untuk memasukkan data...</div></div>
+  <div id="log"><div class="log-info">Siap. Klik "Mulai Isi Data" untuk memasukkan data...</div></div>
 </div>
 
 <!-- Firebase SDK -->
