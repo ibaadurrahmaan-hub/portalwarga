@@ -11,7 +11,7 @@
 
 <style>
 /* ============================================
-   PRODUCT DETAIL — ULTRA PREMIUM (SYNCED v4 - IMAGE SUPPORT)
+   PRODUCT DETAIL — ULTRA PREMIUM (SYNCED v4 - FIT CONTENT IMAGE)
    ============================================ */
 :root {
   --gradient-primary: linear-gradient(135deg, #0284C7 0%, #0EA5E9 100%);
@@ -19,6 +19,11 @@
   --border-light: #E2E8F0;
   --bg-alt: #F8FAFC;
   --text: #0F172A;
+  --primary: #0284C7;
+  --primary-light: #E0F2FE;
+  --pasar: #059669;
+  --pasar-light: #D1FAE5;
+  --muted: #64748B;
 }
 
 body {
@@ -26,6 +31,7 @@ body {
     radial-gradient(at 30% 0%, #F0F9FF 0px, transparent 50%),
     radial-gradient(at 70% 50%, #F0FDF4 0px, transparent 50%),
     #FAFBFC;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .product-detail-page {
@@ -67,8 +73,6 @@ body {
   background: var(--primary-light);
   box-shadow: 0 8px 20px rgba(2, 132, 199, 0.15);
 }
-.pd-back i { transition: transform 0.3s; }
-.pd-back:hover i { transform: translateX(-3px); }
 
 /* GRID LAYOUT */
 .pd-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: start; }
@@ -78,22 +82,27 @@ body {
 .pd-gallery {
   background: white;
   border-radius: 28px;
-  padding: 32px;
+  padding: 20px;
   box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08), 0 4px 12px rgba(0,0,0,0.04);
   position: sticky;
   top: 100px;
   border: 1px solid rgba(2, 132, 199, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* ⭐ MAIN IMAGE — SUPPORT REAL PHOTO */
+/* ⭐ MAIN IMAGE — FIT CONTENT FIX ⭐ */
 .pd-main-img {
   width: 100%;
-  height: 420px;
+  height: auto; /* Ubah dari fixed px ke auto */
+  min-height: 300px; 
+  max-height: 500px;
   border-radius: 22px;
   margin-bottom: 20px;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(135deg, #F1F5F9 0%, #E2E8F0 100%);
+  background: #fff; /* Background putih agar gambar transparan terlihat rapi */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -104,36 +113,20 @@ body {
 .pd-main-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain !important; /* Mencegah gambar terpotong/zoom */
   display: block;
   transition: transform 0.4s ease;
 }
 
 .pd-main-img:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
-/* Fallback Emoji Mode (jika image kosong) */
+/* Fallback Emoji Mode */
 .pd-main-img.emoji-mode {
   background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 50%),
     linear-gradient(135deg, #DCFCE7 0%, #A7F3D0 50%, #6EE7B7 100%);
   font-size: 13rem;
-  box-shadow: inset 0 0 60px rgba(255,255,255,0.4);
-}
-
-.pd-main-img.emoji-mode::before {
-  content: ''; 
-  position: absolute; 
-  top: -50%; left: -50%; 
-  width: 200%; height: 200%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.4), transparent 40%);
-  animation: shine 8s ease-in-out infinite; 
-  pointer-events: none;
-}
-
-@keyframes shine { 
-  0%, 100% { transform: translate(0, 0); } 
-  50% { transform: translate(20%, 20%); } 
 }
 
 .pd-main-img.out-of-stock {
@@ -142,8 +135,8 @@ body {
 }
 
 @media (max-width: 768px) {
-  .pd-gallery { position: static; padding: 20px; border-radius: 24px; }
-  .pd-main-img { height: 300px; border-radius: 20px; }
+  .pd-gallery { position: static; padding: 15px; border-radius: 24px; }
+  .pd-main-img { min-height: 250px; max-height: 400px; }
   .pd-main-img.emoji-mode { font-size: 9rem; }
 }
 
@@ -171,8 +164,6 @@ body {
   50% { box-shadow: 0 4px 16px rgba(220, 38, 38, 0.35); } 
 }
 .pd-badge.new { background: linear-gradient(135deg, #DBEAFE, #BFDBFE); color: #2563EB; border-color: rgba(37, 99, 235, 0.25); }
-
-@media (max-width: 768px) { .pd-badges { gap: 8px; } .pd-badge { padding: 9px 10px; font-size: 0.72rem; } }
 
 /* INFO SECTION */
 .pd-info h1 { font-size: 1.85rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 14px; line-height: 1.25; color: #0F172A; }
@@ -342,7 +333,7 @@ body {
   font-size: 0.85rem; color: var(--text-secondary); 
 }
 
-/* ⭐ REKOMENDASI — SUPPORT REAL PHOTO */
+/* ⭐ REKOMENDASI — FIT CONTENT FIX ⭐ */
 .pd-recommend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; }
 .pd-recommend-card { 
   background: white; border-radius: 16px; overflow: hidden; 
@@ -351,15 +342,17 @@ body {
 }
 .pd-recommend-card:hover { transform: translateY(-6px); border-color: var(--pasar); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 .pd-rec-img { 
-  height: 130px; 
-  background: linear-gradient(135deg, #ECFDF5, #D1FAE5); 
+  height: 140px; 
+  background: #fff; 
   display: flex; align-items: center; justify-content: center; 
   font-size: 3.5rem; 
   overflow: hidden;
   position: relative;
 }
 .pd-rec-img img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%; height: 100%; 
+  object-fit: contain !important; /* Gambar rekomendasi tidak terpotong */
+  display: block;
   transition: transform 0.3s;
 }
 .pd-recommend-card:hover .pd-rec-img img {
