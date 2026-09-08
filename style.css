@@ -1658,39 +1658,81 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
-   FIX PERFECT FOOD: MENYATU BERSIH (TANPA KOTAK GELAP & TANPA TERPOTONG)
+   FIX TOTAL FOOD: 100% SAMA TINGGI, SEJAJAR & RAPI ALA GOFOOD / SHOPEE
    ========================================================================== */
 
-/* 1. Wadah Foto: Rasio 1:1 Persegi + Background Putih Bersih (Menyatu Dengan Kartu) */
+/* 1. Paksa Grid & Kartu Mengikuti Tinggi Baris Tertinggi */
+.product-grid {
+  display: grid !important;
+  align-items: stretch !important;      /* KUNCI 1: Paksa semua kartu dalam 1 baris sama tinggi */
+}
+
+.product-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 2. Kunci Tinggi Gambar Box (Rasio 4:3 Menempel Rapi) */
 #pasarGrid .product-img,
 #cat-pasar .product-img,
 .product-grid .product-img {
   width: 100% !important;
-  aspect-ratio: 1 / 1 !important;        /* KUNCI 1: Semua kartu 100% SAMA TINGGI */
+  aspect-ratio: 4 / 3 !important;       /* KUNCI 2: Semua wadah foto tingginya 100% SAMA */
   height: auto !important;
-  padding: 6px !important;               /* Margin dalam yang rapi & manis */
+  padding: 0 !important;                /* Menempel penuh ke tepi */
   margin: 0 !important;
-  background: #FFFFFF !important;        /* KUNCI 2: Warna Putih Bersih (Menghilangkan Kotak Hitam/Gelap) */
-  border-radius: 18px 18px 0 0 !important;
+  background: #F8FAFC !important;
+  border-radius: 16px 16px 0 0 !important;
   overflow: hidden !important;
   position: relative !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
 }
 
-/* 2. Foto Produk: Tampil 100% UTUH Tanpa Terpotong Sedikitpun */
 #pasarGrid .product-img img,
 #cat-pasar .product-img img,
 .product-grid .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;        /* KUNCI 3: Teks & Logo Gacoan/Domino's 100% UTUH */
+  object-fit: cover !important;         /* KUNCI 3: Foto Penuh tanpa celah putih */
   object-position: center !important;
-  border-radius: 14px !important;        /* Melengkung halus ala GoFood */
+  border-radius: 0 !important;
   display: block !important;
-  transform: none !important;
 }
+
+/* 3. KUNCI UTAMA: Paksa Area Teks & Judul Memiliki Ruang Tinggi yang SAMA */
+.product-info {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: 12px 14px !important;
+}
+
+/* Memaksa Judul 1 Baris tetap mendapat jatah ruang tinggi 2 Baris */
+.product-name {
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  height: 2.7em !important;             /* KUNCI 4: Kunci tinggi judul persis 2 baris */
+  min-height: 2.7em !important;         /* Judul 1 baris tetap dapat ruang setinggi 2 baris */
+  margin-bottom: 8px !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* 4. Dorong Harga, Rating, dan Tombol Selalu di Dasar Kartu */
+.product-info .price-row,
+.product-info .product-price {
+  margin-top: auto !important;          /* KUNCI 5: Dorong harga & tombol selalu rata bawah */
+}
+
+.btn-add {
+  margin-top: 10px !important;
+}
+
+
 /* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
