@@ -1658,37 +1658,37 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
-   FIX: GAMBAR FOOD 100% UTUH (TANPA CROP) & TINGGI KARTU TETAP SEJAJAR
+   FIX FINAL FOOD: 100% MENEMPEL KIRI-KANAN & 100% SAMA TINGGI (STANDAR E-COMMERCE)
    ========================================================================== */
 
-/* 1. Kunci tinggi wadah foto berasio 4:3 (semua kartu pasti sama tinggi) */
+/* 1. Wadah Foto: Lebar 100% Menempel Tepi + Tinggi Kunci Rasio 1:1 Seragam */
 #pasarGrid .product-img,
 #cat-pasar .product-img,
 .product-grid .product-img {
   width: 100% !important;
-  aspect-ratio: 4 / 3 !important;      /* KUNCI: Semua kotak gambar tingginya presisi sama */
+  aspect-ratio: 1 / 1 !important;        /* KUNCI 1: Semua kotak foto tingginya 100% SAMA */
   height: auto !important;
-  background: #F8FAFC !important;      /* Latar bersih jika ada sisa ruang poster */
-  padding: 6px !important;             /* Bingkai halus manis */
-  border-radius: 16px 16px 0 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  padding: 0 !important;                 /* KUNCI 2: Menempel total ke tepi kiri & kanan */
+  margin: 0 !important;
+  background: #F1F5F9 !important;
+  border-radius: 18px 18px 0 0 !important; /* Mengikuti sudut atas kartu */
   overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
 }
 
-/* 2. Gambar tampil 100% UTUH tanpa ada teks/logo yang terpotong sedikitpun */
+/* 2. Elemen Gambar: Memenuhi Kotak 1:1 Tanpa Ada Celah/Ruang Kosong di Samping */
 #pasarGrid .product-img img,
 #cat-pasar .product-img img,
 .product-grid .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;       /* KUNCI: Poster 100% UTUH tanpa terpotong */
+  object-fit: cover !important;          /* KUNCI 3: Foto Penuh Edge-to-Edge tanpa celah */
   object-position: center !important;
-  border-radius: 10px !important;
+  border-radius: 18px 18px 0 0 !important;
   display: block !important;
+  transform: none !important;
 }
-
 /* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
