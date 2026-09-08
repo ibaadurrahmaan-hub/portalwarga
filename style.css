@@ -1629,6 +1629,35 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
+   FIX: GAMBAR KATEGORI BELAJAR / PENDIDIKAN FULL WIDTH
+   ========================================================================== */
+
+/* 1. Hilangkan padding & background abu-abu pada wadah gambar Belajar */
+#eduGrid .edu-icon,
+#cat-pendidikan .edu-icon,
+.edu-card .edu-icon {
+  padding: 0 !important;
+  background: transparent !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  margin: 0 !important;
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+}
+
+/* 2. Paksa gambar brosur melebar 100% menempel dari ujung kiri ke kanan */
+#eduGrid .edu-icon img,
+#cat-pendidikan .edu-icon img,
+.edu-card .edu-icon img {
+  width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+}
+
+/* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
 @media (min-width: 768px) {
