@@ -1658,33 +1658,34 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
-   FIX: GAMBAR FOOD / PASAR SAMAKAN TINGGI (1:1 UNIFORM SQUARE)
+   FIX: GAMBAR FOOD 100% UTUH (TANPA CROP) & TINGGI KARTU TETAP SEJAJAR
    ========================================================================== */
 
-/* 1. Paksa semua wadah foto produk makanan berasio Persegi (1:1) seragam */
+/* 1. Kunci tinggi wadah foto berasio 4:3 (semua kartu pasti sama tinggi) */
 #pasarGrid .product-img,
 #cat-pasar .product-img,
 .product-grid .product-img {
   width: 100% !important;
-  aspect-ratio: 1 / 1 !important;     /* KUNCI: Kunci rasio 1:1 (Persegi) persis sama tinggi */
+  aspect-ratio: 4 / 3 !important;      /* KUNCI: Semua kotak gambar tingginya presisi sama */
   height: auto !important;
-  padding: 0 !important;              /* Menempel rapi ke tepi kartu */
-  background: #F1F5F9 !important;
+  background: #F8FAFC !important;      /* Latar bersih jika ada sisa ruang poster */
+  padding: 6px !important;             /* Bingkai halus manis */
   border-radius: 16px 16px 0 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   overflow: hidden !important;
-  position: relative !important;
-  display: block !important;
 }
 
-/* 2. Paksa foto makanan mengisi seluruh kotak 1:1 tanpa gepeng/mleyot */
+/* 2. Gambar tampil 100% UTUH tanpa ada teks/logo yang terpotong sedikitpun */
 #pasarGrid .product-img img,
 #cat-pasar .product-img img,
 .product-grid .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;       /* KUNCI: Foto terisi penuh & terpotong rapi ala Tokopedia */
+  object-fit: contain !important;       /* KUNCI: Poster 100% UTUH tanpa terpotong */
   object-position: center !important;
-  border-radius: 0 !important;
+  border-radius: 10px !important;
   display: block !important;
 }
 
