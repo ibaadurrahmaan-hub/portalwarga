@@ -1658,6 +1658,37 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
+   FIX: GAMBAR FOOD / PASAR SAMAKAN TINGGI (1:1 UNIFORM SQUARE)
+   ========================================================================== */
+
+/* 1. Paksa semua wadah foto produk makanan berasio Persegi (1:1) seragam */
+#pasarGrid .product-img,
+#cat-pasar .product-img,
+.product-grid .product-img {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;     /* KUNCI: Kunci rasio 1:1 (Persegi) persis sama tinggi */
+  height: auto !important;
+  padding: 0 !important;              /* Menempel rapi ke tepi kartu */
+  background: #F1F5F9 !important;
+  border-radius: 16px 16px 0 0 !important;
+  overflow: hidden !important;
+  position: relative !important;
+  display: block !important;
+}
+
+/* 2. Paksa foto makanan mengisi seluruh kotak 1:1 tanpa gepeng/mleyot */
+#pasarGrid .product-img img,
+#cat-pasar .product-img img,
+.product-grid .product-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;       /* KUNCI: Foto terisi penuh & terpotong rapi ala Tokopedia */
+  object-position: center !important;
+  border-radius: 0 !important;
+  display: block !important;
+}
+
+/* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
 @media (min-width: 768px) {
