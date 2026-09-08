@@ -1599,6 +1599,35 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
     max-height: 460px !important; /* Brosur Sekolah */
   }
 }
+
+/* ==========================================================================
+   FIX: GAMBAR FULL WIDTH (TANPA SPASI KOSONG KIRI & KANAN)
+   ========================================================================== */
+
+/* 1. Hilangkan padding & background abu-abu pada wadah gambar */
+#umrohGrid .property-img,
+#cat-umroh .property-img,
+#propertyGrid .property-img,
+#cat-property .property-img {
+  padding: 0 !important;               /* Hilangkan jarak di pinggir gambar */
+  background: transparent !important;   /* Hilangkan warna abu-abu di belakang gambar */
+  width: 100% !important;
+  border-radius: 18px 18px 0 0 !important; /* Ikuti lengkungan sudut atas kartu */
+}
+
+/* 2. Paksa gambar melebar 100% memenuhi kartu dari ujung ke ujung */
+#umrohGrid .property-img img,
+#cat-umroh .property-img img,
+#propertyGrid .property-img img,
+#cat-property .property-img img {
+  width: 100% !important;             /* Gambar penuh selebar kartu */
+  height: auto !important;            /* Tinggi menyesuaikan otomatis agar rasio tidak gepeng */
+  max-height: none !important;        /* Hilangkan pembatasan tinggi */
+  border-radius: 18px 18px 0 0 !important; /* Lengkungan menyatu rapi dengan kartu */
+  box-shadow: none !important;
+  display: block !important;
+}
+
 /* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
