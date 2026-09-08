@@ -1658,19 +1658,19 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
-   FIX PERFECT FOOD POSTER: RASIO TEGAK (4:5) — TIDAK TERPOTONG & SAMA TINGGI
+   FIX PERFECT FOOD: MENYATU BERSIH (TANPA KOTAK GELAP & TANPA TERPOTONG)
    ========================================================================== */
 
-/* 1. Wadah Foto: Menggunakan Rasio Poster Tegak (4:5) Agar Poster Promo Muat Sempurna */
+/* 1. Wadah Foto: Rasio 1:1 Persegi + Background Putih Bersih (Menyatu Dengan Kartu) */
 #pasarGrid .product-img,
 #cat-pasar .product-img,
 .product-grid .product-img {
   width: 100% !important;
-  aspect-ratio: 4 / 5 !important;        /* KUNCI 1: Rasio Tegak 4:5 khusus Poster Makanan */
+  aspect-ratio: 1 / 1 !important;        /* KUNCI 1: Semua kartu 100% SAMA TINGGI */
   height: auto !important;
-  padding: 0 !important;                 /* Menempel penuh ke tepi */
+  padding: 6px !important;               /* Margin dalam yang rapi & manis */
   margin: 0 !important;
-  background: #0f172a !important;        /* Warna latar gelap elegan jika ada poster ramping */
+  background: #FFFFFF !important;        /* KUNCI 2: Warna Putih Bersih (Menghilangkan Kotak Hitam/Gelap) */
   border-radius: 18px 18px 0 0 !important;
   overflow: hidden !important;
   position: relative !important;
@@ -1679,20 +1679,18 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
   justify-content: center !important;
 }
 
-/* 2. Foto Poster: Tampil 100% UTUH Tanpa Ada Teks/Logo yang Terpotong */
+/* 2. Foto Produk: Tampil 100% UTUH Tanpa Terpotong Sedikitpun */
 #pasarGrid .product-img img,
 #cat-pasar .product-img img,
 .product-grid .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important;        /* KUNCI 2: Poster 100% UTUH (Teks Gacoan & Domino's tidak terpotong) */
+  object-fit: contain !important;        /* KUNCI 3: Teks & Logo Gacoan/Domino's 100% UTUH */
   object-position: center !important;
-  border-radius: 18px 18px 0 0 !important;
+  border-radius: 14px !important;        /* Melengkung halus ala GoFood */
   display: block !important;
   transform: none !important;
 }
-
-
 /* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
