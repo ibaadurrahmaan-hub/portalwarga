@@ -1658,37 +1658,41 @@ body.cart-open .fab-wa { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 
 /* ==========================================================================
-   FIX FINAL FOOD: 100% MENEMPEL KIRI-KANAN & 100% SAMA TINGGI (STANDAR E-COMMERCE)
+   FIX PERFECT FOOD POSTER: RASIO TEGAK (4:5) — TIDAK TERPOTONG & SAMA TINGGI
    ========================================================================== */
 
-/* 1. Wadah Foto: Lebar 100% Menempel Tepi + Tinggi Kunci Rasio 1:1 Seragam */
+/* 1. Wadah Foto: Menggunakan Rasio Poster Tegak (4:5) Agar Poster Promo Muat Sempurna */
 #pasarGrid .product-img,
 #cat-pasar .product-img,
 .product-grid .product-img {
   width: 100% !important;
-  aspect-ratio: 1 / 1 !important;        /* KUNCI 1: Semua kotak foto tingginya 100% SAMA */
+  aspect-ratio: 4 / 5 !important;        /* KUNCI 1: Rasio Tegak 4:5 khusus Poster Makanan */
   height: auto !important;
-  padding: 0 !important;                 /* KUNCI 2: Menempel total ke tepi kiri & kanan */
+  padding: 0 !important;                 /* Menempel penuh ke tepi */
   margin: 0 !important;
-  background: #F1F5F9 !important;
-  border-radius: 18px 18px 0 0 !important; /* Mengikuti sudut atas kartu */
+  background: #0f172a !important;        /* Warna latar gelap elegan jika ada poster ramping */
+  border-radius: 18px 18px 0 0 !important;
   overflow: hidden !important;
   position: relative !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* 2. Elemen Gambar: Memenuhi Kotak 1:1 Tanpa Ada Celah/Ruang Kosong di Samping */
+/* 2. Foto Poster: Tampil 100% UTUH Tanpa Ada Teks/Logo yang Terpotong */
 #pasarGrid .product-img img,
 #cat-pasar .product-img img,
 .product-grid .product-img img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;          /* KUNCI 3: Foto Penuh Edge-to-Edge tanpa celah */
+  object-fit: contain !important;        /* KUNCI 2: Poster 100% UTUH (Teks Gacoan & Domino's tidak terpotong) */
   object-position: center !important;
   border-radius: 18px 18px 0 0 !important;
   display: block !important;
   transform: none !important;
 }
+
+
 /* ==========================================================================
    22. RESPONSIVE — DESKTOP (≥ 768px)
    ========================================================================== */
